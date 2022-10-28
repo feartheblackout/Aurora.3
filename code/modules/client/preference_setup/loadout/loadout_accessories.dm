@@ -550,3 +550,20 @@
 	flagpatch_national["flagpatch, nralakk"] = /obj/item/clothing/accessory/flagpatch/nralakk
 	flagpatch_national["flagpatch, hegemony"] = /obj/item/clothing/accessory/flagpatch/hegemony
 	gear_tweaks += new /datum/gear_tweak/path(flagpatch_national)
+
+/datum/gear/accessory/generic_badge
+	display_name = "generic badge selection"
+	path = /obj/item/clothing/accessory/badge/generic
+	flags = GEAR_HAS_NAME_SELECTION | GEAR_HAS_DESC_SELECTION | GEAR_HAS_COLOR_SELECTION
+	cost = 1
+
+/datum/gear/accessory/generic_badge/New()
+	..()
+	var/list/generic_badge = list()
+	generic_badge["generic badge, blank"] = /obj/item/clothing/accessory/badge/generic
+	generic_badge["generic badge, circle"] = /obj/item/clothing/accessory/badge/circle
+	generic_badge["generic badge, line"] = /obj/item/clothing/accessory/badge/line
+	generic_badge["generic badge, square"] = /obj/item/clothing/accessory/badge/square
+	generic_badge["generic badge, text"] = /obj/item/clothing/accessory/badge/text
+	generic_badge["generic badge, shield"] = /obj/item/clothing/accessory/badge/shield
+	gear_tweaks += new /datum/gear_tweak/path(generic_badge)

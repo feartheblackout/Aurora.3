@@ -558,3 +558,47 @@
 #undef CANT_OPEN
 #undef CLOSED
 #undef OPEN
+
+// generic badges
+
+/obj/item/clothing/accessory/badge/generic
+	name = "generic badge"
+	desc = "A round, generic badge. This one is blank."
+	icon_state = "genericbadge_blank"
+	item_state = "genericbadge_blank"
+	badge_string = null
+
+/obj/item/clothing/accessory/badge/circle
+	name = "circular badge"
+	desc = "A round, generic badge. This one has a circle."
+	icon_state = "genericbadge_circle"
+	item_state = "genericbadge_circle"
+	badge_string = null
+
+/obj/item/clothing/accessory/badge/line
+	name = "line badge"
+	desc = "A round, generic badge. This one has a line."
+	icon_state = "genericbadge_line"
+	item_state = "genericbadge_line"
+	badge_string = null
+
+/obj/item/clothing/accessory/badge/square
+	name = "square badge"
+	desc = "A round, generic badge. This one has a square."
+	icon_state = "genericbadge_square"
+	item_state = "genericbadge_square"
+	badge_string = null
+
+/obj/item/clothing/accessory/badge/text
+	name = "text badge"
+	desc = "A round, generic badge. This one has writing."
+	icon_state = "genericbadge_lines"
+	item_state = "genericbadge_lines"
+	badge_string = null
+
+/obj/item/clothing/accessory/badge/shield
+	name = "shield badge"
+	desc = "A round, generic badge. This one has a shield."
+	icon_state = "genericbadge_shield"
+	item_state = "genericbadge_shield"
+	badge_string = null
