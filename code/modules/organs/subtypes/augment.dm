@@ -691,7 +691,8 @@
 	icon_state = "zenghu_plate"
 	on_mob_icon = 'icons/mob/human_races/augments_external.dmi'
 	sprite_sheets = list(
-		BODYTYPE_VAURCA_BULWARK = 'icons/mob/species/bulwark/augments_external.dmi'
+		BODYTYPE_VAURCA_BULWARK = 'icons/mob/species/bulwark/augments_external.dmi',
+		BODYTYPE_SKRELL = 'icons/mob/species/skrell/augments_external.dmi'
 	)
 	parent_organ = BP_HEAD
 
