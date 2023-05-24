@@ -7,6 +7,21 @@
     tag_icon = "zora"
     text_tag = "ZOR"
 
+/datum/accent/akriix
+	name = ACCENT_AKRIIX
+	description = "Also known as Venom Mandibles, the Ak’riix are a rebellious faction of Queenless Zo’ra that have taken over Flagsdale. \
+	While many know them for their crimes in neighboring districts, they are also infamous for their repurpose of Da’loks in biker cells inspired \
+	by Tajaran street gangs of Little Adhomai. Although many Ak’riix gangs have beefs with each other, most are in good terms with young Tajara bikers, \
+	with whom they share an anti-authoritarian sentiment."
+	tag_icon = "zora_akriix"
+	text_tag = "ZOR"
+
+/datum/accent/kyklux
+	name = ACCENT_KYKLUX
+	description = "This Zo’rane Queenless group is mostly known for their flashy signs with apocalyptic messages in broken Basic, \
+	and can be found all over Mendell City, especially in bus stops or the metro system. Although their rhetoric can be seen as violent or \
+	rightward obscene, Ky’klux mostly keep to themselves and use their beliefs as a way to acquire pocket change."
+
 /datum/accent/klax
     name = ACCENT_KLAX
     description = "K'laxane is the modern day dialect of the K'lax Hive. Primitive modulators manage to capture a similarity to the \
@@ -17,6 +32,10 @@
     Hegemonic tongue."
     tag_icon = "klax"
     text_tag = "KLA"
+
+/datum/accent/mikuetz
+	name = ACCENT_MIKUETZ
+	description = ""
 
 /datum/accent/cthur
     name = ACCENT_CTHUR
