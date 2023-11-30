@@ -2634,3 +2634,17 @@
 	flag_path = "raskara"
 	flag_item = /obj/item/flag/raskara
 	stand_icon = "wood_stand"
+
+/obj/item/flag/luceism
+	name = "\improper Luceism flag"
+	desc = "The flag of Luceism."
+	desc_extended = "An unusual syncretic religion originating upon the planet of Assunzione, Luceism is a quasi-Abrahamic religion descended from a variety of faiths held by the original colonists that first emerged following the unexpected extinguishing of Assunzione's star in 2274."
+	flag_path = "luceism"
+	flag_structure = /obj/structure/sign/flag/luceism
+
+/obj/structure/sign/flag/luceism
+	name = "\improper Luceism flag"
+	desc = "The flag of Luceism."
+	desc_extended = "An unusual syncretic religion originating upon the planet of Assunzione, Luceism is a quasi-Abrahamic religion descended from a variety of faiths held by the original colonists that first emerged following the unexpected extinguishing of Assunzione's star in 2274."
+	flag_path = "luceism"
+	flag_item = /obj/item/flag/luceism

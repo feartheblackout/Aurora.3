@@ -31358,6 +31358,18 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/tiled,
 /area/shuttle/skipjack)
+"bzF" = (
+/obj/structure/table/wood,
+/obj/item/clothing/accessory/poncho/assunzione/vine,
+/obj/effect/floor_decal/corner/purple/diagonal{
+	dir = 4
+	},
+/obj/effect/floor_decal/corner/white/diagonal,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_luceism)
 "bzH" = (
 /obj/effect/floor_decal/industrial/warning/cee,
 /obj/effect/decal/cleanable/dirt,
@@ -31749,6 +31761,18 @@
 	},
 /turf/unsimulated/floor,
 /area/antag/ninja)
+"bAR" = (
+/obj/structure/table/wood,
+/obj/item/flame/lighter/zippo/luceian,
+/obj/effect/floor_decal/corner/purple/diagonal{
+	dir = 4
+	},
+/obj/effect/floor_decal/corner/white/diagonal,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_luceism)
 "bAW" = (
 /obj/effect/floor_decal/corner/red{
 	dir = 5
@@ -32522,16 +32546,15 @@
 /turf/simulated/floor/holofloor/tiled,
 /area/horizon/holodeck/source_thunderdomecourt)
 "bFn" = (
-/obj/structure/table/stone/marble,
-/obj/item/flame/candle,
-/obj/item/flame/candle{
-	pixel_x = 5
+/obj/effect/floor_decal/corner/yellow/diagonal{
+	dir = 8
 	},
-/obj/item/flame/candle{
-	pixel_x = -5
+/obj/effect/floor_decal/corner/yellow{
+	dir = 1
 	},
+/obj/effect/floor_decal/corner/mauve,
 /turf/simulated/floor/marble/dark,
-/area/horizon/holodeck/source_tribunal)
+/area/horizon/holodeck/source_luceism)
 "bFo" = (
 /obj/effect/floor_decal/corner/red{
 	dir = 5
@@ -32543,6 +32566,11 @@
 /turf/simulated/floor/holofloor/carpet/rubber,
 /area/horizon/holodeck/source_basketball)
 "bFq" = (
+/obj/effect/floor_decal/corner/red{
+	dir = 9
+	},
+/obj/structure/table/stone/marble,
+/obj/item/device/versebook/tribunal,
 /turf/simulated/floor/marble/dark,
 /area/horizon/holodeck/source_tribunal)
 "bFr" = (
@@ -32623,11 +32651,14 @@
 	},
 /area/horizon/holodeck/source_desert)
 "bFz" = (
-/obj/effect/floor_decal/corner{
-	dir = 9
+/obj/effect/floor_decal/corner/yellow{
+	dir = 1
+	},
+/obj/effect/floor_decal/corner/red{
+	dir = 8
 	},
 /turf/simulated/floor/marble/dark,
-/area/horizon/holodeck/source_tribunal)
+/area/horizon/holodeck/source_trinary)
 "bFA" = (
 /obj/structure/table/holotable,
 /obj/item/clothing/gloves/boxing/hologlove{
@@ -32637,12 +32668,17 @@
 /turf/simulated/floor/holofloor/tiled,
 /area/horizon/holodeck/source_boxingcourt)
 "bFB" = (
-/obj/effect/floor_decal/corner/red{
-	dir = 5;
-	icon_state = "corner_white"
+/obj/structure/bed/stool/chair/sofa/left/brown{
+	dir = 1;
+	desc = "A pew, how holy!";
+	name = "pew"
 	},
+/obj/effect/floor_decal/corner/purple/diagonal{
+	dir = 4
+	},
+/obj/effect/floor_decal/corner/white/diagonal,
 /turf/simulated/floor/marble/dark,
-/area/horizon/holodeck/source_tribunal)
+/area/horizon/holodeck/source_luceism)
 "bFC" = (
 /obj/effect/floor_decal/corner/white/full{
 	dir = 8
@@ -32723,22 +32759,16 @@
 	},
 /area/horizon/holodeck/source_moghes)
 "bFM" = (
-/obj/effect/floor_decal/corner/grey{
-	dir = 6
-	},
-/obj/structure/railing/mapped{
-	dir = 4
-	},
-/obj/structure/bed/stool/chair/sofa/black{
+/obj/structure/bed/stool/chair/sofa/right/brown{
 	desc = "A pew, how holy!";
-	dir = 4;
 	name = "pew"
 	},
-/obj/structure/railing/mapped{
-	dir = 8
+/obj/effect/floor_decal/corner/purple/diagonal{
+	dir = 4
 	},
-/turf/simulated/floor/marble,
-/area/horizon/holodeck/source_trinary)
+/obj/effect/floor_decal/corner/white/diagonal,
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_luceism)
 "bFN" = (
 /obj/effect/floor_decal/corner/red{
 	dir = 10
@@ -32781,11 +32811,12 @@
 /turf/simulated/floor/holofloor/grass,
 /area/horizon/holodeck/source_meetinghall)
 "bFU" = (
-/obj/effect/floor_decal/spline/fancy/wood/corner{
-	dir = 4
+/obj/effect/floor_decal/corner/red{
+	dir = 5;
+	icon_state = "corner_white"
 	},
-/turf/simulated/floor/holofloor/wood,
-/area/horizon/holodeck/source_sauna)
+/turf/simulated/floor/marble,
+/area/horizon/holodeck/source_trinary)
 "bFV" = (
 /obj/effect/decal/fake_object{
 	desc = "A rudimentary, poorly utilized railing mechanism. Stepping over it is easy.";
@@ -32815,23 +32846,12 @@
 	},
 /area/horizon/holodeck/source_konyang)
 "bFW" = (
-/obj/effect/decal/fake_object{
-	desc = "The flag of the Trinary Perfection.";
-	icon = 'icons/obj/structure/flags.dmi';
-	icon_state = "trinaryperfection";
-	layer = 2.9;
-	name = "Trinary Perfection flag";
-	pixel_x = -30
+/obj/effect/floor_decal/corner/red{
+	dir = 10;
+	icon_state = "corner_white"
 	},
-/obj/structure/railing/mapped{
-	dir = 1
-	},
-/obj/effect/floor_decal/corner/grey{
-	dir = 5
-	},
-/obj/random/pottedplant,
-/turf/simulated/floor/marble,
-/area/horizon/holodeck/source_trinary)
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_tribunal)
 "bFX" = (
 /obj/structure/table/rack,
 /turf/simulated/floor/tiled/dark,
@@ -32852,12 +32872,9 @@
 /turf/simulated/floor/holofloor/wood,
 /area/horizon/holodeck/source_chapel)
 "bGa" = (
-/obj/effect/floor_decal/corner/red{
-	dir = 9
+/obj/effect/floor_decal/corner/full{
+	dir = 4
 	},
-/obj/structure/table/stone/marble,
-/obj/item/clothing/accessory/poncho/dominia/red/surcoat,
-/obj/item/clothing/head/beret/dominia,
 /turf/simulated/floor/marble/dark,
 /area/horizon/holodeck/source_tribunal)
 "bGb" = (
@@ -32866,40 +32883,23 @@
 /turf/simulated/floor/holofloor/tiled,
 /area/horizon/holodeck/source_boxingcourt)
 "bGc" = (
-/obj/effect/floor_decal/corner/red{
-	dir = 9
+/obj/structure/railing/mapped{
+	dir = 1
 	},
-/obj/effect/decal/fake_object{
-	desc = "The Imperial Standard of Emperor Boleslaw Keeser of Dominia.";
-	icon = 'icons/obj/structure/flags.dmi';
-	icon_state = "dominia";
-	layer = 2.9;
-	name = "Dominian Empire flag";
-	pixel_x = -30
+/obj/effect/floor_decal/corner/grey{
+	dir = 5
 	},
 /obj/random/pottedplant,
-/turf/simulated/floor/marble/dark,
-/area/horizon/holodeck/source_tribunal)
+/turf/simulated/floor/marble,
+/area/horizon/holodeck/source_trinary)
 "bGd" = (
-/obj/structure/table/stone/marble,
-/obj/structure/railing/mapped,
-/obj/structure/railing/mapped{
-	dir = 8
+/obj/effect/floor_decal/corner/yellow/full{
+	dir = 4
 	},
-/obj/item/clothing/suit/trinary_robes{
-	pixel_x = 17
+/obj/effect/floor_decal/corner/yellow{
+	dir = 1
 	},
-/obj/item/clothing/suit/trinary_robes{
-	pixel_x = 17
-	},
-/obj/item/clothing/suit/trinary_robes{
-	pixel_x = 17
-	},
-/obj/item/device/versebook/trinary,
-/obj/item/device/versebook/trinary,
-/obj/item/device/versebook/trinary,
-/obj/item/device/versebook/trinary,
-/turf/simulated/floor/bluegrid,
+/turf/simulated/floor/marble/dark,
 /area/horizon/holodeck/source_trinary)
 "bGe" = (
 /obj/structure/bed/stool/chair/holochair{
@@ -32957,15 +32957,10 @@
 /turf/simulated/floor/holofloor/tiled,
 /area/horizon/holodeck/source_thunderdomecourt)
 "bGk" = (
-/obj/structure/bed/stool/chair/sofa/right/black{
-	desc = "A pew, how holy!";
-	dir = 4;
-	name = "pew"
+/obj/effect/floor_decal/corner/yellow{
+	dir = 6
 	},
-/obj/structure/railing/mapped{
-	dir = 8
-	},
-/turf/simulated/floor/marble/dark,
+/turf/simulated/floor/marble,
 /area/horizon/holodeck/source_tribunal)
 "bGl" = (
 /obj/effect/floor_decal/spline/fancy/wood/cee{
@@ -33081,12 +33076,11 @@
 /turf/simulated/floor/holofloor/space,
 /area/horizon/holodeck/source_basketball)
 "bGw" = (
-/obj/structure/railing/mapped,
-/obj/effect/floor_decal/corner/grey{
-	dir = 10
+/obj/effect/floor_decal/spline/fancy/wood{
+	dir = 4
 	},
-/turf/simulated/floor/marble,
-/area/horizon/holodeck/source_trinary)
+/turf/simulated/floor/holofloor/wood,
+/area/horizon/holodeck/source_sauna)
 "bGx" = (
 /obj/effect/floor_decal/corner/red{
 	dir = 9
@@ -33113,11 +33107,16 @@
 /turf/simulated/floor/holofloor/carpet,
 /area/horizon/holodeck/source_meetinghall)
 "bGB" = (
-/obj/effect/floor_decal/corner{
-	dir = 10
+/obj/effect/floor_decal/corner/yellow{
+	dir = 9
 	},
+/obj/effect/floor_decal/corner/mauve{
+	dir = 6
+	},
+/obj/structure/table/wood,
+/obj/item/storage/assunzionesheath/full,
 /turf/simulated/floor/marble/dark,
-/area/horizon/holodeck/source_tribunal)
+/area/horizon/holodeck/source_luceism)
 "bGC" = (
 /turf/simulated/floor/holofloor/lino,
 /area/horizon/holodeck/source_theatre)
@@ -33161,17 +33160,20 @@
 /turf/simulated/floor/holofloor/beach/sand,
 /area/horizon/holodeck/source_picnicarea)
 "bGK" = (
-/obj/structure/railing/mapped,
-/turf/simulated/floor/holofloor/tiled/ramp{
-	dir = 8
-	},
-/area/horizon/holodeck/source_trinary)
-"bGL" = (
-/obj/effect/floor_decal/spline/fancy/wood{
+/obj/effect/floor_decal/corner/full{
 	dir = 1
 	},
-/turf/simulated/floor/holofloor/wood,
-/area/horizon/holodeck/source_sauna)
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_tribunal)
+"bGL" = (
+/obj/effect/floor_decal/corner/yellow{
+	dir = 1
+	},
+/obj/effect/floor_decal/corner/full{
+	dir = 4
+	},
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_trinary)
 "bGM" = (
 /turf/simulated/floor/holofloor/lino,
 /area/horizon/holodeck/source_meetinghall)
@@ -33182,11 +33184,9 @@
 /turf/simulated/floor/holofloor/carpet,
 /area/horizon/holodeck/source_meetinghall)
 "bGO" = (
-/obj/effect/mist,
-/turf/simulated/floor/exoplanet/water/shallow{
-	icon_state = "pool"
-	},
-/area/horizon/holodeck/source_sauna)
+/obj/effect/floor_decal/corner/yellow,
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_trinary)
 "bGP" = (
 /obj/effect/floor_decal/corner_wide/blue{
 	dir = 5
@@ -33249,14 +33249,11 @@
 /turf/simulated/floor/holofloor/tiled/dark,
 /area/horizon/holodeck/source_boxingcourt)
 "bGX" = (
-/obj/effect/floor_decal/corner/yellow/full{
-	dir = 4
-	},
-/obj/effect/floor_decal/corner/yellow{
-	dir = 1
+/obj/effect/floor_decal/corner/diagonal{
+	dir = 8
 	},
 /turf/simulated/floor/marble/dark,
-/area/horizon/holodeck/source_trinary)
+/area/horizon/holodeck/source_luceism)
 "bGY" = (
 /obj/structure/railing/mapped,
 /turf/simulated/floor/holofloor/lino,
@@ -33347,11 +33344,26 @@
 /turf/simulated/floor/holofloor/grass,
 /area/horizon/holodeck/source_picnicarea)
 "bHj" = (
-/obj/effect/floor_decal/spline/fancy/wood/corner{
+/obj/structure/table/stone/marble,
+/obj/structure/railing/mapped,
+/obj/structure/railing/mapped{
 	dir = 8
 	},
-/turf/simulated/floor/holofloor/wood,
-/area/horizon/holodeck/source_sauna)
+/obj/item/clothing/suit/trinary_robes{
+	pixel_x = 17
+	},
+/obj/item/clothing/suit/trinary_robes{
+	pixel_x = 17
+	},
+/obj/item/clothing/suit/trinary_robes{
+	pixel_x = 17
+	},
+/obj/item/device/versebook/trinary,
+/obj/item/device/versebook/trinary,
+/obj/item/device/versebook/trinary,
+/obj/item/device/versebook/trinary,
+/turf/simulated/floor/bluegrid,
+/area/horizon/holodeck/source_trinary)
 "bHk" = (
 /obj/effect/floor_decal/corner/red/full{
 	dir = 4
@@ -33359,13 +33371,17 @@
 /turf/simulated/floor/holofloor/tiled,
 /area/horizon/holodeck/source_emptycourt)
 "bHl" = (
-/obj/effect/floor_decal/corner/red{
-	dir = 5;
-	icon_state = "corner_white"
+/obj/effect/floor_decal/corner/yellow/diagonal{
+	dir = 1
 	},
-/obj/effect/floor_decal/spline/plain/corner,
+/obj/effect/floor_decal/corner/yellow/diagonal{
+	dir = 8
+	},
+/obj/structure/platform_stairs{
+	dir = 4
+	},
 /turf/simulated/floor/marble/dark,
-/area/horizon/holodeck/source_tribunal)
+/area/horizon/holodeck/source_luceism)
 "bHm" = (
 /obj/effect/floor_decal/corner/green/full{
 	dir = 4
@@ -33377,17 +33393,13 @@
 /turf/simulated/floor/holofloor/carpet,
 /area/horizon/holodeck/source_dininghall)
 "bHo" = (
-/obj/structure/bed/stool/chair/sofa/right/black{
-	desc = "A pew, how holy!";
-	dir = 4;
-	name = "pew"
+/obj/effect/floor_decal/spline/fancy/wood{
+	dir = 4
 	},
-/obj/structure/railing/mapped{
-	dir = 8
-	},
-/obj/effect/floor_decal/corner/grey/diagonal,
-/turf/simulated/floor/marble,
-/area/horizon/holodeck/source_trinary)
+/obj/structure/table/wood,
+/obj/item/device/flashlight/lantern,
+/turf/simulated/floor/holofloor/wood,
+/area/horizon/holodeck/source_sauna)
 "bHp" = (
 /turf/simulated/floor/holofloor/reinforced,
 /area/horizon/holodeck/source_biesel)
@@ -33401,17 +33413,23 @@
 /turf/simulated/floor/holofloor/tiled,
 /area/horizon/holodeck/source_thunderdomecourt)
 "bHr" = (
-/obj/effect/floor_decal/corner/full{
-	dir = 1
+/obj/effect/floor_decal/corner/red/full{
+	dir = 4
 	},
 /turf/simulated/floor/marble/dark,
-/area/horizon/holodeck/source_trinary)
-"bHs" = (
-/obj/effect/floor_decal/corner/yellow{
-	dir = 6
-	},
-/turf/simulated/floor/marble,
 /area/horizon/holodeck/source_tribunal)
+"bHs" = (
+/obj/structure/bed/stool/chair/sofa/corner/concave/brown{
+	dir = 8;
+	desc = "A pew, how holy!";
+	name = "pew"
+	},
+/obj/effect/floor_decal/corner/purple/diagonal{
+	dir = 4
+	},
+/obj/effect/floor_decal/corner/white/diagonal,
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_luceism)
 "bHt" = (
 /obj/effect/step_trigger/thrower/shuttle/northwest,
 /turf/space/transit/east,
@@ -33471,29 +33489,21 @@
 	},
 /area/horizon/holodeck/source_adhomai)
 "bHB" = (
-/obj/effect/decal{
-	anchored = 1;
-	icon = 'icons/effects/props/holodeck/biesel/32x32.dmi';
-	icon_state = "fog_roll";
-	layer = 2.02;
-	name = "rolling fog"
+/obj/effect/floor_decal/corner{
+	dir = 1
 	},
-/obj/item/device/flashlight/lamp/holodeck{
-	light_color = "#C48A18";
-	light_power = 2;
-	light_range = 14;
-	on = 0
-	},
-/turf/simulated/floor/holofloor/reinforced,
-/area/horizon/holodeck/source_jupiter)
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_tribunal)
 "bHC" = (
 /obj/random/pottedplant,
 /turf/simulated/floor/tiled/dark,
 /area/horizon/holodeck/source_pool)
 "bHD" = (
-/obj/effect/floor_decal/spline/fancy/wood,
-/turf/simulated/floor/holofloor/wood,
-/area/horizon/holodeck/source_sauna)
+/obj/effect/floor_decal/corner{
+	dir = 6
+	},
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_trinary)
 "bHE" = (
 /obj/effect/step_trigger/thrower/shuttle/south,
 /turf/space/transit/east,
@@ -33525,22 +33535,22 @@
 /turf/simulated/floor/holofloor/carpet,
 /area/horizon/holodeck/source_courtroom)
 "bHJ" = (
-/obj/effect/floor_decal/corner/yellow{
-	dir = 1
+/obj/effect/floor_decal/spline/fancy/wood{
+	dir = 8
 	},
-/turf/simulated/floor/marble/dark,
-/area/horizon/holodeck/source_trinary)
+/turf/simulated/floor/holofloor/wood,
+/area/horizon/holodeck/source_sauna)
 "bHK" = (
 /turf/simulated/floor/holofloor/beach/sand{
 	icon_state = "desert4"
 	},
 /area/horizon/holodeck/source_desert)
 "bHL" = (
-/obj/effect/floor_decal/spline/plain{
-	dir = 4
+/obj/effect/floor_decal/corner{
+	dir = 10
 	},
 /obj/effect/floor_decal/corner{
-	dir = 6
+	dir = 1
 	},
 /turf/simulated/floor/marble/dark,
 /area/horizon/holodeck/source_tribunal)
@@ -33569,8 +33579,12 @@
 /turf/simulated/floor/exoplanet/water/shallow,
 /area/horizon/holodeck/source_beach)
 "bHQ" = (
-/obj/effect/floor_decal/corner/full{
-	dir = 8
+/obj/effect/floor_decal/corner/yellow{
+	dir = 4
+	},
+/obj/effect/floor_decal/corner/red,
+/obj/effect/floor_decal/corner{
+	dir = 1
 	},
 /turf/simulated/floor/marble/dark,
 /area/horizon/holodeck/source_trinary)
@@ -33597,9 +33611,22 @@
 /turf/simulated/floor/holofloor/lino,
 /area/horizon/holodeck/source_meetinghall)
 "bHV" = (
-/obj/effect/floor_decal/corner/red/full,
-/turf/simulated/floor/marble/dark,
-/area/horizon/holodeck/source_tribunal)
+/obj/effect/decal/fake_object{
+	desc = "A distant, chaotic cloud layer below. A familiar depiction of Jupiter and its chaotic environment.";
+	icon = 'icons/effects/props/holodeck/jupiter/384x224.dmi';
+	icon_state = "background";
+	layer = 2.01;
+	name = "holographic Jupiter Atmosphere"
+	},
+/obj/effect/decal{
+	anchored = 1;
+	icon = 'icons/effects/props/holodeck/biesel/32x32.dmi';
+	icon_state = "fog_roll";
+	layer = 2.02;
+	name = "rolling fog"
+	},
+/turf/simulated/floor/holofloor/reinforced,
+/area/horizon/holodeck/source_jupiter)
 "bHW" = (
 /turf/simulated/floor/holofloor/grass{
 	icon = 'icons/turf/flooring/exoplanet/moghes.dmi';
@@ -33660,11 +33687,19 @@
 /turf/simulated/floor/holofloor/lino,
 /area/horizon/holodeck/source_theatre)
 "bIe" = (
-/obj/effect/floor_decal/corner/red/full{
+/obj/effect/floor_decal/corner/yellow/diagonal{
+	dir = 8
+	},
+/obj/effect/floor_decal/corner/mauve{
 	dir = 1
 	},
-/turf/simulated/floor/marble,
-/area/horizon/holodeck/source_trinary)
+/obj/structure/bed/stool/chair/sofa/brown{
+	dir = 1;
+	desc = "A pew, how holy!";
+	name = "pew"
+	},
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_luceism)
 "bIf" = (
 /obj/effect/floor_decal/spline/fancy/wood/cee{
 	dir = 8
@@ -33774,9 +33809,22 @@
 /turf/simulated/floor/holofloor/lino,
 /area/horizon/holodeck/source_chapel)
 "bIu" = (
-/obj/effect/floor_decal/spline/fancy/wood/corner,
-/turf/simulated/floor/holofloor/wood,
-/area/horizon/holodeck/source_sauna)
+/obj/structure/table/stone/marble,
+/obj/structure/railing/mapped,
+/obj/structure/railing/mapped{
+	dir = 4
+	},
+/obj/item/clothing/mask/trinary_mask,
+/obj/item/clothing/mask/trinary_mask,
+/obj/item/flame/candle{
+	pixel_x = 6
+	},
+/obj/item/flame/candle{
+	pixel_x = -6
+	},
+/obj/item/clothing/mask/trinary_mask,
+/turf/simulated/floor/bluegrid,
+/area/horizon/holodeck/source_trinary)
 "bIv" = (
 /obj/effect/floor_decal/corner/white{
 	dir = 10
@@ -33794,12 +33842,16 @@
 /turf/simulated/floor/holofloor/carpet/rubber,
 /area/horizon/holodeck/source_basketball)
 "bIx" = (
-/obj/effect/floor_decal/corner/yellow/full{
+/obj/effect/floor_decal/corner/yellow/diagonal,
+/obj/effect/floor_decal/corner/mauve{
+	dir = 8
+	},
+/obj/effect/floor_decal/corner/black{
 	dir = 4
 	},
-/obj/structure/railing/mapped,
-/turf/simulated/floor/marble,
-/area/horizon/holodeck/source_tribunal)
+/obj/structure/table/wood,
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_luceism)
 "bIy" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/holofloor/lino,
@@ -33901,13 +33953,17 @@
 	},
 /area/horizon/holodeck/source_konyang)
 "bIO" = (
-/obj/effect/floor_decal/spline/fancy/wood{
-	dir = 4
+/obj/structure/bed/stool/chair/sofa/right/black{
+	desc = "A pew, how holy!";
+	dir = 4;
+	name = "pew"
 	},
-/obj/structure/table/wood,
-/obj/item/device/flashlight/lantern,
-/turf/simulated/floor/holofloor/wood,
-/area/horizon/holodeck/source_sauna)
+/obj/structure/railing/mapped{
+	dir = 8
+	},
+/obj/effect/floor_decal/corner/grey/diagonal,
+/turf/simulated/floor/marble,
+/area/horizon/holodeck/source_trinary)
 "bIP" = (
 /obj/effect/landmark/costume,
 /obj/structure/table/rack/holorack,
@@ -33977,12 +34033,11 @@
 /turf/simulated/floor/holofloor/carpet,
 /area/horizon/holodeck/source_courtroom)
 "bJa" = (
-/obj/effect/floor_decal/corner/yellow{
-	dir = 4
+/obj/effect/floor_decal/corner{
+	dir = 9
 	},
-/obj/effect/floor_decal/corner/red,
 /turf/simulated/floor/marble/dark,
-/area/horizon/holodeck/source_trinary)
+/area/horizon/holodeck/source_tribunal)
 "bJb" = (
 /obj/effect/floor_decal/spline/fancy/wood{
 	dir = 8
@@ -34022,14 +34077,11 @@
 /turf/simulated/floor/holofloor/tiled,
 /area/horizon/holodeck/source_thunderdomecourt)
 "bJg" = (
-/obj/effect/floor_decal/corner/yellow/full{
-	dir = 1
+/obj/structure/railing/mapped,
+/turf/simulated/floor/holofloor/tiled/ramp{
+	dir = 8
 	},
-/obj/structure/railing/mapped{
-	dir = 1
-	},
-/turf/simulated/floor/marble,
-/area/horizon/holodeck/source_tribunal)
+/area/horizon/holodeck/source_trinary)
 "bJh" = (
 /obj/effect/floor_decal/spline/fancy/wood{
 	dir = 1
@@ -34101,12 +34153,11 @@
 /turf/simulated/floor/holofloor/carpet,
 /area/horizon/holodeck/source_courtroom)
 "bJl" = (
-/obj/effect/floor_decal/corner/red{
-	dir = 5;
-	icon_state = "corner_white"
+/obj/effect/floor_decal/spline/fancy/wood/corner{
+	dir = 4
 	},
-/turf/simulated/floor/marble,
-/area/horizon/holodeck/source_trinary)
+/turf/simulated/floor/holofloor/wood,
+/area/horizon/holodeck/source_sauna)
 "bJn" = (
 /obj/effect/decal/fake_object{
 	dir = 4;
@@ -34140,19 +34191,24 @@
 /turf/simulated/floor/holofloor/tiled,
 /area/horizon/holodeck/source_battlemonsters)
 "bJp" = (
-/obj/structure/railing/mapped{
-	dir = 8
+/obj/effect/floor_decal/corner{
+	dir = 5
 	},
-/obj/structure/table/stone/marble,
-/obj/item/device/versebook/tribunal,
-/turf/simulated/floor/marble,
+/obj/effect/floor_decal/corner/red{
+	dir = 10;
+	icon_state = "corner_white"
+	},
+/turf/simulated/floor/marble/dark,
 /area/horizon/holodeck/source_tribunal)
 "bJq" = (
-/obj/effect/floor_decal/corner/red{
-	dir = 10
+/obj/effect/floor_decal/corner/yellow/full{
+	dir = 1
+	},
+/obj/structure/railing/mapped{
+	dir = 1
 	},
 /turf/simulated/floor/marble,
-/area/horizon/holodeck/source_trinary)
+/area/horizon/holodeck/source_tribunal)
 "bJr" = (
 /obj/effect/decal/fake_object{
 	dir = 4;
@@ -34192,10 +34248,14 @@
 	},
 /area/horizon/holodeck/source_konyang)
 "bJs" = (
-/turf/simulated/floor/exoplanet/water/shallow{
-	icon_state = "pool"
+/obj/effect/floor_decal/corner/yellow{
+	dir = 6
 	},
-/area/horizon/holodeck/source_sauna)
+/obj/effect/floor_decal/corner{
+	dir = 9
+	},
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_trinary)
 "bJt" = (
 /turf/simulated/floor/holofloor/tiled/dark,
 /area/horizon/holodeck/source_boxingcourt)
@@ -34290,9 +34350,13 @@
 	},
 /area/horizon/holodeck/source_konyang)
 "bJR" = (
-/obj/effect/floor_decal/corner/grey/diagonal,
-/turf/simulated/floor/marble,
-/area/horizon/holodeck/source_trinary)
+/obj/effect/floor_decal/spline/fancy/wood{
+	dir = 4
+	},
+/obj/structure/table/wood,
+/obj/item/flame/candle,
+/turf/simulated/floor/holofloor/wood,
+/area/horizon/holodeck/source_sauna)
 "bJS" = (
 /turf/simulated/floor/holofloor/grass,
 /area/horizon/holodeck/source_picnicarea)
@@ -34340,13 +34404,17 @@
 /turf/simulated/floor/holofloor/carpet,
 /area/horizon/holodeck/source_courtroom)
 "bKc" = (
-/obj/effect/floor_decal/spline/fancy/wood{
-	dir = 8
+/obj/structure/railing/mapped{
+	dir = 4
 	},
-/obj/structure/table/wood,
-/obj/item/flame/candle,
-/turf/simulated/floor/holofloor/wood,
-/area/horizon/holodeck/source_sauna)
+/obj/structure/bed/stool/chair/sofa/black{
+	desc = "A pew, how holy!";
+	dir = 8;
+	name = "pew"
+	},
+/obj/effect/floor_decal/corner/grey/diagonal,
+/turf/simulated/floor/marble,
+/area/horizon/holodeck/source_trinary)
 "bKd" = (
 /obj/effect/floor_decal/spline/plain{
 	dir = 1
@@ -34355,25 +34423,17 @@
 /turf/simulated/floor/holofloor/tiled,
 /area/horizon/holodeck/source_gym)
 "bKe" = (
-/obj/structure/railing/mapped{
-	dir = 1
+/obj/effect/floor_decal/spline/fancy/wood,
+/obj/effect/decal/fake_object{
+	color = "#ff0000";
+	desc = "A soft cotton towel.";
+	icon = 'icons/obj/weapons.dmi';
+	icon_state = "towel_flat";
+	layer = 2.9;
+	name = "towel"
 	},
-/obj/structure/railing/mapped{
-	dir = 4
-	},
-/obj/structure/bed/stool/chair/sofa/left/black{
-	desc = "A pew, how holy!";
-	dir = 4;
-	name = "pew"
-	},
-/obj/structure/railing/mapped{
-	dir = 8
-	},
-/obj/effect/floor_decal/corner/grey/full{
-	dir = 1
-	},
-/turf/simulated/floor/marble,
-/area/horizon/holodeck/source_trinary)
+/turf/simulated/floor/holofloor/wood,
+/area/horizon/holodeck/source_sauna)
 "bKf" = (
 /obj/structure/railing/mapped{
 	layer = 6;
@@ -34386,8 +34446,17 @@
 /turf/space/transit/east,
 /area/template_noop)
 "bKi" = (
-/turf/simulated/floor/holofloor/wood,
-/area/horizon/holodeck/source_sauna)
+/obj/effect/floor_decal/corner/yellow{
+	dir = 1
+	},
+/obj/effect/floor_decal/corner/red{
+	dir = 8
+	},
+/obj/effect/floor_decal/corner{
+	dir = 4
+	},
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_trinary)
 "bKj" = (
 /turf/simulated/floor/holofloor/lino,
 /area/horizon/holodeck/source_courtroom)
@@ -34405,12 +34474,11 @@
 	},
 /area/horizon/holodeck/source_moghes)
 "bKn" = (
-/obj/effect/floor_decal/spline/fancy/wood{
-	dir = 4
+/obj/effect/floor_decal/corner/yellow{
+	dir = 10
 	},
-/obj/item/device/flashlight/lantern,
-/turf/simulated/floor/holofloor/wood,
-/area/horizon/holodeck/source_sauna)
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_trinary)
 "bKo" = (
 /turf/simulated/floor/holofloor/beach/sand{
 	icon_state = "beachcorner"
@@ -34486,11 +34554,14 @@
 /turf/simulated/floor/holofloor/grass,
 /area/horizon/holodeck/source_wildlife)
 "bKA" = (
-/obj/effect/floor_decal/corner/full{
+/obj/effect/floor_decal/corner/grey{
+	dir = 9
+	},
+/obj/structure/railing/mapped{
 	dir = 8
 	},
-/turf/simulated/floor/marble/dark,
-/area/horizon/holodeck/source_tribunal)
+/turf/simulated/floor/marble,
+/area/horizon/holodeck/source_trinary)
 "bKB" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/simulated/floor/holofloor/beach/sand{
@@ -34498,11 +34569,14 @@
 	},
 /area/horizon/holodeck/source_desert)
 "bKC" = (
-/obj/effect/floor_decal/spline/fancy/wood/corner{
-	dir = 1
+/obj/effect/floor_decal/corner/yellow{
+	dir = 5
 	},
-/turf/simulated/floor/holofloor/wood,
-/area/horizon/holodeck/source_sauna)
+/obj/effect/floor_decal/corner{
+	dir = 10
+	},
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_trinary)
 "bKD" = (
 /obj/structure/flora/ausbushes/palebush,
 /turf/simulated/floor/holofloor/beach/sand{
@@ -34517,25 +34591,14 @@
 	},
 /area/horizon/holodeck/source_desert)
 "bKG" = (
-/obj/structure/railing/mapped{
-	dir = 1
+/obj/effect/floor_decal/corner/yellow{
+	dir = 6
 	},
-/obj/structure/railing/mapped{
-	dir = 8
+/obj/effect/floor_decal/corner/mauve{
+	dir = 9
 	},
-/obj/structure/railing/mapped{
-	dir = 4
-	},
-/obj/structure/bed/stool/chair/sofa/right/black{
-	desc = "A pew, how holy!";
-	dir = 8;
-	name = "pew"
-	},
-/obj/effect/floor_decal/corner/grey/full{
-	dir = 8
-	},
-/turf/simulated/floor/marble,
-/area/horizon/holodeck/source_trinary)
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_luceism)
 "bKH" = (
 /obj/structure/flora/grass/jungle{
 	icon_state = "grassa2"
@@ -34556,8 +34619,9 @@
 	},
 /area/horizon/holodeck/source_desert)
 "bKL" = (
-/turf/simulated/floor/holofloor/reinforced,
-/area/template_noop)
+/obj/effect/floor_decal/corner/diagonal,
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_luceism)
 "bKM" = (
 /obj/structure/flora/bush/adhomai,
 /turf/simulated/floor/holofloor/snow,
@@ -34567,11 +34631,21 @@
 /turf/simulated/floor/holofloor/grass,
 /area/horizon/holodeck/source_wildlife)
 "bKP" = (
-/obj/effect/floor_decal/corner{
-	dir = 1
+/obj/effect/decal{
+	anchored = 1;
+	icon = 'icons/effects/props/holodeck/biesel/32x32.dmi';
+	icon_state = "fog_roll";
+	layer = 2.02;
+	name = "rolling fog"
 	},
-/turf/simulated/floor/marble/dark,
-/area/horizon/holodeck/source_tribunal)
+/obj/item/device/flashlight/lamp/holodeck{
+	light_color = "#C48A18";
+	light_power = 2;
+	light_range = 14;
+	on = 0
+	},
+/turf/simulated/floor/holofloor/reinforced,
+/area/horizon/holodeck/source_jupiter)
 "bKQ" = (
 /obj/effect/floor_decal/spline/fancy/wood/corner,
 /turf/simulated/floor/holofloor/lino,
@@ -34583,10 +34657,14 @@
 /turf/simulated/floor/holofloor/tiled,
 /area/horizon/holodeck/source_emptycourt)
 "bKS" = (
-/obj/effect/floor_decal/corner{
-	dir = 4
+/obj/effect/decal{
+	anchored = 1;
+	icon = 'icons/effects/props/holodeck/biesel/32x32.dmi';
+	icon_state = "fog_roll";
+	layer = 2.02;
+	name = "rolling fog"
 	},
-/turf/simulated/floor/marble/dark,
+/turf/simulated/floor/holofloor/reinforced,
 /area/horizon/holodeck/source_tribunal)
 "bKT" = (
 /obj/effect/floor_decal/carpet,
@@ -35195,6 +35273,12 @@
 	icon_state = "desert"
 	},
 /area/centcom/shared_dream)
+"bNU" = (
+/obj/effect/floor_decal/corner{
+	dir = 6
+	},
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_tribunal)
 "bRB" = (
 /obj/effect/floor_decal/corner/paleblue/full,
 /obj/structure/railing/mapped{
@@ -35209,20 +35293,15 @@
 	},
 /area/centcom/ferry)
 "bSm" = (
-/obj/effect/floor_decal/corner/full{
-	dir = 4
-	},
 /turf/simulated/floor/marble/dark,
 /area/horizon/holodeck/source_tribunal)
 "bSo" = (
-/obj/effect/floor_decal/corner/yellow{
-	dir = 9
-	},
-/obj/effect/floor_decal/corner{
-	dir = 6
+/obj/effect/floor_decal/corner/yellow/full,
+/obj/effect/floor_decal/corner/mauve{
+	dir = 4
 	},
 /turf/simulated/floor/marble/dark,
-/area/horizon/holodeck/source_trinary)
+/area/horizon/holodeck/source_luceism)
 "bTg" = (
 /obj/effect/floor_decal/spline/plain{
 	dir = 4
@@ -35230,33 +35309,37 @@
 /turf/simulated/floor/exoplanet/snow,
 /area/centcom/shared_dream)
 "bXN" = (
-/obj/effect/floor_decal/corner{
-	dir = 5
+/obj/structure/railing/mapped,
+/turf/simulated/floor/holofloor/tiled/ramp{
+	dir = 4
 	},
-/obj/structure/bed/stool/chair/sofa/left/black{
-	desc = "A pew, how holy!";
-	dir = 4;
-	name = "pew"
+/area/horizon/holodeck/source_trinary)
+"bYR" = (
+/obj/effect/floor_decal/corner/yellow/diagonal{
+	dir = 8
+	},
+/obj/effect/floor_decal/corner/yellow,
+/obj/effect/floor_decal/corner/mauve{
+	dir = 1
+	},
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_luceism)
+"bZf" = (
+/obj/effect/floor_decal/corner/grey{
+	dir = 9
 	},
 /obj/structure/railing/mapped{
 	dir = 8
 	},
-/turf/simulated/floor/marble/dark,
-/area/horizon/holodeck/source_tribunal)
-"bYR" = (
-/obj/effect/floor_decal/corner/yellow{
-	dir = 8
+/obj/structure/railing/mapped{
+	dir = 4
 	},
-/turf/simulated/floor/marble/dark,
-/area/horizon/holodeck/source_trinary)
-"bZf" = (
-/obj/effect/floor_decal/corner/yellow{
-	dir = 6
+/obj/structure/bed/stool/chair/sofa/black{
+	desc = "A pew, how holy!";
+	dir = 8;
+	name = "pew"
 	},
-/obj/effect/floor_decal/corner{
-	dir = 9
-	},
-/turf/simulated/floor/marble/dark,
+/turf/simulated/floor/marble,
 /area/horizon/holodeck/source_trinary)
 "ccr" = (
 /obj/effect/floor_decal/corner/white{
@@ -35345,6 +35428,12 @@
 	},
 /turf/simulated/floor/exoplanet/snow,
 /area/centcom/shared_dream)
+"cBk" = (
+/obj/effect/floor_decal/corner/yellow{
+	dir = 1
+	},
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_trinary)
 "cDt" = (
 /obj/effect/floor_decal/spline/plain{
 	dir = 8
@@ -35412,6 +35501,12 @@
 	},
 /turf/simulated/floor/exoplanet/grass,
 /area/centcom/shared_dream)
+"cUv" = (
+/obj/effect/floor_decal/corner/red/full{
+	dir = 1
+	},
+/turf/simulated/floor/marble,
+/area/horizon/holodeck/source_trinary)
 "cVH" = (
 /obj/effect/shuttle_landmark/merchant/interim{
 	dir = 1
@@ -35474,20 +35569,14 @@
 /turf/unsimulated/floor,
 /area/antag/jockey)
 "dgN" = (
-/obj/structure/railing/mapped,
-/obj/effect/floor_decal/corner/grey{
-	dir = 10
+/obj/effect/floor_decal/spline/plain{
+	dir = 4
 	},
-/obj/structure/table/stone/marble,
-/obj/item/flame/candle{
-	pixel_x = -5
+/obj/effect/floor_decal/corner{
+	dir = 6
 	},
-/obj/item/flame/candle,
-/obj/item/flame/candle{
-	pixel_x = 5
-	},
-/turf/simulated/floor/marble,
-/area/horizon/holodeck/source_trinary)
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_tribunal)
 "dhg" = (
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/effect/floor_decal/spline/fancy/wood/cee,
@@ -35657,6 +35746,31 @@
 /obj/effect/floor_decal/spline/plain,
 /turf/simulated/floor/exoplanet/grass/grove,
 /area/centcom/shared_dream)
+"dIA" = (
+/obj/effect/floor_decal/corner/yellow/diagonal,
+/obj/effect/floor_decal/corner/mauve{
+	dir = 4
+	},
+/obj/effect/floor_decal/corner/black{
+	dir = 8
+	},
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_luceism)
+"dIK" = (
+/obj/structure/railing/mapped,
+/obj/effect/floor_decal/corner/grey{
+	dir = 10
+	},
+/obj/structure/table/stone/marble,
+/obj/item/flame/candle{
+	pixel_x = -5
+	},
+/obj/item/flame/candle,
+/obj/item/flame/candle{
+	pixel_x = 5
+	},
+/turf/simulated/floor/marble,
+/area/horizon/holodeck/source_trinary)
 "dMn" = (
 /obj/effect/mist,
 /turf/simulated/floor/exoplanet/water/shallow{
@@ -35684,6 +35798,13 @@
 "dPs" = (
 /turf/simulated/floor/carpet/rubber,
 /area/antag/jockey)
+"dPv" = (
+/obj/effect/floor_decal/corner/yellow/diagonal,
+/obj/effect/floor_decal/corner/mauve{
+	dir = 8
+	},
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_luceism)
 "dPA" = (
 /obj/effect/floor_decal/spline/plain/corner{
 	dir = 8
@@ -35743,6 +35864,14 @@
 	},
 /turf/simulated/floor/carpet/rubber,
 /area/antag/jockey)
+"dZs" = (
+/obj/effect/floor_decal/corner/red{
+	dir = 9
+	},
+/obj/structure/table/stone/marble,
+/obj/item/flame/lighter/zippo/dominia,
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_tribunal)
 "dZU" = (
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/simulated/floor/holofloor/grass,
@@ -35798,13 +35927,17 @@
 /turf/simulated/floor/exoplanet/barren,
 /area/centcom/shared_dream)
 "eiu" = (
-/obj/effect/floor_decal/spline/fancy/wood{
-	dir = 8
+/obj/structure/railing/mapped{
+	dir = 4
 	},
-/obj/structure/table/wood,
-/obj/item/device/flashlight/lantern,
-/turf/simulated/floor/holofloor/wood,
-/area/horizon/holodeck/source_sauna)
+/obj/structure/bed/stool/chair/sofa/left/black{
+	desc = "A pew, how holy!";
+	dir = 8;
+	name = "pew"
+	},
+/obj/effect/floor_decal/corner/grey/diagonal,
+/turf/simulated/floor/marble,
+/area/horizon/holodeck/source_trinary)
 "ejR" = (
 /obj/effect/floor_decal/spline/fancy/wood{
 	dir = 6
@@ -35827,6 +35960,24 @@
 	},
 /turf/simulated/floor/holofloor/carpet,
 /area/horizon/holodeck/source_biesel)
+"elq" = (
+/obj/effect/decal/fake_object{
+	desc = "The flag of the Trinary Perfection.";
+	icon = 'icons/obj/structure/flags.dmi';
+	icon_state = "trinaryperfection";
+	layer = 2.9;
+	name = "Trinary Perfection flag";
+	pixel_x = -30
+	},
+/obj/structure/railing/mapped{
+	dir = 1
+	},
+/obj/effect/floor_decal/corner/grey{
+	dir = 5
+	},
+/obj/random/pottedplant,
+/turf/simulated/floor/marble,
+/area/horizon/holodeck/source_trinary)
 "enp" = (
 /obj/machinery/embedded_controller/radio/simple_docking_controller{
 	frequency = 1380;
@@ -35857,6 +36008,27 @@
 	icon_state = "desert"
 	},
 /area/centcom/shared_dream)
+"esJ" = (
+/obj/effect/floor_decal/corner/yellow{
+	dir = 9
+	},
+/obj/effect/floor_decal/corner{
+	dir = 6
+	},
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_trinary)
+"ewD" = (
+/obj/structure/bed/stool/chair/sofa/brown{
+	dir = 1;
+	desc = "A pew, how holy!";
+	name = "pew"
+	},
+/obj/effect/floor_decal/corner/purple/diagonal{
+	dir = 4
+	},
+/obj/effect/floor_decal/corner/white/diagonal,
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_luceism)
 "exq" = (
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/ppflowers,
@@ -35897,6 +36069,20 @@
 	icon_state = "desert0"
 	},
 /area/horizon/holodeck/source_desert)
+"eBE" = (
+/obj/effect/floor_decal/corner/yellow/diagonal,
+/obj/effect/floor_decal/corner/mauve{
+	dir = 8
+	},
+/obj/structure/bed/stool/chair/sofa/brown{
+	desc = "A pew, how holy!";
+	name = "pew"
+	},
+/obj/effect/floor_decal/corner_wide/purple{
+	dir = 4
+	},
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_luceism)
 "eCb" = (
 /obj/structure/flora/ausbushes/palebush,
 /obj/effect/overlay/palmtree_r,
@@ -36078,11 +36264,12 @@
 	},
 /area/shuttle/transport1)
 "fys" = (
-/obj/effect/floor_decal/spline/fancy{
-	dir = 8
+/obj/structure/railing/mapped,
+/obj/effect/floor_decal/corner/grey{
+	dir = 10
 	},
-/turf/simulated/floor/holofloor/wood,
-/area/horizon/holodeck/source_sauna)
+/turf/simulated/floor/marble,
+/area/horizon/holodeck/source_trinary)
 "fzi" = (
 /obj/effect/floor_decal/industrial/warning{
 	dir = 4
@@ -36215,19 +36402,14 @@
 	},
 /area/horizon/holodeck/source_pool)
 "fWR" = (
-/obj/effect/floor_decal/corner{
-	dir = 1
+/obj/effect/floor_decal/corner/yellow{
+	dir = 9
 	},
-/obj/structure/bed/stool/chair/sofa/left/black{
-	desc = "A pew, how holy!";
-	dir = 4;
-	name = "pew"
-	},
-/obj/structure/railing/mapped{
-	dir = 8
+/obj/effect/floor_decal/corner/mauve{
+	dir = 6
 	},
 /turf/simulated/floor/marble/dark,
-/area/horizon/holodeck/source_tribunal)
+/area/horizon/holodeck/source_luceism)
 "fYv" = (
 /obj/effect/floor_decal/corner/red/full,
 /obj/structure/window/reinforced/holowindow/disappearing{
@@ -36295,6 +36477,16 @@
 	name = "shallow water"
 	},
 /area/horizon/holodeck/source_konyang)
+"ghd" = (
+/obj/effect/floor_decal/corner/yellow/diagonal,
+/obj/effect/floor_decal/corner/yellow{
+	dir = 8
+	},
+/obj/effect/floor_decal/corner/mauve{
+	dir = 4
+	},
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_luceism)
 "gkn" = (
 /obj/structure/dueling_table/no_collide/above_layer{
 	icon_state = "top_right"
@@ -36492,6 +36684,17 @@
 	},
 /turf/simulated/floor/exoplanet/grass,
 /area/centcom/shared_dream)
+"gQC" = (
+/obj/structure/railing/mapped{
+	dir = 8
+	},
+/obj/structure/railing/mapped{
+	dir = 1
+	},
+/obj/structure/table/stone/marble,
+/obj/item/nullrod/dominia/holodeck,
+/turf/simulated/floor/marble,
+/area/horizon/holodeck/source_tribunal)
 "gRV" = (
 /obj/effect/floor_decal/carpet{
 	dir = 1
@@ -36516,19 +36719,22 @@
 /turf/simulated/floor/exoplanet/grass,
 /area/centcom/shared_dream)
 "gVy" = (
-/obj/effect/floor_decal/corner/grey{
-	dir = 9
-	},
 /obj/structure/railing/mapped{
-	dir = 8
+	dir = 1
 	},
 /obj/structure/railing/mapped{
 	dir = 4
 	},
 /obj/structure/bed/stool/chair/sofa/left/black{
 	desc = "A pew, how holy!";
-	dir = 8;
+	dir = 4;
 	name = "pew"
+	},
+/obj/structure/railing/mapped{
+	dir = 8
+	},
+/obj/effect/floor_decal/corner/grey/full{
+	dir = 1
 	},
 /turf/simulated/floor/marble,
 /area/horizon/holodeck/source_trinary)
@@ -36653,6 +36859,12 @@
 	},
 /turf/simulated/floor/holofloor/tiled,
 /area/horizon/holodeck/source_battlemonsters)
+"hoK" = (
+/obj/effect/floor_decal/corner/full{
+	dir = 8
+	},
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_trinary)
 "hqA" = (
 /obj/effect/floor_decal/corner/red/diagonal,
 /obj/effect/floor_decal/spline/fancy{
@@ -36667,39 +36879,22 @@
 /turf/simulated/floor/tiled/dark,
 /area/horizon/holodeck/source_biesel)
 "hue" = (
-/obj/structure/railing/mapped{
-	dir = 1
-	},
-/obj/effect/floor_decal/corner/grey{
-	dir = 5
-	},
-/obj/structure/railing/mapped{
-	dir = 4
-	},
-/obj/structure/bed/stool/chair/sofa/right/black{
-	desc = "A pew, how holy!";
-	dir = 8;
-	name = "pew"
-	},
-/turf/simulated/floor/marble,
-/area/horizon/holodeck/source_trinary)
-"huO" = (
-/obj/effect/floor_decal/corner/grey{
-	dir = 6
-	},
-/obj/structure/railing/mapped{
-	dir = 4
-	},
-/obj/structure/bed/stool/chair/sofa/right/black{
-	desc = "A pew, how holy!";
-	dir = 4;
-	name = "pew"
-	},
-/obj/structure/railing/mapped{
+/obj/effect/floor_decal/spline/fancy/wood/corner{
 	dir = 8
 	},
-/turf/simulated/floor/marble,
-/area/horizon/holodeck/source_trinary)
+/turf/simulated/floor/holofloor/wood,
+/area/horizon/holodeck/source_sauna)
+"huO" = (
+/obj/structure/bed/stool/chair/sofa/brown{
+	desc = "A pew, how holy!";
+	name = "pew"
+	},
+/obj/effect/floor_decal/corner/purple/diagonal{
+	dir = 4
+	},
+/obj/effect/floor_decal/corner/white/diagonal,
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_luceism)
 "hvO" = (
 /obj/machinery/door/airlock/external{
 	dir = 1;
@@ -36744,6 +36939,17 @@
 	},
 /turf/simulated/floor/carpet/rubber,
 /area/antag/jockey)
+"hHd" = (
+/obj/structure/bed/stool/chair/sofa/corner/concave/brown{
+	desc = "A pew, how holy!";
+	name = "pew"
+	},
+/obj/effect/floor_decal/corner/purple/diagonal{
+	dir = 4
+	},
+/obj/effect/floor_decal/corner/white/diagonal,
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_luceism)
 "hIs" = (
 /obj/structure/lattice/catwalk/indoor/grate,
 /obj/structure/railing/mapped{
@@ -36964,23 +37170,30 @@
 /turf/unsimulated/floor/plating,
 /area/centcom/ferry)
 "ipv" = (
-/obj/structure/railing/mapped{
-	dir = 1
-	},
-/obj/machinery/door/window/holowindoor{
-	dir = 8
-	},
-/obj/structure/window/reinforced/holowindow{
-	dir = 1
-	},
-/turf/simulated/floor/bluegrid,
-/area/horizon/holodeck/source_trinary)
+/obj/structure/table/wood,
+/obj/item/flame/candle,
+/turf/simulated/floor/holofloor/wood,
+/area/horizon/holodeck/source_sauna)
 "iqe" = (
 /obj/effect/floor_decal/industrial/warning{
 	dir = 4
 	},
 /turf/unsimulated/floor,
 /area/antag/jockey)
+"irj" = (
+/obj/effect/floor_decal/corner/yellow/diagonal{
+	dir = 8
+	},
+/obj/effect/floor_decal/corner/mauve,
+/obj/structure/bed/stool/chair/sofa/brown{
+	desc = "A pew, how holy!";
+	name = "pew"
+	},
+/obj/effect/floor_decal/corner_wide/purple{
+	dir = 1
+	},
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_luceism)
 "irL" = (
 /obj/effect/floor_decal/spline/fancy/wood{
 	dir = 1
@@ -37022,6 +37235,13 @@
 	icon_state = "dark_preview"
 	},
 /area/centcom/ferry)
+"iEk" = (
+/obj/effect/floor_decal/corner/yellow/diagonal{
+	dir = 8
+	},
+/obj/effect/floor_decal/corner/mauve,
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_luceism)
 "iIo" = (
 /obj/effect/floor_decal/spline/plain{
 	dir = 8
@@ -37084,6 +37304,15 @@
 	},
 /turf/simulated/floor/exoplanet/snow,
 /area/centcom/shared_dream)
+"iQF" = (
+/obj/structure/table/wood,
+/obj/item/clothing/accessory/poncho/assunzione,
+/obj/effect/floor_decal/corner/purple/diagonal{
+	dir = 4
+	},
+/obj/effect/floor_decal/corner/white/diagonal,
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_luceism)
 "iRU" = (
 /obj/effect/floor_decal/industrial/hatch/yellow,
 /obj/machinery/door/airlock/external{
@@ -37141,15 +37370,13 @@
 /turf/simulated/floor/plating,
 /area/shuttle/skipjack)
 "iWH" = (
-/obj/effect/decal{
-	anchored = 1;
-	icon = 'icons/effects/props/holodeck/biesel/32x32.dmi';
-	icon_state = "fog_roll";
-	layer = 2.02;
-	name = "rolling fog"
+/obj/effect/floor_decal/corner/red{
+	dir = 5;
+	icon_state = "corner_white"
 	},
-/turf/simulated/floor/holofloor/reinforced,
-/area/horizon/holodeck/source_jupiter)
+/obj/effect/floor_decal/spline/plain/corner,
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_tribunal)
 "iXb" = (
 /obj/machinery/door/airlock/external{
 	dir = 1;
@@ -37169,9 +37396,18 @@
 /turf/simulated/floor/tiled,
 /area/shuttle/merchant)
 "iYs" = (
-/obj/effect/floor_decal/corner/red/full{
-	dir = 8
+/obj/effect/floor_decal/corner/red{
+	dir = 9
 	},
+/obj/effect/decal/fake_object{
+	desc = "The Imperial Standard of Emperor Boleslaw Keeser of Dominia.";
+	icon = 'icons/obj/structure/flags.dmi';
+	icon_state = "dominia";
+	layer = 2.9;
+	name = "Dominian Empire flag";
+	pixel_x = -30
+	},
+/obj/random/pottedplant,
 /turf/simulated/floor/marble/dark,
 /area/horizon/holodeck/source_tribunal)
 "jac" = (
@@ -37185,11 +37421,12 @@
 /turf/simulated/floor/exoplanet/grass/grove,
 /area/centcom/shared_dream)
 "jaN" = (
-/obj/effect/floor_decal/corner/full{
-	dir = 1
+/obj/effect/floor_decal/spline/fancy/wood{
+	dir = 4
 	},
-/turf/simulated/floor/marble/dark,
-/area/horizon/holodeck/source_tribunal)
+/obj/item/device/flashlight/lantern,
+/turf/simulated/floor/holofloor/wood,
+/area/horizon/holodeck/source_sauna)
 "jaQ" = (
 /obj/effect/floor_decal/spline/plain{
 	dir = 9
@@ -37296,11 +37533,11 @@
 /turf/simulated/floor/holofloor/tiled,
 /area/horizon/holodeck/source_thunderdomecourt)
 "jkj" = (
-/obj/effect/floor_decal/corner/red/full{
-	dir = 8
+/obj/effect/floor_decal/spline/fancy/wood{
+	dir = 1
 	},
-/turf/simulated/floor/marble,
-/area/horizon/holodeck/source_trinary)
+/turf/simulated/floor/holofloor/wood,
+/area/horizon/holodeck/source_sauna)
 "jlo" = (
 /obj/effect/spider/stickyweb,
 /obj/effect/floor_decal/spline/plain{
@@ -37384,6 +37621,18 @@
 /obj/structure/flora/ausbushes/sunnybush,
 /turf/simulated/floor/exoplanet/grass,
 /area/centcom/shared_dream)
+"jHw" = (
+/obj/structure/railing/mapped{
+	dir = 1
+	},
+/obj/machinery/door/window/holowindoor{
+	dir = 4
+	},
+/obj/structure/window/reinforced/holowindow{
+	dir = 1
+	},
+/turf/simulated/floor/bluegrid,
+/area/horizon/holodeck/source_trinary)
 "jIr" = (
 /obj/structure/flora/grass/green,
 /obj/effect/decal/fake_object/light_source/invisible{
@@ -37402,17 +37651,9 @@
 /turf/simulated/floor/exoplanet/grass,
 /area/centcom/shared_dream)
 "jNj" = (
-/obj/structure/railing/mapped{
-	dir = 1
-	},
-/obj/machinery/door/window/holowindoor{
-	dir = 4
-	},
-/obj/structure/window/reinforced/holowindow{
-	dir = 1
-	},
-/turf/simulated/floor/bluegrid,
-/area/horizon/holodeck/source_trinary)
+/obj/effect/floor_decal/corner/full,
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_tribunal)
 "jOZ" = (
 /obj/structure/flora/grass/green,
 /obj/effect/floor_decal/spline/plain{
@@ -37470,9 +37711,12 @@
 /turf/simulated/floor/carpet,
 /area/antag/jockey)
 "kcw" = (
-/obj/effect/floor_decal/corner/red/diagonal,
+/obj/effect/floor_decal/corner/yellow,
+/obj/effect/floor_decal/corner{
+	dir = 9
+	},
 /turf/simulated/floor/marble/dark,
-/area/horizon/holodeck/source_tribunal)
+/area/horizon/holodeck/source_trinary)
 "kdV" = (
 /obj/effect/floor_decal/spline/plain,
 /turf/simulated/floor/beach/sand{
@@ -37527,6 +37771,21 @@
 	},
 /turf/space/transit/north,
 /area/template_noop)
+"kkN" = (
+/obj/effect/floor_decal/corner/purple/diagonal{
+	dir = 4
+	},
+/obj/effect/floor_decal/corner/white/diagonal,
+/obj/effect/decal/fake_object{
+	desc = "The flag of Luceism.";
+	icon = 'icons/obj/structure/flags.dmi';
+	icon_state = "luceism";
+	layer = 2.9;
+	name = "Luceism";
+	pixel_x = -30
+	},
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_luceism)
 "klh" = (
 /obj/structure/bed/stool/chair/sofa/corner/concave/brown{
 	dir = 8
@@ -37570,17 +37829,13 @@
 /turf/simulated/floor/holofloor/carpet/rubber,
 /area/horizon/holodeck/source_basketball)
 "kub" = (
-/obj/structure/railing/mapped{
-	dir = 4
+/obj/effect/floor_decal/spline/fancy/wood{
+	dir = 8
 	},
-/obj/structure/bed/stool/chair/sofa/black{
-	desc = "A pew, how holy!";
-	dir = 8;
-	name = "pew"
-	},
-/obj/effect/floor_decal/corner/grey/diagonal,
-/turf/simulated/floor/marble,
-/area/horizon/holodeck/source_trinary)
+/obj/structure/table/wood,
+/obj/item/flame/candle,
+/turf/simulated/floor/holofloor/wood,
+/area/horizon/holodeck/source_sauna)
 "kzB" = (
 /obj/effect/floor_decal/corner_wide/blue{
 	dir = 8
@@ -37596,6 +37851,21 @@
 	},
 /turf/simulated/floor/holofloor/tiled,
 /area/horizon/holodeck/source_emptycourt)
+"kAd" = (
+/obj/effect/floor_decal/corner/purple/diagonal{
+	dir = 4
+	},
+/obj/effect/floor_decal/corner/white/diagonal,
+/obj/effect/decal/fake_object{
+	desc = "The flag of Luceism.";
+	icon = 'icons/obj/structure/flags.dmi';
+	icon_state = "luceism";
+	layer = 2.9;
+	name = "Luceism flag";
+	pixel_x = -30
+	},
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_luceism)
 "kAJ" = (
 /obj/effect/floor_decal/spline/plain{
 	dir = 5
@@ -37606,17 +37876,12 @@
 /turf/simulated/floor/exoplanet/grass/grove,
 /area/centcom/shared_dream)
 "kAM" = (
-/obj/structure/bed/stool/chair/sofa/black{
-	desc = "A pew, how holy!";
-	dir = 4;
-	name = "pew"
+/obj/effect/floor_decal/spline/fancy/wood{
+	dir = 4
 	},
-/obj/structure/railing/mapped{
-	dir = 8
-	},
-/obj/effect/floor_decal/corner/grey/diagonal,
-/turf/simulated/floor/marble,
-/area/horizon/holodeck/source_trinary)
+/obj/structure/table/wood,
+/turf/simulated/floor/holofloor/wood,
+/area/horizon/holodeck/source_sauna)
 "kDv" = (
 /obj/effect/floor_decal/industrial/warning{
 	dir = 5
@@ -37758,6 +38023,13 @@
 	},
 /turf/simulated/floor/holofloor/wood,
 /area/horizon/holodeck/source_courtroom)
+"kTr" = (
+/obj/effect/floor_decal/corner/yellow/full{
+	dir = 8
+	},
+/obj/effect/floor_decal/corner/mauve,
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_luceism)
 "kTU" = (
 /obj/machinery/light{
 	dir = 1
@@ -37768,17 +38040,11 @@
 /turf/unsimulated/floor/plating,
 /area/centcom/suppy)
 "kUJ" = (
-/obj/effect/floor_decal/spline/fancy/wood,
-/obj/effect/decal/fake_object{
-	color = "#ff0000";
-	desc = "A soft cotton towel.";
-	icon = 'icons/obj/weapons.dmi';
-	icon_state = "towel_flat";
-	layer = 2.9;
-	name = "towel"
+/obj/effect/floor_decal/corner{
+	dir = 9
 	},
-/turf/simulated/floor/holofloor/wood,
-/area/horizon/holodeck/source_sauna)
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_trinary)
 "kXD" = (
 /obj/structure/railing/mapped{
 	layer = 6;
@@ -37795,12 +38061,12 @@
 /turf/simulated/floor/holofloor/tiled,
 /area/horizon/holodeck/source_gym)
 "leu" = (
-/obj/effect/floor_decal/corner/yellow,
-/obj/effect/floor_decal/corner{
-	dir = 9
+/obj/effect/floor_decal/corner/yellow/diagonal{
+	dir = 8
 	},
+/obj/effect/floor_decal/corner/yellow/diagonal,
 /turf/simulated/floor/marble/dark,
-/area/horizon/holodeck/source_trinary)
+/area/horizon/holodeck/source_luceism)
 "lfl" = (
 /obj/structure/flora/tree/jungle/small{
 	desc = "A pile of unassuming rocks.";
@@ -37828,12 +38094,22 @@
 	},
 /area/centcom/shared_dream)
 "lgB" = (
-/obj/effect/floor_decal/corner/yellow{
-	dir = 4
+/obj/structure/bed/stool/chair/sofa/right/black{
+	desc = "A pew, how holy!";
+	dir = 4;
+	name = "pew"
 	},
-/obj/effect/floor_decal/corner/full,
+/obj/structure/railing/mapped{
+	dir = 8
+	},
 /turf/simulated/floor/marble/dark,
-/area/horizon/holodeck/source_trinary)
+/area/horizon/holodeck/source_tribunal)
+"lgJ" = (
+/obj/effect/floor_decal/corner/red/full{
+	dir = 1
+	},
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_tribunal)
 "ljU" = (
 /obj/machinery/acting/changer,
 /turf/simulated/floor/carpet,
@@ -38006,16 +38282,11 @@
 /turf/simulated/floor/holofloor/lino,
 /area/horizon/holodeck/source_courtroom)
 "lFu" = (
-/obj/structure/railing/mapped{
-	dir = 8
+/obj/effect/floor_decal/corner/red{
+	dir = 10
 	},
-/obj/structure/railing/mapped{
-	dir = 1
-	},
-/obj/structure/table/stone/marble,
-/obj/item/nullrod/dominia/holodeck,
 /turf/simulated/floor/marble,
-/area/horizon/holodeck/source_tribunal)
+/area/horizon/holodeck/source_trinary)
 "lGe" = (
 /obj/effect/floor_decal/carpet,
 /turf/simulated/floor/holofloor/carpet,
@@ -38072,17 +38343,22 @@
 /obj/item/mecha_equipment/mounted_system/grenadecleaner,
 /turf/unsimulated/floor,
 /area/antag/jockey)
-"lSe" = (
-/obj/structure/bed/stool/chair/sofa/left/black{
-	desc = "A pew, how holy!";
-	dir = 4;
-	name = "pew"
+"lRA" = (
+/obj/effect/floor_decal/corner/purple/diagonal{
+	dir = 4
 	},
-/obj/structure/railing/mapped{
+/obj/effect/floor_decal/corner/white/diagonal,
+/obj/machinery/light{
 	dir = 8
 	},
 /turf/simulated/floor/marble/dark,
-/area/horizon/holodeck/source_tribunal)
+/area/horizon/holodeck/source_luceism)
+"lSe" = (
+/obj/effect/floor_decal/corner/yellow{
+	dir = 8
+	},
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_trinary)
 "lSt" = (
 /obj/structure/dueling_table/no_collide{
 	icon_state = "bottom_center"
@@ -38097,26 +38373,26 @@
 /turf/unsimulated/floor/plating,
 /area/centcom/ferry)
 "lUn" = (
-/obj/effect/floor_decal/spline/fancy/wood{
+/obj/effect/floor_decal/corner/yellow,
+/obj/effect/floor_decal/corner{
+	dir = 5
+	},
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_trinary)
+"lVw" = (
+/obj/structure/bed/stool/chair/sofa/brown{
+	dir = 4;
+	desc = "A pew, how holy!";
+	name = "pew"
+	},
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_luceism)
+"lXd" = (
+/obj/effect/floor_decal/spline/fancy{
 	dir = 8
 	},
 /turf/simulated/floor/holofloor/wood,
 /area/horizon/holodeck/source_sauna)
-"lVw" = (
-/obj/effect/floor_decal/corner{
-	dir = 10
-	},
-/obj/effect/floor_decal/corner{
-	dir = 1
-	},
-/turf/simulated/floor/marble/dark,
-/area/horizon/holodeck/source_tribunal)
-"lXd" = (
-/obj/effect/floor_decal/corner/yellow{
-	dir = 10
-	},
-/turf/simulated/floor/marble/dark,
-/area/horizon/holodeck/source_trinary)
 "lXS" = (
 /turf/simulated/floor/holofloor/grass{
 	dir = 8;
@@ -38144,14 +38420,10 @@
 	},
 /area/horizon/holodeck/source_desert)
 "mbv" = (
-/obj/effect/floor_decal/corner/yellow{
-	dir = 9
+/turf/simulated/floor/tiled/ramp{
+	dir = 8
 	},
-/obj/effect/floor_decal/corner/yellow{
-	dir = 10
-	},
-/turf/simulated/floor/marble/dark,
-/area/horizon/holodeck/source_trinary)
+/area/horizon/holodeck/source_sauna)
 "mcf" = (
 /turf/simulated/floor/holofloor/grass{
 	icon = 'icons/turf/flooring/exoplanet/moghes.dmi';
@@ -38266,6 +38538,17 @@
 	},
 /turf/simulated/floor/holofloor/tiled,
 /area/horizon/holodeck/source_emptycourt)
+"mxu" = (
+/obj/effect/floor_decal/corner/yellow/diagonal{
+	dir = 8
+	},
+/obj/effect/floor_decal/corner/mauve{
+	dir = 1
+	},
+/obj/effect/floor_decal/corner/black,
+/obj/structure/table/wood,
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_luceism)
 "mzt" = (
 /obj/effect/floor_decal/corner_wide/blue,
 /obj/effect/floor_decal/spline/plain/corner,
@@ -38303,6 +38586,20 @@
 	},
 /turf/simulated/floor/holofloor/wood,
 /area/horizon/holodeck/source_battlemonsters)
+"mAJ" = (
+/obj/effect/floor_decal/corner/yellow/full{
+	dir = 4
+	},
+/obj/effect/floor_decal/corner/mauve{
+	dir = 1
+	},
+/obj/structure/bed/stool/chair/sofa/right/brown{
+	dir = 8;
+	desc = "A pew, how holy!";
+	name = "pew"
+	},
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_luceism)
 "mEa" = (
 /obj/effect/floor_decal/corner/red/diagonal,
 /obj/effect/floor_decal/spline/fancy{
@@ -38345,22 +38642,11 @@
 /turf/simulated/floor/exoplanet/barren/raskara,
 /area/centcom/shared_dream)
 "mKB" = (
-/obj/effect/floor_decal/corner/grey{
-	dir = 9
-	},
-/obj/structure/railing/mapped{
-	dir = 8
-	},
-/obj/structure/railing/mapped{
+/obj/effect/floor_decal/corner{
 	dir = 4
 	},
-/obj/structure/bed/stool/chair/sofa/black{
-	desc = "A pew, how holy!";
-	dir = 8;
-	name = "pew"
-	},
-/turf/simulated/floor/marble,
-/area/horizon/holodeck/source_trinary)
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_tribunal)
 "mLu" = (
 /obj/effect/floor_decal/spline/plain/corner{
 	dir = 8
@@ -38384,10 +38670,14 @@
 /turf/simulated/floor/exoplanet/barren/raskara,
 /area/centcom/shared_dream)
 "mNS" = (
-/turf/simulated/floor/tiled/ramp{
-	dir = 8
+/obj/effect/floor_decal/corner/yellow{
+	dir = 9
 	},
-/area/horizon/holodeck/source_sauna)
+/obj/effect/floor_decal/corner/yellow{
+	dir = 10
+	},
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_trinary)
 "mOA" = (
 /obj/item/bucket_sensor,
 /turf/simulated/floor/beach/sand{
@@ -38402,8 +38692,19 @@
 /turf/simulated/floor/exoplanet/grass/grove,
 /area/centcom/shared_dream)
 "mTt" = (
-/obj/effect/floor_decal/corner/red/full{
+/obj/effect/floor_decal/corner/grey{
+	dir = 6
+	},
+/obj/structure/railing/mapped{
 	dir = 4
+	},
+/obj/structure/bed/stool/chair/sofa/right/black{
+	desc = "A pew, how holy!";
+	dir = 4;
+	name = "pew"
+	},
+/obj/structure/railing/mapped{
+	dir = 8
 	},
 /turf/simulated/floor/marble,
 /area/horizon/holodeck/source_trinary)
@@ -38529,13 +38830,14 @@
 /turf/simulated/floor/exoplanet/grass,
 /area/centcom/shared_dream)
 "nEz" = (
-/obj/effect/floor_decal/spline/fancy/wood{
+/obj/effect/floor_decal/corner{
+	dir = 10
+	},
+/obj/effect/floor_decal/corner{
 	dir = 4
 	},
-/obj/structure/table/wood,
-/obj/item/flame/candle,
-/turf/simulated/floor/holofloor/wood,
-/area/horizon/holodeck/source_sauna)
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_tribunal)
 "nEH" = (
 /obj/effect/floor_decal/corner/green/full,
 /turf/simulated/floor/holofloor/tiled,
@@ -38563,6 +38865,13 @@
 	icon_state = "4,0"
 	},
 /area/shuttle/transport1)
+"nMF" = (
+/obj/effect/floor_decal/corner/diagonal,
+/obj/effect/floor_decal/corner/purple/diagonal{
+	dir = 4
+	},
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_luceism)
 "nOm" = (
 /obj/effect/overlay/palmtree_l,
 /turf/simulated/floor/holofloor/beach/sand{
@@ -38593,6 +38902,12 @@
 /obj/effect/floor_decal/industrial/outline/blue,
 /turf/simulated/floor/tiled/dark,
 /area/horizon/holodeck/source_pool)
+"ocT" = (
+/obj/effect/floor_decal/corner/full{
+	dir = 1
+	},
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_trinary)
 "ogd" = (
 /obj/structure/table/wood,
 /obj/effect/decal/fake_object{
@@ -38773,6 +39088,14 @@
 	icon_state = "beach"
 	},
 /area/centcom/shared_dream)
+"oFc" = (
+/obj/structure/bed/stool/chair/sofa/right/brown{
+	dir = 4;
+	desc = "A pew, how holy!";
+	name = "pew"
+	},
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_luceism)
 "oIf" = (
 /obj/effect/floor_decal/carpet{
 	dir = 4
@@ -38780,10 +39103,24 @@
 /turf/simulated/floor/holofloor/carpet,
 /area/horizon/holodeck/source_courtroom)
 "oJK" = (
-/obj/effect/floor_decal/corner{
+/obj/structure/railing/mapped{
 	dir = 1
 	},
-/turf/simulated/floor/marble/dark,
+/obj/structure/railing/mapped{
+	dir = 8
+	},
+/obj/structure/railing/mapped{
+	dir = 4
+	},
+/obj/structure/bed/stool/chair/sofa/right/black{
+	desc = "A pew, how holy!";
+	dir = 8;
+	name = "pew"
+	},
+/obj/effect/floor_decal/corner/grey/full{
+	dir = 8
+	},
+/turf/simulated/floor/marble,
 /area/horizon/holodeck/source_trinary)
 "oNM" = (
 /obj/structure/dueling_table/no_collide{
@@ -38810,12 +39147,11 @@
 /turf/simulated/floor/holofloor/wood,
 /area/horizon/holodeck/source_courtroom)
 "oOl" = (
-/obj/effect/floor_decal/corner/red{
-	dir = 9
+/obj/effect/floor_decal/corner/yellow/full{
+	dir = 4
 	},
-/obj/structure/table/stone/marble,
-/obj/item/flame/lighter/zippo/dominia,
-/turf/simulated/floor/marble/dark,
+/obj/structure/railing/mapped,
+/turf/simulated/floor/marble,
 /area/horizon/holodeck/source_tribunal)
 "oOt" = (
 /obj/effect/floor_decal/spline/plain{
@@ -38845,28 +39181,44 @@
 /turf/simulated/floor/holofloor/carpet,
 /area/horizon/holodeck/source_dininghall)
 "oRK" = (
-/obj/structure/table/wood,
-/obj/item/flame/candle,
-/turf/simulated/floor/holofloor/wood,
-/area/horizon/holodeck/source_sauna)
+/obj/structure/railing/mapped{
+	dir = 1
+	},
+/obj/machinery/door/window/holowindoor{
+	dir = 8
+	},
+/obj/structure/window/reinforced/holowindow{
+	dir = 1
+	},
+/turf/simulated/floor/bluegrid,
+/area/horizon/holodeck/source_trinary)
 "oTZ" = (
 /obj/item/shovel,
 /turf/simulated/floor/exoplanet/barren,
 /area/centcom/shared_dream)
 "oUg" = (
-/obj/effect/floor_decal/spline/fancy/wood{
-	dir = 4
+/obj/structure/bed/stool/chair/sofa/black{
+	desc = "A pew, how holy!";
+	dir = 4;
+	name = "pew"
 	},
-/obj/structure/table/wood,
-/turf/simulated/floor/holofloor/wood,
-/area/horizon/holodeck/source_sauna)
+/obj/structure/railing/mapped{
+	dir = 8
+	},
+/obj/effect/floor_decal/corner/grey/diagonal,
+/turf/simulated/floor/marble,
+/area/horizon/holodeck/source_trinary)
 "oUB" = (
-/obj/effect/floor_decal/corner/yellow,
-/obj/effect/floor_decal/corner{
-	dir = 5
+/obj/structure/table/stone/marble,
+/obj/item/flame/candle,
+/obj/item/flame/candle{
+	pixel_x = 5
+	},
+/obj/item/flame/candle{
+	pixel_x = -5
 	},
 /turf/simulated/floor/marble/dark,
-/area/horizon/holodeck/source_trinary)
+/area/horizon/holodeck/source_tribunal)
 "oUT" = (
 /obj/effect/decal/cleanable/blood/oil,
 /obj/effect/floor_decal/corner/black/diagonal{
@@ -38900,28 +39252,19 @@
 /turf/simulated/floor/carpet/rubber,
 /area/antag/jockey)
 "oWX" = (
-/obj/structure/railing/mapped,
-/obj/effect/floor_decal/corner/grey{
-	dir = 10
+/obj/effect/floor_decal/corner{
+	dir = 5
 	},
-/obj/structure/table/stone/marble,
-/obj/item/flame/candle{
-	pixel_x = -5
+/obj/structure/bed/stool/chair/sofa/left/black{
+	desc = "A pew, how holy!";
+	dir = 4;
+	name = "pew"
 	},
-/obj/item/flame/candle,
-/obj/item/flame/candle{
-	pixel_x = 5
+/obj/structure/railing/mapped{
+	dir = 8
 	},
-/obj/effect/decal/fake_object{
-	desc = "The flag of the Trinary Perfection.";
-	icon = 'icons/obj/structure/flags.dmi';
-	icon_state = "trinaryperfection";
-	layer = 2.9;
-	name = "Trinary Perfection flag";
-	pixel_x = -30
-	},
-/turf/simulated/floor/marble,
-/area/horizon/holodeck/source_trinary)
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_tribunal)
 "oXx" = (
 /obj/effect/floor_decal/spline/plain{
 	dir = 8
@@ -38977,15 +39320,10 @@
 /turf/simulated/floor/holofloor/tiled,
 /area/horizon/holodeck/source_emptycourt)
 "pgL" = (
-/obj/structure/table/rack,
-/obj/item/device/versebook/trinary,
-/obj/item/device/versebook/trinary,
-/obj/effect/floor_decal/corner/red{
-	dir = 5;
-	icon_state = "corner_white"
-	},
-/turf/simulated/floor/marble,
-/area/horizon/holodeck/source_trinary)
+/obj/random/pottedplant,
+/obj/effect/floor_decal/spline/fancy/wood/full,
+/turf/simulated/floor/holofloor/wood,
+/area/horizon/holodeck/source_sauna)
 "pic" = (
 /obj/machinery/light/small/emergency{
 	dir = 4
@@ -38994,6 +39332,12 @@
 /obj/effect/map_effect/mecha_part_spawner/propulsion,
 /turf/unsimulated/floor,
 /area/antag/jockey)
+"pis" = (
+/obj/effect/floor_decal/corner/red/full{
+	dir = 8
+	},
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_tribunal)
 "pjU" = (
 /obj/effect/floor_decal/corner/paleblue{
 	dir = 10
@@ -39008,14 +39352,8 @@
 	},
 /area/centcom/ferry)
 "pkr" = (
-/obj/effect/floor_decal/corner/yellow{
-	dir = 8
-	},
-/obj/effect/floor_decal/corner{
-	dir = 6
-	},
 /turf/simulated/floor/marble/dark,
-/area/horizon/holodeck/source_trinary)
+/area/horizon/holodeck/source_luceism)
 "plZ" = (
 /obj/structure/flora/stump/log,
 /obj/effect/floor_decal/spline/plain{
@@ -39044,22 +39382,9 @@
 /turf/simulated/floor/tiled/white,
 /area/centcom/shared_dream)
 "pro" = (
-/obj/effect/decal/fake_object{
-	desc = "A distant, chaotic cloud layer below. A familiar depiction of Jupiter and its chaotic environment.";
-	icon = 'icons/effects/props/holodeck/jupiter/384x224.dmi';
-	icon_state = "background";
-	layer = 2.01;
-	name = "holographic Jupiter Atmosphere"
-	},
-/obj/effect/decal{
-	anchored = 1;
-	icon = 'icons/effects/props/holodeck/biesel/32x32.dmi';
-	icon_state = "fog_roll";
-	layer = 2.02;
-	name = "rolling fog"
-	},
-/turf/simulated/floor/holofloor/reinforced,
-/area/horizon/holodeck/source_jupiter)
+/obj/effect/floor_decal/corner/red/full,
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_tribunal)
 "pxj" = (
 /obj/structure/window/shuttle/unique/ccia{
 	icon_state = "3,1"
@@ -39073,10 +39398,12 @@
 	},
 /area/centcom/shared_dream)
 "pCm" = (
-/obj/effect/floor_decal/corner{
-	dir = 5
+/obj/structure/railing/mapped{
+	dir = 8
 	},
-/turf/simulated/floor/marble/dark,
+/obj/structure/table/stone/marble,
+/obj/item/device/versebook/tribunal,
+/turf/simulated/floor/marble,
 /area/horizon/holodeck/source_tribunal)
 "pCD" = (
 /obj/structure/table/standard,
@@ -39144,20 +39471,14 @@
 /turf/unsimulated/floor/plating,
 /area/shuttle/transport1)
 "pMk" = (
-/obj/effect/floor_decal/spline/fancy/wood{
-	dir = 4
+/obj/effect/floor_decal/corner/yellow{
+	dir = 8
 	},
-/obj/effect/decal/fake_object{
-	desc = "An expensive flatscreen holo-television. This one's connection to the extranet seems to be severed.";
-	dir = 4;
-	icon = 'icons/effects/city.dmi';
-	icon_state = "flatscreen";
-	name = "expensive flatscreen holovision";
-	pixel_y = 15
+/obj/effect/floor_decal/corner{
+	dir = 5
 	},
-/obj/structure/table/wood,
-/turf/simulated/floor/holofloor/wood,
-/area/horizon/holodeck/source_sauna)
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_trinary)
 "pMI" = (
 /obj/item/modular_computer/console/preset/merchant,
 /turf/simulated/floor/wood,
@@ -39186,12 +39507,34 @@
 	icon_state = "desert4"
 	},
 /area/horizon/holodeck/source_beach)
-"pYc" = (
-/obj/effect/floor_decal/corner/yellow{
-	dir = 6
+"pXs" = (
+/obj/effect/floor_decal/spline/plain,
+/obj/structure/railing/mapped{
+	dir = 1
 	},
+/turf/simulated/floor/tiled/ramp/bottom{
+	dir = 8
+	},
+/area/horizon/holodeck/source_tribunal)
+"pYc" = (
+/obj/effect/floor_decal/corner/red/full{
+	dir = 8
+	},
+/turf/simulated/floor/marble,
+/area/horizon/holodeck/source_trinary)
+"qav" = (
+/obj/effect/floor_decal/spline/fancy/wood{
+	dir = 8
+	},
+/obj/structure/table/wood,
+/turf/simulated/floor/holofloor/wood,
+/area/horizon/holodeck/source_sauna)
+"qcD" = (
 /obj/effect/floor_decal/corner/yellow{
-	dir = 10
+	dir = 8
+	},
+/obj/effect/floor_decal/corner{
+	dir = 6
 	},
 /turf/simulated/floor/marble/dark,
 /area/horizon/holodeck/source_trinary)
@@ -39209,16 +39552,26 @@
 	icon_state = "desert"
 	},
 /area/centcom/shared_dream)
+"qgn" = (
+/obj/effect/floor_decal/corner/purple/diagonal{
+	dir = 4
+	},
+/obj/effect/floor_decal/corner/white/diagonal,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_luceism)
 "qhk" = (
 /obj/effect/spider/stickyweb,
 /obj/effect/spider/stickyweb,
 /turf/simulated/floor/exoplanet/barren/raskara,
 /area/centcom/shared_dream)
 "qix" = (
-/obj/effect/floor_decal/corner{
-	dir = 9
+/obj/effect/floor_decal/corner/red/full{
+	dir = 4
 	},
-/turf/simulated/floor/marble/dark,
+/turf/simulated/floor/marble,
 /area/horizon/holodeck/source_trinary)
 "qlw" = (
 /obj/structure/flora/ausbushes/ppflowers,
@@ -39232,11 +39585,19 @@
 /turf/simulated/floor/holofloor/grass,
 /area/horizon/holodeck/source_wildlife)
 "qoN" = (
-/obj/effect/floor_decal/corner{
-	dir = 6
+/obj/effect/floor_decal/corner/yellow/full{
+	dir = 1
+	},
+/obj/effect/floor_decal/corner/mauve{
+	dir = 8
+	},
+/obj/structure/bed/stool/chair/sofa/left/brown{
+	dir = 8;
+	desc = "A pew, how holy!";
+	name = "pew"
 	},
 /turf/simulated/floor/marble/dark,
-/area/horizon/holodeck/source_trinary)
+/area/horizon/holodeck/source_luceism)
 "qrO" = (
 /obj/effect/floor_decal/corner_wide/blue{
 	dir = 1
@@ -39254,14 +39615,9 @@
 	},
 /area/centcom/shared_dream)
 "qte" = (
-/obj/effect/floor_decal/corner/grey{
-	dir = 6
-	},
-/obj/structure/railing/mapped{
-	dir = 4
-	},
-/turf/simulated/floor/marble,
-/area/horizon/holodeck/source_trinary)
+/obj/effect/floor_decal/corner/red/diagonal,
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_tribunal)
 "qza" = (
 /turf/simulated/floor/holofloor/grass{
 	desc = "Lush, mossy grass. A staple of Konyang.";
@@ -39308,14 +39664,11 @@
 	},
 /area/centcom/shared_dream)
 "qET" = (
-/obj/structure/railing/mapped{
-	dir = 1
+/obj/effect/floor_decal/corner/yellow{
+	dir = 4
 	},
-/obj/effect/floor_decal/corner/grey{
-	dir = 5
-	},
-/obj/random/pottedplant,
-/turf/simulated/floor/marble,
+/obj/effect/floor_decal/corner/red,
+/turf/simulated/floor/marble/dark,
 /area/horizon/holodeck/source_trinary)
 "qHa" = (
 /obj/effect/floor_decal/spline/plain/corner{
@@ -39329,22 +39682,9 @@
 /turf/simulated/floor/exoplanet/grass/grove,
 /area/centcom/shared_dream)
 "qHM" = (
-/obj/structure/table/stone/marble,
-/obj/structure/railing/mapped,
-/obj/structure/railing/mapped{
-	dir = 4
-	},
-/obj/item/clothing/mask/trinary_mask,
-/obj/item/clothing/mask/trinary_mask,
-/obj/item/flame/candle{
-	pixel_x = 6
-	},
-/obj/item/flame/candle{
-	pixel_x = -6
-	},
-/obj/item/clothing/mask/trinary_mask,
-/turf/simulated/floor/bluegrid,
-/area/horizon/holodeck/source_trinary)
+/obj/effect/floor_decal/spline/fancy/wood/corner,
+/turf/simulated/floor/holofloor/wood,
+/area/horizon/holodeck/source_sauna)
 "qHU" = (
 /obj/effect/landmark/costume,
 /obj/structure/table/rack/holorack,
@@ -39353,6 +39693,13 @@
 	},
 /turf/simulated/floor/holofloor/wood,
 /area/horizon/holodeck/source_theatre)
+"qJs" = (
+/obj/effect/floor_decal/corner/purple/diagonal{
+	dir = 4
+	},
+/obj/effect/floor_decal/corner/white/diagonal,
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_luceism)
 "qMv" = (
 /obj/effect/floor_decal/carpet{
 	dir = 1
@@ -39384,12 +39731,14 @@
 /turf/simulated/floor/exoplanet/grass,
 /area/centcom/shared_dream)
 "qOB" = (
-/obj/effect/floor_decal/corner/red{
-	dir = 10;
-	icon_state = "corner_white"
+/obj/effect/floor_decal/corner/diagonal,
+/obj/structure/bed/stool/chair/sofa/brown{
+	dir = 4;
+	desc = "A pew, how holy!";
+	name = "pew"
 	},
 /turf/simulated/floor/marble/dark,
-/area/horizon/holodeck/source_tribunal)
+/area/horizon/holodeck/source_luceism)
 "qOO" = (
 /obj/item/inflatable_duck,
 /obj/item/beach_ball,
@@ -39434,6 +39783,15 @@
 	},
 /turf/simulated/floor/tiled,
 /area/shuttle/merchant)
+"qZv" = (
+/obj/effect/floor_decal/corner/grey{
+	dir = 6
+	},
+/obj/structure/railing/mapped{
+	dir = 4
+	},
+/turf/simulated/floor/marble,
+/area/horizon/holodeck/source_trinary)
 "rbx" = (
 /turf/simulated/floor/exoplanet/water/shallow{
 	dir = 1;
@@ -39442,6 +39800,18 @@
 	name = "coast"
 	},
 /area/horizon/holodeck/source_konyang)
+"rbI" = (
+/obj/effect/floor_decal/corner/yellow/diagonal,
+/obj/effect/floor_decal/corner/yellow{
+	dir = 8
+	},
+/obj/effect/floor_decal/corner/mauve{
+	dir = 4
+	},
+/obj/structure/table/wood,
+/obj/item/clothing/accessory/poncho/assunzione/gold,
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_luceism)
 "rdh" = (
 /obj/effect/decal{
 	anchored = 1;
@@ -39567,14 +39937,11 @@
 	},
 /area/centcom/shared_dream)
 "rph" = (
-/obj/effect/floor_decal/corner/yellow{
-	dir = 5
+/obj/effect/floor_decal/spline/fancy/wood/corner{
+	dir = 1
 	},
-/obj/effect/floor_decal/corner{
-	dir = 10
-	},
-/turf/simulated/floor/marble/dark,
-/area/horizon/holodeck/source_trinary)
+/turf/simulated/floor/holofloor/wood,
+/area/horizon/holodeck/source_sauna)
 "rrI" = (
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/effect/floor_decal/spline/plain{
@@ -39688,6 +40055,16 @@
 	name = "mossy grass"
 	},
 /area/horizon/holodeck/source_konyang)
+"sjx" = (
+/obj/effect/decal{
+	anchored = 1;
+	icon = 'icons/effects/props/holodeck/biesel/32x32.dmi';
+	icon_state = "fog_roll";
+	layer = 2.02;
+	name = "rolling fog"
+	},
+/turf/simulated/floor/holofloor/reinforced,
+/area/horizon/holodeck/source_jupiter)
 "skt" = (
 /obj/effect/floor_decal/spline/plain/corner{
 	dir = 1
@@ -39705,13 +40082,42 @@
 /turf/simulated/floor/plating/snow,
 /area/centcom/shared_dream)
 "srr" = (
-/obj/effect/floor_decal/corner/yellow{
-	dir = 8
+/obj/effect/floor_decal/spline/fancy/wood{
+	dir = 4
 	},
-/obj/effect/floor_decal/corner{
-	dir = 5
+/obj/effect/decal/fake_object{
+	desc = "An expensive flatscreen holo-television. This one's connection to the extranet seems to be severed.";
+	dir = 4;
+	icon = 'icons/effects/city.dmi';
+	icon_state = "flatscreen";
+	name = "expensive flatscreen holovision";
+	pixel_y = 15
 	},
-/turf/simulated/floor/marble/dark,
+/obj/structure/table/wood,
+/turf/simulated/floor/holofloor/wood,
+/area/horizon/holodeck/source_sauna)
+"stO" = (
+/obj/structure/railing/mapped,
+/obj/effect/floor_decal/corner/grey{
+	dir = 10
+	},
+/obj/structure/table/stone/marble,
+/obj/item/flame/candle{
+	pixel_x = -5
+	},
+/obj/item/flame/candle,
+/obj/item/flame/candle{
+	pixel_x = 5
+	},
+/obj/effect/decal/fake_object{
+	desc = "The flag of the Trinary Perfection.";
+	icon = 'icons/obj/structure/flags.dmi';
+	icon_state = "trinaryperfection";
+	layer = 2.9;
+	name = "Trinary Perfection flag";
+	pixel_x = -30
+	},
+/turf/simulated/floor/marble,
 /area/horizon/holodeck/source_trinary)
 "szG" = (
 /obj/structure/bonfire/fireplace,
@@ -39741,6 +40147,20 @@
 	icon_state = "desert4"
 	},
 /area/horizon/holodeck/source_beach)
+"sGS" = (
+/obj/effect/floor_decal/corner/purple/diagonal{
+	dir = 4
+	},
+/obj/effect/floor_decal/corner/white/diagonal,
+/obj/machinery/light,
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_luceism)
+"sHt" = (
+/obj/machinery/light/floor{
+	dir = 4
+	},
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_luceism)
 "sJV" = (
 /obj/effect/decal/fake_object{
 	desc = "A Hephaestus Industries Z-Cube! This state-of-the-art gaming console is the premium of the premium. It's almost VR!";
@@ -39839,10 +40259,15 @@
 /turf/simulated/floor/carpet,
 /area/antag/jockey)
 "sZZ" = (
-/obj/random/pottedplant,
-/obj/effect/floor_decal/spline/fancy/wood/full,
-/turf/simulated/floor/holofloor/wood,
-/area/horizon/holodeck/source_sauna)
+/obj/structure/table/rack,
+/obj/item/device/versebook/trinary,
+/obj/item/device/versebook/trinary,
+/obj/effect/floor_decal/corner/red{
+	dir = 5;
+	icon_state = "corner_white"
+	},
+/turf/simulated/floor/marble,
+/area/horizon/holodeck/source_trinary)
 "tbb" = (
 /obj/structure/window/shuttle/scc_space_ship,
 /obj/machinery/door/firedoor,
@@ -39873,12 +40298,9 @@
 	},
 /area/horizon/holodeck/source_konyang)
 "tfj" = (
-/obj/effect/floor_decal/spline/fancy/wood{
-	dir = 8
-	},
-/obj/structure/table/wood,
-/turf/simulated/floor/holofloor/wood,
-/area/horizon/holodeck/source_sauna)
+/obj/effect/floor_decal/corner/grey/diagonal,
+/turf/simulated/floor/marble,
+/area/horizon/holodeck/source_trinary)
 "tgZ" = (
 /obj/effect/floor_decal/carpet{
 	dir = 1
@@ -39989,11 +40411,10 @@
 /turf/simulated/floor/exoplanet/barren/raskara,
 /area/centcom/shared_dream)
 "tvi" = (
-/obj/structure/railing/mapped,
-/turf/simulated/floor/holofloor/tiled/ramp{
-	dir = 4
+/turf/simulated/floor/exoplanet/water/shallow{
+	icon_state = "pool"
 	},
-/area/horizon/holodeck/source_trinary)
+/area/horizon/holodeck/source_sauna)
 "tvM" = (
 /obj/structure/window/shuttle/unique/ccia{
 	icon_state = "3,3"
@@ -40078,6 +40499,12 @@
 	},
 /turf/simulated/floor/tiled/dark,
 /area/horizon/holodeck/source_pool)
+"tEW" = (
+/obj/machinery/light/floor{
+	dir = 8
+	},
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_luceism)
 "tFd" = (
 /obj/structure/shuttle_part/ccia{
 	icon_state = "12,4"
@@ -40130,15 +40557,36 @@
 /obj/structure/railing/mapped,
 /turf/simulated/floor/plating,
 /area/centcom/shared_dream)
-"ubF" = (
-/obj/effect/floor_decal/corner/yellow{
-	dir = 1
+"tXk" = (
+/obj/effect/floor_decal/corner/red/full,
+/turf/simulated/floor/marble,
+/area/horizon/holodeck/source_trinary)
+"tZU" = (
+/obj/effect/floor_decal/corner/red{
+	dir = 9
 	},
-/obj/effect/floor_decal/corner/full{
-	dir = 4
+/obj/structure/table/stone/marble,
+/obj/item/clothing/accessory/poncho/dominia/red/surcoat,
+/obj/item/clothing/head/beret/dominia,
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_tribunal)
+"ubx" = (
+/obj/effect/floor_decal/corner/diagonal{
+	dir = 8
+	},
+/obj/structure/bed/stool/chair/sofa/brown{
+	dir = 4;
+	desc = "A pew, how holy!";
+	name = "pew"
 	},
 /turf/simulated/floor/marble/dark,
-/area/horizon/holodeck/source_trinary)
+/area/horizon/holodeck/source_luceism)
+"ubF" = (
+/obj/effect/floor_decal/corner/full{
+	dir = 8
+	},
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_tribunal)
 "ucH" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/effect/floor_decal/spline/fancy/wood/cee{
@@ -40163,6 +40611,13 @@
 	icon_state = "beach"
 	},
 /area/centcom/shared_dream)
+"ume" = (
+/obj/effect/floor_decal/corner/yellow/diagonal,
+/obj/effect/floor_decal/corner/mauve{
+	dir = 4
+	},
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_luceism)
 "unw" = (
 /obj/effect/decal/cleanable/spiderling_remains,
 /turf/simulated/floor/exoplanet/barren/raskara,
@@ -40185,11 +40640,25 @@
 /turf/simulated/floor/holofloor/carpet/rubber,
 /area/horizon/holodeck/source_basketball)
 "urf" = (
-/obj/effect/floor_decal/corner/red/full{
+/obj/effect/floor_decal/corner/yellow{
+	dir = 6
+	},
+/obj/effect/floor_decal/corner/mauve{
+	dir = 9
+	},
+/obj/structure/bonfire/light_up,
+/obj/structure/railing/mapped,
+/obj/structure/railing/mapped{
 	dir = 1
 	},
+/obj/structure/railing/mapped{
+	dir = 8
+	},
+/obj/structure/railing/mapped{
+	dir = 4
+	},
 /turf/simulated/floor/marble/dark,
-/area/horizon/holodeck/source_tribunal)
+/area/horizon/holodeck/source_luceism)
 "url" = (
 /obj/structure/window/reinforced{
 	dir = 4;
@@ -40246,6 +40715,15 @@
 	},
 /turf/simulated/floor/carpet,
 /area/antag/jockey)
+"uxC" = (
+/obj/structure/railing/mapped{
+	dir = 8
+	},
+/obj/structure/table/stone/marble,
+/obj/item/trash/candle,
+/obj/item/trash/match,
+/turf/simulated/floor/marble,
+/area/horizon/holodeck/source_tribunal)
 "uAv" = (
 /obj/effect/floor_decal/spline/plain{
 	dir = 4
@@ -40261,22 +40739,10 @@
 	},
 /area/centcom/shared_dream)
 "uBd" = (
-/obj/structure/railing/mapped{
-	dir = 1
-	},
-/obj/effect/floor_decal/corner/grey{
-	dir = 5
-	},
-/obj/structure/bed/stool/chair/sofa/left/black{
-	desc = "A pew, how holy!";
-	dir = 4;
-	name = "pew"
-	},
-/obj/structure/railing/mapped{
-	dir = 8
-	},
-/turf/simulated/floor/marble,
-/area/horizon/holodeck/source_trinary)
+/obj/effect/floor_decal/spline/fancy/wood/corner,
+/obj/structure/holostool,
+/turf/simulated/floor/holofloor/wood,
+/area/horizon/holodeck/source_sauna)
 "uEa" = (
 /obj/effect/decal/fake_object{
 	dir = 4;
@@ -40331,10 +40797,9 @@
 /area/shuttle/merchant)
 "uFh" = (
 /obj/effect/floor_decal/corner/red{
-	dir = 9
+	dir = 5;
+	icon_state = "corner_white"
 	},
-/obj/structure/table/stone/marble,
-/obj/item/device/versebook/tribunal,
 /turf/simulated/floor/marble/dark,
 /area/horizon/holodeck/source_tribunal)
 "uGe" = (
@@ -40353,11 +40818,11 @@
 /turf/simulated/floor/exoplanet/grass/grove,
 /area/centcom/shared_dream)
 "uIG" = (
-/obj/effect/floor_decal/spline/fancy/wood{
+/obj/effect/floor_decal/corner/yellow{
 	dir = 4
 	},
-/turf/simulated/floor/holofloor/wood,
-/area/horizon/holodeck/source_sauna)
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_trinary)
 "uKd" = (
 /obj/structure/bed/stool/padded/brown{
 	dir = 8
@@ -40379,6 +40844,12 @@
 	},
 /turf/simulated/floor/exoplanet/snow,
 /area/centcom/shared_dream)
+"uON" = (
+/obj/effect/floor_decal/corner{
+	dir = 1
+	},
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_trinary)
 "uRN" = (
 /obj/effect/decal/battlemonsters_logo{
 	dir = 1;
@@ -40418,9 +40889,14 @@
 /turf/simulated/floor/holofloor/carpet,
 /area/horizon/holodeck/source_dininghall)
 "uWU" = (
-/obj/effect/floor_decal/corner/full,
+/obj/effect/floor_decal/corner/yellow/diagonal{
+	dir = 8
+	},
+/obj/effect/floor_decal/corner/mauve{
+	dir = 1
+	},
 /turf/simulated/floor/marble/dark,
-/area/horizon/holodeck/source_tribunal)
+/area/horizon/holodeck/source_luceism)
 "uZh" = (
 /obj/structure/flora/rock{
 	icon_state = "basalt2";
@@ -40440,11 +40916,22 @@
 /turf/simulated/floor/holofloor/snow,
 /area/horizon/holodeck/source_adhomai)
 "vbf" = (
-/obj/effect/floor_decal/corner/red/full{
+/obj/effect/floor_decal/corner/grey{
+	dir = 9
+	},
+/obj/structure/railing/mapped{
+	dir = 8
+	},
+/obj/structure/railing/mapped{
 	dir = 4
 	},
-/turf/simulated/floor/marble/dark,
-/area/horizon/holodeck/source_tribunal)
+/obj/structure/bed/stool/chair/sofa/left/black{
+	desc = "A pew, how holy!";
+	dir = 8;
+	name = "pew"
+	},
+/turf/simulated/floor/marble,
+/area/horizon/holodeck/source_trinary)
 "vbl" = (
 /obj/effect/decal/fake_object{
 	dir = 4;
@@ -40511,8 +40998,13 @@
 /turf/simulated/floor/carpet,
 /area/antag/jockey)
 "vjo" = (
-/obj/effect/floor_decal/corner/red/full,
-/turf/simulated/floor/marble,
+/turf/simulated/floor/holofloor/wood,
+/area/horizon/holodeck/source_sauna)
+"vlJ" = (
+/obj/effect/floor_decal/corner{
+	dir = 4
+	},
+/turf/simulated/floor/marble/dark,
 /area/horizon/holodeck/source_trinary)
 "vlQ" = (
 /obj/effect/floor_decal/carpet,
@@ -40524,6 +41016,17 @@
 	},
 /turf/simulated/floor/holofloor/carpet,
 /area/horizon/holodeck/source_biesel)
+"vpL" = (
+/obj/effect/floor_decal/corner/yellow{
+	dir = 9
+	},
+/obj/effect/floor_decal/corner/mauve{
+	dir = 6
+	},
+/obj/structure/table/wood,
+/obj/item/clothing/accessory/assunzione,
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_luceism)
 "vsW" = (
 /obj/effect/floor_decal/snowdrift/large{
 	dir = 4
@@ -40550,14 +41053,13 @@
 /turf/simulated/floor/carpet/rubber,
 /area/antag/jockey)
 "vyr" = (
-/obj/effect/floor_decal/spline/plain,
-/obj/structure/railing/mapped{
-	dir = 1
+/obj/structure/bed/stool/chair/sofa/left/brown{
+	dir = 4;
+	desc = "A pew, how holy!";
+	name = "pew"
 	},
-/turf/simulated/floor/tiled/ramp/bottom{
-	dir = 8
-	},
-/area/horizon/holodeck/source_tribunal)
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_luceism)
 "vzm" = (
 /obj/effect/floor_decal/spline/fancy/wood{
 	dir = 1
@@ -40628,14 +41130,9 @@
 /turf/simulated/floor/tiled/white,
 /area/centcom/shared_dream)
 "vGA" = (
-/obj/effect/floor_decal/corner/yellow{
-	dir = 1
-	},
-/obj/effect/floor_decal/corner/red{
-	dir = 8
-	},
-/turf/simulated/floor/marble/dark,
-/area/horizon/holodeck/source_trinary)
+/obj/effect/floor_decal/spline/fancy/wood,
+/turf/simulated/floor/holofloor/wood,
+/area/horizon/holodeck/source_sauna)
 "vLn" = (
 /obj/effect/floor_decal/spline/fancy/wood{
 	dir = 4
@@ -40699,6 +41196,18 @@
 /obj/structure/lattice/catwalk/indoor/grate,
 /turf/simulated/floor/plating,
 /area/centcom/shared_dream)
+"vOZ" = (
+/obj/effect/floor_decal/corner/yellow/diagonal,
+/obj/effect/floor_decal/corner/mauve{
+	dir = 4
+	},
+/obj/structure/bed/stool/chair/sofa/brown{
+	dir = 1;
+	desc = "A pew, how holy!";
+	name = "pew"
+	},
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_luceism)
 "vPL" = (
 /obj/effect/floor_decal/spline/plain/corner{
 	dir = 8
@@ -40722,17 +41231,13 @@
 /turf/simulated/floor/plating,
 /area/shuttle/transport1)
 "vYp" = (
-/obj/structure/railing/mapped{
-	dir = 4
+/obj/effect/floor_decal/spline/fancy/wood{
+	dir = 8
 	},
-/obj/structure/bed/stool/chair/sofa/left/black{
-	desc = "A pew, how holy!";
-	dir = 8;
-	name = "pew"
-	},
-/obj/effect/floor_decal/corner/grey/diagonal,
-/turf/simulated/floor/marble,
-/area/horizon/holodeck/source_trinary)
+/obj/structure/table/wood,
+/obj/item/device/flashlight/lantern,
+/turf/simulated/floor/holofloor/wood,
+/area/horizon/holodeck/source_sauna)
 "vYO" = (
 /obj/effect/decal/fake_object{
 	dir = 4;
@@ -40801,7 +41306,10 @@
 /turf/simulated/floor/tiled/dark,
 /area/shuttle/merchant)
 "wcr" = (
-/obj/effect/floor_decal/corner/yellow,
+/obj/effect/floor_decal/corner/yellow{
+	dir = 4
+	},
+/obj/effect/floor_decal/corner/full,
 /turf/simulated/floor/marble/dark,
 /area/horizon/holodeck/source_trinary)
 "wfo" = (
@@ -40814,22 +41322,26 @@
 /turf/simulated/floor/holofloor/wood,
 /area/horizon/holodeck/source_courtroom)
 "wgY" = (
-/obj/effect/floor_decal/corner{
-	dir = 6
+/obj/effect/floor_decal/corner/yellow/diagonal,
+/obj/effect/floor_decal/corner/yellow{
+	dir = 4
+	},
+/obj/effect/floor_decal/corner/mauve{
+	dir = 8
 	},
 /turf/simulated/floor/marble/dark,
-/area/horizon/holodeck/source_tribunal)
+/area/horizon/holodeck/source_luceism)
 "wkS" = (
 /obj/effect/floor_decal/spline/plain,
 /turf/simulated/floor/exoplanet/barren/raskara,
 /area/centcom/shared_dream)
 "wlW" = (
-/obj/effect/floor_decal/corner/yellow/full,
-/obj/effect/floor_decal/corner/yellow{
+/obj/effect/floor_decal/spline/fancy/wood{
 	dir = 4
 	},
-/turf/simulated/floor/marble/dark,
-/area/horizon/holodeck/source_trinary)
+/obj/structure/holostool,
+/turf/simulated/floor/holofloor/wood,
+/area/horizon/holodeck/source_sauna)
 "wnt" = (
 /obj/effect/floor_decal/spline/plain{
 	dir = 6
@@ -41008,28 +41520,38 @@
 /turf/simulated/floor/exoplanet/grass,
 /area/centcom/shared_dream)
 "xeB" = (
+/obj/structure/bed/stool/chair/sofa/left/black{
+	desc = "A pew, how holy!";
+	dir = 4;
+	name = "pew"
+	},
 /obj/structure/railing/mapped{
 	dir = 8
 	},
-/obj/structure/table/stone/marble,
-/obj/item/trash/candle,
-/obj/item/trash/match,
-/turf/simulated/floor/marble,
+/turf/simulated/floor/marble/dark,
 /area/horizon/holodeck/source_tribunal)
 "xiL" = (
-/obj/effect/floor_decal/corner/yellow{
-	dir = 4
+/obj/effect/floor_decal/corner{
+	dir = 1
+	},
+/obj/structure/bed/stool/chair/sofa/left/black{
+	desc = "A pew, how holy!";
+	dir = 4;
+	name = "pew"
+	},
+/obj/structure/railing/mapped{
+	dir = 8
 	},
 /turf/simulated/floor/marble/dark,
-/area/horizon/holodeck/source_trinary)
+/area/horizon/holodeck/source_tribunal)
 "xjc" = (
-/obj/effect/floor_decal/corner{
-	dir = 10
+/obj/effect/floor_decal/spline/plain{
+	dir = 1
 	},
-/obj/effect/floor_decal/corner{
-	dir = 4
+/obj/structure/railing/mapped,
+/turf/simulated/floor/tiled/ramp/bottom{
+	dir = 8
 	},
-/turf/simulated/floor/marble/dark,
 /area/horizon/holodeck/source_tribunal)
 "xkM" = (
 /obj/effect/floor_decal/spline/plain{
@@ -41045,17 +41567,11 @@
 	},
 /area/centcom/shared_dream)
 "xnA" = (
-/obj/effect/floor_decal/corner/yellow{
-	dir = 1
-	},
-/obj/effect/floor_decal/corner/red{
-	dir = 8
-	},
 /obj/effect/floor_decal/corner{
-	dir = 4
+	dir = 10
 	},
 /turf/simulated/floor/marble/dark,
-/area/horizon/holodeck/source_trinary)
+/area/horizon/holodeck/source_tribunal)
 "xoc" = (
 /turf/simulated/wall/shuttle/unique/ccia{
 	icon_state = "10,1"
@@ -41094,19 +41610,38 @@
 	},
 /area/centcom/shared_dream)
 "xst" = (
-/obj/effect/floor_decal/spline/fancy/wood/corner,
-/obj/structure/holostool,
-/turf/simulated/floor/holofloor/wood,
-/area/horizon/holodeck/source_sauna)
-"xsU" = (
+/obj/structure/railing/mapped{
+	dir = 1
+	},
 /obj/effect/floor_decal/corner/grey{
-	dir = 9
+	dir = 5
+	},
+/obj/structure/bed/stool/chair/sofa/left/black{
+	desc = "A pew, how holy!";
+	dir = 4;
+	name = "pew"
 	},
 /obj/structure/railing/mapped{
 	dir = 8
 	},
 /turf/simulated/floor/marble,
 /area/horizon/holodeck/source_trinary)
+"xsU" = (
+/obj/effect/mist,
+/turf/simulated/floor/exoplanet/water/shallow{
+	icon_state = "pool"
+	},
+/area/horizon/holodeck/source_sauna)
+"xwW" = (
+/obj/effect/floor_decal/corner/yellow/diagonal{
+	dir = 8
+	},
+/obj/effect/floor_decal/corner/mauve,
+/obj/effect/floor_decal/corner/black{
+	dir = 1
+	},
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_luceism)
 "xwX" = (
 /obj/structure/railing/mapped,
 /turf/simulated/floor/holofloor/wood,
@@ -41118,15 +41653,22 @@
 	},
 /area/horizon/holodeck/source_beach)
 "xFz" = (
-/obj/effect/floor_decal/corner{
-	dir = 5
+/obj/effect/floor_decal/corner/grey{
+	dir = 6
 	},
-/obj/effect/floor_decal/corner/red{
-	dir = 10;
-	icon_state = "corner_white"
+/obj/structure/railing/mapped{
+	dir = 4
 	},
-/turf/simulated/floor/marble/dark,
-/area/horizon/holodeck/source_tribunal)
+/obj/structure/bed/stool/chair/sofa/black{
+	desc = "A pew, how holy!";
+	dir = 4;
+	name = "pew"
+	},
+/obj/structure/railing/mapped{
+	dir = 8
+	},
+/turf/simulated/floor/marble,
+/area/horizon/holodeck/source_trinary)
 "xHx" = (
 /obj/effect/floor_decal/corner/white/diagonal,
 /obj/effect/floor_decal/spline/plain{
@@ -41168,11 +41710,10 @@
 /area/horizon/holodeck/source_courtroom)
 "xKM" = (
 /obj/effect/floor_decal/corner/yellow{
-	dir = 4
+	dir = 6
 	},
-/obj/effect/floor_decal/corner/red,
-/obj/effect/floor_decal/corner{
-	dir = 1
+/obj/effect/floor_decal/corner/yellow{
+	dir = 10
 	},
 /turf/simulated/floor/marble/dark,
 /area/horizon/holodeck/source_trinary)
@@ -41184,27 +41725,35 @@
 /turf/simulated/floor/holofloor/tiled,
 /area/horizon/holodeck/source_emptycourt)
 "xNG" = (
-/obj/effect/floor_decal/spline/plain{
+/obj/structure/railing/mapped{
 	dir = 1
 	},
-/obj/structure/railing/mapped,
-/turf/simulated/floor/tiled/ramp/bottom{
-	dir = 8
+/obj/effect/floor_decal/corner/grey{
+	dir = 5
 	},
-/area/horizon/holodeck/source_tribunal)
-"xNK" = (
-/obj/effect/floor_decal/spline/fancy/wood{
+/obj/structure/railing/mapped{
 	dir = 4
 	},
-/obj/structure/holostool,
-/turf/simulated/floor/holofloor/wood,
-/area/horizon/holodeck/source_sauna)
-"xOd" = (
-/obj/effect/floor_decal/corner{
+/obj/structure/bed/stool/chair/sofa/right/black{
+	desc = "A pew, how holy!";
+	dir = 8;
+	name = "pew"
+	},
+/turf/simulated/floor/marble,
+/area/horizon/holodeck/source_trinary)
+"xNK" = (
+/obj/effect/floor_decal/corner/yellow/full,
+/obj/effect/floor_decal/corner/yellow{
 	dir = 4
 	},
 /turf/simulated/floor/marble/dark,
 /area/horizon/holodeck/source_trinary)
+"xOd" = (
+/obj/effect/floor_decal/corner{
+	dir = 5
+	},
+/turf/simulated/floor/marble/dark,
+/area/horizon/holodeck/source_tribunal)
 "xPK" = (
 /obj/effect/decal/fake_object{
 	desc = "A colorful drink that smells a lot like rotten fruit.";
@@ -78939,12 +79488,12 @@ bGR
 bGR
 bGR
 bFf
-bJq
-bFW
-bJR
-bJR
-bJR
-oWX
+vjo
+vjo
+vjo
+vjo
+vjo
+vjo
 pgL
 bFf
 bKj
@@ -79196,13 +79745,13 @@ bGR
 bGR
 bGR
 bFf
-bJq
+vjo
 uBd
 kAM
 bHo
 bJR
 bGw
-bJl
+rph
 bFf
 bKj
 bKj
@@ -79453,13 +80002,13 @@ bGR
 bGR
 bGR
 bFf
-mTt
+vjo
 bKe
-bFM
-huO
-qte
+xsU
+xsU
+xsU
 tvi
-bIe
+jkj
 bFf
 bKQ
 bHy
@@ -79710,13 +80259,13 @@ bGR
 bGR
 bGR
 bFf
-xnA
+vjo
 vGA
-vGA
-vGA
-leu
-bZf
-lgB
+xsU
+xsU
+xsU
+tvi
+jkj
 bFf
 bFv
 oOh
@@ -79967,13 +80516,13 @@ bGR
 bGR
 bGR
 bFf
-bHr
-qoN
-xOd
-wcr
-bGX
+ipv
+vGA
+xsU
+xsU
+xsU
 mbv
-rph
+jkj
 bFf
 bFv
 cWC
@@ -80225,12 +80774,12 @@ bGR
 bGR
 bFf
 ipv
-bGd
-oUB
-bGX
+hue
+bHJ
+bHJ
 bHJ
 lXd
-rph
+bJl
 bFf
 bFv
 cWC
@@ -80481,12 +81030,12 @@ bGR
 bGR
 bGR
 bFf
-jNj
+vjo
 qHM
 srr
 wlW
-xiL
-lXd
+bGw
+jaN
 rph
 bFf
 bFv
@@ -80738,13 +81287,13 @@ bGR
 bGR
 bGR
 bFf
-bHQ
-qix
-oJK
-bYR
-wlW
-pYc
-rph
+vjo
+bKe
+xsU
+xsU
+xsU
+tvi
+jkj
 bFf
 bFv
 kRF
@@ -80995,13 +81544,13 @@ bGR
 bGR
 bGR
 bFf
-xKM
-bJa
-bJa
-bJa
-pkr
-bSo
-ubF
+vjo
+vGA
+xsU
+xsU
+xsU
+tvi
+jkj
 bFf
 bFv
 xKA
@@ -81253,11 +81802,11 @@ bGR
 bGR
 bFf
 vjo
-bKG
-mKB
-gVy
+bKe
 xsU
-bGK
+xsU
+xsU
+mbv
 jkj
 bFf
 bFv
@@ -81509,12 +82058,12 @@ bGR
 bGR
 bGR
 bFf
-bJq
+vjo
 hue
 kub
 vYp
-bJR
-bGw
+qav
+lXd
 bJl
 bFf
 hRM
@@ -81766,12 +82315,12 @@ bGR
 bGR
 bGR
 bFf
-bJq
-qET
-bJR
-bJR
-bJR
-dgN
+vjo
+vjo
+vjo
+vjo
+vjo
+vjo
 pgL
 bFf
 bKj
@@ -82280,12 +82829,12 @@ bKU
 bKU
 bKU
 bFf
-iYs
-bGc
-bGa
-uFh
-oOl
-bGc
+sjx
+sjx
+sjx
+sjx
+sjx
+sjx
 bHV
 bFf
 bLa
@@ -82320,12 +82869,12 @@ bJG
 bJG
 bJG
 bFf
-bKi
-bKi
-bKi
-bKi
-bKi
-bKi
+lFu
+elq
+tfj
+tfj
+tfj
+stO
 sZZ
 bFf
 aaa
@@ -82537,13 +83086,13 @@ bKU
 bLd
 bKU
 bFf
-bFB
-kcw
-kcw
-kcw
-kcw
-kcw
-qOB
+sjx
+sjx
+sjx
+sjx
+sjx
+sjx
+sjx
 bFf
 qlw
 bGD
@@ -82577,13 +83126,13 @@ pJW
 pJW
 bJG
 bFf
-bKi
+lFu
 xst
 oUg
 bIO
-nEz
-uIG
-bKC
+tfj
+fys
+bFU
 bFf
 aaa
 aaa
@@ -82794,13 +83343,13 @@ bKU
 bKU
 bKU
 bFf
-bFB
-bKA
-bFz
-uWU
-bFz
-bFz
-xFz
+sjx
+sjx
+sjx
+sjx
+sjx
+sjx
+sjx
 bFf
 bLa
 bLa
@@ -82834,13 +83383,13 @@ bLb
 bLb
 bGv
 bFf
-bKi
-kUJ
-bGO
-bGO
-bGO
-bJs
-bGL
+qix
+gVy
+xFz
+mTt
+qZv
+bXN
+cUv
 bFf
 aaa
 aaa
@@ -83051,13 +83600,13 @@ bKU
 bKU
 bKU
 bFf
-bFB
-pCm
-bFn
-bGB
-bFn
-bFq
-xFz
+sjx
+sjx
+sjx
+sjx
+sjx
+sjx
+sjx
 bFf
 bLa
 bGD
@@ -83092,12 +83641,12 @@ bLb
 bGv
 bFf
 bKi
-bHD
-bGO
-bGO
-bGO
+bFz
+bFz
+bFz
+kcw
 bJs
-bGL
+wcr
 bFf
 aaa
 aaa
@@ -83308,13 +83857,13 @@ bKU
 bKU
 bKU
 bFf
-bFB
-pCm
-bFq
-xjc
-bKS
-bFq
-xFz
+sjx
+sjx
+sjx
+sjx
+sjx
+sjx
+sjx
 bFf
 bLa
 bLa
@@ -83348,13 +83897,13 @@ bLb
 bLb
 bGv
 bFf
-oRK
+ocT
 bHD
+vlJ
 bGO
-bGO
-bGO
+bGd
 mNS
-bGL
+bKC
 bFf
 aaa
 aaa
@@ -83565,13 +84114,13 @@ bKU
 bKU
 bKU
 bFf
-bFB
-pCm
-xjc
+sjx
+sjx
+sjx
 bKP
-uWU
-bKS
-xFz
+sjx
+sjx
+sjx
 bFf
 bLa
 bLa
@@ -83608,10 +84157,10 @@ bFf
 oRK
 bHj
 lUn
-lUn
-lUn
-fys
-bFU
+bGd
+cBk
+bKn
+bKC
 bFf
 aaa
 aaa
@@ -83822,13 +84371,13 @@ bKU
 bKU
 bKU
 bFf
-bFB
-pCm
-lVw
-bKS
-bSm
-bKP
-xFz
+sjx
+sjx
+sjx
+sjx
+sjx
+sjx
+sjx
 bFf
 qlw
 bGV
@@ -83862,7 +84411,7 @@ bKs
 bKs
 bGv
 bFf
-bKi
+jHw
 bIu
 pMk
 xNK
@@ -84079,13 +84628,13 @@ bKU
 bKU
 bKU
 bFf
-bFB
-bXN
-bGk
-lVw
-fWR
-bGk
-xFz
+sjx
+sjx
+sjx
+sjx
+sjx
+sjx
+sjx
 bFf
 bLa
 bLa
@@ -84119,13 +84668,13 @@ bLb
 bLb
 bGv
 bFf
-bKi
+hoK
 kUJ
-bGO
-bGO
-bGO
-bJs
-bGL
+uON
+lSe
+xNK
+xKM
+bKC
 bFf
 aaa
 aaa
@@ -84336,13 +84885,13 @@ bKU
 bKU
 bKU
 bFf
-bFB
-bXN
-bGk
-bGB
-lSe
-bGk
-xFz
+sjx
+sjx
+sjx
+sjx
+sjx
+sjx
+sjx
 bFf
 bKO
 bGD
@@ -84376,12 +84925,12 @@ bLb
 bLb
 bGv
 bFf
-bKi
-bHD
-bGO
-bGO
-bGO
-bJs
+bHQ
+qET
+qET
+qET
+qcD
+esJ
 bGL
 bFf
 aaa
@@ -84582,7 +85131,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+bKS
 aaa
 bFf
 bKU
@@ -84593,13 +85142,13 @@ bKU
 bKU
 bKU
 bFf
-bHl
-jaN
-bHL
-bSm
-wgY
-bHL
-xFz
+sjx
+sjx
+sjx
+sjx
+sjx
+sjx
+sjx
 bFf
 bLa
 bLa
@@ -84633,13 +85182,13 @@ bLb
 bLb
 bGv
 bFf
-bKi
-kUJ
-bGO
-bGO
-bGO
-mNS
-bGL
+tXk
+oJK
+bZf
+vbf
+bKA
+bJg
+pYc
 bFf
 aaa
 aaa
@@ -84850,13 +85399,13 @@ bKU
 bLd
 bKU
 bFf
-bFB
-vyr
-lFu
-bJp
-xeB
-xNG
-qOB
+sjx
+sjx
+sjx
+sjx
+sjx
+sjx
+sjx
 bFf
 bLa
 bGD
@@ -84890,8 +85439,8 @@ jyC
 jyC
 bJG
 bFf
-bKi
-bHj
+lFu
+xNG
 bKc
 eiu
 tfj
@@ -85107,13 +85656,13 @@ bKU
 bKU
 bKU
 bFf
-urf
-bJg
-bHs
-bHs
-bHs
-bIx
-vbf
+sjx
+sjx
+sjx
+sjx
+sjx
+sjx
+sjx
 bFf
 dZU
 bLa
@@ -85147,12 +85696,12 @@ bJG
 bJG
 bJG
 bFf
-bKi
-bKi
-bKi
-bKi
-bKi
-bKi
+lFu
+bGc
+tfj
+tfj
+tfj
+dIK
 sZZ
 bFf
 aaa
@@ -85661,12 +86210,12 @@ bKR
 bKR
 qAU
 bFf
-iWH
-iWH
-iWH
-iWH
-iWH
-iWH
+pis
+iYs
+tZU
+bFq
+dZs
+iYs
 pro
 bFf
 aaa
@@ -85918,13 +86467,13 @@ bIL
 bIL
 fdU
 bFf
-iWH
-iWH
-iWH
-iWH
-iWH
-iWH
-iWH
+uFh
+qte
+qte
+qte
+qte
+qte
+bFW
 bFf
 aaa
 aaa
@@ -86175,13 +86724,13 @@ bIL
 bIL
 fdU
 bFf
-iWH
-iWH
-iWH
-iWH
-iWH
-iWH
-iWH
+uFh
+ubF
+bJa
+jNj
+bJa
+bJa
+bJp
 bFf
 aaa
 aaa
@@ -86432,13 +86981,13 @@ bIL
 bIL
 fdU
 bFf
-iWH
-iWH
-iWH
-iWH
-iWH
-iWH
-iWH
+uFh
+xOd
+oUB
+xnA
+oUB
+bSm
+bJp
 bFf
 aaa
 aaa
@@ -86689,13 +87238,13 @@ bIL
 bIL
 fdU
 bFf
-iWH
-iWH
-iWH
-iWH
-iWH
-iWH
-iWH
+uFh
+xOd
+bSm
+nEz
+mKB
+bSm
+bJp
 bFf
 aaa
 aaa
@@ -86946,13 +87495,13 @@ bIE
 bIE
 mvZ
 bFf
-iWH
-iWH
-iWH
+uFh
+xOd
+nEz
 bHB
-iWH
-iWH
-iWH
+jNj
+mKB
+bJp
 bFf
 aaa
 aaa
@@ -87203,13 +87752,13 @@ rnL
 rnL
 xHx
 bFf
-iWH
-iWH
-iWH
-iWH
-iWH
-iWH
-iWH
+uFh
+xOd
+bHL
+mKB
+bGa
+bHB
+bJp
 bFf
 aaa
 aaa
@@ -87460,13 +88009,13 @@ bIL
 bIL
 bFN
 bFf
-iWH
-iWH
-iWH
-iWH
-iWH
-iWH
-iWH
+uFh
+oWX
+lgB
+bHL
+xiL
+lgB
+bJp
 bFf
 aaa
 aaa
@@ -87717,13 +88266,13 @@ bIL
 bIL
 bFN
 bFf
-iWH
-iWH
-iWH
-iWH
-iWH
-iWH
-iWH
+uFh
+oWX
+lgB
+xnA
+xeB
+lgB
+bJp
 bFf
 aaa
 aaa
@@ -87975,12 +88524,12 @@ bIL
 bFN
 bFf
 iWH
-iWH
-iWH
-iWH
-iWH
-iWH
-iWH
+bGK
+dgN
+bGa
+bNU
+dgN
+bJp
 bFf
 aaa
 aaa
@@ -88231,13 +88780,13 @@ bIL
 bIL
 bFN
 bFf
-iWH
-iWH
-iWH
-iWH
-iWH
-iWH
-iWH
+uFh
+pXs
+gQC
+pCm
+uxC
+xjc
+bFW
 bFf
 aaa
 aaa
@@ -88488,13 +89037,13 @@ bGG
 bGG
 bHk
 bFf
-iWH
-iWH
-iWH
-iWH
-iWH
-iWH
-iWH
+lgJ
+bJq
+bGk
+bGk
+bGk
+oOl
+bHr
 bFf
 aaa
 aaa
@@ -89002,13 +89551,13 @@ bGM
 bKt
 bKt
 bFf
-bKL
-bKL
-bKL
-bKL
-bKL
-bKL
-bKL
+nMF
+kAd
+lRA
+qJs
+lRA
+kkN
+nMF
 bFf
 aaa
 aaa
@@ -89259,13 +89808,13 @@ qQP
 bGM
 bKt
 bFf
+qJs
 bKL
-bKL
-bKL
-bKL
-bKL
-bKL
-bKL
+pkr
+tEW
+pkr
+bGX
+qJs
 bFf
 aaa
 aaa
@@ -89516,13 +90065,13 @@ lGe
 bGM
 bHU
 bFf
-bKL
-bKL
-bKL
-bKL
-bKL
-bKL
-bKL
+qgn
+vyr
+qOB
+lVw
+ubx
+oFc
+sGS
 bFf
 aaa
 aaa
@@ -89773,13 +90322,13 @@ lGe
 bGM
 bFS
 bFf
-bKL
-bKL
-bKL
-bKL
-bKL
-bKL
-bKL
+bFM
+pkr
+iEk
+fWR
+ume
+pkr
+bFB
 bFf
 aaa
 aaa
@@ -90030,13 +90579,13 @@ lGe
 bGM
 oyz
 bFf
-bKL
-bKL
-bKL
-bKL
-bKL
-bKL
-bKL
+huO
+kTr
+vpL
+bGB
+rbI
+bSo
+ewD
 bFf
 aaa
 aaa
@@ -90287,13 +90836,13 @@ lGe
 bGM
 nRj
 bFf
-bKL
-bKL
-bKL
-bKL
-bKL
-bKL
-bKL
+irj
+bFn
+mxu
+bHl
+bIx
+ghd
+vOZ
 bFf
 aaa
 aaa
@@ -90544,13 +91093,13 @@ lGe
 bGM
 nRj
 bFf
-bKL
-bKL
-bKL
-bKL
-bKL
-bKL
-bKL
+eBE
+wgY
+dIA
+leu
+xwW
+bYR
+bIe
 bFf
 aaa
 aaa
@@ -90801,13 +91350,13 @@ lGe
 bGM
 bFT
 bFf
-bKL
-bKL
-bKL
-bKL
-bKL
-bKL
-bKL
+hHd
+qoN
+bKG
+urf
+bYR
+mAJ
+bHs
 bFf
 aaa
 aaa
@@ -91058,13 +91607,13 @@ lGe
 bGM
 dHv
 bFf
-bKL
-bKL
-bKL
-bKL
-bKL
-bKL
-bKL
+qJs
+pkr
+dPv
+bKG
+uWU
+pkr
+qJs
 bFf
 aaa
 aaa
@@ -91315,13 +91864,13 @@ pmA
 lDj
 hzT
 bFf
+qgn
+pkr
+bGX
+pkr
 bKL
-bKL
-bKL
-bKL
-bKL
-bKL
-bKL
+pkr
+sGS
 bFf
 aaa
 aaa
@@ -91572,13 +92121,13 @@ bGM
 xSF
 xSF
 bFf
+qJs
+bGX
+pkr
+sHt
+pkr
 bKL
-bKL
-bKL
-bKL
-bKL
-bKL
-bKL
+qJs
 bFf
 aaa
 aaa
@@ -91829,13 +92378,13 @@ bGM
 bGM
 bGM
 bFf
-bKL
-bKL
-bKL
-bKL
-bKL
-bKL
-bKL
+nMF
+qJs
+bzF
+iQF
+bAR
+qJs
+nMF
 bFf
 aaa
 aaa

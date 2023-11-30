@@ -335,6 +335,12 @@
 	else
 		icon_state = "assunzionesheath_empty"
 
+/obj/item/storage/assunzionesheath/full
+	starts_with = list(
+		/obj/item/assunzioneorb = 1
+	)
+	icon_state = "assunzionesheath"
+
 /obj/item/storage/altar
 	name = "altar"
 	desc = "A small portable altar."

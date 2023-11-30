@@ -181,6 +181,7 @@
 	banners["banner, Hive C'thur"] = /obj/item/flag/cthur
 	banners["banner, Orion Express"] = /obj/item/flag/orion_express
 	banners["banner, Imperial Frontier"] = /obj/item/flag/imperial_frontier
+	banners["banner, Luceism"] = /obj/item/flag/luceism
 	gear_tweaks += new /datum/gear_tweak/path(banners)
 
 /datum/gear/standard
