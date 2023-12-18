@@ -3066,3 +3066,44 @@
 
 /obj/structure/sign/flag/scarab/large/west/Initialize(mapload)
 	. = ..(mapload, WEST)
+
+// Golden Deep
+
+/obj/item/flag/golden_deep
+	name = "\improper Golden Deep flag"
+	desc = "The flag of the Golden Deep."
+	flag_path = "golden_deep"
+	flag_structure = /obj/structure/sign/flag/golden_deep
+
+/obj/structure/sign/flag/golden_deep
+	name = "\improper Golden Deep flag"
+	desc = "The flag of the Golden Deep."
+	flag_path = "golden_deep"
+	icon_state = "golden_deep"
+	flag_item = /obj/item/flag/golden_deep
+
+/obj/structure/sign/flag/golden_deep/unmovable
+	unmovable = TRUE
+
+/obj/item/flag/golden_deep/l
+	name = "large Golden Deep flag"
+	flag_size = TRUE
+	flag_structure = /obj/structure/sign/flag/golden_deep/large
+
+/obj/structure/sign/flag/golden_deep/large
+	icon_state = "golden_deep_l"
+	flag_path = "golden_deep"
+	flag_size = TRUE
+	flag_item = /obj/item/flag/golden_deep/l
+
+/obj/structure/sign/flag/golden_deep/large/north/Initialize(mapload)
+	. = ..(mapload, NORTH)
+
+/obj/structure/sign/flag/golden_deep/large/south/Initialize(mapload)
+	. = ..(mapload, SOUTH)
+
+/obj/structure/sign/flag/golden_deep/large/east/Initialize(mapload)
+	. = ..(mapload, EAST)
+
+/obj/structure/sign/flag/golden_deep/large/west/Initialize(mapload)
+	. = ..(mapload, WEST)
