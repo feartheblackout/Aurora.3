@@ -3,6 +3,35 @@
 	fruit = list("koisspore" = 1)
 	result = /obj/item/reagent_containers/food/snacks/friedkois
 
+/singleton/recipe/koisdonut
+	appliance = FRYER
+	items = list(/obj/item/reagent_containers/food/snacks/friedkois)
+	result = /obj/item/reagent_containers/food/snacks/donut/kois
+	result_quantity = 2
+
+/singleton/recipe/koisburger
+	items = list(
+				/obj/item/reagent_containers/food/snacks/friedkois,
+				/obj/item/reagent_containers/food/snacks/friedkois
+	)
+	result = /obj/item/reagent_containers/food/snacks/koisburger
+
+/singleton/recipe/bigkoisburger
+	appliance = MIX
+	items = list(/obj/item/reagent_containers/food/snacks/koisburger)
+	fruit = list("koisspore" = 3)
+	reagents = list(/singleton/reagent/kois = 5)
+	reagent_mix = RECIPE_REAGENT_REPLACE
+	result = /obj/item/reagent_containers/food/snacks/bigkoisburger
+
+/singleton/recipe/superkoisburger
+	appliance = MIX
+	items = list(
+				/obj/item/reagent_containers/food/snacks/bigkoisburger,
+				/obj/item/reagent_containers/food/snacks/spreads/kois,
+				/obj/item/reagent_containers/food/snacks/koischeese
+	)
+
 /singleton/recipe/koiswaffles
 	appliance = SKILLET
 	items = list(/obj/item/reagent_containers/food/snacks/soup/kois)
@@ -19,23 +48,10 @@
 	items = list(/obj/item/reagent_containers/food/snacks/friedkois)
 	result = /obj/item/reagent_containers/food/snacks/koissteak
 
-/singleton/recipe/koisdonut
-	appliance = FRYER
-	items = list(/obj/item/reagent_containers/food/snacks/friedkois)
-	result = /obj/item/reagent_containers/food/snacks/donut/kois
-	result_quantity = 2
-
 /singleton/recipe/koismuffin
 	appliance = OVEN
 	items = list(/obj/item/reagent_containers/food/snacks/soup/kois)
 	result = /obj/item/reagent_containers/food/snacks/koismuffin
-
-/singleton/recipe/koisburger
-	items = list(
-				/obj/item/reagent_containers/food/snacks/friedkois,
-				/obj/item/reagent_containers/food/snacks/friedkois
-	)
-	result = /obj/item/reagent_containers/food/snacks/koisburger
 
 /singleton/recipe/koisroulade
 	appliance = OVEN
