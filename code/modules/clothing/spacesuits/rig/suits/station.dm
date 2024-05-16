@@ -306,7 +306,7 @@
 	desc = "A durable suit designed for medical rescue in high risk areas."
 	icon = 'icons/clothing/rig/medical.dmi'
 	icon_state = "medical_rig"
-	icon_supported_species_tags = list("ipc", "skr", "taj", "una")
+	icon_supported_species_tags = list("ipc", "skr", "taj", "una", "vau")
 	armor = list(
 		melee = ARMOR_MELEE_RESISTANT,
 		bullet = ARMOR_BALLISTIC_MINOR,

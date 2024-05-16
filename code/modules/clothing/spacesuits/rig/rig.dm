@@ -100,7 +100,7 @@
 	var/datum/effect_system/sparks/spark_system
 
 	var/allowed_module_types = MODULE_GENERAL // All rigs by default should have access to general
-	var/list/species_restricted = list(BODYTYPE_HUMAN,BODYTYPE_TAJARA,BODYTYPE_UNATHI, BODYTYPE_SKRELL, BODYTYPE_IPC, BODYTYPE_IPC_BISHOP, BODYTYPE_IPC_ZENGHU)
+	var/list/species_restricted = list(BODYTYPE_HUMAN, BODYTYPE_TAJARA, BODYTYPE_UNATHI, BODYTYPE_SKRELL, BODYTYPE_IPC, BODYTYPE_IPC_BISHOP, BODYTYPE_IPC_ZENGHU, BODYTYPE_VAURCA)
 	var/anomaly_protection = FALSE //If TRUE, this rig will protect against anomalies. Currently only used for AMI hardsuit.
 
 /obj/item/rig/get_examine_text(mob/user, distance, is_adjacent, infix, suffix)
