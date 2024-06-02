@@ -2,13 +2,14 @@
 	short_name = "tirakqi_crew"
 	name = "Ti'Rakqi Lu'fup"
 	desc = "You crew the ship, mop the floors, cook the meals, and shoot whoever gets too close to the goods. Try to show some initiative!"
+	desc_ooc = "Lu'fup who spawn as Vaurcae should have backgrounds consistent with that of the Xi'larx!"
 	tags = list("External")
 
 	spawnpoints = list("tirakqi_crew")
 	max_count = 2
 
 	outfit = /obj/outfit/admin/tirakqi_crew
-	possible_species = list(SPECIES_SKRELL, SPECIES_SKRELL_AXIORI)
+	possible_species = list(SPECIES_SKRELL, SPECIES_SKRELL_AXIORI, SPECIES_VAURCA_WORKER, SPECIES_VAURCA_WARRIOR, SPECIES_DIONA, SPECIES_DIONA_COEUS)
 	allow_appearance_change = APPEARANCE_PLASTICSURGERY
 
 	assigned_role = "Ti'Rakqi Lu'fup"
@@ -16,6 +17,7 @@
 	respawn_flag = null
 
 	uses_species_whitelist = FALSE
+	uses_species_whitelist_override = list(FALSE, FALSE, FALSE, TRUE, FALSE, FALSE)
 
 /obj/outfit/admin/tirakqi_crew
 	name = "Ti'Rakqi Lu'fup"
@@ -66,21 +68,28 @@
 
 /obj/outfit/admin/tirakqi_crew/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
+	if(isskrell(H))
+		H.h_style = pick("Headtails", "Headtails", "Long Headtails", "Short Headtails", "Very Short Headtails", "Short Headtails, tucked", "Short Headtails, slicked", "Headtails, behind")
+		H.f_style = pick("Shaved", "Shaved", "Shaved", "Shaved", "Tuux Chin Patch", "Tuux Chops", "Tuux Tri-Point", "Tuux Monotail")
 
-	H.h_style = pick("Headtails", "Headtails", "Long Headtails", "Short Headtails", "Very Short Headtails", "Short Headtails, tucked", "Short Headtails, slicked", "Headtails, behind")
-	H.f_style = pick("Shaved", "Shaved", "Shaved", "Shaved", "Tuux Chin Patch", "Tuux Chops", "Tuux Tri-Point", "Tuux Monotail")
+		H.r_skin = pick(50, 80, 100, 120, 140, 170)
+		H.g_skin = pick(50, 80, 100, 120, 140, 170)
+		H.b_skin = pick(50, 80, 100, 120, 140, 170)
 
-	H.r_skin = pick(50, 80, 100, 120, 140, 170)
-	H.g_skin = pick(50, 80, 100, 120, 140, 170)
-	H.b_skin = pick(50, 80, 100, 120, 140, 170)
+		H.r_hair = H.r_skin - pick(0, 10, 20, 30)
+		H.g_hair = H.g_skin - pick(0, 10, 20, 30)
+		H.b_hair = H.b_skin - pick(0, 10, 20, 30)
 
-	H.r_hair = H.r_skin - pick(0, 10, 20, 30)
-	H.g_hair = H.g_skin - pick(0, 10, 20, 30)
-	H.b_hair = H.b_skin - pick(0, 10, 20, 30)
-
-	H.r_facial = H.r_hair
-	H.g_facial = H.g_hair
-	H.b_facial = H.b_hair
+		H.r_facial = H.r_hair
+		H.g_facial = H.g_hair
+		H.b_facial = H.b_hair
+	if(isvaurca(H))
+		H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/vaurca/filter(H), slot_wear_mask)
+		var/obj/item/organ/internal/vaurca/preserve/preserve = H.internal_organs_by_name[BP_PHORON_RESERVE]
+		H.internal = preserve
+		H.internals.icon_state = "internal1"
+		H.equip_or_collect(new /obj/item/reagent_containers/inhaler/phoron_special, slot_in_backpack)
+		H.update_body()
 
 /datum/ghostspawner/human/tirakqi_captain
 	short_name = "tirakqi_captain"

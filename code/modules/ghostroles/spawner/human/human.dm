@@ -20,6 +20,7 @@
 	var/list/species_outfits = list()
 
 	var/uses_species_whitelist = TRUE //Do you need the whitelist to play the species?
+	var/list/uses_species_whitelist_override //Does the list have a mix of whitelisted and unwhitelisted species? (TRUE or FALSE, one per every species in possible_species, make sure uses_species_whitelist is set to TRUE)
 	var/possible_species = list(SPECIES_HUMAN)
 	var/allow_appearance_change = APPEARANCE_PLASTICSURGERY
 	var/list/extra_languages = list() //Which languages are added to this mob
@@ -98,11 +99,16 @@
 
 	//Pick a species
 	var/list/species_selection = list()
-	for (var/S in possible_species)
-		if(!uses_species_whitelist)
-			species_selection += S
-		else if(is_alien_whitelisted(user, S))
-			species_selection += S
+	if(uses_species_whitelist)
+		var/has_species_overrides = length(uses_species_whitelist_override)
+		for(var/species_type in possible_species)
+			var/override_species_whitelist = FALSE
+			if(has_species_overrides && (species_type in uses_species_whitelist_override))
+				override_species_whitelist = uses_species_whitelist_override[species_type]
+			if(override_species_whitelist)
+				species_selection += species_type
+	else
+		species_selection = possible_species
 
 	var/picked_species = tgui_input_list(user, "Select your species.", "Species Selection", species_selection)
 	if(!picked_species)
