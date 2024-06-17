@@ -3,7 +3,7 @@
 	short_name = "vau"
 	name_plural = "Type A"
 	category_name = "Vaurca"
-	bodytype = BODYTYPE_VAURCA
+	bodytype = BODYTYPE_VAURCA_WORKER
 	species_height = HEIGHT_CLASS_TALL
 	height_min = 150
 	height_max = 250

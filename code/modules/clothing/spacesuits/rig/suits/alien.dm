@@ -129,7 +129,7 @@
 	slowdown = 2
 	offline_slowdown = 3
 
-	species_restricted = list(BODYTYPE_VAURCA)
+	species_restricted = list(BODYTYPE_VAURCA_WORKER, BODYTYPE_VAURCA_WARRIOR)
 
 	helm_type = /obj/item/clothing/head/helmet/space/rig/vaurca
 	air_type =   /obj/item/tank/phoron

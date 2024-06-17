@@ -1,6 +1,7 @@
 /datum/species/bug/type_b
 	name = SPECIES_VAURCA_WARRIOR
 	name_plural = "Type BA"
+	bodytype = BODYTYPE_VAURCA_WARRIOR
 	language = LANGUAGE_VAURCA
 	species_height = HEIGHT_CLASS_TALL
 	height_min = 150

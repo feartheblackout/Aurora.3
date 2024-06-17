@@ -16,7 +16,7 @@
 	)
 	emp_protection = 100
 	slowdown = -1
-	species_restricted = list(BODYTYPE_HUMAN, BODYTYPE_UNATHI, BODYTYPE_SKRELL, BODYTYPE_VAURCA)
+	species_restricted = list(BODYTYPE_HUMAN, BODYTYPE_UNATHI, BODYTYPE_SKRELL, BODYTYPE_VAURCA_WORKER, BODYTYPE_VAURCA_WARRIOR)
 	item_flags = ITEM_FLAG_THICK_MATERIAL
 	offline_slowdown = 0
 	offline_vision_restriction = 0
@@ -120,7 +120,7 @@
 	emp_protection = 40
 	slowdown = 0
 
-	species_restricted = list(BODYTYPE_HUMAN,BODYTYPE_TAJARA,BODYTYPE_UNATHI, BODYTYPE_SKRELL, BODYTYPE_IPC, BODYTYPE_VAURCA)
+	species_restricted = list(BODYTYPE_HUMAN,BODYTYPE_TAJARA,BODYTYPE_UNATHI, BODYTYPE_SKRELL, BODYTYPE_IPC, BODYTYPE_VAURCA_WORKER, BODYTYPE_VAURCA_WARRIOR)
 
 	helm_type = /obj/item/clothing/head/helmet/space/rig/light/ninja
 	chest_type = /obj/item/clothing/suit/space/rig/light/ninja

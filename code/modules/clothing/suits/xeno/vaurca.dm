@@ -30,7 +30,7 @@
 	sprite_sheets = list(
 		BODYTYPE_VAURCA_BULWARK = 'icons/mob/species/bulwark/suit.dmi'
 	)
-	species_restricted = list(BODYTYPE_VAURCA, BODYTYPE_VAURCA_BULWARK)
+	species_restricted = list(BODYTYPE_VAURCA_WORKER, BODYTYPE_VAURCA_WARRIOR, BODYTYPE_VAURCA_BULWARK)
 
 /obj/item/clothing/suit/vaurca/breeder
 	name = "zo'ra representative clothes"

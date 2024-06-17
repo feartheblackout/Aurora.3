@@ -10,7 +10,8 @@
 	on_mob_icon = 'icons/mob/human_races/augments_external.dmi'
 	sprite_sheets = list(
 		BODYTYPE_VAURCA_BULWARK = 'icons/mob/species/bulwark/augments_external.dmi',
-		BODYTYPE_VAURCA = 'icons/mob/species/vaurca/augments_external.dmi'
+		BODYTYPE_VAURCA_WORKER = 'icons/mob/species/vaurca/augments_external.dmi',
+		BODYTYPE_VAURCA_WARRIOR = 'icons/mob/species/vaurca/warrior_augments_external.dmi'
 	)
 
 /obj/item/organ/internal/augment/eye_sensors/phalanx/attack_self(var/mob/user)

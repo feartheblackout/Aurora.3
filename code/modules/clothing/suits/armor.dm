@@ -493,7 +493,7 @@
 	icon_state = "klax_hopeful"
 	item_state = "klax_hopeful"
 	contained_sprite = TRUE
-	species_restricted = list(BODYTYPE_VAURCA)
+	species_restricted = list(BODYTYPE_VAURCA_WORKER, BODYTYPE_VAURCA_WARRIOR)
 	armor = list(
 		melee = ARMOR_MELEE_VERY_HIGH,
 		bullet = ARMOR_BALLISTIC_MEDIUM,

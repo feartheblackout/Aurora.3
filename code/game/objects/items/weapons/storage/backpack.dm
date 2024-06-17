@@ -925,7 +925,7 @@
 	icon_state = "cape"
 	item_state = "cape"
 	contained_sprite = FALSE
-	sprite_sheets = list(BODYTYPE_VAURCA = 'icons/mob/species/vaurca/back.dmi', BODYTYPE_VAURCA_BULWARK = 'icons/mob/species/bulwark/back.dmi')
+	sprite_sheets = list(BODYTYPE_VAURCA_WORKER = 'icons/mob/species/vaurca/back.dmi', BODYTYPE_VAURCA_WARRIOR = 'icons/mob/species/vaurca/back.dmi', BODYTYPE_VAURCA_BULWARK = 'icons/mob/species/bulwark/back.dmi')
 	var/hooded = FALSE
 
 /obj/item/storage/backpack/cloak/verb/toggle_cloak_hood()

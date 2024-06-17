@@ -1002,7 +1002,7 @@
 	species_restricted = list(BODYTYPE_HUMAN, BODYTYPE_IPC_BISHOP, BODYTYPE_IPC_INDUSTRIAL, BODYTYPE_IPC_ZENGHU, BODYTYPE_SKRELL)
 	contained_sprite = TRUE
 	icon_supported_species_tags = list("ipc", "skr", "taj", "una", "vau", "vaw")
-	refittable_species = list(BODYTYPE_HUMAN, BODYTYPE_IPC, BODYTYPE_TAJARA, BODYTYPE_UNATHI, BODYTYPE_SKRELL, BODYTYPE_VAURCA)
+	refittable_species = list(BODYTYPE_HUMAN, BODYTYPE_IPC, BODYTYPE_TAJARA, BODYTYPE_UNATHI, BODYTYPE_SKRELL, BODYTYPE_VAURCA_WORKER, BODYTYPE_VAURCA_WARRIOR)
 
 /obj/item/clothing/head/helmet/space/void/tcaf
 	name = "tau ceti armed forces voidsuit helmet"
@@ -1022,7 +1022,7 @@
 	species_restricted = list(BODYTYPE_HUMAN, BODYTYPE_IPC_BISHOP, BODYTYPE_IPC_INDUSTRIAL, BODYTYPE_IPC_ZENGHU)
 	contained_sprite = TRUE
 	icon_supported_species_tags = list("ipc", "skr", "taj", "una", "vau", "vaw")
-	refittable_species = list(BODYTYPE_HUMAN, BODYTYPE_IPC, BODYTYPE_TAJARA, BODYTYPE_UNATHI, BODYTYPE_SKRELL, BODYTYPE_VAURCA)
+	refittable_species = list(BODYTYPE_HUMAN, BODYTYPE_IPC, BODYTYPE_TAJARA, BODYTYPE_UNATHI, BODYTYPE_SKRELL, BODYTYPE_VAURCA_WORKER, BODYTYPE_VAURCA_WARRIOR)
 	brightness_on = 6
 	siemens_coefficient = 0.35
 

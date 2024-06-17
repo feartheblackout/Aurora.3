@@ -106,7 +106,7 @@
 	desc = "Sterile nitrile gloves. Designed for Vaurca use."
 	icon_state = "nitrile"
 	item_state = "nitrile"
-	species_restricted = list(BODYTYPE_VAURCA)
+	species_restricted = list(BODYTYPE_VAURCA_WORKER, BODYTYPE_VAURCA_WARRIOR)
 
 /obj/item/clothing/gloves/latex/unathi
 	name = "unathi latex gloves"
@@ -121,7 +121,7 @@
 /obj/item/clothing/gloves/latex/vaurca
 	name = "vaurca latex gloves"
 	desc = "Sterile latex gloves. Designed for Vaurca use."
-	species_restricted = list(BODYTYPE_VAURCA)
+	species_restricted = list(BODYTYPE_VAURCA_WORKER, BODYTYPE_VAURCA_WARRIOR)
 
 /obj/item/clothing/gloves/botanic_leather
 	desc = "These leather work gloves protect against thorns, barbs, prickles, spikes and other harmful objects of floral origin."
@@ -143,7 +143,7 @@
 
 /obj/item/clothing/gloves/botanic_leather/vaurca
 	name = "vaurca leather gloves"
-	species_restricted = list(BODYTYPE_VAURCA)
+	species_restricted = list(BODYTYPE_VAURCA_WORKER, BODYTYPE_VAURCA_WARRIOR)
 
 /obj/item/clothing/gloves/janitor
 	name = "rubber cleaning gloves"
@@ -165,7 +165,7 @@
 
 /obj/item/clothing/gloves/janitor/vaurca
 	name = "vaurca cleaning gloves"
-	species_restricted = list(BODYTYPE_VAURCA)
+	species_restricted = list(BODYTYPE_VAURCA_WORKER, BODYTYPE_VAURCA_WARRIOR)
 
 	/*
 	Forcegloves.  They amplify force from melee hits as well as muck up disarm and stuff a little.

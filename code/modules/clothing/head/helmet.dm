@@ -379,7 +379,7 @@
 	icon = 'icons/obj/vaurca_items.dmi'
 	icon_state = "klax_hopeful_helmet"
 	item_state = "klax_hopeful_helmet"
-	species_restricted = list(BODYTYPE_VAURCA)
+	species_restricted = list(BODYTYPE_VAURCA_WORKER, BODYTYPE_VAURCA_WARRIOR)
 	armor = list(
 		melee = ARMOR_MELEE_RESISTANT,
 		bullet = ARMOR_BALLISTIC_PISTOL,

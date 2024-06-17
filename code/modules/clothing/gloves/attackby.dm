@@ -20,7 +20,8 @@
 		if("exclude" in species_restricted)
 			species_restricted -= BODYTYPE_UNATHI
 			species_restricted -= BODYTYPE_TAJARA
-			species_restricted -= BODYTYPE_VAURCA
+			species_restricted -= BODYTYPE_VAURCA_WORKER
+			species_restricted -= BODYTYPE_VAURCA_WARRIOR
 		return
 
 	if(istype(src, /obj/item/clothing/gloves/boxing))			//quick fix for stunglove overlay not working nicely with boxing gloves.

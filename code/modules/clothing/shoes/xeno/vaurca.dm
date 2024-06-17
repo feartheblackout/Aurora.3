@@ -17,7 +17,7 @@
 
 
 	body_parts_covered = FEET
-	species_restricted = list(BODYTYPE_VAURCA, BODYTYPE_VAURCA_BULWARK)
+	species_restricted = list(BODYTYPE_VAURCA_WORKER, BODYTYPE_VAURCA_WARRIOR, BODYTYPE_VAURCA_BULWARK)
 	contained_sprite = TRUE
 
 /obj/item/clothing/shoes/vaurca/brown

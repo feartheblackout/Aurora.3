@@ -338,7 +338,7 @@
 	armor = list(
 		laser = ARMOR_LASER_SMALL
 	)
-	species_restricted = list(BODYTYPE_VAURCA)
+	species_restricted = list(BODYTYPE_VAURCA_WORKER, BODYTYPE_VAURCA_WARRIOR)
 
 /obj/item/clothing/under/skrell/qukala
 	name = "qukala uniform"

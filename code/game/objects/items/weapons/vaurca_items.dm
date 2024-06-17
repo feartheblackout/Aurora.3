@@ -24,7 +24,7 @@
 	w_class = ITEMSIZE_SMALL
 	flags_inv = null
 	body_parts_covered = null
-	species_restricted = list(BODYTYPE_VAURCA, BODYTYPE_VAURCA_WARFORM, BODYTYPE_VAURCA_BREEDER, BODYTYPE_VAURCA_BULWARK)
+	species_restricted = list(BODYTYPE_VAURCA_WORKER, BODYTYPE_VAURCA_WARRIOR, BODYTYPE_VAURCA_WARFORM, BODYTYPE_VAURCA_BREEDER, BODYTYPE_VAURCA_BULWARK)
 	item_state = 0
 
 /obj/item/clothing/head/shaper
@@ -37,7 +37,7 @@
 	sprite_sheets = list(
 		BODYTYPE_VAURCA_BULWARK = 'icons/mob/species/bulwark/head.dmi'
 	)
-	species_restricted = list(BODYTYPE_VAURCA, BODYTYPE_VAURCA_BULWARK)
+	species_restricted = list(BODYTYPE_VAURCA_WORKER, BODYTYPE_VAURCA_WARRIOR, BODYTYPE_VAURCA_BULWARK)
 	body_parts_covered = HEAD|EYES
 
 /obj/item/clothing/head/expression
@@ -246,7 +246,7 @@
 	desc = "A lightweight Zo'rane designed Vaurcan softsuit, for extremely extended EVA operations."
 	slowdown = 0
 
-	species_restricted = list(BODYTYPE_VAURCA)
+	species_restricted = list(BODYTYPE_VAURCA_WORKER, BODYTYPE_VAURCA_WARRIOR)
 
 	boots = /obj/item/clothing/shoes/magboots/vaurca
 	helmet = /obj/item/clothing/head/helmet/space/void/vaurca
@@ -259,7 +259,7 @@
 	icon_state = "helm_void"
 	item_state = "helm_void"
 
-	species_restricted = list(BODYTYPE_VAURCA)
+	species_restricted = list(BODYTYPE_VAURCA_WORKER, BODYTYPE_VAURCA_WARRIOR)
 
 	light_overlay = "helmet_light_dual_green"
 	light_color = "#3e7c3e"
@@ -272,7 +272,7 @@
 	contained_sprite = 1
 	icon = 'icons/obj/vaurca_items.dmi'
 
-	species_restricted = list(BODYTYPE_VAURCA, BODYTYPE_VAURCA_WARFORM, BODYTYPE_VAURCA_BULWARK)
+	species_restricted = list(BODYTYPE_VAURCA_WORKER, BODYTYPE_VAURCA_WARRIOR, BODYTYPE_VAURCA_WARFORM, BODYTYPE_VAURCA_BULWARK)
 	sprite_sheets = list(
 		BODYTYPE_VAURCA_WARFORM = 'icons/mob/species/warriorform/shoes.dmi',
 		BODYTYPE_VAURCA_BULWARK = 'icons/mob/species/bulwark/shoes.dmi'
@@ -289,7 +289,7 @@
 	desc = "Armor designed for K'laxan scouts, made of lightweight sturdy material that does not restrict movement."
 	slowdown = -1
 
-	species_restricted = list(BODYTYPE_VAURCA)
+	species_restricted = list(BODYTYPE_VAURCA_WORKER, BODYTYPE_VAURCA_WARRIOR)
 	armor = list(
 		melee = ARMOR_MELEE_RESISTANT,
 		bullet = ARMOR_BALLISTIC_SMALL,
@@ -305,7 +305,7 @@
 	icon_state = "helm_scout"
 	item_state = "helm_scout"
 
-	species_restricted = list(BODYTYPE_VAURCA)
+	species_restricted = list(BODYTYPE_VAURCA_WORKER, BODYTYPE_VAURCA_WARRIOR)
 	armor = list(
 		melee = ARMOR_MELEE_RESISTANT,
 		bullet = ARMOR_BALLISTIC_SMALL,
@@ -324,7 +324,7 @@
 	item_state = "commando"
 	desc = "A design perfected by the Zo'ra, this armor is commonly used by frontline warriors of a Hive. Ablative design deflects lasers away from the body while providing moderate physical protection."
 
-	species_restricted = list(BODYTYPE_VAURCA)
+	species_restricted = list(BODYTYPE_VAURCA_WORKER, BODYTYPE_VAURCA_WARRIOR)
 	armor = list(
 		melee = ARMOR_MELEE_RESISTANT,
 		bullet = ARMOR_BALLISTIC_MEDIUM,
@@ -341,7 +341,7 @@
 	icon_state = "helm_commando"
 	item_state = "helm_commando"
 
-	species_restricted = list(BODYTYPE_VAURCA)
+	species_restricted = list(BODYTYPE_VAURCA_WORKER, BODYTYPE_VAURCA_WARRIOR)
 	armor = list(
 		melee = ARMOR_MELEE_RESISTANT,
 		bullet = ARMOR_BALLISTIC_MEDIUM,
