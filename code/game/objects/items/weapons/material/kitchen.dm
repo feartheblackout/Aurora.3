@@ -1,9 +1,6 @@
 /obj/item/material/kitchen
 	icon = 'icons/obj/kitchen.dmi'
-	item_icons = list(
-		slot_l_hand_str = 'icons/mob/items/lefthand_kitchen.dmi',
-		slot_r_hand_str = 'icons/mob/items/righthand_kitchen.dmi',
-		)
+	contained_sprite = TRUE
 
 /*
  * Utensils
@@ -13,18 +10,19 @@
 	pickup_sound = 'sound/items/pickup/knife.ogg'
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	w_class = ITEMSIZE_TINY
-	thrown_force_divisor = 1
+	thrown_force_divisor = 0.25 // 5 when thrown with weight 20 (steel)
 	origin_tech = list(TECH_MATERIAL = 1)
 	attack_verb = list("attacked", "stabbed", "poked")
 	sharp = FALSE
 	edge = FALSE
 	force_divisor = 0.1 // 6 when wielded with hardness 60 (steel)
-	thrown_force_divisor = 0.25 // 5 when thrown with weight 20 (steel)
 	var/loaded      //Descriptive string for currently loaded food object.
 	var/is_liquid = FALSE //whether you've got liquid on your utensil
 	var/scoop_food = 1
 	var/transfer_amt = 1
 	var/list/bite_sizes = list(1,2,3,4,5)
+	use_material_name = FALSE
+	applies_material_colour = FALSE
 
 /obj/item/material/kitchen/utensil/Initialize(newloc, material_key)
 	. = ..()
@@ -43,19 +41,12 @@
 			return eyestab(M,user)
 		else
 			return ..()
-	var/fullness = M.get_fullness()
 	if(reagents.total_volume > 0)
 		if(M == user)
 			if(!M.can_eat(loaded))
 				return
-			if (fullness > (550 * (1 + M.overeatduration / 2000)))
-				to_chat(M, "You cannot force anymore food down!")
-				return
 			to_chat(M, SPAN_NOTICE("You [is_liquid ? "drink" : "eat"] some [loaded] from \the [src]."))
 		else
-			if (fullness > (550 * (1 + M.overeatduration / 2000)))
-				to_chat(M, "You cannot force anymore food down their throat!")
-				return
 			user.visible_message(SPAN_WARNING("\The [user] begins to feed \the [M]!"), SPAN_WARNING("You begin to feed \the [M]!"))
 			if(!(M.can_force_feed(user, loaded) && do_mob(user, M, 5 SECONDS)))
 				return
@@ -66,7 +57,7 @@
 			is_liquid = FALSE
 		else
 			playsound(user.loc, 'sound/items/eatfood.ogg', rand(10, 50), 1)
-		cut_overlays()
+		ClearOverlays()
 		return
 	else
 		to_chat(user, SPAN_WARNING("You don't have anything on \the [src].")) 	//if we have help intent and no food scooped up DON'T STAB OURSELVES WITH THE FORK)
@@ -78,13 +69,15 @@
 		reagents.clear_reagents()
 		is_liquid = FALSE
 		loaded = null
-		cut_overlays()
+		ClearOverlays()
 	return
 
 /obj/item/material/kitchen/utensil/verb/bite_size()
 	set name = "Change bite size"
 	set category = "Object"
-	var/nsize = input("Bite Size","Pick the amount of reagents to pick up.") as null|anything in bite_sizes
+	set src in usr
+
+	var/nsize = tgui_input_list(usr, "Select the amount of reagents to pick up.", "Bite Size", bite_sizes, transfer_amt)
 	if(nsize)
 		transfer_amt = nsize
 		to_chat(usr, SPAN_NOTICE("\The [src] will now scoop up [transfer_amt] reagents."))
@@ -94,9 +87,13 @@
 	desc = "It's a fork. Sure is pointy."
 	icon_state = "fork"
 	sharp = TRUE
+	surgerysound = 'sound/items/surgery/hemostat.ogg'
 
 /obj/item/material/kitchen/utensil/fork/plastic
+	icon_state = "plastic_fork"
 	default_material = MATERIAL_PLASTIC
+	use_material_name = TRUE
+	applies_material_colour = TRUE
 
 /obj/item/material/kitchen/utensil/spork
 	name = "spork"
@@ -104,21 +101,21 @@
 	icon_state = "spork"
 
 /obj/item/material/kitchen/utensil/spork/plastic
+	icon_state = "plastic_spork"
 	default_material = MATERIAL_PLASTIC
+	use_material_name = TRUE
+	applies_material_colour = TRUE
 
 /obj/item/material/kitchen/utensil/fork/chopsticks
 	name = "chopsticks"
-	desc = "A pair of chopsticks. The most challenging utensil in the Spur."
+	desc = "A pair of chopsticks. An extension of one's fingers, one might say."
 	icon_state = "chopsticks"
-	default_material = MATERIAL_WOOD
-	transfer_amt = 2 //Chopsticks are hard to grab stuff with
-	bite_sizes = list(1,2)
 
-/obj/item/material/kitchen/utensil/fork/chopsticks/cheap
-	name = "cheap chopsticks"
-	desc = "A pair of cheap, disposable chopsticks."
-	use_material_name = 0
-	applies_material_colour = 0
+/obj/item/material/kitchen/utensil/fork/chopsticks/bamboo
+	icon_state = "plastic_chopsticks"
+	default_material = MATERIAL_BAMBOO
+	use_material_name = TRUE
+	applies_material_colour = TRUE
 
 /obj/item/material/kitchen/utensil/spoon
 	name = "spoon"
@@ -128,7 +125,10 @@
 	force_divisor = 0.1 //2 when wielded with weight 20 (steel)
 
 /obj/item/material/kitchen/utensil/spoon/plastic
+	icon_state = "plastic_spoon"
 	default_material = MATERIAL_PLASTIC
+	use_material_name = TRUE
+	applies_material_colour = TRUE
 
 /*
  * Knives
@@ -161,7 +161,10 @@
 	return ..()
 
 /obj/item/material/kitchen/utensil/knife/plastic
+	icon_state = "plastic_knife"
 	default_material = MATERIAL_PLASTIC
+	use_material_name = TRUE
+	applies_material_colour = TRUE
 
 /*
  * Rolling Pins
@@ -175,6 +178,8 @@
 	default_material = "wood"
 	force_divisor = 0.7 // 10 when wielded with weight 15 (wood)
 	thrown_force_divisor = 1 // as above
+	use_material_name = TRUE
+	applies_material_colour = TRUE
 
 /obj/item/material/kitchen/rollingpin/attack(mob/living/M, mob/living/user, var/target_zone)
 	if ((user.is_clumsy()) && prob(50))

@@ -11,17 +11,20 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/turf/simulated/floor/airless,
+/turf/simulated/floor/tiled,
 /area/construction/storage)
+"az" = (
+/obj/effect/landmark/latejoincyborg,
+/turf/simulated/floor/tiled{
+	name = "cooled floor";
+	temperature = 278
+	},
+/area/turret_protected/ai_upload_foyer)
 "aO" = (
 /turf/simulated/floor/tiled,
 /area/construction/storage)
 "aQ" = (
-/obj/machinery/power/apc{
-	dir = 4;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/east,
 /obj/structure/cable/cyan,
 /turf/simulated/floor/tiled{
 	name = "cooled floor";
@@ -29,7 +32,7 @@
 	},
 /area/tcommsat/computer)
 "bl" = (
-/obj/structure/flora/pottedplant/random{
+/obj/random/pottedplant{
 	desc = "I like moster truck";
 	name = "walter"
 	},
@@ -122,7 +125,8 @@
 /obj/machinery/door/airlock/highsecurity{
 	locked = 1;
 	name = "AI Core";
-	req_access = list(16)
+	req_access = list(16);
+	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -155,7 +159,8 @@
 /obj/structure/plasticflaps/airtight,
 /obj/machinery/door/airlock/highsecurity{
 	name = "AI Upload";
-	req_access = list(16)
+	req_access = list(16);
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/tiled,
@@ -244,7 +249,7 @@
 	},
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/zpipe/up/supply,
-/turf/simulated/floor/airless,
+/turf/simulated/floor/tiled,
 /area/construction/storage)
 "iR" = (
 /turf/template_noop,
@@ -282,14 +287,11 @@
 /turf/simulated/floor/tiled,
 /area/construction/storage)
 "nc" = (
-/obj/machinery/alarm{
+/obj/machinery/alarm/north{
 	locked = 0;
 	pixel_y = 23
 	},
-/obj/machinery/power/apc{
-	dir = 8;
-	pixel_x = -24
-	},
+/obj/machinery/power/apc/west,
 /obj/effect/floor_decal/industrial/warning/corner,
 /obj/structure/cable{
 	d2 = 2;
@@ -306,10 +308,7 @@
 /turf/simulated/floor/tiled,
 /area/construction/storage)
 "nR" = (
-/obj/machinery/power/apc/super{
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/super/south,
 /obj/structure/cable/cyan{
 	d2 = 4;
 	icon_state = "0-4"
@@ -434,15 +433,13 @@
 	icon_state = "0-8"
 	},
 /obj/effect/decal/warning_stripes,
-/obj/item/device/radio/intercom{
+/obj/item/device/radio/intercom/east{
 	name = "Common Channel";
-	pixel_x = 27;
 	pixel_y = -3
 	},
-/obj/item/device/radio/intercom{
+/obj/item/device/radio/intercom/south{
 	frequency = 1343;
-	name = "Private Channel";
-	pixel_y = -26
+	name = "Private Channel"
 	},
 /obj/machinery/button/remote/blast_door{
 	desc = "A remote control-switch for the AI core maintenance door.";
@@ -452,14 +449,12 @@
 	pixel_y = 25;
 	req_access = list(20)
 	},
-/obj/machinery/newscaster/security_unit{
-	pixel_x = 32;
+/obj/machinery/newscaster/security_unit/east{
 	pixel_y = 32
 	},
-/obj/machinery/requests_console{
+/obj/machinery/requests_console/east{
 	department = "AI";
 	departmentType = 5;
-	pixel_x = 32;
 	pixel_y = -32
 	},
 /turf/simulated/floor/bluegrid{
@@ -579,11 +574,10 @@
 /area/tcommsat/computer)
 "wx" = (
 /obj/effect/floor_decal/industrial/warning,
-/obj/item/device/radio/intercom/locked{
+/obj/item/device/radio/intercom/locked/west{
 	frequency = 1343;
 	locked_frequency = 1343;
 	name = "Private AI Channel";
-	pixel_x = -5;
 	pixel_y = 22
 	},
 /turf/simulated/floor/tiled,
@@ -626,7 +620,8 @@
 /obj/structure/plasticflaps/airtight,
 /obj/machinery/door/airlock/hatch{
 	name = "Telecoms Satellite";
-	req_access = list(61)
+	req_access = list(61);
+	dir = 1
 	},
 /turf/simulated/floor/tiled{
 	name = "cooled floor";
@@ -683,10 +678,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc{
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/south,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -716,11 +708,7 @@
 	},
 /area/turret_protected/ai)
 "Dv" = (
-/obj/machinery/power/apc/super/critical{
-	dir = 8;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/power/apc/super/critical/west,
 /obj/structure/cable/cyan,
 /turf/simulated/floor/tiled{
 	name = "cooled floor";
@@ -829,7 +817,8 @@
 "GR" = (
 /obj/machinery/door/airlock/hatch{
 	name = "Telecoms Control Room";
-	req_access = list(61)
+	req_access = list(61);
+	dir = 1
 	},
 /turf/simulated/floor/tiled{
 	name = "cooled floor";
@@ -878,10 +867,7 @@
 	},
 /area/turret_protected/ai_upload_foyer)
 "JR" = (
-/obj/machinery/alarm/cold{
-	dir = 1;
-	pixel_y = -28
-	},
+/obj/machinery/alarm/cold/south,
 /turf/simulated/floor/tiled{
 	name = "cooled floor";
 	temperature = 278
@@ -949,7 +935,7 @@
 /area/turret_protected/ai)
 "NJ" = (
 /obj/machinery/power/smes/buildable{
-	charge = 5e+006;
+	charge = 5000000;
 	input_attempt = 1;
 	input_level = 200000;
 	output_attempt = 1;
@@ -1021,7 +1007,6 @@
 	must_start_working = 1
 	},
 /obj/machinery/status_display{
-	layer = 4;
 	pixel_x = -32
 	},
 /turf/simulated/floor/tiled{
@@ -1081,10 +1066,7 @@
 	},
 /area/turret_protected/ai)
 "Sx" = (
-/obj/machinery/alarm/cold{
-	dir = 4;
-	pixel_x = -28
-	},
+/obj/machinery/alarm/cold/west,
 /obj/machinery/turretid/stun{
 	name = "AI Upload turret control";
 	pixel_y = -28
@@ -1135,10 +1117,9 @@
 	c_tag = "AI Access";
 	dir = 1
 	},
-/obj/item/device/radio/intercom{
+/obj/item/device/radio/intercom/south{
 	frequency = 1343;
-	name = "Private Channel";
-	pixel_y = -26
+	name = "Private Channel"
 	},
 /turf/simulated/floor/tiled{
 	name = "cooled floor";
@@ -1146,9 +1127,7 @@
 	},
 /area/turret_protected/ai_upload_foyer)
 "UT" = (
-/obj/effect/landmark{
-	name = "skrell_entry"
-	},
+/obj/effect/landmark/skrell_srom,
 /turf/simulated/floor/tiled,
 /area/construction/storage)
 "Vd" = (
@@ -6115,9 +6094,9 @@ GG
 oF
 Vp
 Ws
-wJ
+az
 Ml
-wJ
+az
 Xd
 ki
 wf

@@ -10,7 +10,7 @@
 /obj/item/device/pipe_painter/New()
 	..()
 	modes = new()
-	for(var/C in pipe_colors)
+	for(var/C in GLOB.pipe_colors)
 		modes += "[C]"
 	mode = pick(modes)
 
@@ -23,14 +23,14 @@
 		return
 	else if(istype(A,/obj/machinery/atmospherics/pipe))
 		var/obj/machinery/atmospherics/pipe/P = A
-		P.change_color(pipe_colors[mode])
-	else if(istype(A, /obj/item/pipe) && pipe_color_check(pipe_colors[mode]))
+		P.change_color(GLOB.pipe_colors[mode])
+	else if(istype(A, /obj/item/pipe) && pipe_color_check(GLOB.pipe_colors[mode]))
 		var/obj/item/pipe/P = A
-		P.color = pipe_colors[mode]
+		P.color = GLOB.pipe_colors[mode]
 
 /obj/item/device/pipe_painter/attack_self(var/mob/user)
-	mode = input("Which colour do you want to use?", "Pipe painter", mode) in modes
+	mode = tgui_input_list(user, "Which colour do you want to use?", "Pipe Painter", modes, mode)
 
-/obj/item/device/pipe_painter/examine(var/mob/user)
-	..(user)
-	to_chat(user, "It is in [mode] mode.")
+/obj/item/device/pipe_painter/get_examine_text(mob/user, distance, is_adjacent, infix, suffix)
+	. = ..()
+	. +=  "It is in [mode] mode."

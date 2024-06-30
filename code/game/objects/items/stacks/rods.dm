@@ -3,6 +3,7 @@ var/global/list/datum/stack_recipe/rod_recipes = list(
 	new /datum/stack_recipe("floor-mounted catwalk", /obj/structure/lattice/catwalk/indoor, 4, time = 10, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("grate, dark", /obj/structure/lattice/catwalk/indoor/grate, 1, time = 10, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("grate, light", /obj/structure/lattice/catwalk/indoor/grate/light, 1, time = 10, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("table frame", /obj/structure/table, 2, time = 10, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("mine track", /obj/structure/track, 3, time = 10, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("cane", /obj/item/cane, 1, time = 6),
 	new /datum/stack_recipe("crowbar", /obj/item/crowbar, 1, time = 6),
@@ -21,9 +22,9 @@ var/global/list/datum/stack_recipe/rod_recipes = list(
 	Clicking on a floor without any tiles will reinforce the floor.  You can make reinforced glass by combining rods and normal glass sheets."
 	singular_name = "metal rod"
 	icon_state = "rods"
-	flags = CONDUCT
+	obj_flags = OBJ_FLAG_CONDUCTABLE
 	w_class = ITEMSIZE_NORMAL
-	force = 9.0
+	force = 20
 	throwforce = 15.0
 	throw_speed = 5
 	throw_range = 20
@@ -36,6 +37,10 @@ var/global/list/datum/stack_recipe/rod_recipes = list(
 	lock_picking_level = 3
 	stacktype = /obj/item/stack/rods
 	icon_has_variants = TRUE
+
+/obj/item/stack/rods/Destroy()
+	. = ..()
+	GC_TEMPORARY_HARDDEL
 
 /obj/item/stack/rods/full/Initialize()
 	. = ..()
@@ -55,20 +60,22 @@ var/global/list/datum/stack_recipe/rod_recipes = list(
 	..()
 	recipes = rod_recipes
 
-/obj/item/stack/rods/attackby(obj/item/W as obj, mob/user as mob)
+/obj/item/stack/rods/attackby(obj/item/attacking_item, mob/user)
 	..()
-	if (W.iswelder())
-		var/obj/item/weldingtool/WT = W
+	if (attacking_item.iswelder())
+		var/obj/item/weldingtool/WT = attacking_item
 
 		if(get_amount() < 2)
-			to_chat(user, "<span class='warning'>You need at least two rods to do this.</span>")
+			to_chat(user, SPAN_WARNING("You need at least two rods to do this."))
 			return
 
 		if(WT.use(0,user))
 			var/obj/item/stack/material/steel/new_item = new(usr.loc)
 			new_item.add_to_stacks(usr)
 			for (var/mob/M in viewers(src))
-				M.show_message("<span class='notice'>[src] is shaped into metal by [user.name] with the weldingtool.</span>", 3, "<span class='notice'>You hear welding.</span>", 2)
+				M.show_message(SPAN_NOTICE("[src] is shaped into metal by [user.name] with the weldingtool."), 3,
+								SPAN_NOTICE("You hear welding."), 2)
+
 			var/obj/item/stack/rods/R = src
 			src = null
 			var/replace = (user.get_inactive_hand()==R)
@@ -77,12 +84,12 @@ var/global/list/datum/stack_recipe/rod_recipes = list(
 				user.put_in_hands(new_item)
 		return
 
-	if (istype(W, /obj/item/tape_roll))
+	if (istype(attacking_item, /obj/item/tape_roll))
 		var/obj/item/stack/medical/splint/makeshift/new_splint = new(user.loc)
 		new_splint.add_fingerprint(user)
 
-		user.visible_message("<span class='notice'>\The [user] constructs \a [new_splint] out of a [singular_name].</span>", \
-				"<span class='notice'>You use make \a [new_splint] out of a [singular_name].</span>")
+		user.visible_message(SPAN_NOTICE("\The [user] constructs \a [new_splint] out of a [singular_name]."), \
+				SPAN_NOTICE("You use make \a [new_splint] out of a [singular_name]."))
 		use(1)
 		return
 
@@ -135,12 +142,12 @@ var/global/list/datum/stack_recipe/rod_recipes = list(
 	user.visible_message(SPAN_NOTICE("[user] starts assembling a liquidbag barricade."),
 	SPAN_NOTICE("You start assembling a liquidbag barricade."))
 
-	if(!do_after(user, 3 SECONDS))
+	if(!do_after(user, 3 SECONDS, do_flags = DO_REPAIR_CONSTRUCT))
 		return
 
 	for(var/obj/O in user.loc) //Objects, we don't care about mobs. Turfs are checked elsewhere
 		if(O.density)
-			if(!(O.flags & ON_BORDER) || O.dir == user.dir)
+			if(!(O.atom_flags & ATOM_FLAG_CHECKS_BORDER) || O.dir == user.dir)
 				return
 
 	var/build_stack = amount

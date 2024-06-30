@@ -9,7 +9,7 @@
 	contained_sprite = TRUE
 	slot_flags = SLOT_BELT
 	w_class = ITEMSIZE_SMALL
-	matter = list(DEFAULT_WALL_MATERIAL = 150)
+	matter = list(MATERIAL_PLASTIC = 100, MATERIAL_ALUMINIUM = 50)
 	origin_tech = list(TECH_MAGNET = 1, TECH_ENGINEERING = 1)
 	action_button_name = "Toggle T-Ray scanner"
 
@@ -29,7 +29,9 @@
 /obj/item/device/t_scanner/update_icon()
 	icon_state = "t-ray[on]"
 
-/obj/item/device/t_scanner/emp_act()
+/obj/item/device/t_scanner/emp_act(severity)
+	. = ..()
+
 	audible_message(src, SPAN_NOTICE("\The [src] buzzes oddly."))
 	set_active(FALSE)
 
@@ -92,7 +94,8 @@
 	if(scanned in overlay_cache)
 		. = overlay_cache[scanned]
 	else
-		var/image/I = image(scanned.icon, scanned.loc, scanned.icon_state, HUD_LAYER, scanned.dir)
+		var/image/I = image(scanned.icon, scanned.loc, scanned.icon_state, UNDER_HUD_LAYER, scanned.dir)
+		I.plane = HUD_PLANE
 
 		//Pipes are special
 		if(istype(scanned, /obj/machinery/atmospherics/pipe))
@@ -106,7 +109,7 @@
 			I.color = C.color
 
 		I.alpha = 100
-		I.mouse_opacity = 0
+		I.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 		. = I
 
 	// Add it to cache, cutting old entries if the list is too long

@@ -4,9 +4,6 @@
 	//Holoscreens are non solid, and the frames of the computers are thin. So projectiles will usually
 	//pass through
 			return TRUE
-	else if(istype(mover) && mover.checkpass(PASSTABLE))
-	//Animals can run under them, lots of empty space
-		return TRUE
 	return ..()
 
 /obj/item/modular_computer/console/preset/install_default_hardware()
@@ -24,29 +21,29 @@
 /obj/item/modular_computer/console/preset/engineering
 	name = "engineering console"
 	_app_preset_type = /datum/modular_computer_app_presets/engineering
-	enrolled = 1
+	enrolled = DEVICE_COMPANY
 
 /obj/item/modular_computer/console/preset/engineering/ce
 	name = "engineering console"
 	_app_preset_type = /datum/modular_computer_app_presets/engineering/ce
-	enrolled = 1
+	enrolled = DEVICE_COMPANY
 
 // Medical
 /obj/item/modular_computer/console/preset/medical
 	name = "medical console"
 	_app_preset_type = /datum/modular_computer_app_presets/medical
-	enrolled = 1
+	enrolled = DEVICE_COMPANY
 
 /obj/item/modular_computer/console/preset/medical/cmo
 	name = "medical console"
 	_app_preset_type = /datum/modular_computer_app_presets/medical/cmo
-	enrolled = 1
+	enrolled = DEVICE_COMPANY
 
 // Research
 /obj/item/modular_computer/console/preset/research
 	name = "research console"
 	_app_preset_type = /datum/modular_computer_app_presets/research
-	enrolled = 1
+	enrolled = DEVICE_COMPANY
 
 /obj/item/modular_computer/console/preset/research/install_default_hardware()
 	..()
@@ -56,7 +53,7 @@
 /obj/item/modular_computer/console/preset/command
 	name = "command console"
 	_app_preset_type = /datum/modular_computer_app_presets/command
-	enrolled = 1
+	enrolled = DEVICE_COMPANY
 
 /obj/item/modular_computer/console/preset/command/install_default_hardware()
 	..()
@@ -68,17 +65,17 @@
 /obj/item/modular_computer/console/preset/command/captain
 	name = "captain's console"
 	_app_preset_type = /datum/modular_computer_app_presets/command/captain
-	enrolled = 1
+	enrolled = DEVICE_COMPANY
 
 /obj/item/modular_computer/console/preset/command/hop
 	name = "command console"
 	_app_preset_type = /datum/modular_computer_app_presets/command/hop
-	enrolled = 1
+	enrolled = DEVICE_COMPANY
 
 /obj/item/modular_computer/console/preset/command/account
 	name = "account console"
 	_app_preset_type = /datum/modular_computer_app_presets/command/account
-	enrolled = 1
+	enrolled = DEVICE_COMPANY
 
 /obj/item/modular_computer/console/preset/command/account/centcomm
 	name = "centcomm accounts database"
@@ -88,22 +85,22 @@
 /obj/item/modular_computer/console/preset/security
 	name = "security console"
 	_app_preset_type = /datum/modular_computer_app_presets/security
-	enrolled = 1
+	enrolled = DEVICE_COMPANY
 
 /obj/item/modular_computer/console/preset/security/investigations
 	name = "investigations console"
 	_app_preset_type = /datum/modular_computer_app_presets/security/investigations
-	enrolled = 1
+	enrolled = DEVICE_COMPANY
 
 /obj/item/modular_computer/console/preset/security/armory
 	name = "armory console"
 	_app_preset_type = /datum/modular_computer_app_presets/security/armory
-	enrolled = 1
+	enrolled = DEVICE_COMPANY
 
 /obj/item/modular_computer/console/preset/security/hos
 	name = "head of security's console"
 	_app_preset_type = /datum/modular_computer_app_presets/security/hos
-	enrolled = 1
+	enrolled = DEVICE_COMPANY
 
 /obj/item/modular_computer/console/preset/command/teleporter
 	name = "teleporter control console"
@@ -119,13 +116,13 @@
 /obj/item/modular_computer/console/preset/civilian
 	name = "civilian console"
 	_app_preset_type = /datum/modular_computer_app_presets/civilian
-	enrolled = 1
+	enrolled = DEVICE_COMPANY
 
 // Supply
 /obj/item/modular_computer/console/preset/supply
 	name = "supply console"
 	_app_preset_type = /datum/modular_computer_app_presets/supply
-	enrolled = 1
+	enrolled = DEVICE_COMPANY
 
 /obj/item/modular_computer/console/preset/supply/install_default_hardware()
 	..()
@@ -136,7 +133,7 @@
 /obj/item/modular_computer/console/preset/supply/machinist
 	name = "machinist console"
 	_app_preset_type = /datum/modular_computer_app_presets/supply/machinist
-	enrolled = 1
+	enrolled = DEVICE_COMPANY
 
 /obj/item/modular_computer/console/preset/supply/machinist/install_default_hardware()
 	..()
@@ -152,14 +149,14 @@
 
 /obj/item/modular_computer/console/preset/ert
 	_app_preset_type = /datum/modular_computer_app_presets/ert
-	enrolled = 2
+	enrolled = DEVICE_PRIVATE
 	computer_emagged = TRUE
 
 // Mercenary
 /obj/item/modular_computer/console/preset/mercenary
 	_app_preset_type = /datum/modular_computer_app_presets/merc
 	computer_emagged = TRUE
-	enrolled = 2
+	enrolled = DEVICE_PRIVATE
 
 /obj/item/modular_computer/console/preset/mercenary/install_default_hardware()
 	..()
@@ -170,7 +167,7 @@
 // Merchant
 /obj/item/modular_computer/console/preset/merchant
 	_app_preset_type = /datum/modular_computer_app_presets/merchant
-	enrolled = 2
+	enrolled = DEVICE_PRIVATE
 
 /obj/item/modular_computer/console/preset/merchant/install_default_hardware()
 	..()
@@ -183,7 +180,10 @@
 /obj/item/modular_computer/console/preset/merchant/guild
 	_app_preset_type = /datum/modular_computer_app_presets/merchant/guild
 
+/obj/item/modular_computer/console/preset/merchant/golden_deep
+	_app_preset_type = /datum/modular_computer_app_presets/merchant/golden_deep
+
 // AI
 /obj/item/modular_computer/console/preset/ai
 	_app_preset_type = /datum/modular_computer_app_presets/ai
-	enrolled = 2
+	enrolled = DEVICE_PRIVATE

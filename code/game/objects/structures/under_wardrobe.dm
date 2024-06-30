@@ -1,9 +1,3 @@
-#define M_UNDER "Male underwear"
-#define F_UNDER "Female underwear"
-#define M_SOCKS "Male socks"
-#define F_SOCKS "Female socks"
-#define U_SHIRT "Undershirt"
-
 /obj/structure/undies_wardrobe
 	name = "underwear wardrobe"
 	desc = "Holds item of clothing you shouldn't be showing off in the hallways."
@@ -13,12 +7,12 @@
 
 /obj/structure/undies_wardrobe/Initialize(mapload)
 	. = ..()
-	add_overlay("cabinet_door")
-	add_overlay("cabinet_door_alt")
+	AddOverlays("cabinet_door")
+	AddOverlays("cabinet_door_alt")
 
 /obj/structure/undies_wardrobe/attack_hand(var/mob/user)
 	if(!human_who_can_use_underwear(user))
-		to_chat(user, "<span class='warning'>Sadly there's nothing in here for you to wear.</span>")
+		to_chat(user, SPAN_WARNING("Sadly there's nothing in here for you to wear."))
 		return
 	interact(user)
 
@@ -77,8 +71,8 @@
 		var/datum/category_group/underwear/UWC = global_underwear.categories_by_name[href_list["change_underwear"]]
 		if(!UWC)
 			return
-		var/datum/category_item/underwear/selected_underwear = input(H, "Choose underwear:", "Choose underwear", H.all_underwear[UWC.name]) as null|anything in UWC.items
-		if(selected_underwear && CanUseTopic(H, default_state))
+		var/datum/category_item/underwear/selected_underwear = tgui_input_list(H, "Choose your underwear.", "Choose Underwear", UWC.items, H.all_underwear[UWC.name])
+		if(selected_underwear && CanUseTopic(H, GLOB.default_state))
 			H.all_underwear[UWC.name] = selected_underwear
 			H.hide_underwear[UWC.name] = FALSE
 			. = TRUE

@@ -13,7 +13,7 @@
 	possible_transfer_amounts = list(10,20,30,60)
 	volume = 60
 	unacidable = 0
-	flags = OPENCONTAINER
+	atom_flags = ATOM_FLAG_OPEN_CONTAINER
 	fragile = 0
 	var/paint_reagent = null //name of the reagent responsible for colouring the paint
 	var/paint_type = null //used for colouring detective technicolor coat and hat
@@ -30,13 +30,13 @@
 	update_icon()
 
 /obj/item/reagent_containers/glass/paint/update_icon()
-	cut_overlays()
+	ClearOverlays()
 	if(!is_open_container())
-		add_overlay("paint_lid")
+		AddOverlays("paint_lid")
 	else if(reagents.total_volume)
 		var/image/I = image(icon, "paint_full")
 		I.color = reagents.get_color()
-		add_overlay(I)
+		AddOverlays(I)
 
 /obj/item/reagent_containers/glass/paint/on_reagent_change()
 	update_icon()

@@ -28,7 +28,7 @@
 	speed = 4
 	projectiletype = /obj/item/projectile/beam/cavern
 	projectilesound = 'sound/magic/lightningbolt.ogg'
-	destroy_surroundings = 1
+	break_stuff_probability = 2
 
 	emote_see = list("stares","hovers ominously","blinks")
 
@@ -45,7 +45,6 @@
 	faction = "cavern"
 
 	flying = TRUE
-	see_in_dark = 8
 	see_invisible = SEE_INVISIBLE_NOLIGHTING
 
 /mob/living/simple_animal/hostile/retaliate/cavern_dweller/Allow_Spacemove(var/check_drift = 0)
@@ -98,7 +97,7 @@
 	emote_hear = list("chirps cheerfully","buzzes","whirrs","hums placidly","chirps","hums")
 	projectiletype = /obj/item/projectile/beam/plasmacutter
 	projectilesound = 'sound/weapons/plasma_cutter.ogg'
-	destroy_surroundings = 1
+	destroy_surroundings = FALSE
 	min_oxy = 0
 	max_oxy = 0
 	min_tox = 0
@@ -110,7 +109,6 @@
 	minbodytemp = 0
 	light_range = 10
 	light_wedge = LIGHT_WIDE
-	see_in_dark = 8
 	psi_pingable = FALSE
 
 	faction = "sol"
@@ -133,7 +131,7 @@
 	..(null,"is smashed into pieces!")
 	var/T = get_turf(src)
 	new /obj/effect/gibspawner/robot(T)
-	spark(T, 3, alldirs)
+	spark(T, 3, GLOB.alldirs)
 	for(var/obj/item/ore/O in loot)
 		O.forceMove(src.loc)
 	qdel(src)
@@ -177,7 +175,7 @@
 			break
 
 	if(target_ore)
-		walk_to(src, target_ore, 1, move_to_delay)
+		GLOB.move_manager.move_to(src, target_ore, 1, move_to_delay)
 	else if(found_turfs.len)
 		for(var/turf/simulated/mineral/M in found_turfs)
 			if(!QDELETED(M) || !M.mineral)
@@ -212,7 +210,7 @@
 	return
 
 /mob/living/simple_animal/hostile/retaliate/minedrone/fall_impact()
-	visible_message("<span class='danger'>\The [src] bounces harmlessly on its inflated wheels.</span>")
+	visible_message(SPAN_DANGER("\The [src] bounces harmlessly on its inflated wheels."))
 	return FALSE
 
 /mob/living/simple_animal/hostile/retaliate/minedrone/get_bullet_impact_effect_type(var/def_zone)

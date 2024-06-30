@@ -16,14 +16,14 @@
 	if(material.opacity < 0.5)
 		alpha = 125
 
-/obj/effect/overlay/burnt_wall/attackby(obj/item/I, mob/user)
-	if(I.iswelder())
-		var/obj/item/weldingtool/WT = I
+/obj/effect/overlay/burnt_wall/attackby(obj/item/attacking_item, mob/user)
+	if(attacking_item.iswelder())
+		var/obj/item/weldingtool/WT = attacking_item
 		if(!WT.isOn())
 			return TRUE
 		if(WT.use(0,user))
 			user.visible_message("<b>[user]</b> starts slicing \the [src] apart.", SPAN_NOTICE("You start slicing \the [src] apart."))
-			playsound(src, 'sound/items/welder.ogg', 100, 1)
+			playsound(src, 'sound/items/Welder.ogg', 100, 1)
 			var/slice_time = reinf_material ? 100 : 30
 			if(WT.use_tool(src, user, slice_time, volume = 50))
 				user.visible_message("<b>[user]</b> slices \the [src] apart.", SPAN_NOTICE("You slice \the [src] apart."))
@@ -40,7 +40,6 @@
 	icon = 'icons/effects/fire.dmi'
 	icon_state = "2"
 	anchored = TRUE
-	layer = 5
 
 /obj/effect/overlay/burnt_wall/steel/Initialize(mapload)
 	. = ..(mapload, "wall", MATERIAL_STEEL)

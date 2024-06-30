@@ -10,7 +10,7 @@
 	total_health = 240
 	age_min = 30
 	age_max = 1000
-	default_genders = list(NEUTER)
+	default_genders = list(PLURAL)
 	selectable_pronouns = list(NEUTER, PLURAL)
 	economic_modifier = 3
 	icobase = 'icons/mob/human_races/diona/r_diona.dmi'
@@ -56,8 +56,8 @@
 	organ_high_pain_message = "<b><font size=3>The nymph making up our %PARTNAME% screams out in pain!</font></b>"
 
 	organ_low_burn_message = "<b>The nymph making up our %PARTNAME% notes a burning injury.</b>"
-	organ_med_burn_message = "<span class='danger'><font size=3>The nymph making up our %PARTNAME% burns terribly!</font></span>"
-	organ_high_burn_message = "<span class='danger'><font size=3>The nymph making up our %PARTNAME% screams in agony at the burning!</font></span>"
+	organ_med_burn_message = SPAN_DANGER("<font size=3>The nymph making up our %PARTNAME% burns terribly!</font>")
+	organ_high_burn_message = SPAN_DANGER("<font size=3>The nymph making up our %PARTNAME% screams in agony at the burning!</font>")
 
 	halloss_message = "creaks and crumbles to the floor."
 	halloss_message_self = "We can't take this much pain..."
@@ -68,7 +68,7 @@
 	grab_mod = 0.6 // Viney Tentacles and shit to cling onto
 	resist_mod = 1.5 // Reasonably stronk, not moreso than an Unathi or robot.
 
-	has_organ = list( BP_STOMACH = /obj/item/organ/internal/stomach/diona)
+	has_organ = list(BP_STOMACH = /obj/item/organ/internal/stomach/diona)
 
 	has_limbs = list(
 		BP_CHEST =  list("path" = /obj/item/organ/external/chest/diona),
@@ -115,20 +115,25 @@
 	max_hydration_factor = -1
 
 	possible_cultures = list(
+		/singleton/origin_item/culture/hieroaetheria,
 		/singleton/origin_item/culture/xrim,
-		/singleton/origin_item/culture/eum,
 		/singleton/origin_item/culture/narrows,
 		/singleton/origin_item/culture/diona_biesel,
 		/singleton/origin_item/culture/diona_sol,
 		/singleton/origin_item/culture/diona_eridani,
-		/singleton/origin_item/culture/diona_dominia,
 		/singleton/origin_item/culture/dionae_moghes,
 		/singleton/origin_item/culture/dionae_nralakk,
 		/singleton/origin_item/culture/diona_coalition,
-		/singleton/origin_item/culture/deep_space
+		/singleton/origin_item/culture/deep_space,
+		/singleton/origin_item/culture/diona_voidtamer
 	)
 
 	alterable_internal_organs = list()
+	psi_deaf = TRUE
+
+	sleeps_upright = TRUE
+	snore_key = "chirp"
+	indefinite_sleep = TRUE
 
 /datum/species/diona/can_understand(var/mob/other)
 	var/mob/living/carbon/alien/diona/D = other
@@ -164,7 +169,7 @@
 	return current_flags
 
 /datum/species/diona/handle_death_check(var/mob/living/carbon/human/H)
-	if(H.get_total_health() <= config.health_threshold_dead)
+	if(H.get_total_health() <= GLOB.config.health_threshold_dead)
 		return TRUE
 	return FALSE
 
@@ -184,11 +189,15 @@
 	if(SB)
 		SB.handle_item_insertion(new /obj/item/device/flashlight/survival(get_turf(H)), TRUE)
 
-/datum/species/diona/has_psi_potential()
-	return FALSE
-
 /datum/species/diona/is_naturally_insulated()
 	return TRUE
 
 /datum/species/diona/bypass_food_fullness(var/mob/living/carbon/human/H)
 	return TRUE
+
+/datum/species/diona/sleep_msg(var/mob/M)
+	M.visible_message(SPAN_NOTICE("\The [M] creaks, entering an introspective state."))
+	to_chat(M, SPAN_NOTICE("You creak, entering an introspective state."))
+
+/datum/species/diona/sleep_examine_msg(var/mob/M)
+	return SPAN_NOTICE("[M.get_pronoun("He")] sways and creaks, in a dormant state.\n")

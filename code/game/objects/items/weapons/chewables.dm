@@ -23,16 +23,16 @@
 		update_icon()
 
 /obj/item/clothing/mask/chewable/update_icon()
-	cut_overlays()
+	ClearOverlays()
 	if(wrapped)
 		var/mutable_appearance/base_overlay = mutable_appearance(icon, "[initial(icon_state)]_wrapper")
 		base_overlay.appearance_flags = RESET_COLOR
-		add_overlay(base_overlay)
+		AddOverlays(base_overlay)
 
 /obj/item/clothing/mask/chewable/Initialize()
 	create_reagents(chem_volume) // making the cigarrete a chemical holder with a maximum volume of 15
 	. = ..()
-	flags |= NOREACT // so it doesn't react until you light it
+	atom_flags |= ATOM_FLAG_NO_REACT // so it doesn't react until you light it
 	if(wrapped)
 		slot_flags = null
 		update_icon()
@@ -159,6 +159,19 @@
 		/singleton/reagent/drink/dynjuice = 1
 	)
 
+/obj/item/clothing/mask/chewable/oracle
+	name = "chewing oracle"
+	desc = "A chewy wad of oracle. Cut in long strands."
+	throw_speed = 0.5
+	icon_state = "chew"
+	type_butt = /obj/item/trash/spitwad
+	w_class = ITEMSIZE_TINY
+	slot_flags = SLOT_EARS | SLOT_MASK
+	chem_volume = 50
+	chewtime = 300
+	brand = "oracle"
+	reagents_to_add = list(/singleton/reagent/toxin/oracle = 2)
+
 /obj/item/clothing/mask/chewable/candy
 	name = "wad"
 	desc = "A chewy wad of wadding material."
@@ -170,6 +183,19 @@
 	chem_volume = 50
 	chewtime = 300
 	reagents_to_add = list(/singleton/reagent/sugar = 2)
+
+/obj/item/clothing/mask/chewable/chewingkoko
+	name = "wad"
+	desc = "A sweet chewy wad of koko reeds, treated with a persevative syrup."
+	throw_speed = 0.5
+	icon_state = "chew"
+	type_butt = /obj/item/trash/spitwad
+	w_class = ITEMSIZE_TINY
+	slot_flags = SLOT_EARS | SLOT_MASK
+	chem_volume = 50
+	chewtime = 300
+	brand = "koko"
+	reagents_to_add = list(/singleton/reagent/mental/kokoreed = 7)
 
 /obj/item/trash/spitgum
 	name = "old gum"
@@ -184,7 +210,6 @@
 	name = "chewing gum"
 	desc = "A chewy wad of fine synthetic rubber and artificial flavoring."
 	icon_state = "gum"
-	item_state = "gum"
 	wrapped = TRUE
 
 /obj/item/clothing/mask/chewable/candy/gum/Initialize()
@@ -202,29 +227,6 @@
 
 /obj/item/clothing/mask/chewable/candy/gum/gumball/medical
 	reagents_to_add = list(/singleton/reagent/tricordrazine = 5)
-
-
-/obj/item/storage/box/fancy/gum
-	name = "\improper Chewy Fruit flavored gum"
-	desc = "A small pack of chewing gum in various flavors."
-	icon = 'icons/obj/food.dmi'
-	icon_state = "gum_pack"
-	item_state = "candy"
-	icon_type = "gum stick"
-	storage_type = "packaging"
-	slot_flags = SLOT_EARS
-	w_class = ITEMSIZE_TINY
-	starts_with = list(/obj/item/clothing/mask/chewable/candy/gum = 5)
-	can_hold = list(/obj/item/clothing/mask/chewable/candy/gum, /obj/item/trash/spitgum)
-	max_storage_space = 5
-
-	use_sound = 'sound/items/storage/wrapper.ogg'
-	drop_sound = 'sound/items/drop/wrapper.ogg'
-	pickup_sound = 'sound/items/pickup/wrapper.ogg'
-
-	trash = /obj/item/trash/gum
-	closable = FALSE
-	icon_overlays = FALSE
 
 /obj/item/clothing/mask/chewable/candy/lolli
 	name = "lollipop"
@@ -247,12 +249,12 @@
 		spitout(0)
 
 /obj/item/clothing/mask/chewable/candy/lolli/update_icon()
-	cut_overlays()
+	ClearOverlays()
 	var/mutable_appearance/base_overlay = mutable_appearance(icon, "[initial(icon_state)]_stick")
 	base_overlay.appearance_flags = RESET_COLOR
-	add_overlay(base_overlay)
+	AddOverlays(base_overlay)
 	if(wrapped)
-		add_overlay("[initial(icon_state)]_wrapper")
+		AddOverlays("[initial(icon_state)]_wrapper")
 
 /obj/item/clothing/mask/chewable/candy/lolli/Initialize()
 	. = ..()

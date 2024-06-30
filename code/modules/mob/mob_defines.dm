@@ -1,10 +1,16 @@
 /mob
 	density = 1
-	layer = 4.0
+	layer = MOB_LAYER
 	animate_movement = 2
-	flags = PROXMOVE
+	movable_flags = MOVABLE_FLAG_PROXMOVE
 	sight = DEFAULT_SIGHT
+	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	var/datum/mind/mind
+	var/static/next_mob_id = 0
+
+	// we never want to hide a turf because it's not lit
+	// We can rely on the lighting plane to handle that for us
+	see_in_dark = 1e6
 
 	var/stat = 0 //Whether a mob is alive or dead. TODO: Move this to living - Nodrak
 	can_be_buckled = TRUE
@@ -33,7 +39,6 @@
 	var/obj/screen/gun/item/item_use_icon = null
 	var/obj/screen/gun/radio/radio_use_icon = null
 	var/obj/screen/gun/move/gun_move_icon = null
-	var/obj/screen/gun/run/gun_run_icon = null
 	var/obj/screen/gun/mode/gun_setting_icon = null
 	var/obj/screen/gun/unique_action_icon = null
 	var/obj/screen/gun/toggle_firing_mode = null
@@ -58,7 +63,6 @@
 	var/computer_id = null
 	var/character_id = 0
 	var/obj/machinery/machine = null
-	var/other_mobs = null
 	var/height = HEIGHT_NOT_USED
 	var/sdisabilities = 0				//Carbon
 	var/disabilities = 0				//Carbon
@@ -93,9 +97,13 @@
 	var/phoron = null
 	var/sleeping = 0					//Carbon
 	var/sleeping_msg_debounce = FALSE	//Carbon - Used to show a message once every time someone falls asleep.
+	var/recently_slept = 0				//Carbon - Used to avoid falling over after waking up
+	var/sleeping_indefinitely = FALSE
+	var/sleep_buffer = 0				//Used for indefinite sleeping
 	var/resting = 0						//Carbon
-	var/lying = 0
-	var/lying_prev = 0
+	var/lying = 0	// Is the mob lying down?
+	var/lying_prev = 0	// Was the mob lying down before?
+	var/lying_is_intentional = FALSE	// Is the mob lying down intentionally? (eg. a manouver)
 	var/canmove = 1
 	//Allows mobs to move through dense areas without restriction. For instance, in space or out of holder objects.
 	var/incorporeal_move = INCORPOREAL_DISABLE
@@ -147,6 +155,8 @@
 	var/obj/item/tank/internal = null//Human/Monkey
 	var/obj/item/storage/s_active = null//Carbon
 	var/obj/item/clothing/mask/wear_mask = null//Carbon
+
+	var/list/screens = list()
 
 	var/seer = 0 //for cult//Carbon, probably Human
 
@@ -207,7 +217,6 @@
 
 //Monkey/infected mode
 	var/list/resistances = list()
-	var/datum/disease/virus = null
 
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
 
@@ -230,6 +239,7 @@
 	var/mob/teleop = null
 
 	var/turf/listed_turf = null  	//the current turf being examined in the stat panel
+	var/list/item_verbs = list()
 	var/list/shouldnt_see = list()	//typecache of objects that this mob shouldn't see in the stat panel. this silliness is needed because of AI alt+click and cult blood runes
 
 	var/list/active_genes=list()
@@ -247,7 +257,13 @@
 	var/authed = TRUE
 	var/player_age = "Requires database"
 
-	/// If this mob is or was piloted by a player with typing indicators enabled, an instance of one.
+	///Override for sound_environmentironments. If this is set the user will always hear a specific type of reverb (Instead of the area defined reverb)
+	var/sound_environment_override = SOUND_ENVIRONMENT_NONE
+
+	///the icon currently used for the typing indicator's bubble
 	var/atom/movable/typing_indicator/typing_indicator
-	/// Whether this mob is currently typing, if piloted by a player.
-	var/is_typing
+	/// User is thinking in character. Used to revert to thinking state after stop_typing
+	var/thinking_IC = FALSE
+
+	/// A assoc lazylist of to_chat notifications, key = string message, value = world time integer
+	var/list/message_notifications

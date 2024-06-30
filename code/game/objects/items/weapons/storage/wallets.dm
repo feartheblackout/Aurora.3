@@ -10,6 +10,9 @@
 		/obj/item/spacecash,
 		/obj/item/card,
 		/obj/item/clothing/mask/smokable,
+		/obj/item/storage/box/fancy/cigpaper,
+		/obj/item/storage/cigfilters,
+		/obj/item/storage/chewables/rollable,
 		/obj/item/clothing/accessory/badge,
 		/obj/item/clothing/accessory/locket,
 		/obj/item/clothing/ring,
@@ -34,7 +37,10 @@
 		/obj/item/fluff,
 		/obj/item/storage/business_card_holder,
 		/obj/item/sample,
-		/obj/item/key
+		/obj/item/key,
+		/obj/item/sign/painting_frame,
+		/obj/item/clothing/accessory/dominia/tic/retired,
+		/obj/item/clothing/accessory/dominia/tic/retired/caladius
 	)
 	slot_flags = SLOT_ID
 	build_from_parts = TRUE
@@ -73,7 +79,7 @@
 			update_icon()
 
 /obj/item/storage/wallet/update_icon()
-	cut_overlays()
+	ClearOverlays()
 	worn_overlay = "fasteners"
 	if(front_id)
 		if(("[icon_state]-open") in icon_states(icon))
@@ -83,10 +89,10 @@
 		if(("[initial(icon_state)]-[front_id.icon_state]") in icon_states(icon))
 			tiny_state = "[initial(icon_state)]-[front_id.icon_state]"
 		var/image/tiny_image = overlay_image(icon, icon_state = tiny_state, flags = RESET_COLOR)
-		add_overlay(tiny_image)
+		AddOverlays(tiny_image)
 		if(("[initial(icon_state)]-film") in icon_states(icon))
 			var/image/film_image = overlay_image(icon, "[initial(icon_state)]-film", flags = RESET_COLOR)
-			add_overlay(film_image)
+			AddOverlays(film_image)
 	else
 		icon_state = "[initial(icon_state)]"
 		. = ..()
@@ -115,49 +121,11 @@
 
 	return ..()
 
-/obj/item/storage/wallet/examine(mob/user)
+/obj/item/storage/wallet/examine(mob/user, distance, is_adjacent, infix, suffix, show_extended)
 	. = ..()
 	var/obj/item/card/id/id = GetID()
-	if(istype(id) && Adjacent(user))
+	if(istype(id) && is_adjacent)
 		id.show(user)
-
-/obj/item/storage/wallet/random/fill()
-	..()
-	var/item1_type = pick(                \
-		/obj/item/spacecash/c10,   \
-		/obj/item/spacecash/c100,  \
-		/obj/item/spacecash/c1000, \
-		/obj/item/spacecash/c20,   \
-		/obj/item/spacecash/c200,  \
-		/obj/item/spacecash/c50,   \
-		/obj/item/spacecash/c500   \
-	)
-	var/item2_type
-	if(prob(50))
-		item2_type = pick(                    \
-			/obj/item/spacecash/c10,   \
-			/obj/item/spacecash/c100,  \
-			/obj/item/spacecash/c1000, \
-			/obj/item/spacecash/c20,   \
-			/obj/item/spacecash/c200,  \
-			/obj/item/spacecash/c50,   \
-			/obj/item/spacecash/c500   \
-		)
-	var/item3_type = pick(            \
-		/obj/item/coin/silver, \
-		/obj/item/coin/silver, \
-		/obj/item/coin/gold,   \
-		/obj/item/coin/iron,   \
-		/obj/item/coin/iron,   \
-		/obj/item/coin/iron    \
-	)
-
-	if(item1_type)
-		new item1_type(src)
-	if(item2_type)
-		new item2_type(src)
-	if(item3_type)
-		new item3_type(src)
 
 /obj/item/storage/wallet/proc/mob_icon_update()
 	if (ismob(src.loc))
@@ -190,7 +158,7 @@
 	if(use_check_and_message(usr, use_flags = USE_DISALLOW_SILICONS))
 		return
 	if(wear_over_suit == -1)
-		to_chat(usr, "<span class='notice'>\The [src] cannot be worn above your suit!</span>")
+		to_chat(usr, SPAN_NOTICE("\The [src] cannot be worn above your suit!"))
 		return
 	wear_over_suit = !wear_over_suit
 	mob_icon_update()
@@ -237,14 +205,79 @@
 	. = ..()
 	if(("[initial(icon_state)]-film") in icon_states(icon))
 		var/image/film_image = overlay_image(icon, "[initial(icon_state)]-film", flags = RESET_COLOR)
-		add_overlay(film_image)
+		AddOverlays(film_image)
 
 /obj/item/storage/wallet/lanyard/get_mob_overlay(mob/living/carbon/human/H, mob_icon, mob_state, slot)
 	var/image/I = ..()
 	if(front_id)
-		I.add_overlay(image('icons/mob/lanyard_overlays.dmi', icon_state = "lanyard-[front_id_overlay_state]"))
+		I.AddOverlays(image('icons/mob/lanyard_overlays.dmi', icon_state = "lanyard-[front_id_overlay_state]"))
 	else
 		if(!plastic_film)
 			plastic_film = image('icons/mob/lanyard_overlays.dmi', icon_state = "[plastic_film_overlay_state]")
-		I.add_overlay(plastic_film)
+		I.AddOverlays(plastic_film)
 	return I
+
+// wallet subtypes
+
+/obj/item/storage/wallet/random/fill()
+	..()
+	var/item1_type = pick(                \
+		/obj/item/spacecash/c10,   \
+		/obj/item/spacecash/c100,  \
+		/obj/item/spacecash/c1000, \
+		/obj/item/spacecash/c20,   \
+		/obj/item/spacecash/c200,  \
+		/obj/item/spacecash/c50,   \
+		/obj/item/spacecash/c500   \
+	)
+	var/item2_type
+	if(prob(50))
+		item2_type = pick(                    \
+			/obj/item/spacecash/c10,   \
+			/obj/item/spacecash/c100,  \
+			/obj/item/spacecash/c1000, \
+			/obj/item/spacecash/c20,   \
+			/obj/item/spacecash/c200,  \
+			/obj/item/spacecash/c50,   \
+			/obj/item/spacecash/c500   \
+		)
+	var/item3_type = pick(            \
+		/obj/item/coin/silver, \
+		/obj/item/coin/silver, \
+		/obj/item/coin/gold,   \
+		/obj/item/coin/iron,   \
+		/obj/item/coin/iron,   \
+		/obj/item/coin/iron    \
+	)
+
+	if(item1_type)
+		new item1_type(src)
+	if(item2_type)
+		new item2_type(src)
+	if(item3_type)
+		new item3_type(src)
+
+/obj/item/storage/wallet/sol_rich/fill()
+	..()
+	var/item1_type = pick(
+		/obj/item/spacecash/ewallet/c10000,
+		/obj/item/spacecash/ewallet/c5000,
+		/obj/item/spacecash/ewallet/c2000,
+		/obj/item/spacecash/c1000,
+		/obj/item/spacecash/c500,
+	)
+	var/item2_type = pick(
+		/obj/item/spacecash/ewallet/c5000,
+		/obj/item/spacecash/ewallet/c2000,
+		/obj/item/spacecash/c500,
+	)
+	var/item3_type = pick(
+		/obj/item/coin/silver,
+		/obj/item/coin/silver,
+		/obj/item/coin/gold,
+	)
+
+	new item1_type(src)
+	new item2_type(src)
+	new item3_type(src)
+	new /obj/item/clothing/accessory/badge/passport/sol(src)

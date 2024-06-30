@@ -1,47 +1,19 @@
-#define OUTFIT_NOTHING 1
 
-#define OUTFIT_BACKPACK 2
-#define OUTFIT_SATCHEL 3 // the classic grey sling one
-#define OUTFIT_SATCHEL_ALT 4 // the leather bag
-#define OUTFIT_DUFFELBAG 5
-#define OUTFIT_MESSENGERBAG 6
-#define OUTFIT_RUCKSACK 7 // the bay one
-#define OUTFIT_POCKETBOOK 8 // the leather bag but smaller
+/// General outfit abstraction.
+/// To be used for both a mob's outfit (for a ghostspawner, ship/station job, corpse),
+/// where the outfit is applied to the mob.
+/// But also for "standalone" outfits (just items spawned in a locker, on the floor),
+/// where the outfit items are "spilled" onto the floor (not all items, does not spawn IDs for example).
+/obj/outfit
+	name = "Naked"
+	icon = 'icons/effects/map_effects.dmi'
+	icon_state = "outfit"
 
-#define OUTFIT_JOBSPECIFIC 1
-#define OUTFIT_GENERIC 2
-#define OUTFIT_FACTIONSPECIFIC 3
+	/// If spilling onto the floor, prob chance for the item to spill.
+	var/spill_prob = 98
+	/// If spilling onto the floor, if true, items to spill will be shuffled.
+	var/spill_shuffle = TRUE
 
-#define OUTFIT_THIN 2
-#define OUTFIT_NORMAL 3
-#define OUTFIT_THICK 4
-
-#define OUTFIT_BLUE 2
-#define OUTFIT_GREEN 3
-#define OUTFIT_NAVY 4
-#define OUTFIT_TAN 5
-#define OUTFIT_KHAKI 6
-#define OUTFIT_BLACK 7
-#define OUTFIT_OLIVE 8
-#define OUTFIT_AUBURN 9
-#define OUTFIT_BROWN 10
-
-#define OUTFIT_TAB_PDA 2
-#define OUTFIT_PDA_OLD 3
-#define OUTFIT_PDA_RUGGED 4
-#define OUTFIT_PDA_SLATE 5
-#define OUTFIT_PDA_SMART 6
-#define OUTFIT_TABLET 7
-#define OUTFIT_WRISTBOUND 8
-
-#define OUTFIT_HEADSET 2
-#define OUTFIT_BOWMAN 3
-#define OUTFIT_DOUBLE 4
-#define OUTFIT_WRISTRAD 5
-#define OUTFIT_THIN_WRISTRAD 6
-
-/datum/outfit
-	var/name = "Naked"
 	var/collect_not_del = FALSE
 
 	//The following vars can either be a path or a list of paths
@@ -53,11 +25,13 @@
 	var/gloves = null
 	var/wrist = null
 	var/shoes = null
+
 	var/head = null
 	var/mask = null
 	var/l_ear = null
 	var/r_ear = null
 	var/glasses = null
+
 	var/l_pocket = null
 	var/r_pocket = null
 	var/suit_store = null
@@ -106,6 +80,7 @@
 	var/bowman = /obj/item/device/radio/headset/alt
 	var/double_headset = /obj/item/device/radio/headset/alt/double
 	var/wrist_radio = /obj/item/device/radio/headset/wrist
+	var/clipon_radio = /obj/item/device/radio/headset/wrist/clip
 
 	var/id_iff = IFF_DEFAULT // when spawning in, the ID will be set to this iff, preventing friendly fire
 
@@ -116,7 +91,72 @@
 	var/list/implants = null //A list of implants that should be implanted
 	var/list/spells = list() // A list of spells to grant
 
-/datum/outfit/proc/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/obj/outfit/Initialize(mapload, ...)
+	. = ..()
+	// if loc is not null, means the outfit was mapped in or spawned manually
+	if(loc!=null)
+		spill()
+
+/// Spawn the items on the loc turf.
+/// Delete self later.
+/obj/outfit/proc/spill()
+	// get a list of item types to spawn
+	var/list/items = list(
+		uniform,
+		suit,
+		back,
+		belt,
+		gloves,
+		wrist,
+		shoes,
+
+		head,
+		mask,
+		l_ear,
+		r_ear,
+		glasses,
+
+		l_pocket,
+		r_pocket,
+		suit_store,
+		accessory,
+		suit_accessory,
+
+		l_hand,
+		r_hand,
+		pda,
+		radio,
+
+		backpack,
+	)
+
+	// add contents to the list
+	for(var/c in backpack_contents)
+		items += c
+	for(var/c in accessory_contents)
+		items += c
+	for(var/c in belt_contents)
+		items += c
+
+	// shuffle
+	if(spill_shuffle)
+		items = shuffle(items)
+
+	// go over each item
+	for(var/i in items)
+		if(i && prob(spill_prob))
+			spill_item(i)
+
+	// and finally delete self
+	qdel(src)
+
+/obj/outfit/proc/spill_item(var/path)
+	if(islist(path))
+		path = pick(path)
+	if(path && ispath(path))
+		new path(loc)
+
+/obj/outfit/proc/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	//to be overriden for customization depending on client prefs,species etc
 	if(allow_backbag_choice)
 		switch(H.backbag)
@@ -246,6 +286,9 @@
 				wrist = wrist_radio
 				if(H.headset_choice == OUTFIT_THIN_WRISTRAD)
 					radio_callback = CALLBACK(src, PROC_REF(turn_into_thinset))
+			if(OUTFIT_CLIPON)
+				l_ear = null
+				wrist = clipon_radio
 			else
 				l_ear = headset //Department headset
 	if(l_ear)
@@ -253,14 +296,14 @@
 	else if (wrist)
 		equip_item(H, wrist, slot_wrists, callback = radio_callback)
 
-/datum/outfit/proc/turn_into_thinset(var/obj/item/device/radio/headset/wrist/radio)
+/obj/outfit/proc/turn_into_thinset(var/obj/item/device/radio/headset/wrist/radio)
 	if(istype(radio))
 		radio.icon_state = replacetext(radio.icon_state, "wrist", "thin")
 		radio.item_state = replacetext(radio.item_state, "wrist", "thin")
 
 // Used to equip an item to the mob. Mainly to prevent copypasta for collect_not_del.
 //override_collect temporarily allows equip_or_collect without enabling it for the job. Mostly used to prevent weirdness with hand equips when the player is missing one
-/datum/outfit/proc/equip_item(mob/living/carbon/human/H, path, slot, var/override_collect = FALSE, var/item_color, var/datum/callback/callback)
+/obj/outfit/proc/equip_item(mob/living/carbon/human/H, path, slot, var/override_collect = FALSE, var/item_color, var/datum/callback/callback)
 	var/obj/item/I
 
 	if(isnum(path))	//Check if parameter is not numeric. Must be a path, list of paths or name of a gear datum
@@ -283,9 +326,12 @@
 	else
 		H.equip_to_slot_or_del(I, slot)
 
-/datum/outfit/proc/equip_uniform_accessory(mob/living/carbon/human/H)
+/obj/outfit/proc/equip_uniform_accessory(mob/living/carbon/human/H)
 	if(!H)
 		return
+
+	if(islist(accessory))
+		accessory = pick(accessory)
 
 	var/obj/item/clothing/under/U = H.get_equipped_item(slot_w_uniform)
 	if(U)
@@ -308,7 +354,7 @@
 			if(W)
 				holster.holster(W, H)
 
-/datum/outfit/proc/equip_suit_accessory(mob/living/carbon/human/H)
+/obj/outfit/proc/equip_suit_accessory(mob/living/carbon/human/H)
 	if(!H)
 		return
 
@@ -317,10 +363,17 @@
 		var/obj/item/clothing/accessory/A = new suit_accessory
 		S.attach_accessory(H, A)
 
-/datum/outfit/proc/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/**
+ * This proc handles actions done after the outfit was equipped,
+ * eg. toggling internals, personalizations or similar
+ *
+ * This process can and does sleep, and should never be waited upon, but only invoked asyncronously (`INVOKE_ASYNC`)
+ */
+/obj/outfit/proc/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	//to be overriden for changing items post equip (such as toggeling internals, ...)
 
-/datum/outfit/proc/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/obj/outfit/proc/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	SHOULD_NOT_SLEEP(TRUE)
 	//Start with uniform,suit,backpack for additional slots
 	if(back)
 		equip_item(H, back, slot_back)
@@ -473,7 +526,7 @@
 			else
 				H.equip_or_collect(ID, slot_wear_id)
 
-	post_equip(H, visualsOnly)
+	INVOKE_ASYNC(src, PROC_REF(post_equip), H, visualsOnly)
 
 	if(!visualsOnly)
 		apply_fingerprints(H)
@@ -501,7 +554,7 @@
 	return 1
 
 // this proc takes all the scattered voidsuit pieces and reassembles them into one piece
-/datum/outfit/proc/organize_voidsuit(mob/living/carbon/human/H, var/add_magboots = TRUE)
+/obj/outfit/proc/organize_voidsuit(mob/living/carbon/human/H, var/add_magboots = TRUE)
 	var/obj/item/tank/T = H.s_store
 	H.unEquip(T, TRUE)
 
@@ -521,7 +574,7 @@
 
 	H.equip_to_slot_if_possible(VS, slot_wear_suit)
 
-/datum/outfit/proc/apply_fingerprints(mob/living/carbon/human/H)
+/obj/outfit/proc/apply_fingerprints(mob/living/carbon/human/H)
 	if(!istype(H))
 		return
 	if(H.back)
@@ -562,7 +615,7 @@
 		H.r_store.add_fingerprint(H, 1)
 	return 1
 
-/datum/outfit/proc/imprint_idcard(mob/living/carbon/human/H, obj/item/card/id/C)
+/obj/outfit/proc/imprint_idcard(mob/living/carbon/human/H, obj/item/card/id/C)
 	if(istype(C))
 		C.access = get_id_access(H)
 		C.rank = get_id_rank(H)
@@ -572,7 +625,7 @@
 		if(H.mind && H.mind.initial_account)
 			C.associated_account_number = H.mind.initial_account.account_number
 
-/datum/outfit/proc/register_pda(obj/item/modular_computer/P, obj/item/card/id/I)
+/obj/outfit/proc/register_pda(obj/item/modular_computer/P, obj/item/card/id/I)
 	if(!P.card_slot)
 		return
 	P.card_slot.insert_id(I)
@@ -581,15 +634,15 @@
 		P.enable_computer(null, TRUE) // passing null because we don't want the UI to open
 		P.minimize_program()
 
-/datum/outfit/proc/get_id_access(mob/living/carbon/human/H)
+/obj/outfit/proc/get_id_access(mob/living/carbon/human/H)
 	return list()
 
-/datum/outfit/proc/get_id_assignment(mob/living/carbon/human/H)
+/obj/outfit/proc/get_id_assignment(mob/living/carbon/human/H, var/ignore_suffix = FALSE)
 	. = GetAssignment(H)
 
-	if (. && . != "Unassigned" && H?.mind?.selected_faction)
+	if (. && . != "Unassigned" && H?.mind?.selected_faction && !ignore_suffix)
 		if (H.mind.selected_faction.title_suffix)
 			. += " ([H.mind.selected_faction.title_suffix])"
 
-/datum/outfit/proc/get_id_rank(mob/living/carbon/human/H)
+/obj/outfit/proc/get_id_rank(mob/living/carbon/human/H)
 	return GetAssignment(H)

@@ -22,7 +22,7 @@
 					text += "<font color='green'><B>Success!</B></font>"
 					feedback_add_details(feedback_tag,"[O.type]|SUCCESS")
 				else
-					text += "<span class='warning'>Fail.</span>"
+					text += SPAN_WARNING("Fail.")
 					feedback_add_details(feedback_tag,"[O.type]|FAIL")
 					failed = 1
 				num++
@@ -47,7 +47,7 @@
 		if(O.check_completion())
 			text += "<font color='green'><B>Success!</B></font>"
 		else
-			text += "<span class='warning'>Fail.</span>"
+			text += SPAN_WARNING("Fail.")
 	return text
 
 /datum/antagonist/proc/print_special_role_report(var/datum/mind/ply)
@@ -74,7 +74,7 @@
 			// they are either imprisoned, or handcuffed in an area that can't be considered a hideout
 			text += "apprehended"
 		else if(isNotStationLevel(M.z))
-			text += "fled the station"
+			text += "fled the [SSatlas.current_map.station_type]"
 		else
 			text += "survived"
 		if(M.stat == UNCONSCIOUS)
@@ -90,16 +90,18 @@
 /datum/antagonist/proc/print_player_full(var/datum/mind/ply)
 	var/text = print_player_lite(ply)
 
-	var/TC_uses = 0
+	var/telecrystal_uses = 0
+	var/bluecrystal_uses = 0
 	var/uplink_true = 0
 	var/purchases = ""
-	for(var/obj/item/device/uplink/H in world_uplinks)
+	for(var/obj/item/device/uplink/H in GLOB.world_uplinks)
 		if(H && H.uplink_owner && H.uplink_owner == ply)
-			TC_uses += H.used_TC
+			telecrystal_uses += H.used_telecrystals
+			bluecrystal_uses += H.used_bluecrystals
 			uplink_true = 1
 			purchases += get_uplink_purchases(H)
 	if(uplink_true)
-		text += " (used [TC_uses] TC)"
+		text += " (used [telecrystal_uses] TC and [bluecrystal_uses] BC)"
 		if(purchases)
 			text += "<br>[purchases]"
 
@@ -107,12 +109,12 @@
 
 /proc/print_ownerless_uplinks()
 	var/has_printed = 0
-	for(var/obj/item/device/uplink/H in world_uplinks)
-		if(isnull(H.uplink_owner) && H.used_TC)
+	for(var/obj/item/device/uplink/H in GLOB.world_uplinks)
+		if(isnull(H.uplink_owner) && (H.used_telecrystals || H.used_bluecrystals))
 			if(!has_printed)
 				has_printed = 1
 				to_world("<b>Ownerless Uplinks</b>")
-			to_world("[H.loc] (used [H.used_TC] TC)")
+			to_world("[H.loc] (used [H.used_telecrystals] TC and [H.used_bluecrystals] BC)")
 			to_world(get_uplink_purchases(H))
 
 /proc/get_uplink_purchases(var/obj/item/device/uplink/H)

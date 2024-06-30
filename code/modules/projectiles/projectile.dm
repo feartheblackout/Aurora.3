@@ -8,7 +8,7 @@
 	unacidable = TRUE
 	anchored = TRUE				//There's a reason this is here, Mport. God fucking damn it -Agouri. Find&Fix by Pete. The reason this is here is to stop the curving of emitter shots.
 	pass_flags = PASSTABLE|PASSRAILING
-	mouse_opacity = 0
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	animate_movement = 0	//Use SLIDE_STEPS in conjunction with legacy
 	var/projectile_type = /obj/item/projectile
 	var/ping_effect = "ping_b" //Effect displayed when a bullet hits a barricade. See atom/proc/bullet_ping.
@@ -16,7 +16,7 @@
 	var/def_zone = ""	//Aiming at
 	var/hit_zone		// The place that actually got hit
 	var/mob/firer = null//Who shot it
-	var/silenced = FALSE	//Attack message
+	var/suppressed = FALSE	//Attack message
 
 	var/shot_from = "" // name of the object which shot us
 
@@ -102,6 +102,9 @@
 
 	var/iff // identify friend or foe. will check mob's IDs to see if they match, if they do, won't hit
 
+	///If the projectile launches a secondary projectile in addition to itself.
+	var/secondary_projectile
+
 /obj/item/projectile/CanPass()
 	return TRUE
 
@@ -115,10 +118,10 @@
 		return FALSE
 	var/mob/living/L = target
 	if(damage_type == DAMAGE_BRUTE && damage > 5) //weak hits shouldn't make you gush blood
-		var/splatter_color = "#A10808"
+		var/splatter_color = COLOR_HUMAN_BLOOD
 		var/mob/living/carbon/human/H = target
-		if (istype(H) && H.species && H.species.blood_color)
-			splatter_color = H.species.blood_color
+		if (istype(H) && H.species && H.get_blood_color())
+			splatter_color = H.get_blood_color()
 		var/splatter_dir = starting ? get_dir(starting, target.loc) : dir
 		new /obj/effect/temp_visual/dir_setting/bloodsplatter(target.loc, splatter_dir, splatter_color)
 	if(hit_effect)
@@ -167,6 +170,10 @@
 	if(get_turf(target) == get_turf(src))
 		direct_target = target
 
+	if(ispath(secondary_projectile))
+		var/obj/item/projectile/BB = new secondary_projectile(src)
+		BB.launch_projectile(target, target_zone, user, params, angle_override, forced_spread)
+
 	preparePixelProjectile(target, user? user : get_turf(src), params, forced_spread)
 	return fire(angle_override, direct_target)
 
@@ -174,7 +181,7 @@
 /obj/item/projectile/proc/launch_from_gun(atom/target, target_zone, mob/user, params, angle_override, forced_spread, obj/item/gun/launcher)
 
 	shot_from = launcher.name
-	silenced = launcher.silenced
+	suppressed = launcher.suppressed
 
 	if(launcher.iff_capable && user)
 		iff = get_iff_from_user(user)
@@ -206,8 +213,8 @@
 	switch(result)
 		if(PROJECTILE_FORCE_MISS)
 			if(!point_blank)
-				if(!silenced)
-					target_mob.visible_message("<span class='notice'>\The [src] misses [target_mob] narrowly!</span>")
+				if(!suppressed)
+					target_mob.visible_message(SPAN_NOTICE("\The [src] misses [target_mob] narrowly!"))
 					playsound(target_mob, /singleton/sound_category/bulletflyby_sound, 50, 1)
 				return FALSE
 		if(PROJECTILE_DODGED)
@@ -217,10 +224,11 @@
 
 	var/impacted_organ = target_mob.get_organ_name_from_zone(def_zone)
 	//hit messages
-	if(silenced)
-		to_chat(target_mob, "<span class='danger'>You've been hit in the [impacted_organ] by \a [src]!</span>")
+	if(suppressed)
+		to_chat(target_mob, SPAN_DANGER("You've been hit in the [impacted_organ] by \a [src]!"))
 	else
-		target_mob.visible_message("<span class='danger'>\The [target_mob] is hit by \a [src] in the [impacted_organ]!</span>", "<span class='danger'><font size=2>You are hit by \a [src] in the [impacted_organ]!</font></span>")//X has fired Y is now given by the guns so you cant tell who shot you if you could not see the shooter
+		target_mob.visible_message(SPAN_DANGER("\The [target_mob] is hit by \a [src] in the [impacted_organ]!"),
+									SPAN_DANGER("<font size=2>You are hit by \a [src] in the [impacted_organ]!</font>"))//X has fired Y is now given by the guns so you cant tell who shot you if you could not see the shooter
 
 	var/no_clients = FALSE
 	//admin logs
@@ -372,7 +380,8 @@
 	if(hitscan)
 		return process_hitscan()
 	else
-		if(!isprocessing)
+		generate_muzzle_flash()
+		if(!(datum_flags & DF_ISPROCESSING))
 			START_PROCESSING(SSprojectiles, src)
 		pixel_move(1)	//move it now!
 
@@ -452,9 +461,10 @@
 			pixel_x = trajectory.return_px()
 			pixel_y = trajectory.return_py()
 	else
-		before_move()
-		step_towards(src, T)
-		after_move()
+		if(T != loc)
+			before_move()
+			Move(T)
+			after_move()
 		if(!hitscanning)
 			pixel_x = trajectory.return_px() - trajectory.mpx * trajectory_multiplier
 			pixel_y = trajectory.return_py() - trajectory.mpy * trajectory_multiplier
@@ -575,12 +585,12 @@
 	time_offset = 0
 	var/required_moves = 0
 	if(speed > 0)
-		required_moves = Floor(elapsed_time_deciseconds / speed, 1)
+		required_moves = FLOOR_FLOAT(elapsed_time_deciseconds / speed, 1)
 		if(required_moves > SSprojectiles.global_max_tick_moves)
 			var/overrun = required_moves - SSprojectiles.global_max_tick_moves
 			required_moves = SSprojectiles.global_max_tick_moves
 			time_offset += overrun * speed
-		time_offset += Modulus(elapsed_time_deciseconds, speed)
+		time_offset += MODULUS(elapsed_time_deciseconds, speed)
 	else
 		required_moves = SSprojectiles.global_max_tick_moves
 	if(!required_moves)
@@ -616,6 +626,19 @@
 	STOP_PROCESSING(SSprojectiles, src)
 	return ..()
 
+/obj/item/projectile/proc/generate_muzzle_flash(duration = 3)
+	if(duration <= 0)
+		return
+	if(!muzzle_type || suppressed)
+		return
+	var/datum/point/p = trajectory
+	var/atom/movable/thing = new muzzle_type
+	p.move_atom_to_src(thing)
+	var/matrix/M = new
+	M.Turn(original_angle)
+	thing.transform = M
+	QDEL_IN(thing, duration)
+
 /obj/item/projectile/proc/generate_hitscan_tracers(cleanup = TRUE, duration = 3)
 	if(!length(beam_segments))
 		return
@@ -624,7 +647,7 @@
 	if(tracer_type)
 		for(var/datum/point/p in beam_segments)
 			generate_tracer_between_points(p, beam_segments[p], tracer_type, color, duration)
-	if(muzzle_type && !silenced)
+	if(muzzle_type && !suppressed)
 		var/datum/point/p = beam_segments[1]
 		var/atom/movable/thing = new muzzle_type
 		p.move_atom_to_src(thing)
@@ -681,3 +704,5 @@
 /image/proc/flick_remove_overlay(var/atom/A)
 	if(A)
 		A.overlays.Remove(src)
+
+#undef MUZZLE_EFFECT_PIXEL_INCREMENT

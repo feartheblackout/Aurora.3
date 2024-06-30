@@ -1,10 +1,3 @@
-/datum/bounty/item/science/nightvision_goggles
-	name = "Night Vision Goggles"
-	description = "An electrical storm has busted all the lights at %BOSSSHORT. While management is waiting for replacements, perhaps some night vision goggles can be shipped?"
-	reward_low = 5200
-	reward_high = 6000
-	wanted_types = list(/obj/item/clothing/glasses/night)
-
 /datum/bounty/item/science/experimental_welding_tool
 	name = "Experimental Welding Tool"
 	description = "A recent accident has left most of %BOSSSHORT's welding tools exploded. Ship replacements to be rewarded."
@@ -39,7 +32,7 @@
 	if(O.check_completion())
 		return TRUE
 	return FALSE
-	
+
 /datum/bounty/item/science/forcegloves
 	name = "Force Gloves"
 	description = "%PERSONNAME has been challenged to a sparring duel in the holodeck. Ship them a pair of forcegloves so there can be a fair fight."
@@ -68,10 +61,6 @@
 	name = "Telecomms Server Monitor Circuitboard"
 	wanted_types = list(/obj/item/circuitboard/comm_server)
 
-/datum/bounty/item/science/circuitboard/commtraffic
-	name = "Telecomms Traffic Control Circuitboard"
-	wanted_types = list(/obj/item/circuitboard/comm_traffic)
-
 /datum/bounty/item/science/circuitboard/messagemonitor
 	name = "Message Monitor Circuitboard"
 	wanted_types = list(/obj/item/circuitboard/message_monitor)
@@ -91,10 +80,6 @@
 /datum/bounty/item/science/circuitboard/dronecontrol
 	name = "Drone Control Circuitboard"
 	wanted_types = list(/obj/item/circuitboard/drone_control)
-
-/datum/bounty/item/science/circuitboard/powermonitor
-	name = "Power Monitor Circuitboard"
-	wanted_types = list(/obj/item/circuitboard/powermonitor)
 
 /datum/bounty/item/science/battery
 	name = "Heavy-Duty Power Cell"

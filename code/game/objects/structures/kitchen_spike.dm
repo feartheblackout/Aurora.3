@@ -7,39 +7,42 @@
 	desc = "A spike for collecting meat from animals."
 	density = 1
 	anchored = 1
+	pass_flags_self = PASSTABLE
 	var/meat = 0
 	var/occupied
 	var/meat_type
 	var/victim_name = "corpse"
 
-/obj/structure/kitchenspike/attackby(obj/item/grab/G as obj, mob/user as mob)
-	if(!istype(G, /obj/item/grab) || !G.affecting)
+/obj/structure/kitchenspike/attackby(obj/item/attacking_item, mob/user)
+	var/obj/item/grab/G = attacking_item
+	if(!istype(G) || !G.affecting)
 		return
 	if(occupied)
-		to_chat(user, "<span class = 'danger'>The spike already has something on it, finish collecting its meat first!</span>")
+		to_chat(user, SPAN_DANGER("The spike already has something on it, finish collecting its meat first!"))
 	else
 		if(spike(G.affecting))
-			visible_message("<span class = 'danger'>[user] has forced [G.affecting] onto the spike, killing them instantly!</span>")
+			visible_message(SPAN_DANGER("[user] has forced [G.affecting] onto the spike, killing them instantly!"))
 			qdel(G.affecting)
 			qdel(G)
 		else
-			to_chat(user, "<span class='danger'>They are too big for the spike, try something smaller!</span>")
+			to_chat(user, SPAN_DANGER("They are too big for the spike, try something smaller!"))
 
 /obj/structure/kitchenspike/proc/spike(var/mob/living/victim)
 
 	if(!istype(victim))
 		return
 
+	ClearOverlays()
 	if(istype(victim, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = victim
 		if(!issmall(H))
 			return 0
 		meat_type = H.species.meat_type
-		icon_state = "spikebloody"
+		AddOverlays(overlay_image(icon, "spikebloody"))
 	else if(istype(victim, /mob/living/carbon/alien))
 		var/mob/living/carbon/alien/A = victim
 		meat_type = A.meat_type
-		icon_state = "spikebloodygreen"
+		AddOverlays(overlay_image(icon, "spikebloodygreen"))
 	else
 		return 0
 
@@ -60,7 +63,6 @@
 		icon_state = "spike"
 		occupied = 0
 
-
 /obj/structure/kitchenspike/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
 	if (!mover)
 		return 1
@@ -71,7 +73,4 @@
 			return 1
 		else
 			return 0
-	else if(mover.checkpass(PASSTABLE))
-//Animals can run under them, lots of empty space
-		return 1
 	return ..()

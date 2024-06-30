@@ -20,6 +20,8 @@
 	door_anim_time = 3
 	door_anim_angle = 140
 	door_hinge = 3.5
+	pass_flags_self = PASSSTRUCTURE | LETPASSTHROW
+
 	var/tablestatus = 0
 
 	var/azimuth_angle_2 = 180 //in this context the azimuth angle for over 90 degree
@@ -50,7 +52,7 @@
 	var/list/animation_math_list = animation_math["[door_anim_time]-[door_anim_angle]-[azimuth_angle_2]-[radius_2]-[door_hinge]"]
 	for(var/I in 0 to num_steps)
 		var/door_state = I == (closing ? num_steps : 0) ? "[icon_door || icon_state]_door" : animation_math_list[closing ? 2 * num_steps - I : num_steps + I] <= 0 ? "[icon_door_override ? icon_door : icon_state]_back" : "[icon_door || icon_state]_door"
-		var/door_layer = I == (closing ? num_steps : 0) ? ABOVE_MOB_LAYER : animation_math_list[closing ? 2 * num_steps - I : num_steps + I] <= 0 ? FLOAT_LAYER : ABOVE_MOB_LAYER
+		var/door_layer = I == (closing ? num_steps : 0) ? ABOVE_HUMAN_LAYER : animation_math_list[closing ? 2 * num_steps - I : num_steps + I] <= 0 ? FLOAT_LAYER : ABOVE_HUMAN_LAYER
 		var/matrix/M = get_door_transform(I == (closing ? num_steps : 0) ? 0 : animation_math_list[closing ? num_steps - I : I], I == (closing ? num_steps : 0) ? 1 : animation_math_list[closing ?  2 * num_steps - I : num_steps + I])
 		if(I == 0)
 			door_obj.transform = M
@@ -96,7 +98,7 @@
 	if (istype(mover,/obj/item/projectile))
 		// Crates on a table always block shots, otherwise they only occasionally do so.
 		return tablestatus == ABOVE_TABLE ? FALSE : (prob(15) ? FALSE : TRUE)
-	else if(istype(mover) && mover.checkpass(PASSTABLE) && tablestatus == ABOVE_TABLE)
+	else if((istype(mover) && (mover.pass_flags & PASSTABLE)) && tablestatus == ABOVE_TABLE)
 		return TRUE
 	return ..()
 
@@ -124,13 +126,13 @@
 	spawn(3)//Short spawn prevents things popping up where they shouldnt
 		switch (target)
 			if (ABOVE_TABLE)
-				layer = LAYER_ABOVE_TABLE
+				layer = ABOVE_TABLE_LAYER
 				pixel_y = 8
 			if (FALSE)
 				layer = initial(layer)
 				pixel_y = 0
 			if (UNDER_TABLE)
-				layer = LAYER_UNDER_TABLE
+				layer = BELOW_TABLE_LAYER
 				pixel_y = -4
 
 //For putting on tables
@@ -179,7 +181,7 @@
 	if (timeneeded > 0)
 		user.visible_message("[user] starts hoisting \the [src] onto \the [table].", "You start hoisting \the [src] onto \the [table]. This will take about [timeneeded * 0.1] seconds.")
 		user.face_atom(src)
-		if (!do_after(user, timeneeded, needhand = TRUE, act_target = src))
+		if (!do_after(user, timeneeded, src))
 			return FALSE
 		else
 			forceMove(get_turf(table))
@@ -236,6 +238,29 @@
 	name = "mining cart"
 	icon_state = "miningcart"
 	door_hinge = 2.5
+
+/obj/structure/closet/crate/miningcart/ore/fill()
+	var/i_max = rand(3, 6)
+	for(var/i in 1 to i_max)
+		var/o = pickweight(
+			list(
+				/obj/item/ore = 2,
+				/obj/item/ore/coal = 3,
+				/obj/item/ore/diamond = 1,
+				/obj/item/ore/glass = 3,
+				/obj/item/ore/aluminium = 3,
+				/obj/item/ore/gold = 2,
+				/obj/item/ore/iron = 3,
+				/obj/item/ore/osmium = 1,
+				/obj/item/ore/lead = 2,
+				/obj/item/ore/silver = 2,
+				/obj/item/ore/slag = 1,
+				/obj/item/ore/uranium = 1
+			)
+		)
+		var/j_max = rand(4, 10)
+		for(var/j in 1 to j_max)
+			new o(src)
 
 /*these aren't needed anymore
 /obj/structure/closet/crate/hat
@@ -324,19 +349,37 @@
 		newgas.temperature = target_temp
 	return newgas
 
-/obj/structure/closet/crate/freezer/rations //For use in the escape shuttle
+/obj/structure/closet/crate/freezer/rations
 	name = "emergency rations"
-	desc = "A crate of emergency rations and some bottles of water."
+	desc = "A crate of emergency rations and bottles of water."
 
 /obj/structure/closet/crate/freezer/rations/fill()
 	for(var/i=1,i<=6,i++)
 		new /obj/random/mre(src)
 		new /obj/item/reagent_containers/food/drinks/waterbottle(src)
 
+/obj/structure/closet/crate/freezer/kois
+	name = "freezer"
+	desc = "A freezer, painted in a sickly yellow, with a biohazard sign on the side."
+	icon_state = "freezer_kois"
+
+/obj/structure/closet/crate/freezer/kois/rations
+	name = "emergency k'ois rations"
+	desc = "A crate of emergency k'ois rations and bottles of water. Painted in a sickly yellow, with a biohazard sign on the side."
+
+/obj/structure/closet/crate/freezer/kois/rations/fill()
+	for(var/i=1,i<=6,i++)
+		new /obj/item/storage/box/fancy/mre/menu12(src)
+		new /obj/item/reagent_containers/food/drinks/waterbottle(src)
+
 /obj/structure/closet/crate/bin
 	name = "large bin"
 	desc = "A large bin."
 	icon_state = "largebin"
+
+/obj/structure/closet/crate/bin/filled/fill()
+	for(var/i=1,i<=6,i++)
+		new /obj/random/junk(src)
 
 /obj/structure/closet/crate/drop
 	name = "drop crate"
@@ -392,7 +435,7 @@
 	name = "AI modules crate"
 	desc = "A secure crate full of AI modules."
 	icon_state = "science_crate"
-	req_access = list(access_cent_specops)
+	req_access = list(ACCESS_CENT_SPECOPS)
 
 /obj/structure/closet/crate/secure/aimodules/fill()
 	for(var/moduletype in subtypesof(/obj/item/aiModule))
@@ -421,7 +464,7 @@
 	name = "foreign legion supply crate"
 	desc = "A secure supply crate, It carries the insignia of the Tau Ceti Foreign Legion. It appears quite scuffed."
 	icon_state = "tcfl_crate"
-	req_access = list(access_legion)
+	req_access = list(ACCESS_LEGION)
 
 /obj/structure/closet/crate/secure/phoron
 	name = "phoron crate"
@@ -439,7 +482,7 @@
 	name = "secure hydroponics crate"
 	desc = "A crate with a lock on it, painted in the scheme of the station's botanists."
 	icon_state = "hydro_secure_crate"
-	req_one_access = list(access_hydroponics, access_xenobotany)
+	req_one_access = list(ACCESS_HYDROPONICS, ACCESS_XENOBOTANY)
 
 /obj/structure/closet/crate/secure/bin
 	name = "secure bin"
@@ -526,11 +569,13 @@
 //Quantity of spawns is number of discrete selections from the loot lists, default 10
 
 /obj/structure/closet/crate/loot
+	icon = 'icons/obj/random.dmi'
+	icon_state = "loot_crate"
 	var/rarity = 1
 	var/quantity = 10
 	var/list/spawntypes
 
-/obj/structure/closet/crate/loot/Initialize(mapload)
+/obj/structure/closet/crate/loot/Initialize(mapload, no_fill)
 	. = ..()
 
 	spawntypes = list(
@@ -556,6 +601,9 @@
 		C.locked = FALSE
 		C.secure_lights = FALSE
 		C.req_access = null
+
+	C.anchored = FALSE
+
 	C.update_icon()
 
 	qdel(src)

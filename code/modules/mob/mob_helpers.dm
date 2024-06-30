@@ -154,15 +154,12 @@
 /proc/iszombie(A)
 	if(ishuman(A))
 		var/mob/living/carbon/human/H = A
-		switch(H.get_species())
-			if(SPECIES_ZOMBIE)
-				return TRUE
-			if(SPECIES_ZOMBIE_TAJARA)
-				return TRUE
-			if(SPECIES_ZOMBIE_UNATHI)
-				return TRUE
-			if(SPECIES_ZOMBIE_SKRELL)
-				return TRUE
+
+		if(istype(H.get_species(TRUE), /datum/species/zombie))
+			return TRUE
+		else
+			return FALSE
+
 	return FALSE
 
 /proc/isundead(A)
@@ -333,6 +330,9 @@ var/list/global/organ_rel_size = list(
 		if(point_blank)
 			return zone //Point blank shots don't miss.
 
+	return target.calculate_zone_with_miss_chance(zone, miss_chance_mod)
+
+/mob/proc/calculate_zone_with_miss_chance(var/zone, var/miss_chance_mod)
 	var/miss_chance = 10
 	if (zone in base_miss_chance)
 		miss_chance = base_miss_chance[zone]
@@ -343,58 +343,66 @@ var/list/global/organ_rel_size = list(
 		return pick(base_miss_chance)
 	return zone
 
+// never a chance to miss, but you might not hit what you want to hit
+/mob/living/heavy_vehicle/calculate_zone_with_miss_chance(zone, miss_chance_mod)
+	var/miss_chance = 10
+	if(zone in base_miss_chance)
+		miss_chance = base_miss_chance[zone]
+	miss_chance = max(miss_chance + miss_chance_mod, 0)
+	if(prob(miss_chance))
+		return pick(base_miss_chance)
+	return zone
 
-/proc/stars(n, pr)
-	if (pr == null)
-		pr = 25
-	if (pr <= 0)
-		return null
-	else
-		if (pr >= 100)
-			return n
-	var/te = n
-	var/t = ""
-	n = length(n)
-	var/p = null
-	p = 1
-	var/intag = 0
-	while(p <= n)
-		var/char = copytext(te, p, p + 1)
-		if (char == "<") //let's try to not break tags
-			intag = !intag
-		if (intag || char == " " || prob(pr))
-			t = text("[][]", t, char)
-		else
-			t = text("[]*", t)
-		if (char == ">")
-			intag = !intag
-		p++
-	return t
+/**
+ * Convert random parts of a passed in message to stars
+ *
+ * * phrase - the string to convert
+ * * probability - probability any character gets changed
+ *
+ * This proc is dangerously laggy, avoid it or die
+ */
+/proc/stars(phrase, probability = 25)
+	if(length(phrase) == 0)
+		return
+
+	var/list/chars = splittext_char(html_decode(phrase), "")
+	for(var/i in 1 to length(chars))
+		if(chars[i] == " " || !prob(probability))
+			continue
+		chars[i] = "*"
+	return sanitize(jointext(chars, ""))
 
 /proc/slur(phrase, strength = 100)
 	phrase = html_decode(phrase)
-	var/leng=length(phrase)
-	var/counter=length(phrase)
-	var/newphrase=""
-	var/newletter=""
-	while(counter>=1)
-		newletter=copytext(phrase,(leng-counter)+1,(leng-counter)+2)
-		if(prob(strength))
-			if(rand(1,3)==3)
-				if(lowertext(newletter)=="o")	newletter="u"
-				if(lowertext(newletter)=="s")	newletter="ch"
-				if(lowertext(newletter)=="a")	newletter="ah"
-				if(lowertext(newletter)=="c")	newletter="k"
-			switch(rand(1,15))
-				if(1,3,5,8)
-					newletter="[lowertext(newletter)]"
-				if(2,4,6,15)
-					newletter="[uppertext(newletter)]"
-				if(7)
-					newletter+="'"
+	var/leng = length_char(phrase)
+	var/counter = length_char(phrase)
+	var/newphrase = ""
+	var/newletter = ""
+	while (counter >= 1)
+		newletter = copytext_char(phrase, (leng - counter) + 1, (leng - counter) + 2)
+		if (prob(strength))
+			if (rand(1, 3) == 3)
+				switch (lowertext(newletter))
+					if ("o")
+						newletter = "u"
+					if ("s")
+						newletter = "ch"
+					if ("a")
+						newletter = "ah"
+					if ("c")
+						newletter = "k"
+
+			switch (rand(1, 15))
+				if (1, 3, 5, 8)
+					newletter = "[lowertext(newletter)]"
+				if (2, 4, 6, 15)
+					newletter = "[uppertext(newletter)]"
+				if (7)
+					newletter += "'"
 				else
 					. = null // For dreamchecker, does nothing
-		newphrase+="[newletter]";counter-=1
+		newphrase += "[newletter]"
+		counter -= 1
 	return newphrase
 
 /proc/Gibberish(t, p)//t is the inputted message, and any value higher than 70 for p will cause letters to be replaced instead of added
@@ -455,7 +463,7 @@ It's fairly easy to fix if dealing with single letters but not so much with comp
 		return
 	M.shakecamera = current_time + max(TICKS_PER_RECOIL_ANIM, duration)
 	strength = abs(strength)*PIXELS_PER_STRENGTH_VAL
-	var/steps = min(1, Floor(duration/TICKS_PER_RECOIL_ANIM))-1
+	var/steps = min(1, FLOOR(duration/TICKS_PER_RECOIL_ANIM, 1))-1
 	animate(M.client, pixel_x = rand(-(strength), strength), pixel_y = rand(-(strength), strength), time = TICKS_PER_RECOIL_ANIM, easing = JUMP_EASING|EASE_IN)
 	if(steps)
 		for(var/i = 1 to steps)
@@ -463,7 +471,7 @@ It's fairly easy to fix if dealing with single letters but not so much with comp
 	animate(pixel_x = 0, pixel_y = 0, time = TICKS_PER_RECOIL_ANIM)
 
 /proc/findname(msg)
-	for(var/mob/M in mob_list)
+	for(var/mob/M in GLOB.mob_list)
 		if (M.real_name == text("[msg]"))
 			return 1
 	return 0
@@ -525,10 +533,10 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HURT)
 				hud_used.action_intent.icon_state = I_HELP
 
 /proc/broadcast_security_hud_message(var/message, var/broadcast_source)
-	broadcast_hud_message(message, broadcast_source, sec_hud_users, /obj/item/clothing/glasses/hud/security)
+	broadcast_hud_message(message, broadcast_source, GLOB.sec_hud_users, /obj/item/clothing/glasses/hud/security)
 
 /proc/broadcast_medical_hud_message(var/message, var/broadcast_source)
-	broadcast_hud_message(message, broadcast_source, med_hud_users, /obj/item/clothing/glasses/hud/health)
+	broadcast_hud_message(message, broadcast_source, GLOB.med_hud_users, /obj/item/clothing/glasses/hud/health)
 
 /proc/broadcast_hud_message(var/message, var/broadcast_source, var/list/targets, var/icon)
 	var/turf/sourceturf = get_turf(broadcast_source)
@@ -539,7 +547,7 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HURT)
 
 /proc/mobs_in_area(var/area/A)
 	var/list/mobs = new
-	for(var/mob/living/M in mob_list)
+	for(var/mob/living/M in GLOB.mob_list)
 		if(get_area(M) == A)
 			mobs += M
 	return mobs
@@ -565,7 +573,7 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HURT)
 			else
 				name = realname
 
-	for(var/mob/M in player_list)
+	for(var/mob/M in GLOB.player_list)
 		if(M.client && ((!istype(M, /mob/abstract/new_player) && M.stat == DEAD) || (M.client.holder && check_rights(R_DEV|R_MOD|R_ADMIN, 0, M))) && (M.client.prefs.toggles & CHAT_DEAD))
 			var/follow
 			var/lname
@@ -727,6 +735,9 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HURT)
 	return 1
 
 /mob/living/carbon/human/proc/delayed_vomit()
+	if(QDELETED(src))
+		return
+
 	if(!check_has_mouth())
 		return
 	if(stat == DEAD)
@@ -737,13 +748,14 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HURT)
 
 	if(!lastpuke)
 		lastpuke = 1
-		to_chat(src, "<span class='warning'>You feel nauseous...</span>")
+		to_chat(src, SPAN_WARNING("You feel nauseous..."))
 		spawn(150)	//15 seconds until second warning
-			to_chat(src, "<span class='warning'>You feel like you are about to throw up!</span>")
+			to_chat(src, SPAN_WARNING("You feel like you are about to throw up!"))
 			spawn(100)	//and you have 10 more for mad dash to the bucket
-				empty_stomach()
-				spawn(350)	//wait 35 seconds before next volley
-					lastpuke = 0
+				if(!QDELETED(src))
+					empty_stomach()
+					spawn(350)	//wait 35 seconds before next volley
+						lastpuke = 0
 
 /obj/proc/get_equip_slot()
 	//This function is called by an object which is somewhere on a humanoid mob
@@ -1058,20 +1070,20 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HURT)
 // It's not worth adding a proc for every single one of these types.
 /mob/living/simple_animal/find_type()
 	. = ..()
-	if (is_type_in_typecache(src, SSmob.mtl_synthetic))
+	if (is_type_in_typecache(src, SSmobs.mtl_synthetic))
 		. |= TYPE_SYNTHETIC
 
-	if (is_type_in_typecache(src, SSmob.mtl_weird))
+	if (is_type_in_typecache(src, SSmobs.mtl_weird))
 		. |= TYPE_WEIRD
 
-	if (is_type_in_typecache(src, SSmob.mtl_incorporeal))
+	if (is_type_in_typecache(src, SSmobs.mtl_incorporeal))
 		. |= TYPE_INCORPOREAL
 
 	// If it's not TYPE_SYNTHETIC, TYPE_WEIRD or TYPE_INCORPOREAL, we can assume it's TYPE_ORGANIC.
 	if (!(. & (TYPE_SYNTHETIC|TYPE_WEIRD|TYPE_INCORPOREAL)))
 		. |= TYPE_ORGANIC
 
-	if (is_type_in_typecache(src, SSmob.mtl_humanoid))
+	if (is_type_in_typecache(src, SSmobs.mtl_humanoid))
 		. |= TYPE_HUMANOID
 
 #undef SAFE_PERP
@@ -1197,20 +1209,15 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HURT)
 			if(hearer && hearer.client && hearer.client.prefs?.toggles_secondary & ACCENT_TAG_TEXT)
 				return {"<a href='byond://?src=\ref[src];accent_tag=[url_encode(a)]'>([a.text_tag])</a>"}
 			else
-				var/final_icon = a.tag_icon
-				var/datum/asset/spritesheet/S = get_asset_datum(/datum/asset/spritesheet/goonchat)
+				var/datum/asset/spritesheet/S = get_asset_datum(/datum/asset/spritesheet/chat)
+				var/final_icon = "accent-[a.tag_icon]"
 				return {"<span onclick="window.location.href='byond://?src=\ref[src];accent_tag=[url_encode(a)]'">[S.icon_tag(final_icon)]</span>"}
 
 /mob/assign_player(var/mob/user)
 	ckey = user.ckey
 	resting = FALSE // ghosting sets resting to true
+	client.init_verbs()
 	return src
-
-/mob/proc/get_standard_pixel_x()
-	return initial(pixel_x)
-
-/mob/proc/get_standard_pixel_y()
-	return initial(pixel_y)
 
 /mob/proc/remove_nearsighted()
 	disabilities &= ~NEARSIGHTED
@@ -1238,8 +1245,9 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HURT)
 /mob/proc/in_neck_grab()
 	for(var/thing in grabbed_by)
 		var/obj/item/grab/G = thing
-		if(G.state >= GRAB_NECK)
-			return TRUE
+		if(istype(G))
+			if(G.state >= GRAB_NECK)
+				return TRUE
 	return FALSE
 
 /mob/get_cell()
@@ -1287,6 +1295,9 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HURT)
 /mob/proc/get_talk_bubble()
 	return 'icons/mob/talk.dmi'
 
+/mob/proc/adjust_typing_indicator_offsets(var/atom/movable/typing_indicator/indicator)
+	return
+
 /datum/proc/get_client()
 	return null
 
@@ -1295,3 +1306,29 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HURT)
 
 /mob/get_client()
 	return client
+
+///Can the mob hear
+/mob/proc/can_hear()
+	return !isdeaf(src)
+
+
+/// Sends a message to the mob if the current world time is less than the previous' message next_message_time, additionally sends a floating message if show_floating_message is set to true. key is an optional replacement that'll go in the assoc list, used for stuff like picklists
+/mob/proc/notify_message(var/message, var/next_message_time = 1 SECOND, var/show_floating_message = FALSE, var/key)
+	// initializes the message_notifications list so we can use standard list handling from here on out
+	// it's only lazy to save memory
+	LAZYINITLIST(message_notifications)
+
+	// if we have a key, use that, otherwise check the message
+	var/key_check = key || message
+	if((key_check in message_notifications) && world.time < message_notifications[key_check])
+		return
+
+	to_chat(src, message)
+	if(show_floating_message)
+		balloon_alert(src, strip_html_full(message))
+
+	// we only keep 10 entries in the assoc list, this is an arbitrary number meant to keep it from ballooning in size and taking up memory
+	if(length(message_notifications) >= 10)
+		message_notifications.Cut(1, 2)
+
+	message_notifications[key_check] = world.time + next_message_time

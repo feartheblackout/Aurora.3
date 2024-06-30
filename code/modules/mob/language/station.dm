@@ -47,7 +47,6 @@
 		"a",  "a",  "e",  "e",  "i",  "i",  "o",  "o",  "u",  "u",  "s",  "s"
 	)
 	partial_understanding = list(LANGUAGE_AZAZIBA = 25)
-	allow_accents = TRUE
 
 /datum/language/unathi_azaziba
 	name = LANGUAGE_AZAZIBA
@@ -179,6 +178,17 @@
 	syllables = list("qr","qrr","xuq","qil","quum","xuqm","vol","xrim","zaoo","qu-uu","qix","qoo","zix","*","!")
 	allow_accents = TRUE
 
+/datum/language/skrell/check_speech_restrict(mob/speaker)
+	if(!ishuman(speaker))
+		return FALSE
+	var/mob/living/carbon/human/H = speaker
+	var/obj/item/organ/internal/augment/language/zeng/aug = H.internal_organs_by_name[BP_AUG_LANGUAGE]
+	if(istype(aug) && !isskrell(H))
+		to_chat(speaker, SPAN_WARNING("You are not capable of speaking Nral'malic!"))
+		return FALSE
+	else
+		return TRUE
+
 /datum/language/skrell/get_random_name()
 	var/new_name = ""
 	var/suff = ""
@@ -225,6 +235,7 @@
 		speaker_mask = speaker.real_name
 
 	var/msg = "<i><span class='game say'>[name], <span class='name'>[speaker_mask]</span>[format_message(message, get_spoken_verb(message), speaker_mask)]</span></i>"
+	var/encrypted_msg =  "<i><span class='game say'>[name], <span class='name'>[speaker_mask]</span>[format_message("!a surge of encrypted data", get_spoken_verb(message), speaker_mask)]</span></i>"
 
 	if(isvaurca(speaker))
 		speaker.custom_emote(VISIBLE_MESSAGE, "[pick("twitches their antennae", "twitches their antennae rhythmically")].")
@@ -235,8 +246,36 @@
 		to_chat(speaker, msg)
 		return
 
-	for(var/mob/player in player_list)
-		if(istype(player,/mob/abstract/observer) || ((src in player.languages && !within_jamming_range(player)) || check_special_condition(player)))
+	var/speaker_encryption_key
+	var/mob/living/carbon/human/speaker_human = speaker
+	if(istype(speaker_human))
+		var/obj/item/organ/internal/vaurca/neuralsocket/speaker_socket = speaker_human.internal_organs_by_name[BP_NEURAL_SOCKET]
+		if(speaker_socket?.encryption_key)
+			speaker_encryption_key = speaker_socket.encryption_key
+
+	for(var/mob/player in GLOB.player_list)
+		if(player == speaker)
+			to_chat(player, msg)
+		else if(isobserver(player))
+			to_chat(player, "[ghost_follow_link(speaker, player)] [msg]")
+		else if(!within_jamming_range(player) && check_special_condition(player))
+			if(speaker_encryption_key)
+				var/mob/living/carbon/human/listener_human = player
+				if(!istype(listener_human))
+					to_chat(player, encrypted_msg)
+					continue
+				var/obj/item/organ/internal/vaurca/neuralsocket/listener_socket = listener_human.internal_organs_by_name[BP_NEURAL_SOCKET]
+				var/obj/item/organ/internal/augment/language/vekatak/receiver = listener_human.internal_organs_by_name[BP_AUG_LANGUAGE]
+				if(listener_socket)
+					if(listener_socket.decryption_key == speaker_encryption_key)
+						to_chat(player, msg)
+						continue
+				if(receiver)
+					if(receiver.decryption_key == speaker_encryption_key)
+						to_chat(player, msg)
+						continue
+				to_chat(player, encrypted_msg)
+				continue
 			to_chat(player, msg)
 
 /datum/language/bug/format_message(message, verb, speaker_mask)
@@ -257,7 +296,9 @@
 
 /datum/language/bug/check_special_condition(var/mob/other)
 	if(istype(other, /mob/living/silicon))
-		return 1
+		var/mob/living/silicon/S = other
+		if(S.can_hear_hivenet)
+			return TRUE
 
 	var/mob/living/carbon/human/M = other
 	if(!istype(M))
@@ -266,8 +307,12 @@
 		return 0
 	if(within_jamming_range(other))
 		return 0
-	if(M.internal_organs_by_name[BP_NEURAL_SOCKET])
+	if(M.internal_organs_by_name[BP_NEURAL_SOCKET] && (GLOB.all_languages[LANGUAGE_VAURCA] in M.languages))
 		return 1
+	if(M.internal_organs_by_name[BP_AUG_LANGUAGE])
+		var/obj/item/organ/internal/augment/language/vekatak/V = M.internal_organs_by_name[BP_AUG_LANGUAGE]
+		if(istype(V) && (GLOB.all_languages[LANGUAGE_VAURCA] in M.languages))
+			return 1
 	if(M.internal_organs_by_name["blackkois"])
 		return 1
 
@@ -284,6 +329,23 @@
 			return 1
 
 	return 0
+
+/datum/language/bug/check_speech_restrict(var/mob/speaker)
+	var/mob/living/carbon/human/H = speaker
+	var/obj/item/organ/internal/vaurca/neuralsocket/S = H.internal_organs_by_name[BP_NEURAL_SOCKET]
+	var/obj/item/organ/internal/augment/language/vekatak/V = H.internal_organs_by_name[BP_AUG_LANGUAGE]
+
+	//Black k'ois zombies don't have neural sockets but need to talk, hence check if the socket exists, or it will runtime for them
+	if(S && (S.muted || S.disrupted))
+		to_chat(speaker, SPAN_WARNING("You have been muted over the Hivenet!"))
+		return FALSE
+
+	if(istype(V))
+		if(!V.transmitting || V.disrupted || V.muted)
+			to_chat(speaker, SPAN_WARNING("Your implant cannot freely transmit over the Hivenet!"))
+			return FALSE
+	else
+		return TRUE
 
 /datum/language/human
 	name = LANGUAGE_SOL_COMMON
@@ -323,7 +385,7 @@
 	key = "4"
 	flags = WHITELISTED | TCOMSSIM
 	syllables = list("af", "if", "ba", "ta", "tha", "id", "jem", "ha", "kha", "dal", "dhl", "ra", "zay", "sen", "um", "shn", "sid", "ad", "ta", "za", "ayn", "gha", "zir", "yn", "fa", "qaf", "iam", "mim", "al", "ja", "non", "ha", "waw", "ya",
-		"hem", "zah", "hml", "ks", "ini", "da", "ks", "iga", "ih", "la", "ulf", "xe", "ayw", "sit", "ah", "aarah", "jalaa", "sirt", "kurt", "turhk", "ust", "irk", "kir", "mir", "ach", "oglu", "bolu", "shek", "she", "ghoz", "miya", "ejdan", 
+		"hem", "zah", "hml", "ks", "ini", "da", "ks", "iga", "ih", "la", "ulf", "xe", "ayw", "sit", "ah", "aarah", "jalaa", "sirt", "kurt", "turhk", "ust", "irk", "kir", "mir", "ach", "oglu", "bolu", "shek", "she", "ghoz", "miya", "ejdan",
 		"haaz", "quq", "taab", "shanha", "an", "saa", "seh", "an'", "e'", "a'", "em'")
 	allow_accents = TRUE
 

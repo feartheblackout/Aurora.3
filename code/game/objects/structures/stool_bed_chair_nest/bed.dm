@@ -21,17 +21,16 @@
 	desc_info = "Click and drag yourself (or anyone) to this to buckle in. Click on this with an empty hand to undo the buckles.<br>\
 	Anyone with restraints, such as handcuffs, will not be able to unbuckle themselves. They must use the Resist button, or verb, to break free of \
 	the buckles, instead. \ To unbuckle people as a stationbound, click the bed with an empty gripper."
-	icon = 'icons/obj/furniture.dmi'
+	icon = 'icons/obj/structure/beds.dmi'
 	icon_state = "bed"
 	anchored = TRUE
 	buckle_dir = SOUTH
 	buckle_lying = 1
 	build_amt = 2
+	pass_flags_self = PASSTABLE
 	var/material/padding_material
-	var/override_material_color = FALSE //If set, material colour won't override the colour.
 
 	var/base_icon = "bed"
-	var/material_alteration = MATERIAL_ALTERATION_ALL
 	var/buckling_sound = 'sound/effects/buckle.ogg'
 
 	var/painted_colour // Used for paint gun and preset colours. I know this name sucks.
@@ -80,7 +79,7 @@
 	generate_strings()
 	// Prep icon.
 	icon_state = ""
-	cut_overlays()
+	ClearOverlays()
 	// Base icon.
 
 	generate_overlay_cache(material) //Generate base icon cache
@@ -96,7 +95,7 @@
 		cache_key += "-[cache_type]"
 		if(painted_colour && apply_painted_colour)
 			cache_key += "-[painted_colour]"
-		else if(overlay_material.icon_colour && !override_material_color)
+		else if(overlay_material.icon_colour)
 			cache_key += "-[overlay_material.icon_colour]"
 	if(!furniture_cache[cache_key]) // Check for cache key. Generate if image does not exist yet.
 		var/cache_icon_state = cache_type ? "[base_icon]_[cache_type]" : "[base_icon]" // Modularized. Just change cache_type when calling the proc if you ever wanted to add a different overlay. Not like you'd need to.
@@ -104,14 +103,14 @@
 		if(material_alteration & MATERIAL_ALTERATION_COLOR)
 			if(painted_colour && apply_painted_colour) // apply_painted_color, when you only want the padding to be painted, NOT the chair itself.
 				I.color = painted_colour
-			else if(overlay_material.icon_colour && !override_material_color) // Either that, or just fall back on the regular material color.
+			else if(overlay_material.icon_colour) // Either that, or just fall back on the regular material color.
 				I.color = overlay_material.icon_colour
 		furniture_cache[cache_key] = I
-	add_overlay(furniture_cache[cache_key]) // Use image from cache key!
+	AddOverlays(furniture_cache[cache_key]) // Use image from cache key!
 
 /obj/structure/bed/proc/generate_strings()
 	if(material_alteration & MATERIAL_ALTERATION_NAME)
-		name = padding_material ? "[padding_material.adjective_name] [initial(name)]" : "[material.adjective_name] [initial(name)]" //this is not perfect but it will do for now.
+		name = padding_material ? "[padding_material.adjective_name] padded [material.adjective_name] [initial(name)]" : "[material.adjective_name] [initial(name)]" //this is not perfect but it will do for now.
 
 	if(material_alteration & MATERIAL_ALTERATION_DESC)
 		desc = initial(desc)
@@ -129,10 +128,7 @@
 		buckled.forceMove(dest)
 
 /obj/structure/bed/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
-	if(istype(mover) && mover.checkpass(PASSTABLE))
-		return 1
-	else
-		return ..()
+	return ..()
 
 /obj/structure/bed/ex_act(severity)
 	switch(severity)
@@ -148,26 +144,26 @@
 				qdel(src)
 				return
 
-/obj/structure/bed/attackby(obj/item/W as obj, mob/user as mob)
-	if(W.iswrench())
+/obj/structure/bed/attackby(obj/item/attacking_item, mob/user)
+	if(attacking_item.iswrench())
 		if(can_dismantle)
-			dismantle(W, user)
-	else if(istype(W,/obj/item/stack))
+			dismantle(attacking_item, user)
+	else if(istype(attacking_item,/obj/item/stack))
 		if(!can_pad)
 			return
 		if(padding_material)
 			to_chat(user, "\The [src] is already padded.")
 			return
-		var/obj/item/stack/C = W
+		var/obj/item/stack/C = attacking_item
 		if(C.get_amount() < 1) // How??
 			to_chat(user, SPAN_WARNING("You don't have enough [C]!"))
 			qdel(C)
 			return
 		var/padding_type //This is awful but it needs to be like this until tiles are given a material var.
-		if(istype(W,/obj/item/stack/tile/carpet))
+		if(istype(attacking_item,/obj/item/stack/tile/carpet))
 			padding_type = "carpet"
-		else if(istype(W,/obj/item/stack/material))
-			var/obj/item/stack/material/M = W
+		else if(istype(attacking_item,/obj/item/stack/material))
+			var/obj/item/stack/material/M = attacking_item
 			if(M.material && (M.material.flags & MATERIAL_PADDING))
 				padding_type = "[M.material.name]"
 		if(!padding_type)
@@ -181,54 +177,54 @@
 		add_padding(padding_type)
 		return
 
-	else if (W.iswirecutter())
+	else if (attacking_item.iswirecutter())
 		if(!can_pad)
 			return
 		if(!padding_material)
 			to_chat(user, "\The [src] has no padding to remove.")
 			return
 		to_chat(user, "You remove the padding from \the [src].")
-		playsound(src, 'sound/items/wirecutter.ogg', 100, 1)
+		playsound(src, 'sound/items/Wirecutter.ogg', 100, 1)
 		painted_colour = null
 		remove_padding()
 
-	else if (W.isscrewdriver())
+	else if (attacking_item.isscrewdriver())
 		if(anchored)
 			anchored = FALSE
 			to_chat(user, "You unfasten \the [src] from floor.")
 		else
 			anchored = TRUE
 			to_chat(user, "You fasten \the [src] to the floor.")
-		playsound(src, 'sound/items/screwdriver.ogg', 100, 1)
+		playsound(src, 'sound/items/Screwdriver.ogg', 100, 1)
 
-	else if(istype(W, /obj/item/grab))
-		var/obj/item/grab/G = W
+	else if(istype(attacking_item, /obj/item/grab))
+		var/obj/item/grab/G = attacking_item
 		var/mob/living/affecting = G.affecting
-		user.visible_message("<span class='notice'>[user] attempts to buckle [affecting] into \the [src]!</span>")
-		if(do_after(user, 20))
+		user.visible_message(SPAN_NOTICE("[user] attempts to buckle [affecting] into \the [src]!"))
+		if(do_after(user, 2 SECONDS, affecting, DO_UNIQUE))
 			affecting.forceMove(loc)
 			spawn(0)
-				if(buckle(affecting))
+				if(buckle(affecting, user))
 					affecting.visible_message(\
 						SPAN_DANGER("[affecting.name] is buckled to [src] by [user.name]!"),\
 						SPAN_DANGER("You are buckled to [src] by [user.name]!"),\
 						SPAN_NOTICE("You hear metal clanking."))
-			qdel(W)
+			qdel(attacking_item)
 
-	else if(istype(W, /obj/item/gripper) && buckled)
-		var/obj/item/gripper/G = W
+	else if(istype(attacking_item, /obj/item/gripper) && buckled)
+		var/obj/item/gripper/G = attacking_item
 		if(!G.wrapped)
 			user_unbuckle(user)
 
-	else if(istype(W, /obj/item/disk))
-		user.drop_from_inventory(W, get_turf(src))
-		W.pixel_x = 10 //make sure they reach the pillow
-		W.pixel_y = -6
+	else if(istype(attacking_item, /obj/item/disk))
+		user.drop_from_inventory(attacking_item, get_turf(src))
+		attacking_item.pixel_x = 10 //make sure they reach the pillow
+		attacking_item.pixel_y = -6
 
-	else if(istype(W, /obj/item/device/floor_painter))
+	else if(istype(attacking_item, /obj/item/device/paint_sprayer))
 		return
 
-	else if(!istype(W, /obj/item/bedsheet))
+	else if(!istype(attacking_item, /obj/item/bedsheet))
 		..()
 
 /obj/structure/bed/proc/remove_padding()
@@ -251,7 +247,7 @@
 
 /obj/structure/bed/Move()
 	. = ..()
-	if(makes_rolling_sound)
+	if(makes_rolling_sound && has_gravity())
 		playsound(src, 'sound/effects/roll.ogg', 50, 1)
 	if(buckled && !istype(src, /obj/structure/bed/roller))
 		var/mob/living/occupant = buckled
@@ -310,6 +306,21 @@
 		else
 			occupant.visible_message(SPAN_DANGER("[occupant] crashed into \the [A]!"))
 
+/obj/structure/bed/stair_act()
+	if(!buckled)
+		return
+
+	var/atom/movable/unbuckled_atom = unbuckle()
+	if(!unbuckled_atom)
+		return
+
+	unbuckled_atom.visible_message("<b>\The [unbuckled_atom]</b> goes flying out of \the [src] as it bounces on the stairs!", SPAN_WARNING("You go flying out of \the [src] as it bounces on the stairs!"))
+	unbuckled_atom.throw_at_random(FALSE, 1, 2)
+
+	if(ismob(unbuckled_atom))
+		var/mob/unbuckled_mob = unbuckled_atom
+		unbuckled_mob.Paralyse(5)
+
 /obj/structure/bed/psych
 	name = "psychiatrist's couch"
 	desc = "For prime comfort during psychiatric evaluations."
@@ -325,6 +336,25 @@
 
 /obj/structure/bed/padded/New(var/newloc)
 	..(newloc, MATERIAL_PLASTIC, MATERIAL_CLOTH)
+
+/obj/structure/bed/padded/bunk
+	pixel_y = 16
+	var/sleeby_shift = 16
+
+/obj/structure/bed/padded/bunk/post_buckle(atom/movable/MA)
+	. = ..()
+	if(MA == buckled)
+		if(istype(MA, /mob/living))
+			var/mob/living/M = MA
+			M.old_y = sleeby_shift
+		buckled.pixel_y = sleeby_shift
+		update_icon()
+	else
+		if(istype(MA, /mob/living))
+			var/mob/living/M = MA
+			M.old_y = 0
+		MA.pixel_y = 0
+		update_icon()
 
 /obj/structure/bed/aqua
 	name = "aquabed"
@@ -353,6 +383,13 @@
 	var/obj/item/vitals_monitor/vitals
 	var/iv_attached = 0
 	var/iv_stand = TRUE
+	var/iv_transfer_rate = 4 //Same as max for regular IV drips
+	var/has_iv_light = TRUE
+	//Items that can be attached to an IV
+	var/list/accepted_containers = list(
+		/obj/item/reagent_containers/blood,
+		/obj/item/reagent_containers/glass/beaker,
+		/obj/item/reagent_containers/glass/bottle)
 	var/patient_shift = 9 //How much are mobs moved up when they are buckled_to.
 	slowdown = 0
 
@@ -366,10 +403,13 @@
 	return ..()
 
 /obj/structure/bed/roller/update_icon()
-	cut_overlays()
+	ClearOverlays()
 	vis_contents = list()
 	if(density)
-		icon_state = "[base_icon]_up"
+		if(anchored)
+			icon_state = "[base_icon]_br"
+		else
+			icon_state = "[base_icon]_up"
 	else
 		icon_state = "[base_icon]_down"
 	if(beaker)
@@ -377,34 +417,37 @@
 		var/percentage = round((beaker.reagents.total_volume / beaker.volume) * 100, 25)
 		var/image/filling = image(icon, "iv_filling[percentage]")
 		filling.color = beaker.reagents.get_color()
-		iv.add_overlay(filling)
+		iv.AddOverlays(filling)
 		if(percentage < 25)
-			iv.add_overlay(image(icon, "light_low"))
+			iv.AddOverlays(image(icon, "light_low"))
 		if(density)
-			iv.pixel_y = 6
-		add_overlay(iv)
+			iv.pixel_y = 7
+		AddOverlays(iv)
+		if(has_iv_light)
+			var/image/light = image(icon, "iv[iv_attached]_l")
+			AddOverlays(light)
 	if(vitals)
 		vitals.update_monitor()
-		vis_contents += vitals
+		add_vis_contents(vitals)
 
-/obj/structure/bed/roller/attackby(obj/item/I, mob/user)
-	if(iswrench(I) || istype(I, /obj/item/stack) || iswirecutter(I))
+/obj/structure/bed/roller/attackby(obj/item/attacking_item, mob/user)
+	if(iswrench(attacking_item) || istype(attacking_item, /obj/item/stack) || iswirecutter(attacking_item))
 		return 1
-	if(istype(I, /obj/item/vitals_monitor))
+	if(istype(attacking_item, /obj/item/vitals_monitor))
 		if(vitals)
 			to_chat(user, SPAN_WARNING("\The [src] already has a vitals monitor attached!"))
 			return
-		to_chat(user, SPAN_NOTICE("You attach \the [I] to \the [src]."))
-		user.drop_from_inventory(I, src)
-		vitals = I
+		to_chat(user, SPAN_NOTICE("You attach \the [attacking_item] to \the [src]."))
+		user.drop_from_inventory(attacking_item, src)
+		vitals = attacking_item
 		vitals.bed = src
 		update_icon()
 		return
-	if(iv_stand && !beaker && (istype(I, /obj/item/reagent_containers/glass/beaker) || istype(I, /obj/item/reagent_containers/blood)))
-		if(!user.unEquip(I, target = src))
+	if(iv_stand && !beaker && is_type_in_list(attacking_item, accepted_containers))
+		if(!user.unEquip(attacking_item, target = src))
 			return
-		to_chat(user, SPAN_NOTICE("You attach \the [I] to \the [src]."))
-		beaker = I
+		to_chat(user, SPAN_NOTICE("You attach \the [attacking_item] to \the [src]."))
+		beaker = attacking_item
 		update_icon()
 		return 1
 	..()
@@ -414,6 +457,12 @@
 		remove_beaker(user)
 	else
 		..()
+
+/obj/structure/bed/roller/AltClick(mob/user)
+	if(density && !use_check_and_message(user))
+		anchored = !anchored
+		user.visible_message(SPAN_NOTICE("[user] [anchored ? "locks" : "releases"] \the [src]'s brakes."))
+		update_icon()
 
 /obj/structure/bed/roller/proc/collapse()
 	usr.visible_message(SPAN_NOTICE("<b>[usr]</b> collapses \the [src]."), SPAN_NOTICE("You collapse \the [src]"))
@@ -428,7 +477,7 @@
 		return
 
 	if(beaker.volume > 0)
-		beaker.reagents.trans_to_mob(buckled, beaker.amount_per_transfer_from_this, CHEM_BLOOD)
+		beaker.reagents.trans_to_mob(buckled, min(iv_transfer_rate, beaker.amount_per_transfer_from_this), CHEM_BLOOD)
 		update_icon()
 
 /obj/structure/bed/roller/proc/remove_beaker(mob/user)
@@ -512,6 +561,7 @@
 			if(iv_attached)
 				detach_iv(M, usr)
 		density = FALSE
+		anchored = FALSE
 		MA.pixel_y = 0
 		update_icon()
 
@@ -522,17 +572,21 @@
 	base_icon = "hover"
 	makes_rolling_sound = FALSE
 	held_item = /obj/item/roller/hover
-	patient_shift = 6
+	has_iv_light = FALSE
 
 /obj/structure/bed/roller/hover/Initialize()
 	.=..()
 	set_light(2,1,LIGHT_COLOR_CYAN)
+
+/obj/structure/bed/roller/hover/stair_act()
+	return
 
 /obj/item/roller
 	name = "roller bed"
 	desc = "A collapsed roller bed that can be carried around."
 	icon = 'icons/obj/rollerbed.dmi'
 	icon_state = "standard_folded"
+	base_icon = "standard"
 	item_state = "rbed"
 	contained_sprite = TRUE
 	drop_sound = 'sound/items/drop/axe.ogg'
@@ -545,6 +599,7 @@
 	name = "medical hoverbed"
 	desc = "A collapsed hoverbed that can be carried around."
 	icon_state = "hover_folded"
+	base_icon = "hover"
 	item_state = "rbed_hover"
 	origin_type = /obj/structure/bed/roller/hover
 
@@ -555,14 +610,16 @@
 /obj/item/roller/afterattack(obj/target, mob/user, proximity)
 	if(!proximity)
 		return
-	if(isturf(target))
-		var/turf/T = target
+	var/turf/T = target
+	if(is_type_in_list(target, list(/obj/effect, /obj/structure/lattice)))
+		T = get_turf(target)
+	if(istype(T))
 		if(!T.density)
-			deploy_roller(user, target)
+			deploy_roller(user, T)
 
-/obj/item/roller/attackby(obj/item/W as obj, mob/user as mob)
-	if(istype(W,/obj/item/roller_holder))
-		var/obj/item/roller_holder/RH = W
+/obj/item/roller/attackby(obj/item/attacking_item, mob/user)
+	if(istype(attacking_item, /obj/item/roller_holder))
+		var/obj/item/roller_holder/RH = attacking_item
 		if(!RH.held)
 			to_chat(user, SPAN_NOTICE("You collect the roller bed."))
 			src.forceMove(RH)
@@ -594,3 +651,85 @@
 	R.add_fingerprint(user)
 	qdel(held)
 	held = null
+
+/**
+ * # Roller Rack
+ *
+ * A rack structure that can hold up to four roller bed items (Or subtypes i.e. Hoverbeds), stored in the `held` list.
+ *
+ * The `initial_beds` variable controls the number of beds the rack will spawn with.
+*/
+/obj/structure/roller_rack
+	name = "roller bed rack"
+	desc = "A rack for holding collapsed roller beds."
+	icon = 'icons/obj/rollerbed.dmi'
+	icon_state = "holder"
+
+	/**
+	 * List of held roller bed items.
+	 */
+	var/list/obj/item/roller/held = list()
+
+	/**
+	 * The number of beds the rack spawns with
+	 */
+	var/initial_beds = 4
+
+/obj/structure/roller_rack/Initialize()
+	. = ..()
+	for(var/_ in 1 to initial_beds)
+		var/obj/item/roller/RB = new /obj/item/roller(src)
+		held += RB
+	update_icon()
+
+/obj/structure/roller_rack/Destroy()
+	QDEL_LIST(held)
+	return ..()
+
+/obj/structure/roller_rack/update_icon()
+	. = ..()
+	ClearOverlays()
+	var/beds = 0
+	for(var/obj/item/roller/RB in held)
+		var/image/I = overlay_image(icon, "[icon_state]_bed_[RB.base_icon]")
+		I.pixel_x = (5 * beds)
+		beds++
+		AddOverlays(I)
+
+/obj/structure/roller_rack/examine(mob/user, distance, is_adjacent, infix, suffix, show_extended)
+	desc = "[initial(desc)] \nIt is holding [LAZYLEN(held)] beds."
+	. = ..()
+
+/obj/structure/roller_rack/attack_hand(mob/user)
+	if(!LAZYLEN(held))
+		to_chat(user, SPAN_NOTICE("The rack is empty."))
+		return
+
+	var/obj/item/roller/RB = held[LAZYLEN(held)]
+	user.put_in_hands(RB)
+	held -= RB
+	to_chat(user, SPAN_NOTICE("You retrieve \the [RB] from the rack."))
+	update_icon()
+
+/obj/structure/roller_rack/attackby(obj/item/attacking_item, mob/user)
+	if(iswrench(attacking_item))
+		anchored = !anchored
+		to_chat(user, SPAN_NOTICE("You [anchored ? "bolt" : "unbolt"] \the [src] [anchored ? "to" : "from"] the ground."))
+
+	if(istype(attacking_item, /obj/item/roller))
+		var/obj/item/roller/RB = attacking_item
+
+		if(LAZYLEN(held) >= 4)
+			to_chat(user, SPAN_NOTICE("The rack has no space for \the [RB]"))
+			return
+
+		user.drop_from_inventory(RB, src)
+		held += RB
+		to_chat(user, SPAN_NOTICE("You place \the [RB] on the rack."))
+		update_icon()
+
+/obj/structure/roller_rack/two
+	initial_beds = 2
+
+/obj/structure/roller_rack/three
+	initial_beds = 3

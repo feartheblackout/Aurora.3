@@ -67,20 +67,24 @@
 	. = ..()
 	update_icon()
 
-/obj/item/material/twohanded/mob_can_equip(M, slot, disable_warning = FALSE)
-	//Cannot equip wielded items.
+/obj/item/material/twohanded/mob_can_equip(var/mob/user, slot, disable_warning = FALSE)
 	if(wielded)
-		to_chat(M, "<span class='warning'>Unwield the [base_name] first!</span>")
-		return 0
-
+		unwield()
+		var/obj/item/material/twohanded/offhand/O = user.get_inactive_hand()
+		if(istype(O))
+			O.unwield()
 	return ..()
 
 /obj/item/material/twohanded/can_swap_hands(mob/user)
 	if(wielded)
-		return FALSE
+		unwield()
+		var/obj/item/material/twohanded/offhand/O = user.get_inactive_hand()
+		if(istype(O))
+			O.unwield()
 	return ..()
 
-/obj/item/material/twohanded/dropped(mob/user as mob)
+/obj/item/material/twohanded/dropped(mob/user)
+	. = ..()
 	//handles unwielding a twohanded weapon when dropped as well as clearing up the offhand
 	if(user)
 		var/obj/item/material/twohanded/O = user.get_inactive_hand()
@@ -91,7 +95,7 @@
 //Allow a small chance of parrying melee attacks when wielded - maybe generalize this to other weapons someday
 /obj/item/material/twohanded/handle_shield(mob/user, var/on_back, var/damage, atom/damage_source = null, mob/attacker = null, var/def_zone = null, var/attack_text = "the attack")
 	if(wielded && default_parry_check(user, attacker, damage_source) && prob(parry_chance))
-		user.visible_message("<span class='danger'>\The [user] parries [attack_text] with \the [src]!</span>")
+		user.visible_message(SPAN_DANGER("\The [user] parries [attack_text] with \the [src]!"))
 		playsound(user.loc, /singleton/sound_category/punchmiss_sound, 50, 1)
 		return PROJECTILE_STOPPED
 	return FALSE
@@ -111,18 +115,18 @@
 	if(istype(user, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = user
 		if(issmall(H))
-			to_chat(user, "<span class='warning'>It's too heavy for you to wield fully.</span>")
+			to_chat(user, SPAN_WARNING("It's too heavy for you to wield fully."))
 			return
 	else
 		return
 
 	if(!istype(user.get_active_hand(), src))
-		to_chat(user, "<span class='warning'>You need to be holding the [name] in your active hand.</span>")
+		to_chat(user, SPAN_WARNING("You need to be holding the [name] in your active hand."))
 		return
 
 	if(wielded) //Trying to unwield it
 		unwield()
-		to_chat(user, "<span class='notice'>You are now carrying the [name] with one hand.</span>")
+		to_chat(user, SPAN_NOTICE("You are now carrying the [name] with one hand."))
 
 		var/obj/item/material/twohanded/offhand/O = user.get_inactive_hand()
 		if(O && istype(O))
@@ -130,11 +134,14 @@
 			O.unwield()
 
 	else //Trying to wield it
+		var/obj/item/offhand_item = user.get_inactive_hand()
+		if(offhand_item)
+			user.unEquip(offhand_item, FALSE, user.loc)
 		if(user.get_inactive_hand())
-			to_chat(user, "<span class='warning'>You need your other hand to be empty.</span>")
+			to_chat(user, SPAN_WARNING("You need your other hand to be empty."))
 			return
 		wield()
-		to_chat(user, "<span class='notice'>You grip the [base_name] with both hands.</span>")
+		to_chat(user, SPAN_NOTICE("You grip the [base_name] with both hands."))
 
 		var/obj/item/material/twohanded/offhand/O = new /obj/item/material/twohanded/offhand(user) ////Let's reserve his other hand~
 		O.name = "[base_name] - offhand"
@@ -237,7 +244,7 @@
 	base_icon = "spearglass"
 	name = "spear"
 	desc = "A haphazardly-constructed yet still deadly weapon of ancient design."
-	force = 10
+	force = 15
 	w_class = ITEMSIZE_LARGE
 	slot_flags = SLOT_BACK
 	force_divisor = 0.35 // 21 damage for steel (hardness 60)
@@ -256,31 +263,31 @@
 		QDEL_NULL(explosive)
 	return ..()
 
-/obj/item/material/twohanded/spear/examine(mob/user)
-	..(user)
+/obj/item/material/twohanded/spear/get_examine_text(mob/user, distance, is_adjacent, infix, suffix)
+	. = ..()
 	if(explosive)
-		to_chat(user, "It has \the [explosive] strapped to it.")
+		. += "It has \the [explosive] strapped to it."
 
-/obj/item/material/twohanded/spear/attackby(var/obj/item/I, var/mob/living/user)
-	if(istype(I, /obj/item/organ/external/head))
-		to_chat(user, "<span class='notice'>You stick the head onto the spear and stand it upright on the ground.</span>")
+/obj/item/material/twohanded/spear/attackby(obj/item/attacking_item, mob/user)
+	if(istype(attacking_item, /obj/item/organ/external/head))
+		to_chat(user, SPAN_NOTICE("You stick the head onto the spear and stand it upright on the ground."))
 		var/obj/structure/headspear/HS = new /obj/structure/headspear(user.loc)
 		var/matrix/M = matrix()
-		I.transform = M
-		usr.drop_from_inventory(I,HS)
-		var/mutable_appearance/MA = new(I)
+		attacking_item.transform = M
+		usr.drop_from_inventory(attacking_item, HS)
+		var/mutable_appearance/MA = new(attacking_item)
 		MA.layer = FLOAT_LAYER
-		HS.add_overlay(MA)
-		HS.name = "[I.name] on a spear"
+		HS.AddOverlays(MA)
+		HS.name = "[attacking_item.name] on a spear"
 		HS.material = material.name
 		qdel(src)
 		return
 
-	if(istype(I, /obj/item/grenade))
-		to_chat(user, "<span class='notice'>You strap \the [I] to \the [src].</span>")
-		user.unEquip(I)
-		I.forceMove(src)
-		explosive = I
+	if(istype(attacking_item, /obj/item/grenade))
+		to_chat(user, SPAN_NOTICE("You strap \the [attacking_item] to \the [src]."))
+		user.unEquip(attacking_item)
+		attacking_item.forceMove(src)
+		explosive = attacking_item
 		update_icon()
 		return
 	return ..()
@@ -302,7 +309,7 @@
 		update_icon()
 		src.shatter()
 
-/obj/item/material/twohanded/spear/throw_impact(atom/target)
+/obj/item/material/twohanded/spear/throw_impact(atom/hit_atom)
 	. = ..()
 	if(!.) //not caught
 		if(explosive)
@@ -332,7 +339,7 @@
 	anchored = 1
 
 /obj/structure/headspear/attack_hand(mob/living/user)
-	user.visible_message("<span class='warning'>[user] kicks over \the [src]!</span>", "<span class='danger'>You kick down \the [src]!</span>")
+	user.visible_message(SPAN_WARNING("[user] kicks over \the [src]!"), SPAN_DANGER("You kick down \the [src]!"))
 	new /obj/item/material/twohanded/spear(user.loc, material)
 	for(var/obj/item/organ/external/head/H in src)
 		H.forceMove(user.loc)
@@ -344,8 +351,8 @@
 	desc = "A robust tree-cutting chainsaw intended to cut down various types of invasive spaceplants that grow on the station."
 	icon_state = "chainsaw_off"
 	base_icon = "chainsaw_off"
-	flags = CONDUCT
-	force = 10
+	obj_flags = OBJ_FLAG_CONDUCTABLE
+	force = 15
 	force_unwielded = 10
 	force_wielded = 20
 	throwforce = 5
@@ -398,7 +405,7 @@
 /obj/item/material/twohanded/chainsaw/proc/PowerUp()
 	var/turf/T = get_turf(src)
 	T.audible_message(SPAN_NOTICE("\The [src] rumbles to life."))
-	playsound(src, "sound/weapons/chainsawstart.ogg", 25, 0, 30)
+	playsound(src, 'sound/weapons/saw/chainsawstart.ogg', 25, 0, 30)
 	force_unwielded = 30
 	force = force_unwielded
 	force_wielded = 60
@@ -456,7 +463,7 @@
 		FuelToRemove = 1
 		playsound(loc, 'sound/weapons/saw/chainsawloop2.ogg', 25, 0, 30)
 		if(prob(75))
-			spark(src, 3, alldirs)
+			spark(src, 3, GLOB.alldirs)
 			if(prob(25) && isliving(loc))
 				if(loc.flash_act())
 					to_chat(loc, SPAN_DANGER("Some stray sparks fly into your eyes!"))
@@ -465,16 +472,17 @@
 
 	RemoveFuel(FuelToRemove)
 
-/obj/item/material/twohanded/chainsaw/examine(mob/user)
-	if(..(user, 1))
-		to_chat(user, "A heavy-duty chainsaw meant for cutting wood. Contains <b>[round(REAGENT_VOLUME(reagents, fuel_type))]</b> unit\s of fuel.")
+/obj/item/material/twohanded/chainsaw/get_examine_text(mob/user, distance, is_adjacent, infix, suffix)
+	. = ..()
+	if(distance <= 1)
+		. += "A heavy-duty chainsaw meant for cutting wood. Contains <b>[round(REAGENT_VOLUME(reagents, fuel_type))]</b> unit\s of fuel."
 		if(powered)
-			to_chat(user, SPAN_NOTICE("It is currently powered on."))
+			. += SPAN_NOTICE("It is currently powered on.")
 
 /obj/item/material/twohanded/chainsaw/attack(mob/M as mob, mob/living/user as mob)
 	. = ..()
 	if(powered)
-		playsound(loc, "sound/weapons/saw/chainsword.ogg", 25, 0, 30)
+		playsound(loc, 'sound/weapons/saw/chainsword.ogg', 25, 0, 30)
 		RemoveFuel(3)
 
 /obj/item/material/twohanded/chainsaw/afterattack(obj/O as obj, mob/user as mob, proximity)
@@ -488,7 +496,7 @@
 		if(!istype(O))
 			user.visible_message(SPAN_DANGER("[user] revs the chainsaw!"), SPAN_WARNING("You rev the chainsaw!"), SPAN_WARNING("You hear a chainsaw rev!"))
 			user.setClickCooldown(DEFAULT_ATTACK_COOLDOWN)
-			playsound(loc, "sound/weapons/saw/chainsword.ogg", 25, 0, 30)
+			playsound(loc, 'sound/weapons/saw/chainsword.ogg', 25, 0, 30)
 			RemoveFuel(3)
 	. = ..()
 
@@ -507,7 +515,7 @@
 				PowerUp(user)
 			else
 				playsound(loc, 'sound/weapons/saw/chainsawpull.ogg', 50, 0, 15)
-				if(!do_after(user, 2 SECONDS, act_target = user))
+				if(!do_after(user, 2 SECONDS))
 					break
 
 /obj/item/material/twohanded/chainsaw/pre_attack(var/mob/living/target, var/mob/living/user)
@@ -530,7 +538,7 @@
 	base_icon = "pike"
 	name = "pike"
 	desc = "A long spear used by the infantry in ancient times."
-	force = 5
+	force = 11
 	unwielded_force_divisor = 0.2
 	force_divisor = 0.3
 	edge = TRUE
@@ -550,7 +558,7 @@
 	base_icon = "halberd"
 	name = "halberd"
 	desc = "A sharp axe mounted on the top of a long spear."
-	force = 10
+	force = 15
 	unwielded_force_divisor = 0.4
 	force_divisor = 0.6
 	sharp = 1
@@ -585,6 +593,7 @@
 /obj/item/material/twohanded/pike/flag/verb/plant()
 	set name = "Plant Flag"
 	set category = "Object"
+	set src in usr
 
 	if(ishuman(usr))
 		var/mob/living/user = usr
@@ -630,7 +639,7 @@
 	base_icon = "zweihander"
 	name = "zweihander"
 	desc = "A german upgrade to the einhander models of ancient times."
-	force = 20
+	force = 25
 	w_class = ITEMSIZE_LARGE
 	slot_flags = SLOT_BACK
 	force_wielded = 30
@@ -661,3 +670,27 @@
 	reach = 2
 	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
 	armor_penetration = wielded_ap
+
+/obj/item/material/twohanded/pike/halberd/warscythe
+	name = "war scythe"
+	desc = "An ancient Unathi weapon, this heavy polearm was frequently wielded by cavalry forces of pre-Hegemony kingdoms."
+	icon = 'icons/obj/unathi_ruins.dmi'
+	icon_state = "warspike0"
+	base_icon = "warspike"
+	contained_sprite = TRUE
+	applies_material_colour = FALSE
+
+/obj/item/material/twohanded/pike/halberd/warscythe/bronze/Initialize(newloc, material_key)
+	. = ..(newloc, MATERIAL_BRONZE)
+
+/obj/item/material/twohanded/pike/mador_trident
+	name = "ancient trident"
+	desc = "An ancient weapon, this three-pointed polearm was often wielded by the ancient Sinta'Mador civilization of Moghes."
+	icon = 'icons/obj/unathi_ruins.dmi'
+	icon_state = "mador_trident0"
+	base_icon = "mador_trident"
+	contained_sprite = TRUE
+	applies_material_colour = FALSE
+
+/obj/item/material/twohanded/pike/mador_trident/bronze/Initialize(newloc, material_key)
+	. = ..(newloc, MATERIAL_BRONZE)

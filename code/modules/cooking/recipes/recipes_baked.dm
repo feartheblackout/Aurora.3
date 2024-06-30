@@ -1,95 +1,3 @@
-/singleton/recipe/pizzamargherita
-	appliance = OVEN
-	fruit = list("tomato" = 1)
-	items = list(
-		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
-		/obj/item/reagent_containers/food/snacks/cheesewedge,
-		/obj/item/reagent_containers/food/snacks/cheesewedge,
-		/obj/item/reagent_containers/food/snacks/cheesewedge,
-		/obj/item/reagent_containers/food/snacks/cheesewedge
-	)
-	result = /obj/item/reagent_containers/food/snacks/sliceable/pizza/margherita
-
-/singleton/recipe/meatpizza
-	appliance = OVEN
-	fruit = list("tomato" = 1)
-	items = list(
-		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
-		/obj/item/reagent_containers/food/snacks/meat,
-		/obj/item/reagent_containers/food/snacks/cheesewedge
-	)
-	result = /obj/item/reagent_containers/food/snacks/sliceable/pizza/meatpizza
-
-/singleton/recipe/syntipizza
-	appliance = OVEN
-	fruit = list("tomato" = 1)
-	items = list(
-		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
-		/obj/item/reagent_containers/food/snacks/meat/syntiflesh,
-		/obj/item/reagent_containers/food/snacks/meat/syntiflesh,
-		/obj/item/reagent_containers/food/snacks/meat/syntiflesh,
-		/obj/item/reagent_containers/food/snacks/cheesewedge
-	)
-	result = /obj/item/reagent_containers/food/snacks/sliceable/pizza/meatpizza
-
-/singleton/recipe/mushroompizza
-	appliance = OVEN
-	fruit = list("mushroom" = 5, "tomato" = 1)
-	items = list(
-		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
-		/obj/item/reagent_containers/food/snacks/cheesewedge
-	)
-
-	reagent_mix = RECIPE_REAGENT_REPLACE //No vomit taste in finished product from chanterelles
-	result = /obj/item/reagent_containers/food/snacks/sliceable/pizza/mushroompizza
-
-/singleton/recipe/vegetablepizza
-	appliance = OVEN
-	fruit = list("eggplant" = 1, "carrot" = 1, "corn" = 1, "tomato" = 1)
-	items = list(
-		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
-		/obj/item/reagent_containers/food/snacks/cheesewedge
-	)
-	result = /obj/item/reagent_containers/food/snacks/sliceable/pizza/vegetablepizza
-
-/singleton/recipe/pineapplepizza
-	appliance = OVEN
-	fruit = list("tomato" = 1)
-	items = list(
-		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
-		/obj/item/reagent_containers/food/snacks/cheesewedge,
-		/obj/item/reagent_containers/food/snacks/pineapple_ring,
-		/obj/item/reagent_containers/food/snacks/pineapple_ring
-	)
-	result = /obj/item/reagent_containers/food/snacks/sliceable/pizza/pineapple
-
-/singleton/recipe/bacon_flatbread
-	appliance = OVEN
-	fruit = list("tomato" = 2)
-	items = list(
-		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
-		/obj/item/reagent_containers/food/snacks/cheesewedge,
-		/obj/item/reagent_containers/food/snacks/bacon,
-		/obj/item/reagent_containers/food/snacks/bacon,
-		/obj/item/reagent_containers/food/snacks/bacon,
-		/obj/item/reagent_containers/food/snacks/bacon
-	)
-	result = /obj/item/reagent_containers/food/snacks/bacon_flatbread
-
-/singleton/recipe/soywafers
-	appliance = OVEN
-	fruit = list("soybeans" = 1)
-	reagents = list(/singleton/reagent/nutriment/flour = 10)
-	reagent_mix = RECIPE_REAGENT_REPLACE
-	result = /obj/item/reagent_containers/food/snacks/soywafers
-
-/singleton/recipe/berryclafoutis
-	appliance = OVEN
-	fruit = list("berries" = 1)
-	items = list(
-		/obj/item/reagent_containers/food/snacks/sliceable/flatdough
-	)
-	result = /obj/item/reagent_containers/food/snacks/berryclafoutis
 
 /singleton/recipe/loadedbakedpotato
 	appliance = OVEN
@@ -139,7 +47,7 @@
 
 /singleton/recipe/spacylibertyduff
 	appliance = OVEN
-	reagents = list(/singleton/reagent/water = 5, /singleton/reagent/alcohol/vodka = 5, /singleton/reagent/psilocybin = 5)
+	reagents = list(/singleton/reagent/water = 5, /singleton/reagent/alcohol/vodka = 5, /singleton/reagent/drugs/psilocybin = 5)
 	result = /obj/item/reagent_containers/food/snacks/spacylibertyduff
 
 /singleton/recipe/hotdiggitydonk //heated donk, in lieu of a microwave
@@ -149,20 +57,71 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/donkpocket/warm
 
-/singleton/recipe/rofflewaffles
+/singleton/recipe/donkteriyaki //heated donk, in lieu of a microwave
 	appliance = OVEN
-	reagents = list(/singleton/reagent/psilocybin = 5, /singleton/reagent/sugar = 10)
-	items = list(
-		/obj/item/reagent_containers/food/snacks/dough,
-		/obj/item/reagent_containers/food/snacks/dough
-	)
-	result = /obj/item/reagent_containers/food/snacks/rofflewaffles
+	items = list(/obj/item/reagent_containers/food/snacks/donkpocket/teriyaki)
+	result = /obj/item/reagent_containers/food/snacks/donkpocket/teriyaki/warm
 
-/singleton/recipe/moss_dumplings
+/singleton/recipe/donktakoyaki //heated donk, in lieu of a microwave
 	appliance = OVEN
-	fruit = list("moss" = 2)
+	items = list(/obj/item/reagent_containers/food/snacks/donkpocket/takoyaki)
+	result = /obj/item/reagent_containers/food/snacks/donkpocket/takoyaki/warm
+
+/singleton/recipe/meat_lasagna_tray
+	appliance = OVEN
+	fruit = list("tomato" = 3)
 	items = list(
-		/obj/item/reagent_containers/food/snacks/dough
+		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
+		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
+		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
+		/obj/item/reagent_containers/food/snacks/meat,
+		/obj/item/reagent_containers/food/snacks/meat,
+		/obj/item/reagent_containers/food/snacks/cheesewedge,
+		/obj/item/reagent_containers/food/snacks/cheesewedge,
+		/obj/item/reagent_containers/food/snacks/cheesewedge
 	)
-	result = /obj/item/reagent_containers/food/snacks/moss_dumplings
+	result = /obj/item/reagent_containers/food/snacks/sliceable/meat_lasagna_tray
+	reagent_mix = RECIPE_REAGENT_REPLACE //Replacing the ingredients and filling in a bit extra for simplicity's sake
+
+/singleton/recipe/veggie_lasagna_tray
+	appliance = OVEN
+	fruit = list("tomato" = 3, "eggplant" = 1, "onion" = 1, "mushroom" = 2)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
+		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
+		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
+		/obj/item/reagent_containers/food/snacks/cheesewedge,
+		/obj/item/reagent_containers/food/snacks/cheesewedge,
+		/obj/item/reagent_containers/food/snacks/cheesewedge
+	)
+	result = /obj/item/reagent_containers/food/snacks/sliceable/veggie_lasagna_tray
+	reagent_mix = RECIPE_REAGENT_REPLACE //Replacing the ingredients and filling in a bit extra for simplicity's sake
+
+/singleton/recipe/pigs_in_a_blanket
+	appliance = OVEN
+	items = list(
+		/obj/item/reagent_containers/food/snacks/sausage,
+		/obj/item/reagent_containers/food/snacks/doughslice,
+		/obj/item/reagent_containers/food/snacks/doughslice
+	)
+	result = /obj/item/reagent_containers/food/snacks/pig_in_a_blanket
+	result_quantity = 3
+
+/singleton/recipe/stuffed_peppers_meat
+	appliance = OVEN
+	fruit = list("bellpepper" = 1, "tomato" = 1)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/cheesewedge,
+		/obj/item/reagent_containers/food/snacks/meat
+	)
+	result = /obj/item/reagent_containers/food/snacks/stuffed_pepper_meat
+	result_quantity = 2
+
+/singleton/recipe/stuffed_peppers_rice
+	appliance = OVEN
+	fruit = list("bellpepper" = 1, "corn" = 1)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/boiledrice
+	)
+	result = /obj/item/reagent_containers/food/snacks/stuffed_pepper_rice
 	result_quantity = 2

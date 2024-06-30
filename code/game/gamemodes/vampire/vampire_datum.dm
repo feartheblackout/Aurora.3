@@ -1,7 +1,7 @@
 // Vampire and thrall datums. Contains the necessary information about a vampire.
 // Must be attached to a /datum/mind.
 /datum/vampire
-	var/list/thralls = list()					// A list of thralls that obey the vamire.
+	var/list/thralls = list()					// A list of thralls that obey the vampire.
 	var/blood_total = 0							// How much total blood do we have?
 	var/blood_usable = 0						// How much usable blood do we have?
 	var/blood_vamp = 0							// How much vampire blood do we have?
@@ -33,7 +33,7 @@
 	purchased_powers += power
 
 	if (power.isVerb && power.verbpath)
-		vampire.current.verbs += power.verbpath
+		add_verb(vampire.current, power.verbpath)
 	if(announce)
 		to_chat(vampire.current, SPAN_NOTICE("------------------"))
 		to_chat(vampire.current, SPAN_NOTICE("<b>You have unlocked a new power:</b> [power.name]."))
@@ -52,9 +52,9 @@
 /datum/vampire/proc/assign_master(var/mob/M, var/mob/set_master, var/datum/vampire/V)
 	master = set_master
 	V.thralls += M
-	thrall_image = image('icons/mob/hud.dmi', M, "hudthrall")
+	thrall_image = image('icons/hud/hud.dmi', M, "hudthrall")
 	set_master.client.images += thrall_image
-	master_image = image('icons/mob/hud.dmi', set_master, "hudvampire")
+	master_image = image('icons/hud/hud.dmi', set_master, "hudvampire")
 	M.client.images += master_image
 
 /datum/vampire/proc/lose_master(var/mob/M)

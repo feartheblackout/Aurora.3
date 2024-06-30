@@ -2,7 +2,6 @@
 /mob/living/heavy_vehicle
 	name = "exosuit"
 	density = TRUE
-	opacity = TRUE
 	anchored = TRUE
 	status_flags = PASSEMOTES
 	a_intent = I_HURT
@@ -11,6 +10,7 @@
 	can_be_buckled = FALSE
 	accent = ACCENT_TTS
 	appearance_flags = KEEP_TOGETHER
+	pass_flags_self = PASSVEHICLE
 	var/decal
 
 	var/emp_damage = 0
@@ -25,9 +25,7 @@
 	var/wreckage_path = /obj/structure/mech_wreckage
 
 	// Access updating/container.
-	var/obj/item/card/id/access_card
-	var/list/saved_access = list()
-	var/sync_access = TRUE
+	var/obj/item/card/id/mecha/access_card
 
 	// Mob we're currently paired with or following | the names are saved to prevent metagaming when returning diagnostics
 	var/datum/weakref/leader
@@ -56,9 +54,6 @@
 	var/obj/item/mech_component/propulsion/legs
 	var/obj/item/mech_component/sensors/head
 	var/obj/item/mech_component/chassis/body
-
-	// Invisible components.
-	var/datum/effect/effect/system/spark_spread/sparks
 
 	// Equipment tracking vars.
 	var/obj/item/mecha_equipment/selected_system
@@ -99,7 +94,8 @@
 
 	for(var/hardpoint in hardpoints)
 		var/obj/item/S = remove_system(hardpoint, force = 1)
-		qdel(S)
+		if(S)
+			QDEL_NULL(S)
 
 	hardpoints = null
 
@@ -111,7 +107,7 @@
 		pilot.forceMove(get_turf(src))
 	pilots = null
 
-	QDEL_NULL_LIST(hud_elements)
+	QDEL_LIST(hud_elements)
 
 	if(remote_network)
 		SSvirtualreality.remove_mech(src, remote_network)
@@ -137,28 +133,32 @@
 /mob/living/heavy_vehicle/IsAdvancedToolUser()
 	return 1
 
-/mob/living/heavy_vehicle/examine(var/mob/user)
+/mob/living/heavy_vehicle/get_examine_text(mob/user, distance, is_adjacent, infix, suffix)
+	SHOULD_CALL_PARENT(FALSE) //Special snowflake case
+
+	. = list()
 	if(!user || !user.client)
-		return
-	to_chat(user, "That's \a <b>[src]</b>.")
-	to_chat(user, desc)
+		return TRUE
+	. += "That's \a <b>[src]</b>."
+	if(desc)
+		to_chat(user, desc)
 	if(LAZYLEN(pilots) && (!hatch_closed || body.pilot_coverage < 100 || body.transparent_cabin))
 		if(length(pilots) == 0)
-			to_chat(user, "It has <b>no pilot</b>.")
+			. += "It has <b>no pilot</b>."
 		else
 			for(var/pilot in pilots)
-				if(istype(pilot, /mob))
+				if(ismob(pilot))
 					var/mob/M = pilot
-					to_chat(user, "It is being <b>piloted</b> by <a href=?src=\ref[src];examine=\ref[M]>[M.name]</a>.")
+					. += "It is being <b>piloted</b> by <a href=?src=\ref[src];examine=\ref[M]>[M.name]</a>."
 				else
-					to_chat(user, "It is being <b>piloted</b> by <b>[pilot]</b>.")
+					. += "It is being <b>piloted</b> by <b>[pilot]</b>."
 	if(hardpoints.len)
-		to_chat(user, "<span class='notice'>It has the following hardpoints:</span>")
+		. += SPAN_NOTICE("It has the following hardpoints:")
 		for(var/hardpoint in hardpoints)
 			var/obj/item/I = hardpoints[hardpoint]
-			to_chat(user, "- <b>[hardpoint]</b>: [istype(I) ? "<span class='notice'><i>[I]</i></span>" : "nothing"].")
+			. += "- <b>[hardpoint]</b>: [istype(I) ? SPAN_NOTICE("<i>[I]</i>") : "nothing"]."
 	else
-		to_chat(user, "It has <b>no visible hardpoints</b>.")
+		. += "It has <b>no visible hardpoints</b>."
 
 	for(var/obj/item/mech_component/thing in list(arms, legs, head, body))
 		if(!thing)
@@ -168,19 +168,19 @@
 			if(1)
 				damage_string = "undamaged"
 			if(2)
-				damage_string = "<span class='warning'>damaged</span>"
+				damage_string = SPAN_WARNING("damaged")
 			if(3)
-				damage_string = "<span class='warning'>badly damaged</span>"
+				damage_string = SPAN_WARNING("badly damaged")
 			if(4)
-				damage_string = "<span class='danger'>destroyed</span>"
-		to_chat(user, "Its <b>[thing.name]</b> [thing.gender == PLURAL ? "are" : "is"] [damage_string].")
+				damage_string = SPAN_DANGER("destroyed")
+		. += "Its <b>[thing.name]</b> [thing.gender == PLURAL ? "are" : "is"] [damage_string]."
 
 /mob/living/heavy_vehicle/Topic(href,href_list[])
 	if (href_list["examine"])
 		var/mob/M = locate(href_list["examine"])
 		if(!M)
 			return
-		usr.examinate(M, 1)
+		examinate(usr, M)
 
 /mob/living/heavy_vehicle/Initialize(mapload, var/obj/structure/heavy_vehicle_frame/source_frame)
 	..()
@@ -209,6 +209,8 @@
 		if(source_frame.body)
 			source_frame.body.forceMove(src)
 			body = source_frame.body
+			if(body.cell)
+				RegisterSignal(body.cell, COMSIG_CELL_CHARGE, PROC_REF(handle_cell_charge))
 
 	updatehealth()
 
@@ -233,7 +235,7 @@
 	update_icon()
 
 	add_language(LANGUAGE_TCB)
-	set_default_language(all_languages[LANGUAGE_TCB])
+	default_language = GLOB.all_languages[LANGUAGE_TCB]
 
 	. = INITIALIZE_HINT_LATELOAD
 
@@ -291,7 +293,7 @@
 		user.set_machine(src)
 		interact(user)
 	else
-		to_chat(user, "<span class='warning'>The radio is too damaged to function.</span>")
+		to_chat(user, SPAN_WARNING("The radio is too damaged to function."))
 
 /obj/item/device/radio/exosuit/CanUseTopic()
 	. = ..()
@@ -300,7 +302,7 @@
 		if(istype(exosuit) && exosuit.head && exosuit.head.radio && exosuit.head.radio.is_functional())
 			return ..()
 
-/obj/item/device/radio/exosuit/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = mech_state)
+/obj/item/device/radio/exosuit/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/ui_state/state = mech_state)
 	. = ..()
 
 /mob/living/heavy_vehicle/proc/become_remote()
@@ -319,8 +321,8 @@
 	dummy = new dummy_type(get_turf(src))
 	dummy.real_name = "Remote-Bot"
 	dummy.name = dummy.real_name
-	dummy.verbs -= /mob/living/proc/ventcrawl
-	dummy.verbs -= /mob/living/proc/hide
+	remove_verb(dummy, /mob/living/proc/ventcrawl)
+	remove_verb(dummy, /mob/living/proc/hide)
 	if(dummy_colour)
 		dummy.color = dummy_colour
 	enter(dummy, TRUE)

@@ -25,7 +25,7 @@
 	var/obj/item/projectile/original_projectile
 	var/heading = SOUTH
 	var/range = OVERMAP_PROJECTILE_RANGE_MEDIUM
-	var/mob_carry_size = MOB_LARGE //How large a mob has to be to carry the shell
+	var/mob_carry_size = 12 //How large a mob has to be to carry the shell
 	//Cookoff variables.
 	var/cookoff_devastation = 0
 	var/cookoff_heavy = 2
@@ -42,24 +42,28 @@
 	original_projectile = null
 	return ..()
 
-/obj/item/ship_ammunition/attackby(obj/item/I, mob/user)
-	if(I.ispen())
-		var/obj/item/pen/P = I
+/obj/item/ship_ammunition/attackby(obj/item/attacking_item, mob/user)
+	if(attacking_item.force > 10 && (ammunition_flags & SHIP_AMMO_FLAG_VERY_FRAGILE))
+		log_and_message_admins("[user] has caused the cookoff of [src] by attacking it with [attacking_item]!", user)
+		cookoff(FALSE)
+
+	else if(attacking_item.ispen())
+		var/obj/item/pen/P = attacking_item
 		if(!use_check_and_message(user))
-			var/friendly_message = sanitizeSafe(input(user, "What do you want to write on \the [src]?", "Personal Message"), 32)
+			var/friendly_message = sanitizeSafe( tgui_input_text(user, "What do you want to write on \the [src]?", "Personal Message", "", 32), 32 )
 			if(friendly_message)
 				written_message = friendly_message
 			visible_message(SPAN_NOTICE("[user] writes something on \the [src] with \the [P]."), SPAN_NOTICE("You leave a nice message on \the [src]!"))
 			return
 	return ..()
 
-/obj/item/ship_ammunition/examine(mob/user, distance)
+/obj/item/ship_ammunition/get_examine_text(mob/user, distance, is_adjacent, infix, suffix)
 	. = ..()
 	if(written_message)
-		if(get_dist(user, src) > 3)
-			to_chat(user, "It has something written on it, but you'd need to get closer to tell what the writing says.")
+		if(distance > 3)
+			. += "It has something written on it, but you'd need to get closer to tell what the writing says."
 		else
-			to_chat(user, "It has a message written on the casing: <span class='notice'><i>[written_message]</i></span>")
+			. += "It has a message written on the casing: <span class='notice'><i>[written_message]</i></span>."
 
 /obj/item/ship_ammunition/do_additional_pickup_checks(var/mob/user)
 	if(ammunition_flags & SHIP_AMMO_FLAG_VERY_HEAVY)
@@ -68,7 +72,7 @@
 			var/datum/species/S = H.species
 			if(S.mob_size >= mob_carry_size || S.resist_mod >= 10 || user.status_flags & GODMODE)
 				visible_message(SPAN_NOTICE("[user] tightens their grip on [src] and starts heaving..."))
-				if(do_after(user, 1 SECONDS))
+				if(do_after(user, 1 SECONDS, src, DO_UNIQUE))
 					visible_message(SPAN_NOTICE("[user] heaves \the [src] up!"))
 					wield(user)
 					return TRUE
@@ -77,7 +81,7 @@
 				var/obj/item/rig/R = H.back
 				if(R.suit_is_deployed())
 					visible_message(SPAN_NOTICE("[user] tightens their grip on [src] and starts heaving with some difficulty..."))
-					if(do_after(user, 5 SECONDS))
+					if(do_after(user, 5 SECONDS, src, DO_UNIQUE))
 						visible_message(SPAN_NOTICE("[user] heaves \the [src] up!"))
 						wield(user)
 						return TRUE
@@ -97,17 +101,13 @@
 	if(prob(50) && ((ammunition_flags & SHIP_AMMO_FLAG_VERY_FRAGILE) || (ammunition_flags & SHIP_AMMO_FLAG_VULNERABLE)))
 		cookoff(FALSE)
 
-/obj/item/ship_ammunition/attackby(obj/item/I, mob/user)
-	. = ..()
-	if(I.force > 10 && (ammunition_flags & SHIP_AMMO_FLAG_VERY_FRAGILE))
-		log_and_message_admins("[user] has caused the cookoff of [src] by attacking it with [I]!", user)
-		cookoff(FALSE)
-
 /obj/item/ship_ammunition/ex_act(severity)
 	if(ammunition_flags & SHIP_AMMO_FLAG_INFLAMMABLE)
 		cookoff(TRUE)
 
-/obj/item/ship_ammunition/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/item/ship_ammunition/fire_act(exposed_temperature, exposed_volume)
+	. = ..()
+
 	if(ammunition_flags & SHIP_AMMO_FLAG_INFLAMMABLE)
 		if(exposed_temperature >= T0C+200)
 			cookoff(TRUE)
@@ -128,6 +128,10 @@
 	return
 
 /obj/item/ship_ammunition/proc/wield(var/mob/living/carbon/human/user)
+	var/obj/A = user.get_inactive_hand()
+	if(A)
+		to_chat(user, SPAN_WARNING("Your other hand is occupied!"))
+		return
 	wielded = TRUE
 	var/obj/item/offhand/O = new(user)
 	O.name = "[initial(name)] - offhand"
@@ -137,7 +141,7 @@
 /obj/item/ship_ammunition/proc/unwield()
 	wielded = FALSE
 
-/obj/item/ship_ammunition/dropped(var/mob/living/user)
+/obj/item/ship_ammunition/dropped(mob/user)
 	..()
 	if(user)
 		var/obj/item/offhand/O = user.get_inactive_hand()
@@ -151,7 +155,7 @@
 	return TRUE
 
 /obj/item/ship_ammunition/proc/get_additional_info()
-	. += "<span class='danger'>[name_override ? name_override : name]</span><br>"
+	. += SPAN_DANGER("[name_override ? name_override : name]<br>")
 	. += "[desc]<br>"
 	. += "Caliber: [caliber]<br>"
 	. += "Ammunition Type: [capitalize_first_letters(impact_type)]<br>"
@@ -164,13 +168,13 @@
 /obj/item/ship_ammunition/touch_map_edge(var/new_z)
 	if(isprojectile(loc))
 		transfer_to_overmap(new_z)
-		origin = map_sectors["[new_z]"]
+		origin = GLOB.map_sectors["[new_z]"]
 		return TRUE
 	else
 		. = ..()
 
 /obj/item/ship_ammunition/proc/transfer_to_overmap(var/new_z)
-	var/obj/effect/overmap/start_object = map_sectors["[new_z]"]
+	var/obj/effect/overmap/start_object = GLOB.map_sectors["[new_z]"]
 	if(!start_object)
 		return FALSE
 
@@ -217,10 +221,10 @@
 
 /obj/item/projectile/ship_ammo/touch_map_edge()
 	if(primed)
-		for(var/mob/living/carbon/human/H in human_mob_list)
+		for(var/mob/living/carbon/human/H in GLOB.human_mob_list)
 			if(AreConnectedZLevels(H.z, z))
 				to_chat(H, SPAN_WARNING("The flooring below you vibrates a little as shells fly by the hull of the ship!"))
-				H.playsound_simple(null, 'sound/effects/explosionfar.ogg', 25)
+				H.playsound_local(null, 'sound/effects/explosionfar.ogg', 25)
 				shake_camera(H, 2, 2)
 		..()
 	if(ammo.touch_map_edge(z))
@@ -236,7 +240,8 @@
 			"target_area" = get_area(target),
 			"coordinates" = "[target.x], [target.y], [target.z]"
 		)
-		ammo.origin.signal_hit(hit_data)
+		if(ammo && ammo.origin)
+			ammo.origin.signal_hit(hit_data)
 	return ..()
 
 /obj/item/projectile/ship_ammo/proc/on_translate(var/turf/entry_turf, var/target_turf) //This proc is called when the projectile enters a new ship's overmap zlevel.

@@ -1,11 +1,10 @@
 /obj/skybox
 	name = "skybox"
-	mouse_opacity = 0
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	anchored = TRUE
 	simulated = FALSE
 	screen_loc = "CENTER:-224,CENTER:-224"
-	plane = PLANE_SKYBOX
-	blend_mode = BLEND_MULTIPLY
+	plane = SKYBOX_PLANE
 
 /client
 	var/obj/skybox/skybox
@@ -25,18 +24,7 @@
 		if(skybox)
 			skybox.screen_loc = "CENTER:[-224 - T.x],CENTER:[-224 - T.y]"
 
-/mob/LateLogin()
-	..()
-	if(client)
-		client.update_skybox(TRUE)
-
 /mob/Move()
-	var/old_z = GET_Z(src)
-	. = ..()
-	if(. && client)
-		client.update_skybox(old_z != GET_Z(src))
-
-/mob/forceMove()
 	var/old_z = GET_Z(src)
 	. = ..()
 	if(. && client)

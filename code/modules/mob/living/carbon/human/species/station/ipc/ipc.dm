@@ -131,18 +131,22 @@
 		/singleton/origin_item/culture/ipc_tau_ceti,
 		/singleton/origin_item/culture/golden_deep,
 		/singleton/origin_item/culture/megacorporate,
-		/singleton/origin_item/culture/scrapper,
-		/singleton/origin_item/culture/orepit_trinary
+		/singleton/origin_item/culture/scrapper
 	)
 
 	alterable_internal_organs = list()
-	possible_speech_bubble_types = list("synth", "normal")
+	possible_speech_bubble_types = list("robot", "default")
 
 	// Special snowflake machine vars.
 	var/sprint_temperature_factor = 1.15
 	var/move_charge_factor = 1
 
 	use_alt_hair_layer = TRUE
+	psi_deaf = TRUE
+
+	sleeps_upright = TRUE
+	snore_key = "beep"
+	indefinite_sleep = TRUE
 
 /datum/species/machine/handle_post_spawn(var/mob/living/carbon/human/H)
 	. = ..()
@@ -208,14 +212,14 @@
 	if (!target || !player)
 		return
 
-	if (establish_db_connection(dbcon))
+	if (establish_db_connection(GLOB.dbcon) && target.character_id)
 		var/status = FALSE
 		var/sql_status = FALSE
 		if (target.internal_organs_by_name[BP_IPCTAG])
 			status = TRUE
 
-		var/list/query_details = list("ckey" = player.ckey, "character_name" = target.real_name)
-		var/DBQuery/query = dbcon.NewQuery("SELECT tag_status FROM ss13_ipc_tracking WHERE player_ckey = :ckey: AND character_name = :character_name:")
+		var/list/query_details = list("char_id" = target.character_id)
+		var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT tag_status FROM ss13_characters_ipc_tags WHERE char_id = :char_id:")
 		query.Execute(query_details)
 
 		if (query.NextRow())
@@ -224,7 +228,7 @@
 				return
 
 			query_details["status"] = status
-			var/DBQuery/update_query = dbcon.NewQuery("UPDATE ss13_ipc_tracking SET tag_status = :status: WHERE player_ckey = :ckey: AND character_name = :character_name:")
+			var/DBQuery/update_query = GLOB.dbcon.NewQuery("UPDATE ss13_characters_ipc_tags SET tag_status = :status: WHERE char_id = :char_id:")
 			update_query.Execute(query_details)
 
 /datum/species/machine/get_light_color(mob/living/carbon/human/H)
@@ -369,15 +373,15 @@
 		if ("trinary perfection IPC screen")
 			return LIGHT_COLOR_RED
 
+		if ("golden deep IPC screen")
+			return LIGHT_COLOR_YELLOW
+
 /datum/species/machine/before_equip(var/mob/living/carbon/human/H)
 	. = ..()
 	check_tag(H, H.client)
 
-/datum/species/machine/has_psi_potential()
-	return FALSE
-
 /datum/species/machine/handle_death_check(var/mob/living/carbon/human/H)
-	if(H.get_total_health() <= config.health_threshold_dead)
+	if(H.get_total_health() <= GLOB.config.health_threshold_dead)
 		return TRUE
 	return FALSE
 
@@ -391,3 +395,10 @@
 	var/obj/item/organ/internal/cell/C = human.internal_organs_by_name[BP_CELL]
 	if(C)
 		C.use(stamina_cost * 8)
+
+/datum/species/machine/sleep_msg(var/mob/M)
+	M.visible_message(SPAN_NOTICE("\The [M] locks [M.get_pronoun("his")] chassis into place, entering standby."))
+	to_chat(M, SPAN_NOTICE("You lock your chassis into place, entering standby."))
+
+/datum/species/machine/sleep_examine_msg(var/mob/M)
+	return SPAN_NOTICE("[M.get_pronoun("He")] appears to be in standby.\n")

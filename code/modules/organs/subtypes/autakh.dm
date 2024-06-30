@@ -92,7 +92,8 @@
 			suffered_revelation = TRUE
 
 /obj/item/organ/internal/anchor/emp_act(severity)
-	..()
+	. = ..()
+
 	revelation()
 
 /obj/item/organ/internal/anchor/proc/revelation()
@@ -117,6 +118,7 @@
 	action_button_name = "Activate Protein Breakdown Valve"
 	cooldown = 300
 	activable = TRUE
+	var/expended = FALSE
 
 /obj/item/organ/internal/augment/protein_valve/attack_self(var/mob/user)
 	. = ..()
@@ -124,20 +126,14 @@
 	if(!.)
 		return FALSE
 
+	if(expended)
+		to_chat(owner, SPAN_WARNING("\The [src] has already been used up!"))
+		return
+
 	if(owner.reagents)
-		var/obj/item/organ/F = owner.internal_organs_by_name[BP_STOMACH]
-
-		if(isnull(F))
-			return FALSE
-
-		if(F.is_broken())
-			return FALSE
-
-		F.take_damage(10)
-
-		to_chat(owner, "<span class='notice'>\The [src] activates, releasing a stream of chemicals into your veins!</span>")
-
+		to_chat(owner, SPAN_NOTICE("\The [src] activates, releasing a stream of chemicals into your veins!"))
 		owner.reagents.add_reagent(/singleton/reagent/adrenaline, 15)
+		expended = TRUE
 
 /obj/item/organ/internal/augment/venomous_rest
 	name = "venomous rest implant"
@@ -148,6 +144,7 @@
 	action_button_icon = "stabilizer"
 	cooldown = 300
 	activable = TRUE
+	var/expended = FALSE
 
 /obj/item/organ/internal/augment/venomous_rest/attack_self(var/mob/user)
 	. = ..()
@@ -155,12 +152,16 @@
 	if(!.)
 		return FALSE
 
+	if(expended)
+		to_chat(owner, SPAN_WARNING("\The [src] has already been used up!"))
+		return
+
 	if(owner.reagents)
 		owner.reagents.add_reagent(/singleton/reagent/inaprovaline, 10)
 		owner.reagents.add_reagent(/singleton/reagent/tricordrazine, 10)
 		owner.reagents.add_reagent(/singleton/reagent/soporific, 15)
-		take_damage(15)
-		to_chat(owner, "<span class='notice'>\The [src] activates, releasing a stream of chemicals into your veins!</span>")
+		to_chat(owner, SPAN_NOTICE("\The [src] activates, releasing a stream of chemicals into your veins!"))
+		expended = TRUE
 
 /obj/item/organ/internal/augment/farseer_eye
 	name = "farseer eye"
@@ -178,8 +179,14 @@
 	if(!.)
 		return FALSE
 
-	owner.visible_message("<b>[user]'s</b> eyes whirrs loudly as they focus ahead.")
-	take_damage(1)
+	if(zoom)
+		owner.visible_message("<b>[user]'s</b> eyes whirrs loudly as the zoom lenses retract.", range = 3)
+	else
+		owner.visible_message("<b>[user]'s</b> eyes whirrs loudly as the zoom lenses begin sliding into place...", range = 3)
+		if(!do_after(user, 1.5 SECONDS))
+			return
+		owner.visible_message("<b>[user]'s</b> eyes clicks loudly as they focus ahead.", range = 3)
+
 	zoom(owner, 7, 7, FALSE, FALSE)
 
 /obj/item/organ/internal/augment/eye_flashlight
@@ -219,7 +226,8 @@
 	warning_level = 0
 
 /obj/item/organ/internal/augment/eye_flashlight/emp_act(severity)
-	..()
+	. = ..()
+
 	turn_off()
 
 /obj/item/organ/internal/augment/eye_flashlight/proc/add_warning()
@@ -263,19 +271,19 @@
 	if(.)
 
 		if(owner.last_special > world.time)
-			to_chat(owner, "<span class='danger'>\The [src] is still recharging!</span>")
+			to_chat(owner, SPAN_DANGER("\The [src] is still recharging!"))
 			return
 
 		if(owner.stat || owner.paralysis || owner.stunned || owner.weakened)
-			to_chat(owner, "<span class='danger'>You can not use \the [src] in your current state!</span>")
+			to_chat(owner, SPAN_DANGER("You can not use \the [src] in your current state!"))
 			return
 
 		if(owner.get_active_hand())
-			to_chat(owner, "<span class='danger'>You must empty your active hand before enabling your [src]!</span>")
+			to_chat(owner, SPAN_DANGER("You must empty your active hand before enabling your [src]!"))
 			return
 
 		if(is_broken())
-			to_chat(owner, "<span class='danger'>\The [src] is too damaged to be used!</span>")
+			to_chat(owner, SPAN_DANGER("\The [src] is too damaged to be used!"))
 			return
 
 		if(is_bruised())
@@ -284,7 +292,8 @@
 		owner.last_special = world.time + 100
 		var/obj/item/M = new augment_type(owner)
 		owner.put_in_active_hand(M)
-		owner.visible_message("<span class='notice'>\The [M] slides out of \the [owner]'s [src].</span>","<span class='notice'>You deploy \the [M]!</span>")
+		owner.visible_message(SPAN_NOTICE("\The [M] slides out of \the [owner]'s [src]."),
+								SPAN_NOTICE("You deploy \the [M]!"))
 
 /obj/item/combitool/robotic
 	name = "robotic combitool"
@@ -303,6 +312,7 @@
 	usr.drop_from_inventory(src)
 
 /obj/item/combitool/robotic/dropped()
+	. = ..()
 	loc = null
 	qdel(src)
 
@@ -311,7 +321,7 @@
 	action_button_name = "Deploy Mounted Drill"
 	augment_type = /obj/item/pickaxe/drill/integrated
 
-/obj/item/organ/external/hand/right/autakh/mining/refresh_action_button()
+/obj/item/organ/external/hand/right/autakh/tool/mining/refresh_action_button()
 	. = ..()
 	if(.)
 		action.button_icon_state = "drill"
@@ -328,6 +338,7 @@
 	usr.drop_from_inventory(src)
 
 /obj/item/pickaxe/drill/integrated/dropped()
+	. = ..()
 	loc = null
 	qdel(src)
 
@@ -348,15 +359,15 @@
 	if(.)
 
 		if(owner.last_special > world.time)
-			to_chat(owner, "<span class='danger'>\The [src] is still recharging!</span>")
+			to_chat(owner, SPAN_DANGER("\The [src] is still recharging!"))
 			return
 
 		if(owner.stat || owner.paralysis || owner.stunned || owner.weakened)
-			to_chat(owner, "<span class='danger'>You can not use \the [src] in your current state!</span>")
+			to_chat(owner, SPAN_DANGER("You can not use \the [src] in your current state!"))
 			return
 
 		if(is_broken())
-			to_chat(owner, "<span class='danger'>\The [src] is too damaged to be used!</span>")
+			to_chat(owner, SPAN_DANGER("\The [src] is too damaged to be used!"))
 			return
 
 		if(is_bruised())
@@ -364,7 +375,7 @@
 
 		var/obj/item/grab/G = owner.get_active_hand()
 		if(!istype(G))
-			to_chat(owner, "<span class='danger'>You must grab someone before trying to analyze their health!</span>")
+			to_chat(owner, SPAN_DANGER("You must grab someone before trying to analyze their health!"))
 			return
 
 		owner.last_special = world.time + 50
@@ -389,15 +400,15 @@
 	if(.)
 
 		if(owner.last_special > world.time)
-			to_chat(owner, "<span class='danger'>\The [src] is still recharging!</span>")
+			to_chat(owner, SPAN_DANGER("\The [src] is still recharging!"))
 			return
 
 		if(owner.stat || owner.paralysis || owner.stunned || owner.weakened)
-			to_chat(owner, "<span class='danger'>You can not use \the [src] in your current state!</span>")
+			to_chat(owner, SPAN_DANGER("You can not use \the [src] in your current state!"))
 			return
 
 		if(is_broken())
-			to_chat(owner, "<span class='danger'>\The [src] is too damaged to be used!</span>")
+			to_chat(owner, SPAN_DANGER("\The [src] is too damaged to be used!"))
 			return
 
 		if(is_bruised())
@@ -405,11 +416,11 @@
 
 		var/obj/item/grab/G = owner.get_active_hand()
 		if(!istype(G))
-			to_chat(owner, "<span class='danger'>You must grab someone before trying to use your [src]!</span>")
+			to_chat(owner, SPAN_DANGER("You must grab someone before trying to use your [src]!"))
 			return
 
 		if(owner.nutrition <= 200)
-			to_chat(owner, "<span class='danger'>Your energy reserves are too low to use your [src]!</span>")
+			to_chat(owner, SPAN_DANGER("Your energy reserves are too low to use your [src]!"))
 			return
 
 		if(ishuman(G.affecting))
@@ -425,5 +436,17 @@
 			else
 				H.stun_effect_act(0, 50, target_zone, owner)
 
-			owner.visible_message("<span class='danger'>[H] has been prodded with [src] by [owner]!</span>")
+			owner.visible_message(SPAN_DANGER("[H] has been prodded with [src] by [owner]!"))
 			playsound(get_turf(owner), 'sound/weapons/Egloves.ogg', 50, 1, -1)
+
+/obj/item/organ/external/hand/right/autakh/tool/nullrod
+	name = "blessed prosthesis"
+	action_button_name = "Deploy Blessed Prosthesis"
+	augment_type = /obj/item/nullrod/autakh
+
+/obj/item/organ/external/hand/right/autakh/tool/nullrod/refresh_action_button()
+	. = ..()
+	if(.)
+		action.button_icon_state = "anchor"
+		if(action.button)
+			action.button.update_icon()

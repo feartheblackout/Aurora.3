@@ -1,10 +1,3 @@
-#define DNA_BLOCK_SIZE 3
-
-// Buffer datatype flags.
-#define DNA2_BUF_UI 1
-#define DNA2_BUF_UE 2
-#define DNA2_BUF_SE 4
-
 //list("data" = null, "owner" = null, "label" = null, "type" = null, "ue" = 0),
 /datum/dna2/record
 	var/datum/dna/dna = null
@@ -61,8 +54,12 @@
 		/obj/item/stack/cable_coil = 2
 	)
 
-/obj/machinery/dna_scannernew/relaymove(mob/user as mob)
-	if (user.stat)
+/obj/machinery/dna_scannernew/relaymove(mob/living/user, direction)
+	. = ..()
+	if(!.)
+		return
+
+	if(user.stat)
 		return
 	src.go_out()
 	return
@@ -97,13 +94,13 @@
 	if (usr.stat != 0)
 		return
 	if (!ishuman(usr) && !issmall(usr)) //Make sure they're a mob that has dna
-		to_chat(usr, "<span class='notice'>Try as you might, you can not climb up into the scanner.</span>")
+		to_chat(usr, SPAN_NOTICE("Try as you might, you can not climb up into the scanner."))
 		return
 	if (src.occupant)
-		to_chat(usr, "<span class='warning'>The scanner is already occupied!</span>")
+		to_chat(usr, SPAN_WARNING("The scanner is already occupied!"))
 		return
 	if (usr.abiotic())
-		to_chat(usr, "<span class='warning'>The subject cannot have abiotic items on.</span>")
+		to_chat(usr, SPAN_WARNING("The subject cannot have abiotic items on."))
 		return
 	usr.stop_pulling()
 	usr.client.perspective = EYE_PERSPECTIVE
@@ -114,26 +111,26 @@
 	src.add_fingerprint(usr)
 	return
 
-/obj/machinery/dna_scannernew/attackby(var/obj/item/item as obj, var/mob/user as mob)
-	if(istype(item, /obj/item/reagent_containers/glass))
+/obj/machinery/dna_scannernew/attackby(obj/item/attacking_item, mob/user)
+	if(istype(attacking_item, /obj/item/reagent_containers/glass))
 		if(beaker)
-			to_chat(user, "<span class='warning'>A beaker is already loaded into the machine.</span>")
+			to_chat(user, SPAN_WARNING("A beaker is already loaded into the machine."))
 			return TRUE
 
-		beaker = item
-		user.drop_from_inventory(item,src)
-		user.visible_message("\The [user] adds \a [item] to \the [src]!", "You add \a [item] to \the [src]!")
+		beaker = attacking_item
+		user.drop_from_inventory(attacking_item,src)
+		user.visible_message("\The [user] adds \a [attacking_item] to \the [src]!", "You add \a [attacking_item] to \the [src]!")
 		return TRUE
-	else if (!istype(item, /obj/item/grab))
+	else if (!istype(attacking_item, /obj/item/grab))
 		return
-	var/obj/item/grab/G = item
+	var/obj/item/grab/G = attacking_item
 	if (!ismob(G.affecting))
 		return TRUE
 	if (src.occupant)
-		to_chat(user, "<span class='warning'>The scanner is already occupied!</span>")
+		to_chat(user, SPAN_WARNING("The scanner is already occupied!"))
 		return TRUE
 	if (G.affecting.abiotic())
-		to_chat(user, "<span class='warning'>The subject cannot have abiotic items on.</span>")
+		to_chat(user, SPAN_WARNING("The subject cannot have abiotic items on."))
 		return TRUE
 	put_in(G.affecting)
 	src.add_fingerprint(user)
@@ -155,7 +152,7 @@
 		|| locate(/obj/machinery/computer/cloning, get_step(src, WEST)))
 
 		if(!M.client && M.mind)
-			for(var/mob/abstract/observer/ghost in player_list)
+			for(var/mob/abstract/observer/ghost in GLOB.player_list)
 				if(ghost.mind == M.mind)
 					to_chat(ghost, "<b><font color = #330033><font size = 3>Your corpse has been placed into a cloning scanner. Return to your body if you want to be resurrected/cloned!</b> (Verbs -> Ghost -> Re-enter corpse)</font></font>")
 					break
@@ -200,7 +197,6 @@
 				//SN src = null
 				qdel(src)
 				return
-		else
 	return
 
 /obj/machinery/computer/scan_consolenew
@@ -208,6 +204,7 @@
 	desc = "Scan DNA."
 	icon_screen = "dna"
 	icon_keyboard = "teal_key"
+	icon_keyboard_emis = "teal_key_mask"
 	light_color = LIGHT_COLOR_BLUE
 	density = 1
 	circuit = /obj/item/circuitboard/scan_consolenew
@@ -230,44 +227,49 @@
 	active_power_usage = 400
 	var/waiting_for_user_input=0 // Fix for #274 (Mash create block injector without answering dialog to make unlimited injectors) - N3X
 
-/obj/machinery/computer/scan_consolenew/attackby(obj/item/I as obj, mob/user as mob)
-	if (istype(I, /obj/item/disk/data)) //INSERT SOME diskS
+/obj/machinery/computer/scan_consolenew/Initialize()
+	..()
+	for(var/i=0;i<3;i++)
+		buffers[i+1]=new /datum/dna2/record
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/computer/scan_consolenew/LateInitialize()
+	. = ..()
+	for(dir in list(NORTH,EAST,SOUTH,WEST))
+		connected = locate(/obj/machinery/dna_scannernew, get_step(src, dir))
+		if(!isnull(connected))
+			break
+
+	src.injector_ready = 1
+
+/obj/machinery/computer/scan_consolenew/Destroy()
+	connected = null
+	disk = null
+
+	QDEL_LIST_ASSOC(buffers)
+
+	. = ..()
+
+/obj/machinery/computer/scan_consolenew/attackby(obj/item/attacking_item, mob/user)
+	if (istype(attacking_item, /obj/item/disk/data)) //INSERT SOME diskS
 		if (!src.disk)
-			user.drop_from_inventory(I,src)
-			src.disk = I
-			to_chat(user, "You insert [I].")
+			user.drop_from_inventory(attacking_item, src)
+			src.disk = attacking_item
+			to_chat(user, "You insert [attacking_item].")
 			SSnanoui.update_uis(src) // update all UIs attached to src
 			return TRUE
 	else
 		return ..()
 
 /obj/machinery/computer/scan_consolenew/ex_act(severity)
-
 	switch(severity)
 		if(1.0)
 			//SN src = null
 			qdel(src)
-			return
 		if(2.0)
 			if (prob(50))
 				//SN src = null
 				qdel(src)
-				return
-		else
-	return
-
-/obj/machinery/computer/scan_consolenew/New()
-	..()
-	for(var/i=0;i<3;i++)
-		buffers[i+1]=new /datum/dna2/record
-	spawn(5)
-		for(dir in list(NORTH,EAST,SOUTH,WEST))
-			connected = locate(/obj/machinery/dna_scannernew, get_step(src, dir))
-			if(!isnull(connected))
-				break
-		spawn(250)
-			src.injector_ready = 1
-		return
 	return
 
 /obj/machinery/computer/scan_consolenew/proc/all_dna_blocks(var/list/buffer)
@@ -304,17 +306,17 @@
 	if(!..())
 		ui_interact(user)
 
- /**
-  * The ui_interact proc is used to open and update Nano UIs
-  * If ui_interact is not used then the UI will not update correctly
-  * ui_interact is currently defined for /atom/movable (which is inherited by /obj and /mob)
-  *
-  * @param user /mob The mob who is interacting with this ui
-  * @param ui_key string A string key to use for this ui. Allows for multiple unique uis on one obj/mob (defaut value "main")
-  * @param ui /datum/nanoui This parameter is passed by the nanoui process() proc when updating an open ui
-  *
-  * @return nothing
-  */
+/**
+ * The ui_interact proc is used to open and update Nano UIs
+ * If ui_interact is not used then the UI will not update correctly
+ * ui_interact is currently defined for /atom/movable (which is inherited by /obj and /mob)
+ *
+ * @param user /mob The mob who is interacting with this ui
+ * @param ui_key string A string key to use for this ui. Allows for multiple unique uis on one obj/mob (defaut value "main")
+ * @param ui /datum/nanoui This parameter is passed by the nanoui process() proc when updating an open ui
+ *
+ * @return nothing
+ */
 /obj/machinery/computer/scan_consolenew/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	if (!connected)
 		return
@@ -376,7 +378,7 @@
 		occupantData["name"] = connected.occupant.real_name
 		occupantData["stat"] = connected.occupant.stat
 		occupantData["isViableSubject"] = 1
-		if (HAS_FLAG(connected.occupant.mutations, NOCLONE) || !src.connected.occupant.dna)
+		if ((connected.occupant.mutations & NOCLONE) || !src.connected.occupant.dna)
 			occupantData["isViableSubject"] = 0
 		occupantData["health"] = connected.occupant.health
 		occupantData["maxHealth"] = connected.occupant.maxHealth
@@ -713,7 +715,7 @@
 			return 1
 
 		if (bufferOption == "transfer")
-			if (!src.connected.occupant || HAS_FLAG(src.connected.occupant.mutations, NOCLONE) || !src.connected.occupant.dna)
+			if (!src.connected.occupant || (src.connected.occupant.mutations & NOCLONE) || !src.connected.occupant.dna)
 				return
 
 			irradiating = 2

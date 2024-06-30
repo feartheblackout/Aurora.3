@@ -5,7 +5,7 @@
 		M.remove_ventcrawl()
 		M.forceMove(get_turf(src))
 	if(pipe_image)
-		for(var/mob/living/M in player_list)
+		for(var/mob/living/M in GLOB.player_list)
 			if(M.client)
 				M.client.images -= pipe_image
 				M.pipes_shown -= pipe_image
@@ -24,6 +24,10 @@
 	. = ..()
 
 /obj/machinery/atmospherics/relaymove(mob/living/user, direction)
+	. = ..()
+	if(!.)
+		return
+
 	if(user.loc != src || !(direction & initialize_directions)) //can't go in a way we aren't connecting to
 		return
 	ventcrawl_to(user,findConnecting(direction, user.ventcrawl_layer),direction)
@@ -32,12 +36,12 @@
 	if(target_move)
 		if(is_type_in_list(target_move, ventcrawl_machinery) && target_move.can_crawl_through())
 			if(target_move:is_welded())
-				user.visible_message("<span class='warning'>You hear something banging on \the [target_move.name]!</span>", "<span class='notice'>You can't escape from a welded vent.</span>")
+				user.visible_message(SPAN_WARNING("You hear something banging on \the [target_move.name]!"), SPAN_NOTICE("You can't escape from a welded vent."))
 			else
 				user.remove_ventcrawl()
 				user.forceMove(target_move.loc) //handles entering and so on
 				user.sight &= ~(SEE_TURFS|BLIND)
-				user.visible_message("<span class='warning'>You hear something squeezing through the ducts.</span>", "You climb out the ventilation system.")
+				user.visible_message(SPAN_WARNING("You hear something squeezing through the ducts."), "You climb out the ventilation system.")
 				user.vent_trap_check("arriving", target_move)
 		else if(target_move.can_crawl_through())
 			if(target_move.return_network(target_move) != return_network(src))
@@ -55,7 +59,7 @@
 			user.remove_ventcrawl()
 			user.forceMove(check_neighbor_density(get_turf(src.loc), direction) ? src.loc : get_step(src, direction))
 			user.sight &= ~(SEE_TURFS|BLIND)
-			user.visible_message("<span class='warning'>You hear something squeezing through the pipes.</span>", "You climb out the ventilation system.")
+			user.visible_message(SPAN_WARNING("You hear something squeezing through the pipes."), "You climb out the ventilation system.")
 			user.vent_trap_check("arriving", user.loc)
 	user.canmove = 0
 	spawn(1)
@@ -111,7 +115,7 @@
 /obj/machinery/atmospherics/pipe/zpipe/handle_z_crawl(var/mob/living/L, var/direction)
 	to_chat(L, SPAN_NOTICE("You start climbing [travel_direction_name] the pipe. This will take a while..."))
 	playsound(loc, 'sound/machines/ventcrawl.ogg', 100, 1, 3)
-	if(!do_after(L, 100, needhand = 0, act_target = get_turf(src)) || !can_z_crawl(L, direction))
+	if(!do_after(L, 10 SECONDS, get_turf(src), do_flags = DO_DEFAULT & ~DO_USER_SAME_HAND) || !can_z_crawl(L, direction))
 		to_chat(L, SPAN_DANGER("You gave up on climbing [travel_direction_name] the pipe."))
 		return FALSE
 	return ventcrawl_to(L, node2, null)

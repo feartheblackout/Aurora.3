@@ -19,12 +19,6 @@
 /turf/var/tmp/z_depth
 /turf/var/tmp/z_generation = 0
 
-/turf/Entered(atom/movable/thing, turf/oldLoc)
-	. = ..()
-	if (thing.bound_overlay || thing.no_z_overlay || !TURF_IS_MIMICING(above))
-		return
-	above.update_mimic()
-
 /turf/update_above()
 	if (TURF_IS_MIMICING(above))
 		above.update_mimic()
@@ -66,7 +60,7 @@
 		below.above = src
 
 	if (!(z_flags & (ZM_MIMIC_OVERWRITE|ZM_NO_OCCLUDE)) && mouse_opacity)
-		mouse_opacity = 2
+		mouse_opacity = MOUSE_OPACITY_OPAQUE
 
 	update_mimic(!mapload)	// Only recursively update if the map isn't loading.
 

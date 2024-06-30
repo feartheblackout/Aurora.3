@@ -3,8 +3,8 @@
 //////////////////////////////////////////////////////////////
 
 //global datum that will preload variables on atoms instanciation
-var/global/use_preloader = FALSE
-var/global/dmm_suite/preloader/_preloader = new
+GLOBAL_VAR_INIT(use_preloader, FALSE)
+GLOBAL_DATUM_INIT(_preloader, /dmm_suite/preloader, new)
 
 /datum/map_load_metadata
 	var/bounds
@@ -50,7 +50,16 @@ var/global/dmm_suite/preloader/_preloader = new
 /dmm_suite/proc/load_map_impl(dmm_file, x_offset, y_offset, z_offset, cropMap, measureOnly, no_changeturf, x_lower = -INFINITY, x_upper = INFINITY, y_lower = -INFINITY, y_upper = INFINITY)
 	var/tfile = dmm_file//the map file we're creating
 	if(isfile(tfile))
-		tfile = file2text(tfile)
+		// name/path of dmm file, new var so as to not rename the `tfile` var
+		// to maybe maintain compatibility with other codebases
+		var/tfilepath = "[tfile]"
+		// use bapi to read, parse, process, mapmanip etc
+		// this will "crash"/stacktrace on fail
+		tfile = bapi_read_dmm_file(tfilepath)
+		// if bapi for whatever reason fails and returns null
+		// try to load it the old dm way instead
+		if(!tfile)
+			tfile = file2text(tfilepath)
 
 	if(!x_offset)
 		x_offset = 1
@@ -307,7 +316,7 @@ var/global/dmm_suite/preloader/_preloader = new
 	//since we've switched off autoinitialisation, record atoms to initialise later
 	var/list/atoms_to_initialise = list()
 	//turn off base new Initialization until the whole thing is loaded
-	SSatoms.map_loader_begin()
+	SSatoms.map_loader_begin(text_ref(src))
 
 	//The next part of the code assumes there's ALWAYS an /area AND a /turf on a given tile
 	var/turf/crds = locate(xcrd,ycrd,zcrd)
@@ -316,18 +325,18 @@ var/global/dmm_suite/preloader/_preloader = new
 	index = members.len
 	if(members[index] != /area/template_noop)
 		var/atype = members[index]
-		var/atom/instance = areas_by_type[atype]
+		var/atom/instance = GLOB.areas_by_type[atype]
 		var/list/attr = members_attributes[index]
 		if (LAZYLEN(attr))
-			_preloader.setup(attr)//preloader for assigning  set variables on atom creation
+			GLOB._preloader.setup(attr)//preloader for assigning  set variables on atom creation
 		if(!instance)
 			instance = new atype(null)
 			atoms_to_initialise += instance
 		if(crds)
 			instance.contents += crds
 
-		if(use_preloader && instance)
-			_preloader.load(instance)
+		if(GLOB.use_preloader && instance)
+			GLOB._preloader.load(instance)
 
 	//then instance the /turf
 
@@ -355,7 +364,7 @@ var/global/dmm_suite/preloader/_preloader = new
 	for(index in 1 to first_turf_index-1)
 		atoms_to_initialise += instance_atom(members[index],members_attributes[index],crds,no_changeturf)
 	//Restore initialization to the previous value
-	SSatoms.map_loader_stop()
+	SSatoms.map_loader_stop(text_ref(src))
 
 	var/datum/grid_load_metadata/M = new
 	M.atoms_to_initialise = atoms_to_initialise
@@ -368,7 +377,7 @@ var/global/dmm_suite/preloader/_preloader = new
 //Instance an atom at (x,y,z) and gives it the variables in attributes
 /dmm_suite/proc/instance_atom(path,list/attributes, turf/crds, no_changeturf)
 	if (LAZYLEN(attributes))
-		_preloader.setup(attributes, path)
+		GLOB._preloader.setup(attributes, path)
 
 	if(crds)
 		if(!no_changeturf && ispath(path, /turf))
@@ -376,14 +385,14 @@ var/global/dmm_suite/preloader/_preloader = new
 		else
 			. = create_atom(path, crds)//first preloader pass
 
-	if(use_preloader && .)//second preloader pass, for those atoms that don't ..() in New()
-		_preloader.load(.)
+	if(GLOB.use_preloader && .)//second preloader pass, for those atoms that don't ..() in New()
+		GLOB._preloader.load(.)
 
 	//custom CHECK_TICK here because we don't want things created while we're sleeping to not initialize
 	if(TICK_CHECK)
-		SSatoms.map_loader_stop()
+		SSatoms.map_loader_stop(text_ref(src))
 		stoplag()
-		SSatoms.map_loader_begin()
+		SSatoms.map_loader_begin(text_ref(src))
 
 /dmm_suite/proc/create_atom(path, crds)
 	// Doing this async is impossible, as we must return the ref.
@@ -485,16 +494,17 @@ var/global/dmm_suite/preloader/_preloader = new
 //Preloader datum
 //////////////////
 
+GLOBAL_LIST_INIT(_preloader_path, null)
+
 /dmm_suite/preloader
 	parent_type = /datum
 	var/list/attributes
-	var/target_path
 
 /dmm_suite/preloader/proc/setup(list/the_attributes, path)
 	if(LAZYLEN(the_attributes))
-		use_preloader = TRUE
+		GLOB.use_preloader = TRUE
 		attributes = the_attributes
-		target_path = path
+		GLOB._preloader_path = path
 
 /dmm_suite/preloader/proc/load(atom/what)
 	for(var/attribute in attributes)
@@ -502,7 +512,7 @@ var/global/dmm_suite/preloader/_preloader = new
 		if(islist(value))
 			value = deepCopyList(value)
 		what.vars[attribute] = value
-	use_preloader = FALSE
+	GLOB.use_preloader = FALSE
 
 /area/template_noop
 	name = "Area Passthrough"

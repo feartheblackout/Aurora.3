@@ -6,6 +6,7 @@
 	item_state = "revolver"
 	fire_sound = 'sound/misc/sadtrombone.ogg'
 	needspin = FALSE
+	var/fakecaliber = "357"
 	var/image/bang_flag
 	var/fired_gun = 0
 	var/pixel_offset_x = -2
@@ -14,13 +15,15 @@
 
 /obj/item/gun/bang/Initialize()
 	. = ..()
+	desc_info = "This is a ballistic weapon. It fires [fakecaliber] ammunition. To fire the weapon, toggle the safety with ctrl-click (or enable HARM intent), \
+	then click where you want to fire.  To reload, click the gun with an empty hand to remove any spent casings or magazines, and then insert new ones."
 	bang_flag = image('icons/obj/bang_flag.dmi', "bang_flag")
 	bang_flag.pixel_x = pixel_offset_x
 	bang_flag.pixel_y = pixel_offset_y
 
 /obj/item/gun/bang/handle_click_empty(mob/user)
 	if (user)
-		to_chat(user, "<span class='danger'>The flag is already out!</span>")
+		to_chat(user, SPAN_DANGER("The flag is already out!"))
 
 /obj/item/gun/bang/Fire(atom/target, mob/living/user, clickparams, pointblank=0, reflex=0)
 	if(!user || !target) return
@@ -32,17 +35,19 @@
 	add_fingerprint(user)
 
 	if (user)
-		user.visible_message("<span class='danger'>A flag pops out of the barrel!</span>")
+		user.visible_message(SPAN_DANGER("A flag pops out of the barrel!"))
 	else
-		src.visible_message("<span class='danger'>A flag pops out of the barrel of \the [src.name]'s barrel!</span>")
+		src.visible_message(SPAN_DANGER("A flag pops out of the barrel of \the [src.name]'s barrel!"))
 	playsound(src, fire_sound, 20, 1)
-	src.add_overlay(bang_flag)
+	src.AddOverlays(bang_flag)
 	fired_gun = 1
 
 /obj/item/gun/bang/attack_hand(mob/user as mob)
 	if(user.get_inactive_hand() == src && fired_gun)
-		src.cut_overlay(bang_flag)
-		user.visible_message("<span class='notice'>\The [user] pushes the flag back into the barrel of \the [src.name].</span>", "<span class='notice'>You push the flag back into the barrel of \the [src.name].</span>")
+		src.CutOverlays(bang_flag)
+		user.visible_message(SPAN_NOTICE("\The [user] pushes the flag back into the barrel of \the [src.name]."),
+								SPAN_NOTICE("You push the flag back into the barrel of \the [src.name]."))
+
 		playsound(src.loc, 'sound/weapons/TargetOff.ogg', 50,1)
 		fired_gun = 0
 	else

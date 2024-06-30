@@ -28,12 +28,12 @@
 	for(var/mob/living/L in nearby_mobs)
 		if(is_ally(L))
 			continue
-		
+
 		if(L.loc == owner)
 			continue
 
 		if(L.isSynthetic())
-			to_chat(L, "<span class='danger'>ERROR: Electrical fault detected!</span>")
+			to_chat(L, SPAN_DANGER("ERROR: Electrical fault detected!"))
 			L.stuttering += 3
 
 		if(ishuman(L))

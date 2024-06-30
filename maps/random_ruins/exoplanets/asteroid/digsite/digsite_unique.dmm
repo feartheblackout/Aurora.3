@@ -7,7 +7,8 @@
 	frequency = 1353;
 	icon_state = "door_locked";
 	id_tag = "digsite_exterior";
-	locked = 1
+	locked = 1;
+	dir = 4
 	},
 /obj/effect/floor_decal/industrial/hatch/yellow,
 /obj/machinery/access_button/airlock_exterior{
@@ -16,7 +17,7 @@
 	pixel_x = -6;
 	pixel_y = 31
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/airless,
 /area/dungeon/anomaly_outpost)
 "ac" = (
 /obj/effect/floor_decal/industrial/hatch/yellow,
@@ -44,7 +45,7 @@
 	frequency = 1353;
 	id_tag = "digsite_vent"
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/airless,
 /area/dungeon/anomaly_outpost)
 "ag" = (
 /obj/effect/floor_decal/industrial/hatch/yellow,
@@ -143,7 +144,7 @@
 	frequency = 1353;
 	id_tag = "digsite_vent"
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/airless,
 /area/dungeon/anomaly_outpost)
 "ax" = (
 /obj/machinery/floodlight,
@@ -164,7 +165,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/airless,
 /area/dungeon/anomaly_outpost)
 "aB" = (
 /obj/structure/grille,
@@ -183,7 +184,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/airless,
 /area/dungeon/anomaly_outpost)
 "aD" = (
 /obj/effect/floor_decal/industrial/hatch/yellow,
@@ -229,26 +230,28 @@
 	frequency = 1353;
 	icon_state = "door_locked";
 	id_tag = "digsite_exterior";
-	locked = 1
+	locked = 1;
+	dir = 4
 	},
 /obj/effect/floor_decal/industrial/hatch/yellow,
-/turf/simulated/floor,
+/turf/simulated/floor/airless,
 /area/dungeon/anomaly_outpost)
 "aM" = (
-/turf/simulated/floor,
+/turf/simulated/floor/airless,
 /area/dungeon/anomaly_outpost)
 "aO" = (
 /obj/machinery/door/airlock/external{
 	frequency = 1353;
 	icon_state = "door_locked";
 	id_tag = "digsite_interior";
-	locked = 1
+	locked = 1;
+	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
 /obj/effect/floor_decal/industrial/hatch/yellow,
-/turf/simulated/floor,
+/turf/simulated/floor/airless,
 /area/dungeon/anomaly_outpost)
 "aP" = (
 /obj/effect/floor_decal/corner/mauve/diagonal,
@@ -293,7 +296,7 @@
 /obj/machinery/light{
 	status = 2
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/airless,
 /area/dungeon/anomaly_outpost)
 "aW" = (
 /obj/effect/floor_decal/corner/mauve/diagonal,
@@ -400,6 +403,28 @@
 /obj/structure/reagent_dispensers/coolanttank,
 /obj/effect/floor_decal/industrial/warning{
 	dir = 9
+	},
+/turf/simulated/floor,
+/area/dungeon/anomaly_outpost)
+"TD" = (
+/obj/structure/grille,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor,
+/area/dungeon/anomaly_outpost)
+"Uv" = (
+/obj/structure/grille,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 1
 	},
 /turf/simulated/floor,
 /area/dungeon/anomaly_outpost)
@@ -632,7 +657,7 @@ aa
 aa
 aa
 aa
-aA
+TD
 aF
 aP
 aW
@@ -708,7 +733,7 @@ aa
 aa
 aa
 aa
-aC
+Uv
 aE
 aS
 aY

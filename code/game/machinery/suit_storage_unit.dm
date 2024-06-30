@@ -6,8 +6,8 @@
 /obj/machinery/suit_storage_unit
 	name = "Suit Storage Unit"
 	desc = "An industrial U-Stor-It Storage unit designed to accomodate all kinds of space suits. Its on-board equipment also allows the user to decontaminate the contents through a UV-ray purging cycle. There's a warning label dangling from the control pad, reading \"STRICTLY NO BIOLOGICALS IN THE CONFINES OF THE UNIT\"."
-	icon = 'icons/obj/suit_storage.dmi'
-	icon_state = "base"
+	icon = 'icons/obj/machinery/suit_storage.dmi'
+	icon_state = "classic"
 	anchored = TRUE
 	density = TRUE
 	var/mob/living/carbon/human/OCCUPANT
@@ -46,32 +46,38 @@
 		MASK = new MASK_TYPE(src)
 
 /obj/machinery/suit_storage_unit/update_icon()
-	cut_overlays()
+	ClearOverlays()
 
 	if(panelopen)
-		add_overlay("panel")
-	if(isUV)
-		if(issuperUV)
-			add_overlay("super")
-		else if(OCCUPANT)
-			add_overlay("uvhuman")
+		AddOverlays("[initial(icon_state)]_panel")
+	if(isopen)
+		AddOverlays("[initial(icon_state)]_open")
+		if(SUIT)
+			AddOverlays("[initial(icon_state)]_suit")
+		if(HELMET)
+			AddOverlays("[initial(icon_state)]_helm")
+		if(MASK)
+			AddOverlays("[initial(icon_state)]_storage")
+	if(!isbroken && ispowered)
+		if(isopen)
+			AddOverlays("[initial(icon_state)]_lights_open")
 		else
-			add_overlay("uv")
-	if(!isopen)
-		add_overlay("closed")
-	else if(isopen)
-		if(isbroken)
-			add_overlay("broken")
+			if(isUV)
+				if(issuperUV)
+					AddOverlays("[initial(icon_state)]_super")
+				AddOverlays("[initial(icon_state)]_lights_red")
+			else
+				AddOverlays("[initial(icon_state)]_lights_closed")
+		//top lights
+		if(isUV)
+			if(issuperUV)
+				AddOverlays("[initial(icon_state)]_uvstrong")
+			else
+				AddOverlays("[initial(icon_state)]_uv")
+		else if(islocked)
+			AddOverlays("[initial(icon_state)]_locked")
 		else
-			add_overlay("open")
-			if(SUIT)
-				add_overlay("suit")
-			if(HELMET)
-				add_overlay("helm")
-			if(MASK)
-				add_overlay("storage")
-	else if(OCCUPANT)
-		add_overlay("human")
+			AddOverlays("[initial(icon_state)]_ready")
 
 /obj/machinery/suit_storage_unit/power_change()
 	..()
@@ -79,13 +85,15 @@
 		src.ispowered = 1
 		src.update_icon()
 	else
-		spawn(rand(0, 15))
-			src.ispowered = 0
-			src.islocked = 0
-			src.isopen = 1
-			src.dump_everything()
-			src.update_icon()
+		addtimer(CALLBACK(src, PROC_REF(handle_power_return)), rand(1, 15))
 
+
+/obj/machinery/suit_storage_unit/proc/handle_power_return()
+	src.ispowered = 0
+	src.islocked = 0
+	src.isopen = 1
+	src.dump_everything()
+	src.update_icon()
 
 /obj/machinery/suit_storage_unit/ex_act(severity)
 	switch(severity)
@@ -115,7 +123,7 @@
 		dat+= "<Font color ='black'><B>Maintenance panel controls</B></font><HR>"
 		dat+= "<font color ='grey'>The panel is ridden with controls, button and meters, labeled in strange signs and symbols that <BR>you cannot understand. Probably the manufactoring world's language.<BR> Among other things, a few controls catch your eye.<BR><BR></font>"
 		dat+= text("<font color ='black'>A small dial with a \"ë\" symbol embroidded on it. It's pointing towards a gauge that reads []</font>.<BR> <span class='notice'><A href='?src=\ref[];toggleUV=1'> Turn towards []</A><BR></span>",(src.issuperUV ? "15nm" : "185nm"),src,(src.issuperUV ? "185nm" : "15nm") )
-		dat+= text("<font color ='black'>A thick old-style button, with 2 grimy LED lights next to it. The [] LED is on.</font><BR><font color ='blue'><A href='?src=\ref[];togglesafeties=1'>Press button</a></font>",(src.safetieson? "<font color='green'><B>GREEN</B></font>" : "<span class='warning'><B>RED</B></span>"),src)
+		dat+= text("<font color ='black'>A thick old-style button, with 2 grimy LED lights next to it. The [] LED is on.</font><BR><font color ='blue'><A href='?src=\ref[];togglesafeties=1'>Press button</a></font>",(src.safetieson? "<font color='green'><B>GREEN</B></font>" : SPAN_WARNING("<B>RED</B>")),src)
 		dat+= text("<HR><BR><A href='?src=\ref[];mach_close=suit_storage_unit'>Close panel</A>", user)
 		//user << browse(dat, "window=ssu_m_panel;size=400x500")
 		//onclose(user, "ssu_m_panel")
@@ -160,8 +168,8 @@
 			//user << browse(dat, "window=suit_storage_unit;size=400x500")
 			//onclose(user, "suit_storage_unit")
 
-	send_theme_resources(user)
-	user << browse(enable_ui_theme(user, dat), "window=suit_storage_unit;size=400x500")
+
+	user << browse(dat, "window=suit_storage_unit;size=400x500")
 	onclose(user, "suit_storage_unit")
 	return
 
@@ -227,7 +235,7 @@
 
 	if(!protected)
 		playsound(src.loc, /singleton/sound_category/spark_sound, 75, 1, -1)
-		to_chat(user, "<span class='warning'>You try to touch the controls but you get zapped. There must be a short circuit somewhere.</span>")
+		to_chat(user, SPAN_WARNING("You try to touch the controls but you get zapped. There must be a short circuit somewhere."))
 		return*/
 	else  //welp, the guy is protected, we can continue
 		if(src.issuperUV)
@@ -253,7 +261,7 @@
 
 	if(!protected)
 		playsound(src.loc, /singleton/sound_category/spark_sound, 75, 1, -1)
-		to_chat(user, "<span class='warning'>You try to touch the controls but you get zapped. There must be a short circuit somewhere.</span>")
+		to_chat(user, SPAN_WARNING("You try to touch the controls but you get zapped. There must be a short circuit somewhere."))
 		return*/
 	else
 		to_chat(user, "You push the button. The coloured LED next to it changes.")
@@ -305,7 +313,7 @@
 
 /obj/machinery/suit_storage_unit/proc/toggle_open(mob/user as mob)
 	if(src.islocked || src.isUV)
-		to_chat(user, "<span class='warning'>Unable to open unit.</span>")
+		to_chat(user, SPAN_WARNING("Unable to open unit."))
 		return
 	if(src.OCCUPANT)
 		src.eject_occupant(user)
@@ -316,7 +324,7 @@
 
 /obj/machinery/suit_storage_unit/proc/toggle_lock(mob/user as mob)
 	if(src.OCCUPANT && src.safetieson)
-		to_chat(user, "<span class='warning'>The Unit's safety protocols disallow locking when a biological form is detected inside its compartments.</span>")
+		to_chat(user, SPAN_WARNING("The Unit's safety protocols disallow locking when a biological form is detected inside its compartments."))
 		return
 	if(src.isopen)
 		return
@@ -328,10 +336,10 @@
 	if(src.isUV || src.isopen) //I'm bored of all these sanity checks
 		return
 	if(src.OCCUPANT && src.safetieson)
-		to_chat(user, "<span class='warning'><B>WARNING:</B> Biological entity detected in the confines of the Unit's storage. Cannot initiate cycle.</span>")
+		to_chat(user, SPAN_WARNING("<B>WARNING:</B> Biological entity detected in the confines of the Unit's storage. Cannot initiate cycle."))
 		return
 	if(!src.HELMET && !src.MASK && !src.SUIT && !src.OCCUPANT ) //shit's empty yo
-		to_chat(user, "<span class='warning'>Unit storage bays empty. Nothing to disinfect -- Aborting.</span>")
+		to_chat(user, SPAN_WARNING("Unit storage bays empty. Nothing to disinfect -- Aborting."))
 		return
 	to_chat(user, "You start the Unit's cauterisation cycle.")
 	src.cycletime_left = 20
@@ -372,7 +380,7 @@
 					src.SUIT = null
 				if(src.MASK)
 					src.MASK = null
-				visible_message("<span class='warning'>With a loud whining noise, [src]'s door grinds open. Puffs of ashen smoke come out of its chamber.</span>", range = 3)
+				visible_message(SPAN_WARNING("With a loud whining noise, [src]'s door grinds open. Puffs of ashen smoke come out of its chamber."), range = 3)
 				src.isbroken = 1
 				src.isopen = 1
 				src.islocked = 0
@@ -396,9 +404,9 @@
 
 	if (src.OCCUPANT.client)
 		if(user != OCCUPANT)
-			to_chat(OCCUPANT, "<span class='notice'>The machine kicks you out!</span>")
+			to_chat(OCCUPANT, SPAN_NOTICE("The machine kicks you out!"))
 		if(user.loc != src.loc)
-			to_chat(OCCUPANT, "<span class='notice'>You leave the not-so-cozy confines of the SSU.</span>")
+			to_chat(OCCUPANT, SPAN_NOTICE("You leave the not-so-cozy confines of the SSU."))
 
 		src.OCCUPANT.client.eye = src.OCCUPANT.client.mob
 		src.OCCUPANT.client.perspective = MOB_PERSPECTIVE
@@ -432,16 +440,18 @@
 	if (usr.stat != 0)
 		return
 	if (!src.isopen)
-		to_chat(usr, "<span class='warning'>The unit's doors are shut.</span>")
+		to_chat(usr, SPAN_WARNING("The unit's doors are shut."))
 		return
 	if (!src.ispowered || src.isbroken)
-		to_chat(usr, "<span class='warning'>The unit is not operational.</span>")
+		to_chat(usr, SPAN_WARNING("The unit is not operational."))
 		return
 	if ( (src.OCCUPANT) || (src.HELMET) || (src.SUIT) )
-		to_chat(usr, "<span class='warning'>It's too cluttered inside for you to fit in!</span>")
+		to_chat(usr, SPAN_WARNING("It's too cluttered inside for you to fit in!"))
 		return
-	usr.visible_message("<span class='notice'>[usr] starts squeezing into [src]!</span>", "<span class='notice'>You start squeezing into [src]!</span>", range = 3)
-	if(do_after(usr, 10))
+	usr.visible_message(SPAN_NOTICE("[usr] starts squeezing into [src]!"),
+						SPAN_NOTICE("You start squeezing into [src]!"), range = 3)
+
+	if(do_after(usr, 1 SECOND, src, DO_UNIQUE))
 		usr.stop_pulling()
 		usr.client.perspective = EYE_PERSPECTIVE
 		usr.client.eye = src
@@ -458,31 +468,34 @@
 	return
 
 
-/obj/machinery/suit_storage_unit/attackby(obj/item/I as obj, mob/user as mob)
+/obj/machinery/suit_storage_unit/attackby(obj/item/attacking_item, mob/user)
 	if(!src.ispowered)
 		return TRUE
-	if(I.isscrewdriver())
+	if(attacking_item.isscrewdriver())
 		src.panelopen = !src.panelopen
-		playsound(src.loc, I.usesound, 100, 1)
-		to_chat(user, text("<span class='notice'>You [] the unit's maintenance panel.</span>",(src.panelopen ? "open up" : "close") ))
+		attacking_item.play_tool_sound(get_turf(src), 100)
+		to_chat(user, SPAN_NOTICE("You [src.panelopen ? "open up" : "close"] the unit's maintenance panel."))
 		update_icon()
 		src.updateUsrDialog()
 		return TRUE
-	if ( istype(I, /obj/item/grab) )
-		var/obj/item/grab/G = I
+	if ( istype(attacking_item, /obj/item/grab) )
+		var/obj/item/grab/G = attacking_item
 		if( !(ismob(G.affecting)) )
 			return TRUE
 		if (!src.isopen)
-			to_chat(usr, "<span class='warning'>The unit's doors are shut.</span>")
+			to_chat(usr, SPAN_WARNING("The unit's doors are shut."))
 			return TRUE
 		if (!src.ispowered || src.isbroken)
-			to_chat(usr, "<span class='warning'>The unit is not operational.</span>")
+			to_chat(usr, SPAN_WARNING("The unit is not operational."))
 			return TRUE
 		if ( (src.OCCUPANT) || (src.HELMET) || (src.SUIT) ) //Unit needs to be absolutely empty
-			to_chat(user, "<span class='warning'>The unit's storage area is too cluttered.</span>")
+			to_chat(user, SPAN_WARNING("The unit's storage area is too cluttered."))
 			return TRUE
-		user.visible_message("<span class='notice'>[user] starts putting [G.affecting] into [src].</span>", "<span class='notice'>You start putting [G.affecting] into [src].</span>", range = 3)
-		if(do_after(user, 20))
+		user.visible_message(SPAN_NOTICE("[user] starts putting [G.affecting] into [src]."),
+								SPAN_NOTICE("You start putting [G.affecting] into [src]."),
+								range = 3)
+
+		if(do_after(user, 2 SECONDS, src, DO_UNIQUE))
 			if(!G || !G.affecting) return TRUE //derpcheck
 			var/mob/M = G.affecting
 			if (M.client)
@@ -497,12 +510,12 @@
 			src.update_icon()
 			return TRUE
 		return TRUE
-	if( istype(I,/obj/item/clothing/suit/space) )
+	if( istype(attacking_item,/obj/item/clothing/suit/space) )
 		if(!src.isopen)
 			return TRUE
-		var/obj/item/clothing/suit/space/S = I
+		var/obj/item/clothing/suit/space/S = attacking_item
 		if(src.SUIT)
-			to_chat(user, "<span class='notice'>The unit already contains a suit.</span>")
+			to_chat(user, SPAN_NOTICE("The unit already contains a suit."))
 			return TRUE
 		to_chat(user, "You load the [S.name] into the storage compartment.")
 		user.drop_from_inventory(S,src)
@@ -510,12 +523,12 @@
 		src.update_icon()
 		src.updateUsrDialog()
 		return TRUE
-	if( istype(I,/obj/item/clothing/head/helmet) )
+	if( istype(attacking_item,/obj/item/clothing/head/helmet) )
 		if(!src.isopen)
 			return TRUE
-		var/obj/item/clothing/head/helmet/H = I
+		var/obj/item/clothing/head/helmet/H = attacking_item
 		if(src.HELMET)
-			to_chat(user, "<span class='notice'>The unit already contains a helmet.</span>")
+			to_chat(user, SPAN_NOTICE("The unit already contains a helmet."))
 			return TRUE
 		to_chat(user, "You load the [H.name] into the storage compartment.")
 		user.drop_from_inventory(H,src)
@@ -523,12 +536,12 @@
 		src.update_icon()
 		src.updateUsrDialog()
 		return TRUE
-	if( istype(I,/obj/item/clothing/mask) )
+	if( istype(attacking_item,/obj/item/clothing/mask) )
 		if(!src.isopen)
 			return TRUE
-		var/obj/item/clothing/mask/M = I
+		var/obj/item/clothing/mask/M = attacking_item
 		if(src.MASK)
-			to_chat(user, "<span class='notice'>The unit already contains a mask.</span>")
+			to_chat(user, SPAN_NOTICE("The unit already contains a mask."))
 			return TRUE
 		to_chat(user, "You load the [M.name] into the storage compartment.")
 		user.drop_from_inventory(M,src)

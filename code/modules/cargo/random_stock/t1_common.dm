@@ -220,6 +220,7 @@ STOCK_ITEM_COMMON(gloves, 3.3)
 	exclusion += typesof(/obj/item/clothing/wrists/watch)
 	exclusion += typesof(/obj/item/clothing/gloves/fluff)
 	exclusion += typesof(/obj/item/clothing/gloves/ballistic)
+	exclusion += typesof(/obj/item/clothing/gloves/unathi/ancient)
 	allgloves -= exclusion
 
 	for (var/i in 1 to rand(1, 3))
@@ -372,7 +373,7 @@ STOCK_ITEM_COMMON(plant, 3.5)
 			if (turf_clear(U))
 				T = U
 				break
-	new /obj/structure/flora/pottedplant/random(T)
+	new /obj/random/pottedplant(T)
 
 STOCK_ITEM_COMMON(bag, 2)
 	var/type = pick( \

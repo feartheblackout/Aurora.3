@@ -31,14 +31,14 @@
 		return
 	anchored = !anchored
 	screen_on = anchored
-	SSvueui.close_uis(active_program)
+	SStgui.close_uis(src)
 	update_icon()
 
 /obj/item/modular_computer/laptop/update_icon()
 	if(anchored)
 		..()
 	else
-		cut_overlays()
+		ClearOverlays()
 		if(damage >= broken_damage)
 			icon_state = icon_state_broken + "-closed"
 		else

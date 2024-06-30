@@ -12,7 +12,7 @@
 
 	var/bloodiness
 
-/obj/structure/bed/stool/chair/office/wheelchair/New(var/newloc) // Colorable wheelchairs? 
+/obj/structure/bed/stool/chair/office/wheelchair/New(var/newloc) // Colorable wheelchairs?
 	..(newloc, MATERIAL_STEEL, MATERIAL_CLOTH)
 
 /obj/structure/bed/stool/chair/office/wheelchair/set_dir()
@@ -20,7 +20,11 @@
 	if(buckled)
 		buckled.set_dir(dir)
 
-/obj/structure/bed/stool/chair/office/wheelchair/relaymove(mob/user, direction)
+/obj/structure/bed/stool/chair/office/wheelchair/relaymove(mob/living/user, direction)
+	. = ..()
+	if(!.)
+		return
+
 	// Redundant check?
 	if(user.stat || user.stunned || user.weakened || user.paralysis || user.lying || user.restrained())
 		if(user==pulling)

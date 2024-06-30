@@ -3,20 +3,23 @@
 //The nymph player moves inside the gestalt and no longer has control of movement or actions
 /mob/living/carbon/alien/diona/proc/merge()
 	set category = "Abilities"
-	set name = "Merge with gestalt"
+	set name = "Merge With Gestalt"
 	set desc = "Merge yourself into a larger gestalt, you will no longer retain control."
 
-	if(use_check_and_message(usr))
+	if(use_check_and_message(usr, USE_ALLOW_NON_ADV_TOOL_USR))
 		return FALSE
 
 	var/list/choices = list()
 	for(var/mob/living/carbon/human/H in view(1, src))
 		if(!Adjacent(H) || !H.client)
 			continue
+		if(!H.client)
+			to_chat(src, SPAN_WARNING("The gestalt [H] seems to not have a mind, we can't merge with them..."))
+			continue
 		if(is_diona(H) == DIONA_WORKER)
 			choices += H
 
-	var/mob/living/M = input(src, "Who do you wish to merge with?") in null|choices
+	var/mob/living/M = tgui_input_list(src, "Who do you wish to merge with?", "Merge With Gestalt", choices)
 
 	if(!M)
 		to_chat(src, SPAN_WARNING("There are no active gestalts nearby to merge with."))
@@ -78,12 +81,12 @@
 			continue
 		choices += C
 
-	var/mob/living/carbon/alien/diona/M = input(src, "Which nymph do you wish to absorb?") in null|choices
+	var/mob/living/carbon/alien/diona/M = tgui_input_list(src, "Which nymph do you wish to absorb?", "Absorb Nymph", choices)
 
 	if(!M)
 		to_chat(src, SPAN_WARNING("There are no nymphs in your vicinity."))
 	else if(!do_absorb(M))
-		to_chat(src, SPAN_WARNING("You fail to merge with \the [M]..."))
+		to_chat(src, SPAN_WARNING("You fail to merge with \the [M]."))
 
 
 
@@ -136,7 +139,7 @@
 //Split allows a nymph to peel away from a gestalt and be a lone agent
 /mob/living/carbon/alien/diona/proc/split()
 	set category = "Abilities"
-	set name = "Break from gestalt"
+	set name = "Break From Gestalt"
 	set desc = "Split away from your gestalt as a lone nymph."
 
 	if(use_check_and_message(usr))
@@ -147,7 +150,7 @@
 		return
 
 	if(!iscarbon(loc))
-		verbs -= /mob/living/carbon/alien/diona/proc/split
+		remove_verb(src, /mob/living/carbon/alien/diona/proc/split)
 		return
 
 	var/r = alert(src, "Splitting will remove you from your gestalt and deposit you on the ground, allowing you continue alone. If you had any stored biomass before you joined the gestalt, you will not get it back. Are you sure you wish to split?", "Confirm Split", "I am ready to leave.", "I'll stick around.")
@@ -187,7 +190,7 @@
 		to_chat(src, SPAN_WARNING("There are no life forms nearby to sample!"))
 		return
 
-	var/mob/living/donor = input(src, "Who do you wish to sample?", "Blood Sampling") as null|anything in choices
+	var/mob/living/donor = tgui_input_list(src, "Who do you wish to sample?", "Blood Sampling", choices)
 	if(!donor || !Adjacent(donor))
 		return
 
@@ -281,10 +284,10 @@
 
 	if(!is_diona(src))
 		to_chat(src, SPAN_DANGER("You are not a Diona! You should not have this ability."))
-		log_debug("Non-Diona [name] had Create Structure ability.")
+		LOG_DEBUG("Non-Diona [name] had Create Structure ability.")
 		return
 
-	if(use_check_and_message(src))
+	if(use_check_and_message(src, USE_ALLOW_NON_ADV_TOOL_USR))
 		return
 
 	var/can_use_biomass
@@ -318,7 +321,7 @@
 			)
 
 	var/chosen_structure
-	chosen_structure = input("Choose a structure to grow.") in diona_structures
+	chosen_structure = tgui_input_list(src, "Choose a structure to grow.", "Structure Selection", diona_structures)
 	if(!chosen_structure || chosen_structure == "Cancel")
 		to_chat(src, SPAN_WARNING("We have elected to not grow anything right now."))
 		return
@@ -359,6 +362,6 @@
 	if(hat)
 		src.drop_from_inventory(hat)
 		hat = null
-		visible_message("<span class='warning'>[src] removes their hat!</span>")
+		visible_message(SPAN_WARNING("[src] removes their hat!"))
 	else
 		to_chat(src, SPAN_WARNING("You have no hat!"))

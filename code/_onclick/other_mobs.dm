@@ -1,17 +1,17 @@
-// Generic damage proc (slimes and monkeys).
+///Generic damage proc (slimes and monkeys).
 /atom/proc/attack_generic(mob/user as mob)
 	return 0
 
-// generic click on for pai
+///Generic click on for pai
 /atom/proc/attack_pai(mob/user)
 	return
 
-/*
-	Humans:
-	Adds an exception for gloves, to allow special glove types like the ninja ones.
-
-	Otherwise pretty standard.
-*/
+/**
+ * Humans:
+ * Adds an exception for gloves, to allow special glove types like the ninja ones.
+ *
+ * Otherwise pretty standard.
+ */
 /mob/living/carbon/human/UnarmedAttack(var/atom/A, var/proximity)
 
 	if(!..())
@@ -24,7 +24,7 @@
 	var/obj/item/clothing/glasses/GS = glasses
 	if(istype(G) && G.Touch(A,src,1))
 		return
-	
+
 	else if(istype(GS) && GS.Look(A,src,1)) // for goggles
 		return
 
@@ -39,16 +39,13 @@
 /mob/proc/attack_empty_hand(var/bp_hand)
 	return
 
-/mob/living/carbon/human/RestrainedClickOn(var/atom/A)
-	return
-
-/mob/living/carbon/human/RangedAttack(var/atom/A)
+/mob/living/carbon/human/RangedAttack(atom/A)
 	var/obj/item/clothing/gloves/GV = gloves
 	var/obj/item/clothing/glasses/GS = glasses
-	
+
 	if(istype(GS) && GS.Look(A,src,0)) // for goggles
 		return
-	
+
 	if(istype(GV) && GV.Touch(A,src,0)) // for magic gloves
 		return
 
@@ -99,7 +96,9 @@
 	if(istype(M))
 		switch(src.a_intent)
 			if (I_HELP) // We just poke the other
-				M.visible_message("<span class='notice'>[src] gently pokes [M]!</span>", "<span class='notice'>[src] gently pokes you!</span>")
+				M.visible_message(SPAN_NOTICE("[src] gently pokes [M]!"),
+									SPAN_NOTICE("[src] gently pokes you!"))
+
 			if (I_DISARM) // We stun the target, with the intention to feed
 				var/stunprob = 1
 				var/power = max(0, min(10, (powerlevel + rand(0, 3))))
@@ -126,20 +125,26 @@
 
 				if(prob(stunprob))
 					powerlevel = max(0, powerlevel-3)
-					M.visible_message("<span class='danger'>[src] has shocked [M]!</span>", "<span class='danger'>[src] has shocked you!</span>")
+					M.visible_message(SPAN_DANGER("[src] has shocked [M]!"),
+										SPAN_DANGER("[src] has shocked you!"))
+
 					M.Weaken(power)
 					M.Stun(power)
 					M.stuttering = max(M.stuttering, power)
 
-					spark(M, 5, alldirs)
+					spark(M, 5, GLOB.alldirs)
 
 					if(prob(stunprob) && powerlevel >= 8)
 						M.adjustFireLoss(powerlevel * rand(6,10))
 				else if(prob(40))
-					M.visible_message("<span class='danger'>[src] has pounced at [M]!</span>", "<span class='danger'>[src] has pounced at you!</span>")
+					M.visible_message(SPAN_DANGER("[src] has pounced at [M]!"),
+										SPAN_DANGER("[src] has pounced at you!"))
+
 					M.Weaken(power)
 				else
-					M.visible_message("<span class='danger'>[src] has tried to pounce at [M]!</span>", "<span class='danger'>[src] has tried to pounce at you!</span>")
+					M.visible_message(SPAN_DANGER("[src] has tried to pounce at [M]!"),
+										SPAN_DANGER("[src] has tried to pounce at you!"))
+
 				M.updatehealth()
 			if (I_GRAB) // We feed
 				Wrap(M)
@@ -174,5 +179,10 @@
 
 /mob/living/CtrlClickOn(var/atom/A)
 	. = ..()
+
+	if(client && client.hardsuit_click_mode == 2) //HARDSUIT_MODE_CTRL_CLICK
+		if(HardsuitClickOn(A))
+			return
+
 	if(!. && a_intent == I_GRAB && length(available_maneuvers))
 		. = perform_maneuver(prepared_maneuver || available_maneuvers[1], A)

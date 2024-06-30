@@ -25,13 +25,11 @@
 /singleton/surgery_step/generic/cut_with_laser
 	name = "Make Laser Incision"
 	allowed_tools = list(
-	/obj/item/surgery/scalpel/laser3 = 95, \
-	/obj/item/surgery/scalpel/laser2 = 85, \
-	/obj/item/surgery/scalpel/laser1 = 75
+	/obj/item/surgery/scalpel/laser = 100
 	)
 	priority = 2
-	min_duration = 90
-	max_duration = 110
+	min_duration = 50
+	max_duration = 70
 
 /singleton/surgery_step/generic/cut_with_laser/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	if(!..())
@@ -73,8 +71,8 @@
 	/obj/item/surgery/scalpel/manager = 100
 	)
 	priority = 2
-	min_duration = 80
-	max_duration = 120
+	min_duration = 60
+	max_duration = 80
 
 /singleton/surgery_step/generic/incision_manager/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	if(!..())
@@ -117,8 +115,8 @@
 	/obj/item/material/shard = 50
 	)
 
-	min_duration = 90
-	max_duration = 110
+	min_duration = 60
+	max_duration = 80
 
 /singleton/surgery_step/generic/cut_open/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	if(!..())
@@ -161,8 +159,8 @@
 	/obj/item/pickaxe/ = 15
 	)
 
-	min_duration = 110
-	max_duration = 130
+	min_duration = 80
+	max_duration = 100
 
 /singleton/surgery_step/generic/cut_open_vaurca/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	if(!..())
@@ -183,7 +181,7 @@
 /singleton/surgery_step/generic/cut_open_vaurca/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("<b>[user]</b> has drilled into [target]'s [affected.name] carapace with \the [tool].", \
-						 SPAN_NOTICE("You have drilled into [target]'s [affected.name] carapace with \the [tool]."),)
+							SPAN_NOTICE("You have drilled into [target]'s [affected.name] carapace with \the [tool]."),)
 	affected.open = ORGAN_OPEN_INCISION
 
 	if(istype(target) && !(target.species.flags & NO_BLOOD))
@@ -205,8 +203,8 @@
 	/obj/item/device/assembly/mousetrap = 20
 	)
 
-	min_duration = 40
-	max_duration = 60
+	min_duration = 20
+	max_duration = 30
 
 /singleton/surgery_step/generic/clamp_bleeders/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	if(!..())
@@ -228,7 +226,7 @@
 		SPAN_NOTICE("You clamp bleeders in [target]'s [affected.name] with \the [tool]."))
 	affected.clamp_organ()
 	spread_germs_to_organ(affected, user)
-	playsound(target.loc, 'sound/items/welder.ogg', 15, 1)
+	playsound(target.loc, 'sound/items/Welder.ogg', 15, 1)
 
 /singleton/surgery_step/generic/clamp_bleeders/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -244,8 +242,8 @@
 	/obj/item/material/kitchen/utensil/fork = 50
 	)
 
-	min_duration = 30
-	max_duration = 40
+	min_duration = 20
+	max_duration = 30
 
 /singleton/surgery_step/generic/retract_skin/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	if(!..())
@@ -281,6 +279,10 @@
 	user.visible_message(msg, self_msg)
 	affected.open = ORGAN_OPEN_RETRACTED
 
+	if(!affected.encased)
+		for(var/obj/item/implant/I in affected.implants)
+			I.exposed()
+
 /singleton/surgery_step/generic/retract_skin/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	var/msg = SPAN_WARNING("[user]'s hand slips, tearing the edges of the incision on [target]'s [affected.name] with \the [tool]!")
@@ -303,8 +305,8 @@
 	/obj/item/weldingtool = 75
 	)
 
-	min_duration = 70
-	max_duration = 100
+	min_duration = 40
+	max_duration = 70
 
 /singleton/surgery_step/generic/cauterize/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	if(!..())

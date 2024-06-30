@@ -1,12 +1,18 @@
 /datum/map_template/ruin/away_site/hegemony_corvette
 	name = "Hegemony Corvette"
 	description = "Ship with lizards."
-	suffixes = list("ships/hegemony/hegemony_corvette/hegemony_corvette.dmm")
+
+	prefix = "ships/hegemony/hegemony_corvette/"
+	suffixes = list("hegemony_corvette.dmm")
+
 	sectors = list(SECTOR_BADLANDS, SECTOR_UUEOAESA)
+	spawn_weight_sector_dependent = list(SECTOR_UUEOAESA = 1.5)
 	spawn_weight = 1
 	ship_cost = 1
 	id = "hegemony_corvette"
 	shuttles_to_initialise = list(/datum/shuttle/autodock/overmap/hegemony_shuttle)
+
+	unit_test_groups = list(2)
 
 /singleton/submap_archetype/hegemony_corvette
 	map = "Hegemony Corvette"
@@ -19,7 +25,7 @@
 	icon_state = "foundation"
 	moving_state = "foundation-moving"
 	colors = list("#e38222", "#f0ba3e")
-	scanimage = "unathi_corvette.png"
+	scanimage = "hegemony_corvette.png"
 	designer = "Hephaestus Industries, Izweski Hegemonic Naval Guilds"
 	volume = "75 meters length, 35 meters beam/width, 21 meters vertical height"
 	drive = "Low-Speed Warp Acceleration FTL Drive"
@@ -44,6 +50,12 @@
 /obj/effect/overmap/visitable/ship/hegemony_corvette/New()
 	designation = "[pick("Three Heads' Chosen", "Revenge for Gakal'zaal", "Child of Chanterel", "Horns of the Hegemon", "Hide of Steel", "Battle-Talon", "Roaming Warrior", "Abiding Victory", "Scorched Scales", "Wildfire of Moghes", "Travakh Unending", "Blessed By The Spirits", "Blackened Tail", "Legend Foretold", "Molten Claws", "Unfading River", "Emberstorm")]"
 	..()
+
+/obj/effect/overmap/visitable/ship/hegemony_corvette/get_skybox_representation()
+	var/image/skybox_image = image('icons/skybox/subcapital_ships.dmi', "hegemony_corvette")
+	skybox_image.pixel_x = rand(0,64)
+	skybox_image.pixel_y = rand(128,256)
+	return skybox_image
 
 /obj/effect/shuttle_landmark/hegemony_corvette
 	base_turf = /turf/space/dynamic
@@ -101,7 +113,7 @@
 	shuttle_area = list(/area/shuttle/hegemony)
 	current_location = "nav_hegemony_corvette_shuttle"
 	landmark_transition = "nav_transit_hegemony_corvette"
-	dock_target = "hegemony_shuttle"
+	dock_target = "airlock_hegemony_shuttle"
 	range = 1
 	fuel_consumption = 2
 	logging_home_tag = "nav_hegemony_corvette_shuttle"
@@ -115,7 +127,7 @@
 /obj/effect/shuttle_landmark/hegemony_shuttle/dock
 	name = "Hegemony Corvette - Shuttle Dock"
 	landmark_tag = "nav_hegemony_corvette_shuttle"
-	docking_controller = "hegemony_shuttle_dock"
+	docking_controller = "airlock_hegemony_dock"
 	base_area = /area/space
 	base_turf = /turf/space
 	movable_flags = MOVABLE_FLAG_EFFECTMOVE

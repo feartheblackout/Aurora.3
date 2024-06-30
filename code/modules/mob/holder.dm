@@ -52,13 +52,12 @@ var/list/holder_mob_icon_cache = list()
 		release_mob()
 	return ..()
 
-/obj/item/holder/examine(mob/user)
-	if (contained)
-		contained.examine(user)
+/obj/item/holder/examine(mob/user, distance, is_adjacent, infix, suffix, show_extended)
+	SHOULD_CALL_PARENT(FALSE)
 
-/obj/item/holder/attack_self()
-	for(var/mob/M in contents)
-		M.show_inv(usr)
+	if(contained)
+		return contained.examine(user, distance, is_adjacent, infix, suffix, show_extended)
+	return TRUE
 
 /obj/item/holder/process()
 	if (!contained)
@@ -112,11 +111,12 @@ var/list/holder_mob_icon_cache = list()
 
 	qdel(src)
 
-/obj/item/holder/attackby(obj/item/W as obj, mob/user as mob)
+/obj/item/holder/attackby(obj/item/attacking_item, mob/user)
 	for(var/mob/M in src.contents)
-		M.attackby(W,user)
+		M.attackby(attacking_item, user)
 
 /obj/item/holder/dropped(mob/user)
+	. = ..()
 
 	///When an object is put into a container, drop fires twice.
 	//once with it on the floor, and then once in the container
@@ -147,17 +147,19 @@ var/list/holder_mob_icon_cache = list()
 	report_onmob_location(1, slotnumber, contained)
 
 /obj/item/holder/attack_self(mob/M as mob)
+	for(var/mob/contained_mob in contents)
+		contained_mob.show_inv(usr)
 
 	if (contained && !(contained.stat & DEAD))
 		if (istype(M,/mob/living/carbon/human))
 			var/mob/living/carbon/human/H = M
 			switch(H.a_intent)
 				if(I_HELP)
-					H.visible_message("<span class='notice'>[H] pets [contained].</span>")
+					H.visible_message(SPAN_NOTICE("[H] pets [contained]."))
 
 				if(I_HURT)
 					contained.adjustBruteLoss(3)
-					H.visible_message("<span class='alert'>[H] crushes [contained].</span>")
+					H.visible_message(SPAN_ALERT("[H] crushes [contained]."))
 	else
 		to_chat(M, "[contained] is dead.")
 
@@ -198,13 +200,13 @@ var/list/holder_mob_icon_cache = list()
 
 	if (user == src)
 		if (grabber.r_hand && grabber.l_hand)
-			to_chat(user, "<span class='warning'>They have no free hands!</span>")
+			to_chat(user, SPAN_WARNING("They have no free hands!"))
 			return
 	else if ((grabber.hand == 0 && grabber.r_hand) || (grabber.hand == 1 && grabber.l_hand))//Checking if the hand is full
-		to_chat(grabber, "<span class='warning'>Your hand is full!</span>")
+		to_chat(grabber, SPAN_WARNING("Your hand is full!"))
 		return
 
-	src.verbs += /mob/living/proc/get_holder_location//This has to be before we move the mob into the holder
+	add_verb(src,  /mob/living/proc/get_holder_location) //This has to be before we move the mob into the holder
 
 	spawn(2)
 		var/obj/item/holder/H = new holder_type(loc)
@@ -225,11 +227,11 @@ var/list/holder_mob_icon_cache = list()
 
 		if (success)
 			if (user == src)
-				to_chat(grabber, "<span class='notice'>[src.name] climbs up onto you.</span>")
-				to_chat(src, "<span class='notice'>You climb up onto [grabber].</span>")
+				to_chat(grabber, SPAN_NOTICE("[src.name] climbs up onto you."))
+				to_chat(src, SPAN_NOTICE("You climb up onto [grabber]."))
 			else
-				to_chat(grabber, "<span class='notice'>You scoop up [src].</span>")
-				to_chat(src, "<span class='notice'>[grabber] scoops you up.</span>")
+				to_chat(grabber, SPAN_NOTICE("You scoop up [src]."))
+				to_chat(src, SPAN_NOTICE("[grabber] scoops you up."))
 
 			H.sync(src)
 		else
@@ -376,6 +378,7 @@ var/list/holder_mob_icon_cache = list()
 /obj/item/holder/carp/baby/verb/toggle_block_hair()
 	set name = "Toggle Hair Coverage"
 	set category = "Object"
+	set src in usr
 
 	flags_inv ^= BLOCKHEADHAIR
 	to_chat(usr, SPAN_NOTICE("\The [src] will now [flags_inv & BLOCKHEADHAIR ? "hide" : "show"] hair."))
@@ -605,7 +608,7 @@ var/list/holder_mob_icon_cache = list()
 
 /obj/item/holder/fox
 	name = "fox"
-	icon = 'icons/mob/npc/pets.dmi'
+	icon = 'icons/mob/npc/fox.dmi'
 	icon_state = "fox"
 	item_state = "fox"
 	w_class = ITEMSIZE_NORMAL
@@ -628,3 +631,25 @@ var/list/holder_mob_icon_cache = list()
 	icon_state = "schlorrgo_fat"
 	item_state = "schlorrgo_fat"
 	w_class = ITEMSIZE_LARGE
+
+/obj/item/holder/fish
+	name = "fish"
+	attack_verb = list("fished", "disrespected", "smacked", "smackereled")
+	icon = 'icons/mob/npc/fish.dmi'
+	icon_state = "fish_rest"
+	item_state = "fish_rest"
+	hitsound = 'sound/effects/snap.ogg'
+	force = 4//Being hit with an entire fish typically hurts
+	throwforce = 4//Having an entire fish thrown at you also hurts
+	throw_speed = 1//Because it's cinematic
+
+/obj/item/holder/fish/gupper
+	icon_state = "gupper_rest"
+	item_state = "gupper_rest"
+
+/obj/item/holder/fish/cod
+	icon_state = "cod_rest"
+	item_state = "cod_rest"
+	hitsound = 'sound/effects/snap.ogg'
+	force = 14//quite large fishey
+	throwforce = 6

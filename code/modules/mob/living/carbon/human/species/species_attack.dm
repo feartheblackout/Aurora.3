@@ -35,7 +35,7 @@
 	attack_damage = Clamp(attack_damage, 1, 5)
 
 	if(target == user)
-		user.visible_message("<span class='danger'>[user] [pick(attack_verb)] [user.get_pronoun("himself")] in the [affecting.name]!</span>")
+		user.visible_message(SPAN_DANGER("[user] [pick(attack_verb)] [user.get_pronoun("himself")] in the [affecting.name]!"))
 		return 0
 
 	switch(zone)
@@ -43,20 +43,20 @@
 			// ----- HEAD ----- //
 			switch(attack_damage)
 				if(1 to 2)
-					user.visible_message("<span class='danger'>[user] scratched [target] across [target.get_pronoun("his")] cheek!</span>")
+					user.visible_message(SPAN_DANGER("[user] scratched [target] across [target.get_pronoun("his")] cheek!"))
 				if(3 to 4)
-					user.visible_message("<span class='danger'>[user] [pick(attack_verb)] [target]'s [pick(BP_HEAD, "neck")]!</span>") //'with spread claws' sounds a little bit odd, just enough that conciseness is better here I think
+					user.visible_message(SPAN_DANGER("[user] [pick(attack_verb)] [target]'s [pick(BP_HEAD, "neck")]!")) //'with spread claws' sounds a little bit odd, just enough that conciseness is better here I think
 				if(5)
 					user.visible_message(pick(
-						"<span class='danger'>[user] rakes [user.get_pronoun("his")] [pick(attack_noun)] across [target]'s face!</span>",
-						"<span class='danger'>[user] tears [user.get_pronoun("his")] [pick(attack_noun)] into [target]'s face!</span>",
+						SPAN_DANGER("[user] rakes [user.get_pronoun("his")] [pick(attack_noun)] across [target]'s face!"),
+						SPAN_DANGER("[user] tears [user.get_pronoun("his")] [pick(attack_noun)] into [target]'s face!"),
 						))
 		else
 			// ----- BODY ----- //
 			switch(attack_damage)
-				if(1 to 2)	user.visible_message("<span class='danger'>[user] scratched [target]'s [affecting.name]!</span>")
-				if(3 to 4)	user.visible_message("<span class='danger'>[user] [pick(attack_verb)] [pick("", "", "the side of")] [target]'s [affecting.name]!</span>")
-				if(5)		user.visible_message("<span class='danger'>[user] tears [user.get_pronoun("his")] [pick(attack_noun)] [pick("deep into", "into", "across")] [target]'s [affecting.name]!</span>")
+				if(1 to 2)	user.visible_message(SPAN_DANGER("[user] scratched [target]'s [affecting.name]!"))
+				if(3 to 4)	user.visible_message(SPAN_DANGER("[user] [pick(attack_verb)] [pick("", "", "the side of")] [target]'s [affecting.name]!"))
+				if(5)		user.visible_message(SPAN_DANGER("[user] tears [user.get_pronoun("his")] [pick(attack_noun)] [pick("deep into", "into", "across")] [target]'s [affecting.name]!"))
 
 /datum/unarmed_attack/claws/unathi
 	sparring_variant_type = /datum/unarmed_attack/pain_strike/heavy // unathi have heavier pain hits in this mode
@@ -98,12 +98,12 @@
 	attack_verb = list("jumped on")
 	attack_name = "weak stomp"
 
-/datum/unarmed_attack/stomp/weak/get_unarmed_damage()
+/datum/unarmed_attack/stomp/weak/get_unarmed_damage(var/mob/attacker, var/mob/living/carbon/human/target)
 	return damage
 
 /datum/unarmed_attack/stomp/weak/show_attack(var/mob/living/carbon/human/user, var/mob/living/carbon/human/target, var/zone, var/attack_damage)
 	var/obj/item/organ/external/affecting = target.get_organ(zone)
-	user.visible_message("<span class='warning'>[user] jumped up and down on \the [target]'s [affecting.name]!</span>")
+	user.visible_message(SPAN_WARNING("[user] jumped up and down on \the [target]'s [affecting.name]!"))
 	playsound(user.loc, attack_sound, 25, 1, -1)
 
 /datum/unarmed_attack/punch/ipc
@@ -145,9 +145,9 @@
 	..()
 	if(prob(25) && target.mob_size <= 30)
 		playsound(user, 'sound/weapons/push_connect.ogg', 50, 1, -1)
-		user.visible_message("<span class='danger'>[user] shoves hard, sending [target] flying!</span>")
+		user.visible_message(SPAN_DANGER("[user] shoves hard, sending [target] flying!"))
 		var/T = get_turf(user)
-		spark(T, 3, alldirs)
+		spark(T, 3, GLOB.alldirs)
 		step_away(target,user,15)
 		sleep(1)
 		step_away(target,user,15)
@@ -176,10 +176,10 @@
 		if(L == target)
 			continue
 		L.apply_damage(rand(5,20), DAMAGE_BRUTE, zone, armor)
-		to_chat(L, "<span class='danger'>\The [user] [pick(attack_verb)] you with its [attack_noun]!</span>")
+		to_chat(L, SPAN_DANGER("\The [user] [pick(attack_verb)] you with its [attack_noun]!"))
 		hit_mobs++
 	if(hit_mobs)
-		to_chat(user, "<span class='danger'>You used \the [attack_noun] to attack [hit_mobs] other target\s!</span>")
+		to_chat(user, SPAN_DANGER("You used \the [attack_noun] to attack [hit_mobs] other target\s!"))
 
 
 /datum/unarmed_attack/bite/mandibles
@@ -209,8 +209,14 @@
 	infection_chance -= target.get_blocked_ratio(zone, DAMAGE_BRUTE, damage_flags = DAMAGE_FLAG_SHARP|DAMAGE_FLAG_EDGE, damage = damage)*100
 	if(prob(infection_chance))
 		if(target.reagents)
-			var/trioxin_amount = REAGENT_VOLUME(target.reagents, /singleton/reagent/toxin/trioxin)
-			target.reagents.add_reagent(/singleton/reagent/toxin/trioxin, min(10, ZOMBIE_MAX_TRIOXIN - trioxin_amount))
+			var/hylemnomil_amount = REAGENT_VOLUME(target.reagents, /singleton/reagent/toxin/hylemnomil)
+			target.reagents.add_reagent(/singleton/reagent/toxin/hylemnomil, min(10, ZOMBIE_MAX_HYLEMNOMIL - hylemnomil_amount))
+
+/datum/unarmed_attack/bite/infectious/get_unarmed_damage(var/mob/attacker, var/target)
+	if(istype(target, /mob/living/heavy_vehicle))
+		return damage * 4
+
+	. = ..()
 
 /datum/unarmed_attack/golem
 	attack_verb = list("smashed", "crushed", "rammed")
@@ -236,7 +242,7 @@
 	attack_verb = list("scorched", "burned")
 	attack_noun = list("flaming fist")
 	damage = 10
-	attack_sound = 'sound/items/welder.ogg'
+	attack_sound = 'sound/items/Welder.ogg'
 	attack_name = "flaming touch"
 	damage_type = DAMAGE_BURN
 
@@ -246,7 +252,7 @@
 		target.apply_effect(1, INCINERATE, 0)
 
 /datum/unarmed_attack/vaurca_bulwark
-	attack_verb = list("punched", "pulverized", "hammered")
+	attack_verb = list("smashed", "pulverized", "clobbered")
 	attack_noun = list("fists")
 	desc = "Smash into your opponents with the strength the Queens gave you. Not as sharp as other species' claws, but yours hit a hell of a lot harder."
 	eye_attack_text = "claws"
@@ -260,14 +266,15 @@
 	crowbar_door = TRUE
 	sparring_variant_type = /datum/unarmed_attack/pain_strike/heavy
 
-/datum/unarmed_attack/vaurca_bulwark/apply_effects(var/mob/living/carbon/human/user,var/mob/living/carbon/human/target,var/armor,var/attack_damage,var/zone)
+/datum/unarmed_attack/vaurca_bulwark/apply_effects(var/mob/living/carbon/human/user,var/mob/living/carbon/human/target,var/armor,var/zone)
 	..()
-	if(prob(25))
-		playsound(user, 'sound/weapons/push_connect.ogg', 50, 1, -1)
-		user.visible_message(SPAN_DANGER("[user] shoves hard, sending [target] flying!"))
-		var/turf/target_turf = get_ranged_target_turf(target, user.dir, 4)
-		target.throw_at(target_turf, 4, 1, user)
-		target.apply_effect(attack_damage * 0.4, WEAKEN, armor)
+	if(target.species.mob_size < user.species.mob_size)
+		if(prob(25))
+			playsound(user, 'sound/weapons/push_connect.ogg', 50, 1, -1)
+			user.visible_message(SPAN_DANGER("[user] sends \the [target] flying with the impact!"))
+			var/turf/target_turf = get_ranged_target_turf(target, user.dir, 4)
+			target.throw_at(target_turf, 4, 1, user)
+			target.apply_effect(4, WEAKEN, armor)
 
 /datum/unarmed_attack/bite/warrior
 	attack_name = "warrior bite"

@@ -1,9 +1,9 @@
 /proc/createRandomZlevel()
-	if(awaydestinations.len)	//crude, but it saves another var!
+	if(GLOB.awaydestinations.len)	//crude, but it saves another var!
 		return
 
 	var/list/potentialRandomZlevels = list()
-	admin_notice("<span class='danger'>Searching for away missions...</span>", R_DEBUG)
+	admin_notice(SPAN_DANGER("Searching for away missions..."), R_DEBUG)
 	var/list/Lines = file2list("maps/RandomZLevels/fileList.txt")
 	if(!Lines.len)	return
 	for (var/t in Lines)
@@ -21,11 +21,11 @@
 	//	var/value = null
 
 		if (pos)
-            // No, don't do lowertext here, that breaks paths on linux
+			// No, don't do lowertext here, that breaks paths on linux
 			name = copytext(t, 1, pos)
 		//	value = copytext(t, pos + 1)
 		else
-            // No, don't do lowertext here, that breaks paths on linux
+			// No, don't do lowertext here, that breaks paths on linux
 			name = t
 
 		if (!name)
@@ -36,21 +36,21 @@
 
 	var/static/dmm_suite/loader = new
 	if(potentialRandomZlevels.len)
-		admin_notice("<span class='danger'>Loading away mission...</span>", R_DEBUG)
+		admin_notice(SPAN_DANGER("Loading away mission..."), R_DEBUG)
 
 		var/map = pick(potentialRandomZlevels)
 		var/file = file(map)
 		if(isfile(file))
 			loader.load_map(file)
-			log_debug("away mission loaded: [map]")
+			LOG_DEBUG("away mission loaded: [map]")
 
-		for(var/obj/effect/landmark/L in landmarks_list)
+		for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 			if (L.name != "awaystart")
 				continue
-			awaydestinations.Add(L)
+			GLOB.awaydestinations.Add(L)
 
-		admin_notice("<span class='danger'>Away mission loaded.</span>", R_DEBUG)
+		admin_notice(SPAN_DANGER("Away mission loaded."), R_DEBUG)
 
 	else
-		admin_notice("<span class='danger'>No away missions found.</span>", R_DEBUG)
+		admin_notice(SPAN_DANGER("No away missions found."), R_DEBUG)
 		return

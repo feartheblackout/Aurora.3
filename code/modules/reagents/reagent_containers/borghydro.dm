@@ -4,7 +4,7 @@
 	desc_info = "Stationbound synthesizers produce specific reagents dependent on the selected module, which you can select by using it. \
 	The reagents recharge automatically at the cost of energy.<br> Alt Click the synthesizer to change the transfer amount."
 	desc_extended = null
-	icon = 'icons/obj/syringe.dmi'
+	icon = 'icons/obj/item/reagent_containers/syringe.dmi'
 	icon_state = "medical_synth"
 	item_state = "hypo"
 	amount_per_transfer_from_this = 5
@@ -41,18 +41,18 @@
 	START_PROCESSING(SSprocessing, src)
 
 /obj/item/reagent_containers/hypospray/borghypo/update_icon()
-	cut_overlays()
+	ClearOverlays()
 
 	var/rid = reagent_ids[mode]
 	var/singleton/reagent/R = GET_SINGLETON(rid)
 	if(reagent_volumes[rid])
 		filling = image(icon, src, "[initial(icon_state)][reagent_volumes[rid]]")
 		filling.color = R.get_color()
-		add_overlay(filling)
+		AddOverlays(filling)
 
 		var/mutable_appearance/reagent_bar = mutable_appearance(icon, "[initial(icon_state)]_reagents")
 		reagent_bar.color = R.get_color()
-		add_overlay(reagent_bar)
+		AddOverlays(reagent_bar)
 
 /obj/item/reagent_containers/hypospray/borghypo/Destroy()
 	STOP_PROCESSING(SSprocessing, src)
@@ -80,7 +80,7 @@
 	if(!reagent_volumes[reagent_ids[mode]])
 		to_chat(user, SPAN_WARNING("The injector is empty."))
 		return
-	
+
 	user.visible_message(SPAN_NOTICE("[user] injects [M] with their hypospray!"), SPAN_NOTICE("You inject [M] with your hypospray!"), SPAN_NOTICE("You hear a hissing noise."))
 	to_chat(M, SPAN_NOTICE("You feel a tiny prick!"))
 	playsound(src, 'sound/items/hypospray.ogg',25)
@@ -126,12 +126,13 @@
 			to_chat(usr, SPAN_NOTICE("Synthesizer is now producing '[R.name]'."))
 			update_icon()
 
-/obj/item/reagent_containers/hypospray/borghypo/examine(mob/user)
-	if(!..(user, 2))
+/obj/item/reagent_containers/hypospray/borghypo/get_examine_text(mob/user, distance, is_adjacent, infix, suffix)
+	. = ..()
+	if (distance > 2)
 		return
 
 	var/singleton/reagent/R = GET_SINGLETON(reagent_ids[mode])
-	to_chat(user, SPAN_NOTICE("It is currently producing [R.name] and has [reagent_volumes[reagent_ids[mode]]] out of [volume] units left."))
+	. += SPAN_NOTICE("It is currently producing [R.name] and has [reagent_volumes[reagent_ids[mode]]] out of [volume] units left.")
 
 /obj/item/reagent_containers/hypospray/borghypo/service
 	name = "cyborg drink synthesizer"
@@ -146,7 +147,7 @@
 
 /obj/item/reagent_containers/hypospray/borghypo/service/update_icon()
 	underlays.Cut()
-	cut_overlays()
+	ClearOverlays()
 
 	var/rid = reagent_ids[mode]
 	var/singleton/reagent/R = GET_SINGLETON(rid)
@@ -162,7 +163,7 @@
 			if(80 to 90)			filling.icon_state = "[icon_state]-80"
 			if(91 to INFINITY)		filling.icon_state = "[icon_state]-100"
 		filling.color = R.get_color()
-		add_overlay(filling)
+		AddOverlays(filling)
 
 /obj/item/reagent_containers/hypospray/borghypo/service/attack(var/mob/M, var/mob/user)
 	return

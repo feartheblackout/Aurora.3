@@ -1,6 +1,7 @@
 /obj/machinery/atmospherics/binary
 	dir = SOUTH
 	initialize_directions = SOUTH|NORTH
+	layer = EXPOSED_PIPE_LAYER
 
 	var/datum/gas_mixture/air1
 	var/datum/gas_mixture/air2
@@ -133,7 +134,10 @@
 	return null
 
 /obj/machinery/atmospherics/binary/AltClick(var/mob/user)
-	if(!allowed(user))
-		to_chat(user, SPAN_WARNING("Access denied."))
-		return
-	Topic(src, list("power" = "1"))
+	if(src.anchored)
+		if(!allowed(user))
+			to_chat(user, SPAN_WARNING("Access denied."))
+			return
+		Topic(src, list("power" = "1"))
+	else
+		. = ..()

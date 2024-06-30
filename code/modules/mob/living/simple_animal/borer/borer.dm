@@ -46,17 +46,19 @@
 /mob/living/simple_animal/borer/LateLogin()
 	..()
 	if(mind)
-		borers.add_antagonist(mind)
-	if(client && host)
-		client.screen += host.healths
+		borers.add_antagonist_mind(mind, 1, borers.role_text, borers.welcome_text)
+	if(client)
+		client.init_verbs()
+		if(host)
+			client.screen += host.healths
 
 /mob/living/simple_animal/borer/Initialize()
 	. = ..()
 
 	add_language(LANGUAGE_BORER)
 	add_language(LANGUAGE_BORER_HIVEMIND)
-	verbs += /mob/living/proc/ventcrawl
-	verbs += /mob/living/proc/hide
+	add_verb(src, /mob/living/proc/ventcrawl)
+	add_verb(src, /mob/living/proc/hide)
 	var/number = rand(1000,9999)
 	truename = "[pick("Primary","Secondary","Tertiary","Quaternary")]-[number]"
 	if(request_player && !ckey && !client)
@@ -100,17 +102,9 @@
 	if(chem_hud)
 		chem_hud.maptext = SMALL_FONTS(7, chemicals)
 
-/mob/living/simple_animal/borer/Stat()
-	..()
-	statpanel("Status")
-
-	if(evacuation_controller)
-		var/eta_status = evacuation_controller.get_status_panel_eta()
-		if(eta_status)
-			stat(null, eta_status)
-
-	if(client.statpanel == "Status")
-		stat("Chemicals", chemicals)
+/mob/living/simple_animal/borer/get_status_tab_items()
+	. = ..()
+	. += "Chemicals: [chemicals]"
 
 /mob/living/simple_animal/borer/proc/detach()
 	if(!host || !controlling)
@@ -119,19 +113,14 @@
 	if(ability_bar)
 		QDEL_NULL(ability_bar)
 
-	if(istype(host,/mob/living/carbon/human))
-		var/mob/living/carbon/human/H = host
-		var/obj/item/organ/external/head = H.get_organ(BP_HEAD)
-		head.implants -= src
-
 	controlling = FALSE
 
 	host.remove_language(LANGUAGE_BORER)
 	host.remove_language(LANGUAGE_BORER_HIVEMIND)
 
-	host.verbs -= /mob/living/carbon/proc/release_control
-	host.verbs -= /mob/living/carbon/proc/punish_host
-	host.verbs -= /mob/living/carbon/proc/spawn_larvae
+	remove_verb(host, /mob/living/carbon/proc/release_control)
+	remove_verb(host, /mob/living/carbon/proc/punish_host)
+	remove_verb(host, /mob/living/carbon/proc/spawn_larvae)
 
 	if(host_brain)
 		to_chat(host_brain, FONT_LARGE(SPAN_NOTICE("You feel your nerves again as your control over your own body is restored.")))

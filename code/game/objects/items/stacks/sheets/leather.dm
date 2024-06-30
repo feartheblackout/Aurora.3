@@ -3,11 +3,10 @@
 	desc = "The by-product of some animal farming."
 	singular_name = "hide piece"
 	icon_state = "sheet-hide"
-	default_type = "hide"
+	default_type = MATERIAL_HIDE
 	icon_has_variants = TRUE
 	drop_sound = 'sound/items/drop/cloth.ogg'
 	pickup_sound = 'sound/items/pickup/cloth.ogg'
-	default_type = MATERIAL_HIDE
 	var/bare = FALSE //is this hair devoid of fur, hair, scales, carapace? Prevents re-stripping. Can also apply it to a hide type if we don't want to tan, like, xeno hide.
 	var/hide_type = "hair" //type of skin this animal has; scales for lizard, carapace for xeno.
 
@@ -80,8 +79,8 @@
 
 //Animal Hide to leather steps
 //Step one - dehairing.
-/obj/item/stack/material/animalhide/attackby(obj/item/W, mob/user)
-	if(is_sharp(W) && !W.noslice && !W.iswirecutter()) //Can we cut and slice with the item? And does the hide still have something to remove? Say no to wirecutters since it's more about bladed items.
+/obj/item/stack/material/animalhide/attackby(obj/item/attacking_item, mob/user)
+	if(is_sharp(attacking_item) && !attacking_item.noslice && !attacking_item.iswirecutter()) //Can we cut and slice with the item? And does the hide still have something to remove? Say no to wirecutters since it's more about bladed items.
 		if(bare)
 			to_chat(user, SPAN_WARNING("There's nothing left to remove from \the [src]!"))
 			return
@@ -89,7 +88,7 @@
 		user.visible_message(SPAN_NOTICE("\The [user] starts slicing the [hide_type] from \the [src]."),
 				SPAN_NOTICE("You start slicing the [hide_type] from \the [src]"),
 				SPAN_NOTICE("You hear the sound of a knife scraping against flesh."))
-		if(do_after(user,50, act_target = src))
+		if(do_after(user, 5 SECONDS, src))
 			if(amount <= 0) //Ensures we don't get multiple products from queuing clicks.
 				return
 			use(1)
@@ -114,23 +113,23 @@
 //Step two - washing..... it's actually in washing machine code.
 
 //Step three - drying
-/obj/item/stack/material/animalhide/wetleather/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/item/stack/material/animalhide/wetleather/fire_act(exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature >= drying_threshold_temperature)
 		wetness--
 		if(wetness <= 0)
 			make_leather()
 
-/obj/item/stack/material/animalhide/wetleather/attackby(obj/item/I, mob/user)
-	if(I.iswelder())
-		var/obj/item/weldingtool/WT = I
+/obj/item/stack/material/animalhide/wetleather/attackby(obj/item/attacking_item, mob/user)
+	if(attacking_item.iswelder())
+		var/obj/item/weldingtool/WT = attacking_item
 		if(WT.isOn())
 			if(being_dried)
 				to_chat(user, SPAN_WARNING("\The [src] are already being dried"))
 				return
 			user.visible_message(SPAN_NOTICE("\The [user] starts drying \the [src] with \the [WT]."), SPAN_NOTICE("You start drying the wet leather with \the [WT]..."))
 			being_dried = TRUE
-			while(do_after(user, 20, act_target = src) && wetness > 0)
+			while(do_after(user, 2 SECONDS, src) && wetness > 0)
 				if(!WT.use(1) || !WT.isOn())
 					break
 				if(prob(5))

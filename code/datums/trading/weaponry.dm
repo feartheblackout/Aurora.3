@@ -23,6 +23,7 @@
 		/obj/item/gun/projectile/sec                  = TRADER_ALL,
 		/obj/item/gun/projectile/shotgun/pump         = TRADER_ALL,
 		/obj/item/gun/projectile/shotgun/doublebarrel = TRADER_ALL,
+		/obj/item/gun/projectile/shotgun/pump/lever_action = TRADER_THIS_TYPE,
 		/obj/item/gun/projectile/tanto                = TRADER_THIS_TYPE,
 		/obj/item/gun/projectile/revolver/detective   = TRADER_THIS_TYPE,
 		/obj/item/gun/projectile/leyon                = TRADER_THIS_TYPE,
@@ -42,6 +43,7 @@
 		/obj/item/storage/box/shotgunshells           = TRADER_THIS_TYPE,
 		/obj/item/storage/box/haywireshells           = TRADER_THIS_TYPE,
 		/obj/item/storage/box/incendiaryshells        = TRADER_THIS_TYPE,
+		/obj/item/storage/box/governmentammo          = TRADER_THIS_TYPE,
 		/obj/item/clothing/accessory/holster                 = TRADER_SUBTYPES_ONLY,
 		/obj/item/clothing/accessory/holster/thigh/fluff     = TRADER_BLACKLIST_ALL
 	)
@@ -87,6 +89,7 @@
 	speech = list(
 		"hail_generic"      = "Grrreetings, comrrrade! Sergei hopes they can enjoy his selection of goods, nothing herrre was smuggled!",
 		"hail_Tajara"       = "Welcome, comrrrade. He has the best prrrices forr them!",
+		"hail_Zhan-Khazan Tajara" = "Welcome, comrrrade. He rrreminds them that these goods must be purrrchased firrrst!",
 		"hail_deny"         = "The shop is closed, comrrrade!",
 		"trade_complete"    = "Many thanks, comrrrade, enjoy it!",
 		"trade_blacklist"   = "No, no, nothing of this in his shop!",
@@ -97,6 +100,11 @@
 		"compliment_accept" = "Pourrr one out for Al'marrri. His gun was on stun, bless his hearrrt.",
 		"insult_good"       = "Good one, comrrrade!",
 		"insult_bad"        = "Rrrracist!"
+	)
+	species_bias = list( //Zhan don't get discount
+		SPECIES_TAJARA = TRADER_BIAS_DISCOUNT,
+		SPECIES_TAJARA_MSAI = TRADER_BIAS_DISCOUNT,
+		SPECIES_TAJARA_TESLA_BODY = TRADER_BIAS_DISCOUNT
 	)
 
 	allowed_space_sectors = list(SECTOR_ROMANOVICH, SECTOR_CORP_ZONE, SECTOR_VALLEY_HALE, SECTOR_BADLANDS, SECTOR_NEW_ANKARA, SECTOR_AEMAQ, SECTOR_SRANDMARR, SECTOR_NRRAHRAHUL, SECTOR_GAKAL, SECTOR_UUEOAESA)
@@ -115,6 +123,7 @@
 		/obj/item/gun/projectile/contender                    = TRADER_THIS_TYPE,
 		/obj/item/gun/projectile/revolver/lemat               = TRADER_THIS_TYPE,
 		/obj/item/gun/projectile/shotgun/pump/rifle/vintage   = TRADER_BLACKLIST,
+		/obj/item/gun/projectile/shotgun/pump/lever_action    = TRADER_BLACKLIST,
 		/obj/item/gun/energy/rifle/icelance                   = TRADER_THIS_TYPE,
 		/obj/item/clothing/accessory/storage/bayonet          = TRADER_THIS_TYPE,
 		/obj/item/gun/projectile/cannon                       = TRADER_THIS_TYPE,
@@ -127,7 +136,8 @@
 		/obj/item/gun/projectile/shotgun/foldable             = TRADER_THIS_TYPE,
 		/obj/item/gun/projectile/automatic/rifle/adhomian     = TRADER_THIS_TYPE,
 		/obj/item/gun/projectile/automatic/rifle/dpra         = TRADER_ALL,
-		/obj/item/gun/projectile/revolver/knife               = TRADER_THIS_TYPE
+		/obj/item/gun/projectile/revolver/knife               = TRADER_THIS_TYPE,
+		/obj/item/gun/projectile/shotgun/pump/rifle/dominia   = TRADER_BLACKLIST
 	)
 
 
@@ -164,11 +174,11 @@
 		/obj/item/clothing/glasses/night                          = TRADER_THIS_TYPE,
 		/obj/item/clothing/glasses/sunglasses/sechud/tactical     = TRADER_THIS_TYPE,
 		/obj/item/clothing/gloves/swat                            = TRADER_THIS_TYPE,
-		/obj/item/clothing/shoes/swat                             = TRADER_THIS_TYPE,
+		/obj/item/clothing/shoes/combat                             = TRADER_THIS_TYPE,
 		/obj/item/clothing/under/tactical                         = TRADER_THIS_TYPE,
 		/obj/item/clothing/mask/gas/tactical                      = TRADER_THIS_TYPE,
 		/obj/item/shield/riot/tact                         = TRADER_THIS_TYPE,
 		/obj/item/storage/belt/security/tactical           = TRADER_THIS_TYPE,
-		/obj/item/storage/belt/medical/first_responder/combat	 = TRADER_THIS_TYPE,
+		/obj/item/storage/belt/medical/paramedic/combat	 = TRADER_THIS_TYPE,
 		/obj/item/clothing/accessory/storage/bandolier            = TRADER_THIS_TYPE
 	)

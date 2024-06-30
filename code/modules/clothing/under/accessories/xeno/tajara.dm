@@ -163,6 +163,17 @@
 	drop_sound = 'sound/items/drop/card.ogg'
 	pickup_sound = 'sound/items/pickup/card.ogg'
 
+/obj/item/clothing/accessory/badge/hadii_card/member
+	name = "party member card"
+	desc = "A card denoting a member of the Hadiist party."
+	desc_extended = "The Party of the Free Tajara under the Leadership of Hadii is the only and ruling party in the PRA, with its leader always being the elected president. \
+	They follow Hadiism as their main ideology, with the objective of securing the tajaran freedom and place in the galactic community. Membership of the Hadiist Party is not open. \
+	For anyone to become a member, they must be approved by a committee that will consider their qualifications and past. Goverment officials can grant honorary memberships, this is \
+	seen as nothing but a honor and does not grant any status or position that a regular Party member would have."
+	icon_state = "hadii-id-real"
+	overlay_state = "hadii-id-real"
+	badge_string = "Member of Party of the Free Tajara under the Leadership of Hadii"
+
 /obj/item/clothing/accessory/dpra_badge
 	name = "almariist pin"
 	desc = "A pin worn by supporters of the Democratic People's Republic of Adhomai and the ideals of almariism."
@@ -283,15 +294,32 @@
 	drop_sound = 'sound/items/drop/paper.ogg'
 	pickup_sound = 'sound/items/pickup/paper.ogg'
 
-/obj/item/clothing/accessory/tajaran/srendarr
-	name = "holy sun rosette"
+/obj/item/clothing/accessory/badge/ftc_passport
+	name = "free tajaran council passport"
+	desc = "A temporary passport issued to the citizens of the Free Tajaran Council."
+	icon = 'icons/obj/tajara_items.dmi'
+	icon_state = "ftc-passport"
+	overlay_state = "ftc-passport"
+	slot_flags = null
+	w_class = ITEMSIZE_TINY
+	flippable = FALSE
+	v_flippable = FALSE
+
+	badge_string = "Free Tajaran Council Member"
+
+	drop_sound = 'sound/items/drop/paper.ogg'
+	pickup_sound = 'sound/items/pickup/paper.ogg'
+
+/obj/item/clothing/accessory/tajaran/kin_srendarr
+	name = "\improper S'rendarr rosette"
 	desc = "A simple rosette accessory depicting the Tajaran god S'rendarr."
+	desc_extended = "A rosette accessory depicting the Tajaran God S'rendarr in his sun form. Rosettes were worn by the pious worshippers of S'rendarr and Messa as displays of faith. This fell out of fashion before the First Revolution but has returned in the modern era. Outwardly a sign of devoted faith, but to those who know this rosette marks a member of the Kin of S'rendarr."
 	icon_state = "rosette"
 	item_state = "rosette"
 	slot_flags = SLOT_MASK | SLOT_TIE
 	w_class = ITEMSIZE_TINY
 
-/obj/item/clothing/accessory/tajaran/srendarr/get_mask_examine_text(mob/user)
+/obj/item/clothing/accessory/tajaran/kin_srendarr/get_mask_examine_text(mob/user)
 	return "around [user.get_pronoun("his")] neck"
 
 /obj/item/clothing/accessory/tajaran/council_badge
@@ -315,7 +343,7 @@
 	desc_extended = "Talismans and charms are common among religious and superstitious tajara, with many believing them to be able to bring good fortune or ward off Raskara and other evils. \
 	Hand-carved tajani charms are held in special regards, often being thought of as being particularly fortunate."
 	w_class = ITEMSIZE_TINY
-	flags = NOBLUDGEON
+	item_flags = ITEM_FLAG_NO_BLUDGEON
 	slot_flags = SLOT_MASK | SLOT_WRISTS | SLOT_EARS | SLOT_TIE
 
 /obj/item/clothing/accessory/tajaran/charm/get_mask_examine_text(mob/user)
@@ -350,7 +378,8 @@
 	desc = "A warding metallic of tajaran origin."
 	icon_state = "steel_talisman"
 	item_state = "steel_talisman"
-	flags = CONDUCT | NOBLUDGEON
+	obj_flags = OBJ_FLAG_CONDUCTABLE
+	item_flags = ITEM_FLAG_NO_BLUDGEON
 
 /obj/item/clothing/accessory/tajaran/charm/steel/silver
 	name = "silver charm"
@@ -493,24 +522,24 @@
 	item_state = "nka_waistcoat"
 
 /obj/item/clothing/accessory/tajaran/nka_waistcoat/update_icon()
-	cut_overlays()
+	ClearOverlays()
 	var/image/buttons = image(icon, null, "nka_waistcoat_buttons")
 	buttons.appearance_flags = RESET_COLOR
-	add_overlay(buttons)
+	AddOverlays(buttons)
 
 /obj/item/clothing/accessory/tajaran/nka_waistcoat/get_mob_overlay(var/mob/living/carbon/human/H, var/mob_icon, var/mob_state, var/slot)
 	var/image/I = ..()
 	if(slot == slot_wear_suit_str)
 		var/image/buttons = image(mob_icon, null, "nka_waistcoat_un_buttons")
 		buttons.appearance_flags = RESET_COLOR
-		I.add_overlay(buttons)
+		I.AddOverlays(buttons)
 	return I
 
 /obj/item/clothing/accessory/tajaran/nka_waistcoat/get_accessory_mob_overlay(mob/living/carbon/human/H, force)
 	var/image/base = ..()
 	var/image/buttons = image(icon, null, "nka_waistcoat_un_buttons")
 	buttons.appearance_flags = RESET_COLOR
-	base.add_overlay(buttons)
+	base.AddOverlays(buttons)
 	return base
 
 /obj/item/clothing/accessory/tajaran/nka_vest
@@ -520,24 +549,24 @@
 	item_state = "nka_vest"
 
 /obj/item/clothing/accessory/tajaran/nka_vest/update_icon()
-	cut_overlays()
+	ClearOverlays()
 	var/image/buttons = image(icon, null, "nka_vest_buttons")
 	buttons.appearance_flags = RESET_COLOR
-	add_overlay(buttons)
+	AddOverlays(buttons)
 
 /obj/item/clothing/accessory/tajaran/nka_vest/get_mob_overlay(var/mob/living/carbon/human/H, var/mob_icon, var/mob_state, var/slot)
 	var/image/I = ..()
 	if(slot == slot_wear_suit_str)
 		var/image/buttons = image(mob_icon, null, "nka_vest_un_buttons")
 		buttons.appearance_flags = RESET_COLOR
-		I.add_overlay(buttons)
+		I.AddOverlays(buttons)
 	return I
 
 /obj/item/clothing/accessory/tajaran/nka_vest/get_accessory_mob_overlay(mob/living/carbon/human/H, force)
 	var/image/base = ..()
 	var/image/buttons = image(icon, null, "nka_vest_un_buttons")
 	buttons.appearance_flags = RESET_COLOR
-	base.add_overlay(buttons)
+	base.AddOverlays(buttons)
 	return base
 
 /obj/item/clothing/accessory/dogtags/adhomai
@@ -554,6 +583,62 @@
 	icon = 'icons/clothing/accessories/dogtags.dmi'
 	icon_state = "adhomai_tag"
 	w_class = ITEMSIZE_SMALL
+
+/obj/item/clothing/accessory/tajaran/hadii_badge
+	name = "president Hadii badge"
+	desc = "A badge with the image of President Hadii. This is a very common one, likely sold to tourists and in newsstands."
+	icon_state = "hadii-pin-bronze"
+	item_state = "hadii-pin-bronze"
+	overlay_state = "hadii-pin-bronze"
+	desc_extended = "Created during the dawn of the First Revolution, these objects were crafted and worn by the Hadiist to identify themselves in opposition to Nated. The first ones \
+	were made with crude materials. In the early stages of the Hadii cult of personality, badges were only officially issued to celebrate events and special dates. In the later \
+	moments of the Second Revolution, they were mass fabricated and used as displays of loyalty to the Party. A thousand variations exist; some models are exclusively sold to tourists visiting the PRA. \
+	Some individuals are known to collect them."
+
+	drop_sound = 'sound/items/drop/ring.ogg'
+	pickup_sound = 'sound/items/pickup/ring.ogg'
+
+/obj/item/clothing/accessory/tajaran/hadii_badge/silver
+	desc = "A badge with the image of President Hadii. This is a mudane one, likely issued during a public event or to celebrate a holiday."
+	icon_state = "hadii-pin-silver"
+	item_state = "hadii-pin-silver"
+	overlay_state = "hadii-pin-silver"
+
+/obj/item/clothing/accessory/tajaran/hadii_badge/gold
+	desc = "A badge with the image of President Hadii. This is a rare one, likely issued during a closed event or to honor some notable achievement."
+	icon_state = "hadii-pin-gold"
+	item_state = "hadii-pin-gold"
+	overlay_state = "hadii-pin-gold"
+
+/obj/item/clothing/accessory/tajaran/pra_brooch
+	name = "people's republic of adhomai brooch"
+	desc = "A fancy brooch in the colors of the PRA flag."
+	icon_state = "pra-brooch"
+	item_state = "pra-brooch"
+	overlay_state = "pra-brooch"
+
+	drop_sound = 'sound/items/drop/ring.ogg'
+	pickup_sound = 'sound/items/pickup/ring.ogg'
+
+/obj/item/clothing/accessory/tajaran/dpra_brooch
+	name = "democratic people's republic of adhomai brooch"
+	desc = "A fancy brooch in the colors of the DPRA flag."
+	icon_state = "dpra-brooch"
+	item_state = "dpra-brooch"
+	overlay_state = "dpra-brooch"
+
+	drop_sound = 'sound/items/drop/ring.ogg'
+	pickup_sound = 'sound/items/pickup/ring.ogg'
+
+/obj/item/clothing/accessory/tajaran/nka_brooch
+	name = "new kingdom of adhomai brooch"
+	desc = "A fancy brooch in the colors of the NKA flag."
+	icon_state = "nka-brooch"
+	item_state = "nka-brooch"
+	overlay_state = "nka-brooch"
+
+	drop_sound = 'sound/items/drop/ring.ogg'
+	pickup_sound = 'sound/items/pickup/ring.ogg'
 
 //medals
 
@@ -634,3 +719,21 @@
 	desc = "An award bestowed to the military personnel who took part in the final offensive to liberate Harr'masir from Hadiist occupation in 2461."
 	icon_state = "harrmasir_offensive"
 	overlay_state = "iron"
+
+/obj/item/clothing/accessory/apron/dharmela
+	name = "\improper Dharmela apron"
+	desc = "An apron used by the followers of Dharmela, the Ma'ta'ke deity of forges, anvils, and craftsmanship"
+	icon = 'icons/obj/tajara_items.dmi'
+	icon_state = "dharmela_apron"
+	item_state = "dharmela_apron"
+	overlay_state = "dharmela_apron"
+	icon_override = null
+	contained_sprite = TRUE
+
+/obj/item/clothing/accessory/necklace/adhomian
+	name = "adhomian pearl necklace"
+	desc = "A necklace made of Ras'val clam pearls."
+	icon = 'icons/obj/tajara_items.dmi'
+	icon_state = "pearl_necklace"
+	item_state = "pearl_necklace"
+	contained_sprite = TRUE

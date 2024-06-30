@@ -43,6 +43,7 @@
 	key ="chirp"
 	emote_message_3p = "USER chirps!"
 	emote_sound = 'sound/misc/nymphchirp.ogg'
+	conscious = 0
 
 /singleton/emote/audible/multichirp
 	key ="mchirp"
@@ -65,6 +66,7 @@
 	key = "chitter"
 	emote_message_3p = "USER chitters."
 	emote_sound = list('sound/voice/chitter1.ogg', 'sound/voice/chitter2.ogg', 'sound/voice/chitter3.ogg')
+	conscious = 0
 
 /singleton/emote/audible/click
 	key = "click"
@@ -200,9 +202,9 @@
 
 /singleton/emote/audible/slap
 	key = "slap"
-	emote_message_1p_target = "<span class='warning'>You slap TARGET across the face!</span>"
+	emote_message_1p_target = SPAN_WARNING("You slap TARGET across the face!")
 	emote_message_1p = "You slap yourself across the face!"
-	emote_message_3p_target = "<span class='warning'>USER slaps TARGET across the face!</span>"
+	emote_message_3p_target = SPAN_WARNING("USER slaps TARGET across the face!")
 	emote_message_3p = "USER slaps USER_SELF across the face!"
 	emote_sound = 'sound/effects/snap.ogg'
 
@@ -240,16 +242,16 @@
 	emote_message_3p = "USER hisses softly."
 
 /singleton/emote/audible/growl
-    key = "growl"
-    emote_message_3p_target = "USER growls at TARGET."
-    emote_message_3p = "USER growls."
-    emote_sound = 'sound/voice/Lizardgrowl.ogg'
+	key = "growl"
+	emote_message_3p_target = "USER growls at TARGET."
+	emote_message_3p = "USER growls."
+	emote_sound = 'sound/voice/lizardgrowl.ogg'
 
 /singleton/emote/audible/hiss/long
-    key = "hiss2"
-    emote_message_3p_target = "USER hisses loudly at TARGET!"
-    emote_message_3p = "USER hisses loudly!"
-    emote_sound = 'sound/voice/lizardhiss2.ogg'
+	key = "hiss2"
+	emote_message_3p_target = "USER hisses loudly at TARGET!"
+	emote_message_3p = "USER hisses loudly!"
+	emote_sound = 'sound/voice/Lizardhiss2.ogg'
 
 /singleton/emote/audible/lizard_bellow
 	key = "bellow"

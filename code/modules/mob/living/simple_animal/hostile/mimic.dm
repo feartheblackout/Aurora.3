@@ -5,9 +5,9 @@
 /mob/living/simple_animal/hostile/mimic
 	name = "crate"
 	desc = "A rectangular steel crate."
-	icon = 'icons/obj/storage.dmi'
-	icon_state = "crate"
-	icon_living = "crate"
+	icon = 'icons/obj/crate.dmi'
+	icon_state = "crate_preview"
+	icon_living = "crate_preview"
 
 	meat_type = /obj/item/reagent_containers/food/snacks/fish/carpmeat
 	organ_names = list("lid", "body")
@@ -38,6 +38,7 @@
 	move_to_delay = 8
 
 	tameable = FALSE
+	sample_data = null
 
 /mob/living/simple_animal/hostile/mimic/FindTarget()
 	. = ..()
@@ -70,10 +71,6 @@
 
 /mob/living/simple_animal/hostile/mimic/crate/DestroySurroundings()
 	..()
-	if(prob(90))
-		icon_state = "[initial(icon_state)]open"
-	else
-		icon_state = initial(icon_state)
 
 /mob/living/simple_animal/hostile/mimic/crate/get_targets()
 	return ..(attempt_open ? world.view : 1)
@@ -87,6 +84,12 @@
 	. = ..()
 	if(.)
 		icon_state = initial(icon_state)
+
+	var/mob/living/L = .
+	if(istype(L))
+		if(prob(15))
+			L.Weaken(2)
+			L.visible_message(SPAN_DANGER("\the [src] knocks down \the [L]!"))
 
 /mob/living/simple_animal/hostile/mimic/crate/proc/trigger()
 	if(!attempt_open)
@@ -112,14 +115,6 @@
 	for(var/obj/O in src)
 		O.forceMove(C)
 	..()
-
-/mob/living/simple_animal/hostile/mimic/crate/AttackingTarget()
-	. =..()
-	var/mob/living/L = .
-	if(istype(L))
-		if(prob(15))
-			L.Weaken(2)
-			L.visible_message("<span class='danger'>\the [src] knocks down \the [L]!</span>")
 
 //
 // Copy Mimic
@@ -188,4 +183,4 @@ var/global/list/protected_objects = list(/obj/structure/table, /obj/structure/ca
 		if(istype(L))
 			if(prob(15))
 				L.Weaken(1)
-				L.visible_message("<span class='danger'>\the [src] knocks down \the [L]!</span>")
+				L.visible_message(SPAN_DANGER("\the [src] knocks down \the [L]!"))

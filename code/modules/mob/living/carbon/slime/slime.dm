@@ -1,5 +1,6 @@
 /mob/living/carbon/slime
 	name = "baby slime"
+	desc = "A slime."
 	icon = 'icons/mob/npc/slimes.dmi'
 	icon_state = "grey baby slime"
 	pass_flags = PASSTABLE
@@ -7,7 +8,7 @@
 	speak_emote = list("chirps")
 	mob_size = 4
 	composition_reagent = /singleton/reagent/slimejelly
-	layer = 5
+	layer = MOB_LAYER
 	maxHealth = 150
 	health = 150
 	gender = NEUTER
@@ -17,7 +18,6 @@
 	nutrition = 700
 	max_nutrition = 1200
 
-	see_in_dark = 8
 	update_slimes = 0
 
 	// canstun and canweaken don't affect slimes because they ignore stun and weakened variables
@@ -72,10 +72,10 @@
 /mob/living/carbon/slime/Initialize(mapload, colour = "grey")
 	. = ..()
 
-	verbs += /mob/living/proc/ventcrawl
+	add_verb(src, /mob/living/proc/ventcrawl)
 
 	add_language(LANGUAGE_TCB)
-	set_default_language(all_languages[LANGUAGE_TCB])
+	src.default_language = GLOB.all_languages[LANGUAGE_TCB]
 
 	src.colour = colour
 	number = rand(1, 1000)
@@ -172,7 +172,7 @@
 	if(health <= 0) // if damaged, the slime moves twice as slow
 		tally *= 2
 
-	return tally + config.slime_delay
+	return tally + GLOB.config.slime_delay
 
 /mob/living/carbon/slime/proc/reset_atkcooldown()
 	Atkcool = FALSE
@@ -202,7 +202,7 @@
 			if(istype(AM, /obj/structure/window) || istype(AM, /obj/structure/grille))
 				if(nutrition <= get_hunger_nutrition() && !Atkcool)
 					if(is_adult || prob(5))
-						UnarmedAttack(AM)
+						INVOKE_ASYNC(src, PROC_REF(UnarmedAttack), AM)
 						Atkcool = TRUE
 						addtimer(CALLBACK(src, PROC_REF(reset_atkcooldown)), 45)
 
@@ -226,22 +226,21 @@
 /mob/living/carbon/slime/Allow_Spacemove()
 	return TRUE
 
-/mob/living/carbon/slime/Stat()
-	..()
+/mob/living/carbon/slime/get_status_tab_items()
+	. = ..()
 
-	statpanel("Status")
-	stat(null, "Health: [round((health / maxHealth) * 100)]%")
-	stat(null, "Intent: [a_intent]")
+	. += "Health: [round((health / maxHealth) * 100)]%"
+	. += "Intent: [a_intent]"
 
 	if(client.statpanel == "Status")
-		stat(null, "Nutrition: [nutrition]/[get_max_nutrition()]")
+		. += "Nutrition: [nutrition]/[get_max_nutrition()]"
 		if(amount_grown >= 5)
 			if(is_adult)
-				stat(null, "You can reproduce!")
+				. += "You can reproduce!"
 			else
-				stat(null, "You can evolve!")
+				. += "You can evolve!"
 
-		stat(null,"Power Level: [powerlevel]")
+		. += "Power Level: [powerlevel]"
 
 /mob/living/carbon/slime/adjustFireLoss(amount)
 	..(-abs(amount)) // Heals them
@@ -253,8 +252,9 @@
 	return FALSE
 
 /mob/living/carbon/slime/emp_act(severity)
+	. = ..()
+
 	powerlevel = 0 // oh no, the power!
-	..()
 
 /mob/living/carbon/slime/ex_act(severity)
 	..()
@@ -358,7 +358,7 @@
 
 			attacked += 10
 			if(prob(90))
-				if(HAS_FLAG(M.mutations, HULK))
+				if((M.mutations & HULK))
 					damage += 5
 					if(victim || target)
 						victim = null
@@ -382,14 +382,14 @@
 				visible_message(SPAN_DANGER("[M] has attempted to punch [src]!"))
 	return
 
-/mob/living/carbon/slime/attackby(obj/item/W, mob/user)
-	if(W.force > 0)
+/mob/living/carbon/slime/attackby(obj/item/attacking_item, mob/user)
+	if(attacking_item.force > 0)
 		attacked += 10
 		if(discipline && prob(50)) // wow, buddy, why am I getting attacked??
 			discipline = FALSE
-	if(W.force >= 3)
+	if(attacking_item.force >= 3)
 		if(is_adult)
-			if(prob(5 + round(W.force/2)))
+			if(prob(5 + round(attacking_item.force/2)))
 				if(victim || target)
 					if(prob(80) && !client)
 						discipline++
@@ -406,14 +406,14 @@
 						if(user)
 							canmove = FALSE
 							step_away(src, user)
-							if(prob(25 + W.force))
+							if(prob(25 + attacking_item.force))
 								sleep(2)
 								if(user)
 									step_away(src, user)
 								canmove = TRUE
 
 		else
-			if(prob(10 + W.force*2))
+			if(prob(10 + attacking_item.force*2))
 				if(victim || target)
 					if(prob(80) && !client)
 						discipline++
@@ -431,7 +431,7 @@
 						if(user)
 							canmove = FALSE
 							step_away(src, user)
-							if(prob(25 + W.force*4))
+							if(prob(25 + attacking_item.force*4))
 								sleep(2)
 								if(user)
 									step_away(src, user)

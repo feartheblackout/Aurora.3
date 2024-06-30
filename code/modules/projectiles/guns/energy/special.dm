@@ -37,7 +37,7 @@
 /obj/item/gun/energy/floragun/afterattack(obj/target, mob/user, adjacent_flag)
 	//allow shooting into adjacent hydrotrays regardless of intent
 	if(adjacent_flag && istype(target,/obj/machinery/portable_atmospherics/hydroponics))
-		user.visible_message("<span class='danger'>\The [user] fires \the [src] into \the [target]!</span>")
+		user.visible_message(SPAN_DANGER("\The [user] fires \the [src] into \the [target]!"))
 		Fire(target,user)
 		return
 	..()
@@ -48,15 +48,17 @@
 	set src in view(1)
 
 	var/genemask = input("Choose a gene to modify.") as null|anything in SSplants.plant_gene_datums
-
 	if(!genemask)
 		return
-
 	gene = SSplants.plant_gene_datums[genemask]
 
 	to_chat(usr, SPAN_INFO("You set \the [src]\s targeted genetic area to [genemask]."))
 
-	return
+/obj/item/gun/energy/floragun/consume_next_projectile()
+	. = ..()
+	if(istype(., /obj/item/projectile/energy/floramut/gene))
+		var/obj/item/projectile/energy/floramut/gene/projectile = .
+		projectile.gene = gene
 
 /obj/item/gun/energy/meteorgun
 	name = "meteor gun"
@@ -124,7 +126,7 @@
 	has_item_ratio = FALSE
 	w_class = ITEMSIZE_NORMAL
 	fire_sound = 'sound/weapons/taser2.ogg'
-	force = 5
+	force = 11
 	projectile_type = /obj/item/projectile/beam/mousegun
 	slot_flags = SLOT_HOLSTER | SLOT_BELT
 	max_shots = 6
@@ -134,7 +136,7 @@
 
 /obj/item/gun/energy/mousegun/handle_post_fire(mob/user, atom/target, var/pointblank=0, var/reflex=0, var/playemote = 1)
 	var/T = get_turf(user)
-	spark(T, 3, alldirs)
+	spark(T, 3, GLOB.alldirs)
 	..()
 
 /obj/item/gun/energy/mousegun/emag_act(var/remaining_charges, var/mob/user)
@@ -198,7 +200,7 @@
 	charge_meter = 0
 	w_class = ITEMSIZE_LARGE
 	fire_sound = 'sound/magic/LightningShock.ogg'
-	force = 30
+	force = 33
 	projectile_type = /obj/item/projectile/energy/bfg
 	slot_flags = SLOT_BACK
 	max_shots = 3
@@ -222,7 +224,7 @@
 	charge_meter = 0
 	slot_flags = SLOT_BACK
 	w_class = ITEMSIZE_LARGE
-	force = 10
+	force = 15
 	projectile_type = /obj/item/projectile/beam/gatlinglaser
 	max_shots = 350
 	sel_mode = 1
@@ -243,16 +245,16 @@
 
 /obj/item/gun/energy/vaurca/gatlinglaser/special_check(var/mob/user)
 	if(is_charging)
-		to_chat(user, "<span class='danger'>\The [src] is already spinning!</span>")
+		to_chat(user, SPAN_DANGER("\The [src] is already spinning!"))
 		return 0
 	if(!wielded)
-		to_chat(user, "<span class='danger'>You cannot fire this weapon with just one hand!</span>")
+		to_chat(user, SPAN_DANGER("You cannot fire this weapon with just one hand!"))
 		return 0
 	playsound(src, 'sound/weapons/saw/chainsawstart.ogg', 90, 1)
 	user.visible_message(
-					"<span class='danger'>\The [user] begins spinning [src]'s barrels!</span>",
-					"<span class='danger'>You begin spinning [src]'s barrels!</span>",
-					"<span class='danger'>You hear the spin of a rotary gun!</span>"
+					SPAN_DANGER("\The [user] begins spinning [src]'s barrels!"),
+					SPAN_DANGER("You begin spinning [src]'s barrels!"),
+					SPAN_DANGER("You hear the spin of a rotary gun!")
 					)
 	is_charging = 1
 	if(!do_after(user, 30))
@@ -281,7 +283,7 @@
 	w_class = ITEMSIZE_NORMAL
 	accuracy = 1
 	recoil = 1
-	force = 10
+	force = 15
 	projectile_type = /obj/item/projectile/energy/blaster/incendiary
 	max_shots = 7
 	burst = 1
@@ -318,7 +320,7 @@
 	edge = TRUE
 	anchored = 0
 	armor_penetration = 40
-	flags = NOBLOODY
+	atom_flags = ATOM_FLAG_NO_BLOOD
 	can_embed = 0
 	self_recharge = 1
 	recharge_time = 2
@@ -337,15 +339,15 @@
 
 /obj/item/gun/energy/vaurca/typec/special_check(var/mob/user)
 	if(is_charging)
-		to_chat(user, "<span class='danger'>\The [src] is already charging!</span>")
+		to_chat(user, SPAN_DANGER("\The [src] is already charging!"))
 		return 0
 	if(!wielded)
-		to_chat(user, "<span class='danger'>You could never fire this weapon with merely one hand!</span>")
+		to_chat(user, SPAN_DANGER("You could never fire this weapon with merely one hand!"))
 		return 0
 	user.visible_message(
-					"<span class='danger'>\The [user] begins charging the [src]!</span>",
-					"<span class='danger'>You begin charging the [src]!</span>",
-					"<span class='danger'>You hear a low pulsing roar!</span>"
+					SPAN_DANGER("\The [user] begins charging the [src]!"),
+					SPAN_DANGER("You begin charging the [src]!"),
+					SPAN_DANGER("You hear a low pulsing roar!")
 					)
 	is_charging = 1
 	if(!do_after(user, 20))
@@ -364,14 +366,14 @@
 		if(H.mob_size >= 30)
 			playsound(user, 'sound/weapons/saberon.ogg', 50, 1)
 			anchored = 1
-			to_chat(user, "<span class='notice'>\The [src] is now energised.</span>")
+			to_chat(user, SPAN_NOTICE("\The [src] is now energised."))
 			icon_state = "megaglaive1"
 			..()
 			return
-		to_chat(user, "<span class='warning'>\The [src] is far too large for you to pick up.</span>")
+		to_chat(user, SPAN_WARNING("\The [src] is far too large for you to pick up."))
 		return
 
-/obj/item/gun/energy/vaurca/typec/dropped(var/mob/user)
+/obj/item/gun/energy/vaurca/typec/dropped(mob/user)
 	..()
 	if(!istype(loc,/mob))
 		playsound(user, 'sound/weapons/saberoff.ogg', 50, 1)
@@ -383,7 +385,8 @@
 
 /obj/item/gun/energy/vaurca/thermaldrill
 	name = "thermal drill"
-	desc = "Pierce the heavens? Son, there won't <i>be</i> any heavens when you're through with it."
+	desc = "A rare and immensely potent drill produced by the K'lax Hive, possessing a self-charging isotropic phoron-accelerated core."
+	desc_extended = "The latest iteration of the infamous K'laxan Thermal Drill, the original design dating back millennia. Produced on Tret and sold primarily to Hephaestus Industries, each of these drills has a self-charging isotropic phoron-accelerated core and is far more expensive than its traditional counterpart as a result. This is a price many seem willing to tolerate when accounting for the potency of the Thermal Drill and the increased yields facilities equipped with one begin to see. A burst of concentrated energy from the Thermal Drill tears through rock and xenoflaura alike as if both were mere paper. The few independent miners that have obtained this tool almost invariably treat it as a prized possession."
 	icon = 'icons/obj/vaurca_items.dmi'
 	icon_state = "thermaldrill"
 	item_state = "thermaldrill"
@@ -392,37 +395,40 @@
 	fire_sound = 'sound/magic/lightningbolt.ogg'
 	slot_flags = SLOT_BACK
 	w_class = ITEMSIZE_LARGE
-	accuracy = 0 // Overwrite just in case.
-	force = 15
+	force = 22
 	projectile_type = /obj/item/projectile/beam/thermaldrill
 	max_shots = 90
-	sel_mode = 1
 	burst = 10
 	burst_delay = 1
 	fire_delay = 20
-	self_recharge = 1
+	self_recharge = TRUE
 	recharge_time = 1
-	charge_meter = 1
+	recharge_multiplier = 5
 	charge_cost = 50
-	can_turret = 1
+	can_turret = TRUE
 	turret_sprite_set = "thermaldrill"
 
+	var/needs_wielding = TRUE
 	is_wieldable = TRUE
 
 	firemodes = list(
 		list(mode_name="2 second burst", burst=10, burst_delay = 1, fire_delay = 20, fire_delay_wielded = 20),
 		list(mode_name="4 second burst", burst=20, burst_delay = 1, fire_delay = 40, fire_delay_wielded = 40),
 		list(mode_name="6 second burst", burst=30, burst_delay = 1, fire_delay = 60, fire_delay_wielded = 60),
-		list(mode_name="point-burst auto", can_autofire = TRUE, burst = 1, fire_delay = 1, fire_delay_wielded = 1, burst_accuracy = list(0,-1,-1,-2,-2,-2,-3,-3), dispersion = list(1.0, 1.0, 1.0, 1.0, 1.2))
-		)
+		list(mode_name="point-burst auto", can_autofire = TRUE, burst = 3, fire_delay = 3, fire_delay_wielded = 3, burst_accuracy = list(0,-1,-1,-2,-2,-2,-3,-3), dispersion = list(1.0, 1.0, 1.0, 1.0, 1.2))
+	)
 
 	needspin = FALSE
 
 /obj/item/gun/energy/vaurca/thermaldrill/special_check(var/mob/user)
+	var/turf/current_turf = get_turf(user)
+	if(isStationLevel(current_turf.z))
+		to_chat(user, SPAN_DANGER("\The [src] cannot be used on the ship!"))
+		return FALSE
 	if(is_charging)
 		to_chat(user, SPAN_DANGER("\The [src] is already charging!"))
 		return FALSE
-	if(!wielded)
+	if(needs_wielding && !wielded)
 		to_chat(user, SPAN_DANGER("You cannot fire this weapon with just one hand!"))
 		return FALSE
 	if(can_autofire)
@@ -433,47 +439,16 @@
 		is_charging = FALSE
 		return FALSE
 	is_charging = FALSE
-	if(user.get_active_hand() != src)
+	if(needs_wielding && user.get_active_hand() != src)
 		return
 	msg_admin_attack("[key_name_admin(user)] shot with \a [src.type] [key_name_admin(src)]'s target (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[src.x];Y=[src.y];Z=[src.z]'>JMP</a>)")
 	return ..()
 
-/obj/item/gun/energy/vaurca/mountedthermaldrill
+/obj/item/gun/energy/vaurca/thermaldrill/mounted
 	name = "mounted thermal drill"
-	desc = "Pierce the heavens? Son, there won't <i>be</i> any heavens when you're through with it."
-	icon = 'icons/obj/vaurca_items.dmi'
-	icon_state = "thermaldrill"
-	item_state = "thermaldrill"
-	has_item_ratio = FALSE
-	origin_tech = list(TECH_COMBAT = 6, TECH_PHORON = 8)
-	fire_sound = 'sound/magic/lightningbolt.ogg'
-	slot_flags = SLOT_BACK
-	w_class = ITEMSIZE_LARGE
-	force = 15
-	projectile_type = /obj/item/projectile/beam/thermaldrill
-	max_shots = 90
-	sel_mode = 1
-	burst = 30
-	burst_delay = 1
-	fire_delay = 20
-	self_recharge = 1
-	recharge_time = 1
-	charge_meter = 1
-	use_external_power = 1
+	needs_wielding = FALSE
+	use_external_power = TRUE
 	charge_cost = 25
-
-/obj/item/gun/energy/vaurca/mountedthermaldrill/special_check(var/mob/user)
-	if(is_charging)
-		to_chat(user, SPAN_WARNING("\The [src] is already charging!"))
-		return FALSE
-	user.visible_message(SPAN_DANGER("\The [user] begins charging \the [src]!"), SPAN_DANGER("You begin charging \the [src]!"), SPAN_DANGER("You hear a low pulsing roar!"))
-	is_charging = TRUE
-	if(!do_after(user, 2 SECONDS))
-		is_charging = FALSE
-		return FALSE
-	is_charging = FALSE
-	msg_admin_attack("[key_name_admin(user)] shot with \a [src.type] [key_name_admin(src)]'s target (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[src.x];Y=[src.y];Z=[src.z]'>JMP</a>)",ckey=key_name(user),ckey_target=key_name(src))
-	return ..()
 
 /obj/item/gun/energy/vaurca/tachyon
 	name = "tachyon carbine"
@@ -500,7 +475,7 @@
 	charge_meter = 0
 	w_class = ITEMSIZE_LARGE
 	fire_sound = 'sound/magic/LightningShock.ogg'
-	force = 30
+	force = 33
 	projectile_type = /obj/item/projectile/beam/tesla
 	slot_flags = SLOT_BACK
 	max_shots = 3
@@ -526,7 +501,7 @@
 	charge_meter = 0
 	w_class = ITEMSIZE_LARGE
 	fire_sound = 'sound/magic/Repulse.ogg'
-	force = 30
+	force = 33
 	projectile_type = /obj/item/projectile/energy/gravitydisabler
 	slot_flags = SLOT_BACK
 	max_shots = 2
@@ -534,3 +509,166 @@
 	fire_delay = 20
 	accuracy = 40
 	muzzle_flash = 10
+
+/obj/item/laserpack
+	name = "galatean bioelectrical reactor backpack"
+	desc = "An ominously-thrumming backpack-mounted machine, powering an O61 Infantry Laser Rifle."
+	icon = 'icons/obj/guns/galatea_laser.dmi'
+	icon_state = "laserpack_holstered"
+	item_state = "laserpack_holstered"
+	contained_sprite = 1
+	w_class = ITEMSIZE_LARGE
+	slot_flags = SLOT_BACK
+	origin_tech = list(TECH_COMBAT = 8, TECH_MATERIAL = 6, TECH_MAGNET = 4, TECH_ILLEGAL = 7)
+	action_button_name = "Deploy the Laser Rifle"
+
+	var/obj/item/gun/energy/galatea/gun
+	var/armed = FALSE
+
+/obj/item/laserpack/update_icon() // all credit to alb for minigun code, which this is
+	..()
+	if(armed)
+		icon_state = "laserpack"
+		item_state = "laserpack"
+	else
+		icon_state = "laserpack_holstered"
+		item_state = "laserpack_holstered"
+
+/obj/item/laserpack/Initialize() // add a gun to the pack
+	. = ..()
+	gun = make_gun()
+	gun.source = src
+	gun.forceMove(src)
+
+/obj/item/laserpack/proc/make_gun()
+	return new /obj/item/gun/energy/galatea()
+
+/obj/item/laserpack/ui_action_click()
+	if(src in usr)
+		toggle_lasergun()
+
+/obj/item/laserpack/verb/toggle_lasergun() // ui button and a verb
+	set name = "Deploy the Laser Rifle"
+	set category = "Object"
+	var/mob/living/carbon/human/user
+	if(ishuman(user))
+		user = usr
+	else
+		return
+
+	if(!user)
+		return
+
+	if (user.back!= src)
+		to_chat(user, SPAN_WARNING("\The [src] must be worn to deploy \the [gun]!"))
+		return
+
+	if(use_check_and_message(user))
+		return
+
+	if(!gun)
+		to_chat(user, SPAN_WARNING("There is no weapon attached to the \the [src]!"))
+
+	if(armed)
+		to_chat(user, SPAN_WARNING("\The [src] has been already deployed!"))
+
+	else
+		if(!user.put_in_hands(gun))
+			to_chat(user, SPAN_WARNING("You need a free hand to hold \the [gun]!"))
+			return
+
+		armed = TRUE
+		update_icon()
+		user.update_inv_back()
+
+/obj/item/laserpack/equipped(mob/user, slot)
+	..()
+	if(slot != slot_back) // if we're not wearing it, remove it
+		remove_gun()
+		user.update_inv_back()
+
+/obj/item/laserpack/proc/remove_gun()
+	if(!gun)
+		return
+	if(ismob(gun.loc))
+		var/mob/M = gun.loc
+		if(M.drop_from_inventory(gun, src))
+			update_icon()
+	else
+		gun.forceMove(src)
+		update_icon()
+
+	armed = FALSE
+	return
+
+/obj/item/laserpack/Destroy()
+	if(gun)
+		QDEL_NULL(gun)
+	return ..()
+
+/obj/item/laserpack/attackby(obj/item/attacking_item, mob/user, params) // if you hit the pack with the gun, "stow" it
+	if(use_check_and_message(user) && attacking_item == gun)
+		remove_gun()
+		update_icon()
+		user.update_inv_back()
+		return TRUE
+	else
+		return ..()
+
+/obj/item/gun/energy/galatea
+	name = "galatean laser rifle"
+	desc = "The Galatean O61-B, an export model of their advanced Mark 61 Infantry Rifle."
+	desc_extended = "Galatean soldiers are heavily bioaugmented, combining soldier and weapon into a cohesive unit. The Mark 61 Infantry Rifle is one such example, drawing on the bioelectricity of the human body \
+	through an implant with which to power the gun. Unaugmented users complained of headaches, lethargy, and impossible dreams; The O61B has integrated the bioaugments into the firing mechanism, preventing 'baselines' \
+	from even using it. Luckily, this is an export version, the O61-B, which allows foreign users a taste of advanced Technocracy weaponry for the low price of a single bioaugment."
+	icon = 'icons/obj/guns/galatea_laser.dmi'
+	icon_state = "galatealaser"
+	item_state = "galatealaser"
+	slot_flags = 0
+	has_icon_ratio = FALSE
+	has_item_ratio = FALSE
+	fire_sound = 'sound/weapons/laser3.ogg'
+	needspin = FALSE
+	origin_tech = null
+	charge_meter = FALSE
+	projectile_type = /obj/item/projectile/beam/xray // can't wear a hardsuit, and it's only 15 damage with a lot of AP
+	charge_cost = 100
+	max_shots = 20
+	self_recharge = 1 // bioreactor in the backpack; not entirely defenseless against EMPs
+	fire_delay = 35
+	burst_delay = 2
+	can_turret = 0
+
+	is_wieldable = TRUE
+
+	fire_delay_wielded = 10
+	accuracy_wielded = 0
+
+	var/obj/item/laserpack/source
+
+
+/obj/item/gun/energy/galatea/dropped(mob/user) // the gun is part of the backpack; prevent weirdness
+	..()
+	if(source)
+		to_chat(user, SPAN_NOTICE("\The [src] snaps back onto \the [source]"))
+		INVOKE_ASYNC(source, TYPE_PROC_REF(/obj/item/laserpack, remove_gun))
+		source.update_icon()
+		user.update_inv_back()
+
+/obj/item/gun/energy/galatea/Move()
+	..()
+	if(loc != source.loc)
+		INVOKE_ASYNC(source, TYPE_PROC_REF(/obj/item/laserpack, remove_gun)) // prevent even weirder shit
+
+/obj/item/gun/energy/galatea/special_check(var/mob/user) // if you don't have the implant, you get one shot before you get floored (thanks matt)
+	var/obj/item/implant/export_lasgun/E = locate() in user
+	if(E)
+		return TRUE
+	else
+		var/pain_message = pick("All the energy leaves your body with a sickening 'crack'!",
+								"You collapse, like a puppet with its strings cut!",
+								"You're forced to your knees, vision swimming!")
+
+		to_chat(user, SPAN_WARNING("[pain_message]"))
+		user.Weaken(10)
+		return TRUE

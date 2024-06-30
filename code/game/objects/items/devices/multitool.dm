@@ -12,8 +12,8 @@
 	item_state = "multitool"
 	item_icons = null
 	contained_sprite = TRUE
-	flags = CONDUCT
-	force = 5.0
+	obj_flags = OBJ_FLAG_CONDUCTABLE
+	force = 11
 	w_class = ITEMSIZE_SMALL
 	throwforce = 5.0
 	throw_range = 15
@@ -21,7 +21,7 @@
 	drop_sound = 'sound/items/drop/multitool.ogg'
 	pickup_sound = 'sound/items/pickup/multitool.ogg'
 
-	matter = list(DEFAULT_WALL_MATERIAL = 50, MATERIAL_GLASS = 20)
+	matter = list(MATERIAL_PLASTIC = 50, MATERIAL_GLASS = 20, DEFAULT_WALL_MATERIAL = 5)
 
 	origin_tech = list(TECH_MAGNET = 1, TECH_ENGINEERING = 1)
 
@@ -65,14 +65,14 @@
 			unregister_buffer(buffer_object)
 			buffer_object = buffer
 			if(buffer_object)
-				destroyed_event.register(buffer_object, src, PROC_REF(unregister_buffer))
+				GLOB.destroyed_event.register(buffer_object, src, PROC_REF(unregister_buffer))
 		update_icon()
 
 /obj/item/device/multitool/proc/unregister_buffer(var/atom/buffer_to_unregister)
 	// Only remove the buffered object, don't reset the name
 	// This means one cannot know if the buffer has been destroyed until one attempts to use it.
 	if(buffer_to_unregister == buffer_object && buffer_object)
-		destroyed_event.unregister(buffer_object, src)
+		GLOB.destroyed_event.unregister(buffer_object, src)
 		buffer_object = null
 		update_icon()
 
@@ -93,42 +93,45 @@
 	interact(user)
 
 /obj/item/device/multitool/interact(mob/user)
-	var/datum/vueui/ui = SSvueui.get_open_ui(user, src)
+	ui_interact(user)
+
+/obj/item/device/multitool/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "devices-multitool", 300, 250, capitalize_first_letters(name), state = inventory_state)
-	ui.open()
+		ui = new(user, src, "Multitool", "Multitool", 300, 250)
+		ui.open()
 
-/obj/item/device/multitool/vueui_data_change(var/list/data, var/mob/user, var/datum/vueui/ui)
-	if(!data)
-		data = list()
+/obj/item/device/multitool/ui_data(mob/user)
+	var/list/data = list()
 
-	VUEUI_SET_CHECK(data["tracking_apc"], tracking_apc, ., data)
+	data["tracking_apc"] = tracking_apc
 
-	VUEUI_SET_CHECK(data["has_selected_io"], !isnull(selected_io), ., data)
 	if(selected_io)
-		VUEUI_SET_CHECK(data["selected_io_name"], selected_io.name, ., data)
-		VUEUI_SET_CHECK(data["selected_io_type"], selected_io.io_type, ., data)
+		data["selected_io"] = list("name" = selected_io.name, "type" = selected_io.io_type)
+	return data
 
-/obj/item/device/multitool/Topic(href, href_list)
+/obj/item/device/multitool/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	if(.)
 		return TRUE
 
-	if(href_list["track_apc"])
-		tracking_apc = !tracking_apc
-		if(tracking_apc)
-			START_PROCESSING(SSprocessing, src)
-			apc_indicator = mutable_appearance(icon, "lost")
-			add_overlay(apc_indicator)
-		else
-			STOP_PROCESSING(SSprocessing, src)
-			QDEL_NULL(apc_indicator)
+	switch(action)
+		if("track_apc")
+			tracking_apc = !tracking_apc
+			if(tracking_apc)
+				START_PROCESSING(SSprocessing, src)
+				apc_indicator = mutable_appearance(icon, "lost")
+				AddOverlays(apc_indicator)
+			else
+				STOP_PROCESSING(SSprocessing, src)
+				QDEL_NULL(apc_indicator)
+			. = TRUE
 
-	if(href_list["clear_io"])
-		selected_io = null
+		if("clear_io")
+			selected_io = null
+			. = TRUE
 
 	update_icon()
-	SSvueui.check_uis_for_change(src)
 
 /obj/item/device/multitool/update_icon()
 	if(tracking_apc)
@@ -166,45 +169,45 @@
 				apc_indicator.icon_state = "medium"
 			if(16 to INFINITY)
 				apc_indicator.icon_state = "far"
-	set_overlays(apc_indicator)
+	SetOverlays(apc_indicator)
 
 /obj/item/device/multitool/proc/wire(datum/integrated_io/io, mob/user)
 	if(!io.holder.assembly)
-		to_chat(user, "<span class='warning'>\The [io.holder] needs to be secured inside an assembly first.</span>")
+		to_chat(user, SPAN_WARNING("\The [io.holder] needs to be secured inside an assembly first."))
 		return
 
 	if(selected_io)
 		if(io == selected_io)
-			to_chat(user, "<span class='warning'>Wiring \the [selected_io.holder]'s '[selected_io.name]' pin into itself is rather pointless.</span>")
+			to_chat(user, SPAN_WARNING("Wiring \the [selected_io.holder]'s '[selected_io.name]' pin into itself is rather pointless."))
 			return
 		if(io.io_type != selected_io.io_type)
-			to_chat(user, "<span class='warning'>Those two types of channels are incompatable.  The first is a [selected_io.io_type], \
-			while the second is a [io.io_type].</span>")
+			to_chat(user, SPAN_WARNING("Those two types of channels are incompatable.  The first is a [selected_io.io_type], \
+			while the second is a [io.io_type]."))
+
 			return
 		if(io.holder.assembly && io.holder.assembly != selected_io.holder.assembly)
-			to_chat(user, "<span class='warning'>Both \the [io.holder] and \the [selected_io.holder] need to be inside the same assembly.</span>")
+			to_chat(user, SPAN_WARNING("Both \the [io.holder] and \the [selected_io.holder] need to be inside the same assembly."))
 			return
 		selected_io.linked |= io
 		io.linked |= selected_io
 
-		to_chat(user, "<span class='notice'>You connect \the [selected_io.holder]'s '[selected_io.name]' pin to \the [io.holder]'s '[io.name]' pin.</span>")
+		to_chat(user, SPAN_NOTICE("You connect \the [selected_io.holder]'s '[selected_io.name]' pin to \the [io.holder]'s '[io.name]' pin."))
 		selected_io.holder.interact(user) // This is to update the UI.
 		selected_io = null
 
 	else
 		selected_io = io
-		to_chat(user, "<span class='notice'>You link \the multitool to \the [selected_io.holder]'s [selected_io.name] data channel.</span>")
+		to_chat(user, SPAN_NOTICE("You link \the multitool to \the [selected_io.holder]'s [selected_io.name] data channel."))
 
 	update_icon()
-	SSvueui.check_uis_for_change(src)
 
 /obj/item/device/multitool/proc/unwire(datum/integrated_io/io1, datum/integrated_io/io2, mob/user)
 	if(!io1.linked.len || !io2.linked.len)
-		to_chat(user, "<span class='warning'>There is nothing connected to the data channel.</span>")
+		to_chat(user, SPAN_WARNING("There is nothing connected to the data channel."))
 		return
 
 	if(!(io1 in io2.linked) || !(io2 in io1.linked) )
-		to_chat(user, "<span class='warning'>These data pins aren't connected!</span>")
+		to_chat(user, SPAN_WARNING("These data pins aren't connected!"))
 		return
 	else
 		io1.linked.Remove(io2)

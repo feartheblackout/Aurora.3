@@ -15,7 +15,7 @@
 	battery_module.charge_to_full()
 
 /obj/item/modular_computer/handheld/preset/generic
-	enrolled = 0
+	enrolled = DEVICE_UNSET
 
 /obj/item/modular_computer/handheld/preset/civilian
 	_app_preset_type = /datum/modular_computer_app_presets/civilian
@@ -134,6 +134,9 @@
 	_app_preset_type = /datum/modular_computer_app_presets/security/hos
 
 // Command / Misc
+
+/obj/item/modular_computer/handheld/preset/bridge
+	_app_preset_type = /datum/modular_computer_app_presets/bridge
 
 /obj/item/modular_computer/handheld/preset/command
 	_app_preset_type = /datum/modular_computer_app_presets/command

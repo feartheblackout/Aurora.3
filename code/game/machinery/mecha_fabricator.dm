@@ -1,29 +1,13 @@
 /obj/machinery/mecha_part_fabricator
 	name = "mechatronic fabricator"
 	desc = "A general purpose fabricator that can be used to fabricate robotic equipment."
-	icon = 'icons/obj/robotics.dmi'
-	icon_state = "fab-idle"
+	icon = 'icons/obj/machinery/robotics.dmi'
+	icon_state = "fab-base"
 	density = TRUE
 	anchored = TRUE
 	idle_power_usage = 20
 	active_power_usage = 5000
-	req_access = list(access_robotics)
-
-	var/speed = 1
-	var/mat_efficiency = 1
-	var/list/materials = list(DEFAULT_WALL_MATERIAL = 0, MATERIAL_GLASS = 0, MATERIAL_GOLD = 0, MATERIAL_SILVER = 0, MATERIAL_DIAMOND = 0, MATERIAL_PHORON = 0, MATERIAL_URANIUM = 0)
-	var/res_max_amount = 200000
-
-	var/datum/research/files
-	var/list/datum/design/queue = list()
-	var/progress = 0
-	var/busy = 0
-
-	var/list/categories = list()
-	var/category = null
-	var/manufacturer = null
-	var/sync_message = ""
-
+	req_access = list(ACCESS_ROBOTICS)
 	component_types = list(
 		/obj/item/circuitboard/mechfab,
 		/obj/item/stock_parts/matter_bin = 2,
@@ -32,33 +16,48 @@
 		/obj/item/stock_parts/console_screen
 	)
 
+	/**
+	 * A `/list` of enqueued `/datum/design` to be printed, processed in the queue
+	 */
+	var/list/datum/design/queue = list()
+
+	/**
+	 * How much efficient (or inefficient) the protolathe is at manufacturing things
+	 */
+	var/mat_efficiency = 1
+
+	/**
+	 * The production speed of this specific protolathe, a factor
+	 */
+	var/production_speed = 1
+
+	var/list/materials = list(DEFAULT_WALL_MATERIAL = 0, MATERIAL_GLASS = 0, MATERIAL_GOLD = 0, MATERIAL_SILVER = 0, MATERIAL_DIAMOND = 0, MATERIAL_PHORON = 0, MATERIAL_URANIUM = 0)
+	var/res_max_amount = 200000
+
+	var/datum/research/files
+
+	var/list/categories = list()
+	var/category = null
+	var/sync_message = ""
+	var/limb_manufacturer
+
+	///The timer id for the build callback, if we're building something
+	var/build_callback_timer
+
 /obj/machinery/mecha_part_fabricator/Initialize()
 	. = ..()
 
 	files = new /datum/research(src) //Setup the research data holder.
-	manufacturer = basic_robolimb.company
+	limb_manufacturer = GLOB.basic_robolimb.company
 	update_categories()
 
-/obj/machinery/mecha_part_fabricator/process()
-	..()
-	if(stat)
-		return
-	if(busy)
-		update_use_power(POWER_USE_ACTIVE)
-		progress += speed
-		check_build()
-	else
-		update_use_power(POWER_USE_IDLE)
-	update_icon()
-
 /obj/machinery/mecha_part_fabricator/update_icon()
-	cut_overlays()
+	ClearOverlays()
+	icon_state = "fab-base"
+	if(build_callback_timer)
+		AddOverlays("fab-active")
 	if(panel_open)
-		icon_state = "fab-o"
-	else
-		icon_state = "fab-idle"
-	if(busy)
-		add_overlay("fab-active")
+		AddOverlays("fab-panel")
 
 /obj/machinery/mecha_part_fabricator/dismantle()
 	for(var/f in materials)
@@ -78,7 +77,7 @@
 
 	for(var/obj/item/stock_parts/micro_laser/M in component_parts) // Not resetting T is intended; speed is affected by both
 		T += M.rating
-	speed = T / 2 // 1 -> 3
+	production_speed = T / 2 // 1 -> 3
 
 /obj/machinery/mecha_part_fabricator/attack_hand(var/mob/user)
 	if(..())
@@ -99,18 +98,26 @@
 	data["buildable"] = get_build_options()
 	data["category"] = category
 	data["categories"] = categories
-	if(fabricator_robolimbs)
+
+	if(GLOB.fabricator_robolimbs)
 		var/list/T = list()
-		for(var/A in fabricator_robolimbs)
-			var/datum/robolimb/R = fabricator_robolimbs[A]
+		for(var/A in GLOB.fabricator_robolimbs)
+			var/datum/robolimb/R = GLOB.fabricator_robolimbs[A]
 			T += list(list("id" = A, "company" = R.company))
 		data["manufacturers"] = T
-		data["manufacturer"] = manufacturer
+		data["manufacturer"] = limb_manufacturer
+
 	data["materials"] = get_materials()
 	data["maxres"] = res_max_amount
 	data["sync"] = sync_message
+
+	//If we have something in the queue that we're trying to build, show the time left if the build is undergoing, otherwise null
+	//the logic of displaying it is handled client-side
 	if(current)
-		data["builtperc"] = round((progress / current.time) * 100)
+		if(build_callback_timer)
+			data["timeleft"] = round(timeleft(build_callback_timer))
+		else
+			data["timeleft"] = null
 
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if(!ui)
@@ -135,8 +142,8 @@
 			category = href_list["category"]
 
 	if(href_list["manufacturer"])
-		if(href_list["manufacturer"] in fabricator_robolimbs)
-			manufacturer = href_list["manufacturer"]
+		if(href_list["manufacturer"] in GLOB.fabricator_robolimbs)
+			limb_manufacturer = href_list["manufacturer"]
 
 	if(href_list["eject"])
 		eject_materials(href_list["eject"], text2num(href_list["amount"]))
@@ -148,21 +155,21 @@
 
 	return 1
 
-/obj/machinery/mecha_part_fabricator/attackby(var/obj/item/I, var/mob/user)
-	if(busy)
+/obj/machinery/mecha_part_fabricator/attackby(obj/item/attacking_item, mob/user)
+	if(build_callback_timer)
 		to_chat(user, SPAN_NOTICE("\The [src] is busy. Please wait for completion of previous operation."))
 		return TRUE
-	if(default_deconstruction_screwdriver(user, I))
+	if(default_deconstruction_screwdriver(user, attacking_item))
 		return TRUE
-	if(default_deconstruction_crowbar(user, I))
+	if(default_deconstruction_crowbar(user, attacking_item))
 		return TRUE
-	if(default_part_replacement(user, I))
+	if(default_part_replacement(user, attacking_item))
 		return TRUE
 
-	if(!istype(I, /obj/item/stack/material))
+	if(!istype(attacking_item, /obj/item/stack/material))
 		return ..()
 
-	var/obj/item/stack/material/M = I
+	var/obj/item/stack/material/M = attacking_item
 	if(!M.material)
 		return ..()
 	if(!(M.material.name in list(MATERIAL_STEEL, MATERIAL_GLASS, MATERIAL_GOLD, MATERIAL_SILVER, MATERIAL_DIAMOND, MATERIAL_PHORON, MATERIAL_URANIUM)))
@@ -173,21 +180,23 @@
 	if(materials[M.material.name] + M.perunit <= res_max_amount)
 		if(M.amount >= 1)
 			var/count = 0
-
-			add_overlay("fab-load-[M.material.name]")
-			CUT_OVERLAY_IN("fab-load-[M.material.name]", 6)
+			var/icon/load = icon(icon, "load")
+			load.Blend(M.material.icon_colour,ICON_MULTIPLY)
+			AddOverlays(load)
+			CUT_OVERLAY_IN(load, 6)
 
 			while(materials[M.material.name] + M.perunit <= res_max_amount && M.amount >= 1)
 				materials[M.material.name] += M.perunit
 				M.use(1)
 				count++
 			to_chat(user, SPAN_NOTICE("You insert [count] [sname] into \the [src]."))
-			update_busy()
+
 	else
 		to_chat(user, SPAN_NOTICE("\The [src] cannot hold more [sname]."))
 	return TRUE
 
-/obj/machinery/mecha_part_fabricator/MouseDrop_T(mob/living/carbon/human/target as mob, mob/user as mob)
+/obj/machinery/mecha_part_fabricator/MouseDrop_T(atom/dropping, mob/user)
+	var/mob/living/carbon/human/target = dropping
 	if (!istype(target) || target.buckled_to || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.stat || istype(user, /mob/living/silicon/ai))
 		return
 	if(target == user)
@@ -203,12 +212,12 @@
 			if(protection && (protection.flags_inv & BLOCKHAIR))
 				return
 
-		var/datum/sprite_accessory/hair/hair_style = hair_styles_list[target.h_style]
+		var/datum/sprite_accessory/hair/hair_style = GLOB.hair_styles_list[target.h_style]
 		if(hair_style.length < 4)
 			return
 
 		user.visible_message(SPAN_WARNING("[user] starts feeding [target]'s hair into \the [src]!"), SPAN_WARNING("You start feeding [target]'s hair into \the [src]!"))
-		if(!do_after(usr, 50))
+		if(!do_after(user, 5 SECONDS, target, DO_UNIQUE))
 			return
 		if(target_loc != target.loc)
 			return
@@ -220,7 +229,7 @@
 			msg_admin_attack("[key_name_admin(user)] fed [key_name_admin(target)] in a [src]. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)",ckey=key_name(user),ckey_target=key_name(target))
 		else
 			return
-		if(!do_after(usr, 35))
+		if(!do_after(user, 3.5 SECONDS, target, DO_UNIQUE))
 			return
 		if(target_loc != target.loc)
 			return
@@ -240,7 +249,7 @@
 			sleep(15)
 			visible_message("[icon2html(src, viewers(get_turf(src)))] <b>[src]</b> beeps: \"User DB corrupted \[Code 0x00FA\]. Truncating data structure...\"")
 			sleep(30)
-			visible_message("[icon2html(src, viewers(get_turf(src)))] <b>[src]</b> beeps: \"User DB truncated. Please contact your [current_map.company_name] system operator for future assistance.\"")
+			visible_message("[icon2html(src, viewers(get_turf(src)))] <b>[src]</b> beeps: \"User DB truncated. Please contact your [SSatlas.current_map.company_name] system operator for future assistance.\"")
 			req_access = null
 			emagged = 1
 			return 1
@@ -249,27 +258,70 @@
 		if(1)
 			visible_message("[icon2html(src, viewers(get_turf(src)))] <b>[src]</b> beeps: \"No records in User DB\"")
 
-/obj/machinery/mecha_part_fabricator/proc/update_busy()
-	if(queue.len)
-		if(can_build(queue[1]))
-			busy = 1
-		else
-			busy = 0
-	else
-		busy = 0
-
-/obj/machinery/mecha_part_fabricator/proc/add_to_queue(var/path)
+/**
+ * Adds a design to the queue
+ *
+ * * path: The path of the design to add
+ */
+/obj/machinery/mecha_part_fabricator/proc/add_to_queue(path)
 	var/datum/design/D = files.known_designs[path]
 	if(!D)
 		return
 	queue += D
-	update_busy()
 
-/obj/machinery/mecha_part_fabricator/proc/remove_from_queue(var/index)
-	if(index == 1)
-		progress = 0
+	//Wake up, we have things to do
+	handle_queue()
+
+/**
+ * Removes a design from the queue
+ *
+ * * index: The index of the design to remove
+ */
+/obj/machinery/mecha_part_fabricator/proc/remove_from_queue(index)
 	queue.Cut(index, index + 1)
-	update_busy()
+
+	//If we're removing the first thing in the queue, stop the build timer
+	if(index == 1)
+		deltimer(build_callback_timer)
+		build_callback_timer = null
+
+	//Wake up, we have things to do
+	handle_queue()
+
+/**
+ * Handle the construction queue
+ */
+/obj/machinery/mecha_part_fabricator/proc/handle_queue()
+
+	//No work to do or already busy, stop
+	if(!length(queue) || build_callback_timer)
+		//If we don't have a build in progress, revert to idle power usage
+		if(!build_callback_timer)
+			update_use_power(POWER_USE_IDLE)
+
+		update_icon()
+		return
+
+	//If there's no power, there's no building
+	if(stat & NOPOWER)
+		queue = list()
+		return
+
+	//Get the first design in the queue
+	var/datum/design/D = queue[1]
+
+	//If we can build it, process the request
+	if(can_build(D))
+		update_use_power(POWER_USE_ACTIVE)
+
+		//Add the callback timer for printing, and remove the design from the queue
+		build_callback_timer = addtimer(CALLBACK(src, PROC_REF(build), D), (D.time / production_speed), TIMER_UNIQUE|TIMER_STOPPABLE)
+		//No queue removal here because we show how long it takes to build in the UI
+
+	else
+		visible_message(SPAN_NOTICE("[icon2html(src, viewers(get_turf(src)))] \The [src] flashes: Insufficient materials to complete build: [D.name]."))
+
+	update_icon()
 
 /obj/machinery/mecha_part_fabricator/proc/can_build(var/datum/design/D)
 	for(var/M in D.materials)
@@ -277,30 +329,33 @@
 			return 0
 	return 1
 
-/obj/machinery/mecha_part_fabricator/proc/check_build()
-	if(!queue.len)
-		progress = 0
-		return
-	var/datum/design/D = queue[1]
-	if(!can_build(D))
-		progress = 0
-		return
-	if(D.time > progress)
-		return
-	for(var/M in D.materials)
-		materials[M] = max(0, materials[M] - D.materials[M] * mat_efficiency)
+/**
+ * Builds the given design, assuming all the necessary conditions are met
+ *
+ * * design_to_build: The design to build
+ */
+/obj/machinery/mecha_part_fabricator/proc/build(datum/design/design_to_build)
+	//Consume the materials
+	for(var/M in design_to_build.materials)
+		materials[M] = max(0, materials[M] - design_to_build.materials[M] * mat_efficiency)
 
 	intent_message(MACHINE_SOUND)
 
-	if(D.build_path)
+	if(design_to_build.build_path)
 		var/loc_offset = get_step(src, dir)
-		var/obj/new_item = D.Fabricate(loc_offset, src)
+		var/obj/new_item = design_to_build.Fabricate(loc_offset, src)
 		visible_message("\The <b>[src]</b> pings, indicating that \the [new_item] is complete.", "You hear a ping.", intent_message = PING_SOUND)
 		if(mat_efficiency != 1)
 			if(new_item.matter && new_item.matter.len > 0)
 				for(var/i in new_item.matter)
 					new_item.matter[i] = new_item.matter[i] * mat_efficiency
+
+	//We finished building, clear the timer and remove the thing from the queue
+	build_callback_timer = null
 	remove_from_queue(1)
+
+	//Do the queue handling for the next item, or to stop
+	handle_queue()
 
 /obj/machinery/mecha_part_fabricator/proc/get_queue_names()
 	. = list()
@@ -323,7 +378,7 @@
 	return english_list(F, and_text = ", ")
 
 /obj/machinery/mecha_part_fabricator/proc/get_design_time(var/datum/design/D)
-	return time2text(round(10 * D.time / speed), "mm:ss")
+	return time2text(round(10 * D.time / production_speed), "mm:ss")
 
 /obj/machinery/mecha_part_fabricator/proc/update_categories()
 	categories = list()
@@ -343,25 +398,10 @@
 /obj/machinery/mecha_part_fabricator/proc/eject_materials(var/material, var/amount) // 0 amount = 0 means ejecting a full stack; -1 means eject everything
 	var/recursive = amount == -1 ? 1 : 0
 	material = lowertext(material)
-	var/mattype
-	switch(material)
-		if(MATERIAL_STEEL)
-			mattype = /obj/item/stack/material/steel
-		if(MATERIAL_GLASS)
-			mattype = /obj/item/stack/material/glass
-		if(MATERIAL_GOLD)
-			mattype = /obj/item/stack/material/gold
-		if(MATERIAL_SILVER)
-			mattype = /obj/item/stack/material/silver
-		if(MATERIAL_DIAMOND)
-			mattype = /obj/item/stack/material/diamond
-		if(MATERIAL_PHORON)
-			mattype = /obj/item/stack/material/phoron
-		if(MATERIAL_URANIUM)
-			mattype = /obj/item/stack/material/uranium
-		else
-			return
-	var/obj/item/stack/material/S = new mattype(loc)
+	var/material/mattype = SSmaterials.get_material_by_name(material)
+	var/stack_type = mattype.stack_type
+
+	var/obj/item/stack/material/S = new stack_type(loc)
 	if(amount <= 0)
 		amount = S.max_amount
 	var/ejected = min(round(materials[material] / S.perunit), amount)
@@ -372,7 +412,6 @@
 	materials[material] -= ejected * S.perunit
 	if(recursive && materials[material] >= S.perunit)
 		eject_materials(material, -1)
-	update_busy()
 
 /obj/machinery/mecha_part_fabricator/proc/sync()
 	sync_message = "Error: no console found."

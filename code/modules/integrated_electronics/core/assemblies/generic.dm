@@ -195,28 +195,31 @@
 	if(get_dist(on_wall,user) > 1)
 		return
 	var/ndir = get_dir(on_wall, user)
-	if(!(ndir in cardinal))
+	if(!(ndir in GLOB.cardinal))
 		return
 	var/turf/T = get_turf(user)
 	if(!istype(T, /turf/simulated/floor))
-		to_chat(user, "<span class='warning'>You cannot place \the [src] on this spot!</span>")
+		to_chat(user, SPAN_WARNING("You cannot place \the [src] on this spot!"))
 		return
 	playsound(src.loc, 'sound/machines/click.ogg', 75, 1)
 	user.visible_message("\The [user] attaches \the [src] to the wall.",
-		"<span class='notice'>You attach \the [src] to the wall.</span>",
+		SPAN_NOTICE("You attach \the [src] to the wall."),
 		"<span class='italics'>You hear clicking.</span>")
 	if(isrobot(user)) //Robots cannot unequip/drop items, for Safety Reasons.
 		forceMove(T)
 	user.drop_item(T)
 	anchored = TRUE
 	on_anchored()
-	pixel_x = DIR2PIXEL_X(ndir)
-	pixel_y = DIR2PIXEL_Y(ndir)
+	set_pixel_offsets()
 
 /obj/item/device/electronic_assembly/wallmount/on_unanchored()
 	pixel_x = 0
 	pixel_y = 0
 	..()
+
+/obj/item/device/electronic_assembly/wallmount/set_pixel_offsets()
+	pixel_x = DIR2PIXEL_X(dir)
+	pixel_y = DIR2PIXEL_Y(dir)
 
 /obj/item/device/electronic_assembly/wallmount/heavy
 	name = "heavy wall-mounted electronic assembly"

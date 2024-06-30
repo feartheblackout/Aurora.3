@@ -13,8 +13,14 @@
 	desc = "A small wrapped package."
 	w_class = ITEMSIZE_NORMAL
 
-	var/power = 1  /*Size of the explosion.*/
+	///Size of the explosion
+	var/power = 1
+
+	///Used for the icon
 	var/size = "small"  /*Used for the icon, this one will make c-4small_0 for the off state.*/
+
+	///The detonator that makes this C4 charge explode
+	var/obj/item/syndie/c4detonator/detonator = null
 
 /obj/item/syndie/c4explosive/heavy
 	icon_state = "c-4large_0"
@@ -23,20 +29,26 @@
 	power = 2
 	size = "large"
 
-/obj/item/syndie/c4explosive/New()
+/obj/item/syndie/c4explosive/Initialize()
+	. = ..()
+
 	var/K = rand(1,2000)
 	K = md5(num2text(K)+name)
 	K = copytext(K,1,7)
 	src.desc += "\n You see [K] engraved on \the [src]."
-	var/obj/item/syndie/c4detonator/detonator = new(src.loc)
+	detonator = new(src.loc)
 	detonator.desc += "\n You see [K] engraved on the lighter."
 	detonator.bomb = src
+
+/obj/item/syndie/c4explosive/Destroy()
+	. = ..()
+	QDEL_NULL(detonator)
 
 /obj/item/syndie/c4explosive/proc/detonate()
 	icon_state = "c-4[size]_1"
 	spawn(50)
 		explosion(get_turf(src), power, power*2, power*3, power*4, power*4)
-		for(var/dirn in cardinal)		//This is to guarantee that C4 at least breaks down all immediately adjacent walls and doors.
+		for(var/dirn in GLOB.cardinal)		//This is to guarantee that C4 at least breaks down all immediately adjacent walls and doors.
 			var/turf/simulated/wall/T = get_step(src,dirn)
 			if(locate(/obj/machinery/door/airlock) in T)
 				var/obj/machinery/door/airlock/D = locate() in T
@@ -60,6 +72,10 @@
 	var/obj/item/syndie/c4explosive/bomb
 	var/pr_open = 0  /*Is the "What do you want to do?" prompt open?*/
 
+/obj/item/syndie/c4detonator/Destroy()
+	bomb = null
+	. = ..()
+
 /obj/item/syndie/c4detonator/attack_self(mob/user as mob)
 	switch(src.icon_state)
 		if("c-4detonator_0")
@@ -71,12 +87,12 @@
 				pr_open = 1
 				switch(alert(user, "What would you like to do?", "Lighter", "Press the button.", "Close the lighter."))
 					if("Press the button.")
-						to_chat(user, "<span class='warning'>You press the button.</span>")
+						to_chat(user, SPAN_WARNING("You press the button."))
 						flick("c-4detonator_click", src)
 						if(src.bomb)
 							src.bomb.detonate()
 							log_admin("[key_name(user)] has triggered [src.bomb] with [src].",ckey=key_name(user))
-							message_admins("<span class='danger'>[key_name_admin(user)] has triggered [src.bomb] with [src].</span>")
+							message_admins(SPAN_DANGER("[key_name_admin(user)] has triggered [src.bomb] with [src]."))
 
 					if("Close the lighter.")
 						src.icon_state = "c-4detonator_0"
@@ -90,7 +106,7 @@
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "pen"
 	item_state = "pen"
-	flags = HELDMAPTEXT
+	item_flags = ITEM_FLAG_HELD_MAP_TEXT
 	slot_flags = SLOT_BELT | SLOT_EARS
 	throwforce = 0
 	w_class = ITEMSIZE_TINY
@@ -104,10 +120,10 @@
 	var/recharge_time = 1 MINUTE
 	var/when_recharge = 0
 
-/obj/item/syndie/teleporter/examine(mob/user, distance)
+/obj/item/syndie/teleporter/get_examine_text(mob/user, distance, is_adjacent, infix, suffix)
 	. = ..()
 	if(!ready_to_use && burglars.is_antagonist(user.mind))
-		to_chat(user, SPAN_NOTICE("Charging: [num2loadingbar(world.time / when_recharge)]"))
+		. += SPAN_NOTICE("Charging: [num2loadingbar(world.time / when_recharge)]")
 
 /obj/item/syndie/teleporter/set_initial_maptext()
 	held_maptext = SMALL_FONTS(7, "Ready")
@@ -134,7 +150,7 @@
 
 	user.visible_message("<b>[user]</b> blinks into nothingness!", SPAN_NOTICE("You jump into the nothing."))
 	user.forceMove(T)
-	spark(user, 3, alldirs)
+	spark(user, 3, GLOB.alldirs)
 	user.visible_message("<b>[user]</b> appears out of thin air!", SPAN_NOTICE("You successfully step into your destination."))
 	use()
 

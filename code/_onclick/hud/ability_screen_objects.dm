@@ -19,7 +19,6 @@
 		update_abilities(0, owner)
 
 /obj/screen/movable/ability_master/Destroy()
-	. = ..()
 	//Get rid of the ability objects.
 	remove_all_abilities()
 	ability_objects.Cut()
@@ -30,6 +29,8 @@
 		if(my_mob.client && my_mob.client.screen)
 			my_mob.client.screen -= src
 		my_mob = null
+
+	. = ..()
 
 /obj/screen/movable/ability_master/MouseDrop()
 	if(showing)
@@ -43,7 +44,7 @@
 
 	toggle_open()
 
-/obj/screen/movable/ability_master/proc/toggle_open(var/forced_state = 0)
+/obj/screen/movable/ability_master/proc/toggle_open(var/forced_state = 0, var/mob/user = usr)
 	if(showing && (forced_state != 2)) // We are closing the ability master, hide the abilities.
 		for(var/obj/screen/ability/O in ability_objects)
 			if(my_mob && my_mob.client)
@@ -52,31 +53,31 @@
 		overlays.len = 0
 		overlays.Add(closed_state)
 	else if(forced_state != 1) // We're opening it, show the icons.
-		open_ability_master()
+		open_ability_master(user)
 		update_abilities(1)
 		showing = TRUE
 		overlays.len = 0
 		overlays.Add(open_state)
 	update_icon()
 
-/obj/screen/movable/ability_master/proc/open_ability_master()
+/obj/screen/movable/ability_master/proc/open_ability_master(var/mob/user = usr)
 	var/list/screen_loc_xy = splittext(screen_loc,",")
 
 	//Create list of X offsets
 	var/list/screen_loc_X = splittext(screen_loc_xy[1],":")
-	var/x_position = decode_screen_X(screen_loc_X[1])
+	var/x_position = decode_screen_X(screen_loc_X[1], user)
 	var/x_pix = screen_loc_X[2]
 
 	//Create list of Y offsets
 	var/list/screen_loc_Y = splittext(screen_loc_xy[2],":")
-	var/y_position = decode_screen_Y(screen_loc_Y[1])
+	var/y_position = decode_screen_Y(screen_loc_Y[1], user)
 	var/y_pix = screen_loc_Y[2]
 
 	for(var/i = 1; i <= ability_objects.len; i++)
 		var/obj/screen/ability/A = ability_objects[i]
 		var/xpos = x_position + (x_position < 8 ? 1 : -1)*(i%7)
 		var/ypos = y_position + (y_position < 8 ? round(i/7) : -round(i/7))
-		A.screen_loc = "[encode_screen_X(xpos)]:[x_pix],[encode_screen_Y(ypos)]:[y_pix]"
+		A.screen_loc = "[encode_screen_X(xpos, user)]:[x_pix],[encode_screen_Y(ypos, user)]:[y_pix]"
 		if(my_mob && my_mob.client)
 			my_mob.client.screen += A
 
@@ -126,6 +127,10 @@
 	for(var/obj/screen/ability/A in ability_objects)
 		remove_ability(A)
 
+/obj/screen/movable/ability_master/proc/remove_all_psionic_abilities()
+	for(var/obj/screen/ability/obj_based/psionic/A in ability_objects)
+		remove_ability(A)
+
 /obj/screen/movable/ability_master/proc/get_ability_by_name(name_to_search)
 	for(var/obj/screen/ability/A in ability_objects)
 		if(A.name == name_to_search)
@@ -143,16 +148,6 @@
 		if(O.object == instance)
 			return O
 	return
-
-/mob/living/LateLogin()
-	. = ..()
-	if(ability_master)
-		ability_master.toggle_open(1)
-		client.screen -= ability_master
-
-/mob/living/Initialize()
-	. = ..()
-	ability_master = new /obj/screen/movable/ability_master(FALSE, src)
 
 ///////////ACTUAL ABILITIES////////////
 //This is what you click to do things//
@@ -175,7 +170,7 @@
 	if(ability_master && !ability_master.ability_objects.len)
 		ability_master.update_icon()
 	ability_master = null
-	..()
+	. = ..()
 
 /obj/screen/ability/update_icon()
 	overlays.Cut()
@@ -183,8 +178,13 @@
 
 	overlays += ability_icon_state
 
-/obj/screen/ability/Click()
+/obj/screen/ability/Click(var/location, var/control, var/params)
 	if(!usr)
+		return
+
+	var/list/click_params = params2list(params)
+	if(click_params["shift"])
+		examine(usr)
 		return
 
 	activate()
@@ -201,7 +201,7 @@
 
 // Makes the ability be triggered.  The subclasses of this are responsible for carrying it out in whatever way it needs to.
 /obj/screen/ability/proc/activate()
-	log_debug("[src] had activate() called.")
+	LOG_DEBUG("[src] had activate() called.")
 
 // This checks if the ability can be used.
 /obj/screen/ability/proc/can_activate()
@@ -212,7 +212,7 @@
 	if(!mob)
 		return // Paranoid.
 	if(isnull(slot) || !isnum(slot))
-		to_chat(src, "<span class='warning'>.activate_ability requires a number as input, corrisponding to the slot you wish to use.</span>")
+		to_chat(src, SPAN_WARNING(".activate_ability requires a number as input, corrisponding to the slot you wish to use."))
 		return // Bad input.
 	if(!mob.ability_master)
 		return // No abilities.
@@ -283,13 +283,45 @@
 //////////////////////////////
 
 /obj/screen/ability/obj_based
-	var/obj/object = null
+	var/obj/object
 
 /obj/screen/ability/obj_based/activate()
 	if(object)
 		object.Click()
 
-// Technomancer
+/// Psionics.
+/obj/screen/ability/obj_based/psionic
+	icon_state = "nano_spell_base"
+	background_base_state = "nano"
+	var/singleton/psionic_power/connected_power
+
+/obj/screen/ability/obj_based/psionic/Destroy()
+	connected_power = null
+	return ..()
+
+/obj/screen/movable/ability_master/proc/add_psionic_ability(var/obj/object_given, var/ability_icon_given, var/singleton/psionic_power/P, var/mob/user)
+	if(!object_given)
+		message_admins("ERROR: add_psionic_ability() was not given an object in its arguments.")
+	if(!P)
+		message_admins("Psionic ability added without connected psionic power singleton!")
+	if(get_ability_by_instance(object_given))
+		return // Duplicate
+	var/obj/screen/ability/obj_based/psionic/A = new /obj/screen/ability/obj_based/psionic()
+	A.ability_master = src
+	A.object = object_given
+	A.ability_icon_state = ability_icon_given
+	A.name = object_given.name
+	A.connected_power = P
+	ability_objects.Add(A)
+	if(my_mob.client)
+		toggle_open(2, user) //forces the icons to refresh on screen
+
+/obj/screen/ability/obj_based/psionic/get_examine_text(mob/user)
+	. = ..()
+	. += SPAN_NOTICE("<font size=4>This ability is <b>[connected_power.name]</b>.</font>")
+	. += SPAN_NOTICE("[connected_power.desc]")
+
+/// Technomancer.
 /obj/screen/ability/obj_based/technomancer
 	icon_state = "wiz_spell_base"
 	background_base_state = "wiz"

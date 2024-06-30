@@ -1,4 +1,4 @@
-/mob/living/simple_animal/borer/say(var/message, var/datum/language/speaking = null, var/verb="says", var/alt_name="", var/ghost_hearing = GHOSTS_ALL_HEAR, var/whisper = FALSE)
+/mob/living/simple_animal/borer/say(var/message, var/datum/language/speaking = null, var/verb="says", var/alt_name="", var/ghost_hearing = GHOSTS_ALL_HEAR, var/whisper = FALSE, var/skip_edit = FALSE)
 	message = capitalize(message)
 
 	if(!message)
@@ -38,6 +38,6 @@
 	to_chat(host, "<b>Your own thoughts speak:</b> \"[message]\"")
 	log_say("[key_name(src)] : (borer whisper -> [key_name(host)]) [message]")
 
-	for(var/mob/M in mob_list)
+	for(var/mob/M in GLOB.mob_list)
 		if(M.client && M.stat == DEAD && !isnewplayer(M) && (M.client.prefs.toggles & CHAT_GHOSTEARS))
 			to_chat(M, "<b>[src.truename]</b> whispers to <b>[host]</b>, \"[message]\"")

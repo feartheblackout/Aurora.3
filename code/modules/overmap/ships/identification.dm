@@ -3,7 +3,14 @@
 	desc = "A complex set of various bluespace and subspace arrays that transmit a ship's identification tags."
 	icon = 'icons/obj/machinery/iff_transponder.dmi'
 	icon_state = "iff"
+	anchored = TRUE
 	idle_power_usage = 500
+	component_types = list(
+		/obj/item/circuitboard/iff_beacon,
+		/obj/item/stack/cable_coil = 2,
+		/obj/item/stock_parts/subspace/transmitter,
+		/obj/item/stock_parts/capacitor
+	)
 	var/datum/wires/iff/wires
 	var/disabled = FALSE
 	var/obfuscating = FALSE
@@ -16,19 +23,23 @@
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/iff_beacon/LateInitialize()
-	if(current_map.use_overmap && !linked)
-		var/my_sector = map_sectors["[z]"]
+	if(SSatlas.current_map.use_overmap && !linked)
+		var/my_sector = GLOB.map_sectors["[z]"]
 		if (istype(my_sector, /obj/effect/overmap/visitable))
 			attempt_hook_up(my_sector)
 
-/obj/machinery/iff_beacon/attackby(obj/item/O, mob/user)
-	if(default_deconstruction_screwdriver(user, O))
+/obj/machinery/iff_beacon/attackby(obj/item/attacking_item, mob/user)
+	if(default_deconstruction_screwdriver(user, attacking_item))
+		return TRUE
+	if(default_deconstruction_crowbar(user, attacking_item))
+		return TRUE
+	if(default_part_replacement(user, attacking_item))
 		return TRUE
 
 	if(panel_open)
-		if(O.ismultitool() || O.iswirecutter())
+		if(attacking_item.ismultitool() || attacking_item.iswirecutter())
 			if(panel_open)
-				wires.Interact(user)
+				wires.interact(user)
 			else
 				to_chat(user, SPAN_WARNING("\The [src]'s wires aren't exposed."))
 			return TRUE
@@ -59,7 +70,7 @@
 
 /obj/machinery/iff_beacon/update_icon()
 	icon_state = initial(icon_state)
-	cut_overlays()
+	ClearOverlays()
 	if(panel_open)
 		icon_state += "_o"
 	if(!operable() || !use_power)
@@ -68,6 +79,10 @@
 /obj/machinery/iff_beacon/horizon
 	can_change_class = FALSE
 	can_change_name = FALSE
+
+/obj/machinery/iff_beacon/horizon/shuttle
+	icon = 'icons/obj/spaceship/scc/helm_pieces.dmi'
+	icon_state = "iff"
 
 /obj/machinery/iff_beacon/name_change
 	can_change_name = TRUE

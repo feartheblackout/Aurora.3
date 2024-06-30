@@ -45,14 +45,15 @@
 	var/volume_rate = 500              //Needed for borg jetpack transfer
 	action_button_name = "Toggle Jetpack"
 
-/obj/item/tank/jetpack/examine(mob/user)
+/obj/item/tank/jetpack/get_examine_text(mob/user, distance, is_adjacent, infix, suffix)
 	. = ..()
 	if(air_contents.total_moles < 5)
-		to_chat(user, "<span class='danger'>The meter on \the [src] indicates you are almost out of gas!</span>")
+		. += SPAN_NOTICE("The meter on \the [src] indicates you are almost out of gas!")
 
 /obj/item/tank/jetpack/verb/toggle_rockets()
 	set name = "Toggle Jetpack Stabilization"
 	set category = "Object"
+	set src in usr
 
 	toggle_rockets_stabilization(usr)
 
@@ -65,6 +66,7 @@
 /obj/item/tank/jetpack/verb/toggle()
 	set name = "Toggle Jetpack"
 	set category = "Object"
+	set src in usr
 
 	toggle_jetpack(usr)
 
@@ -96,7 +98,7 @@
 	if (src.air_contents.total_moles < 3 && !warned)
 		warned = TRUE
 		playsound(user, 'sound/effects/alert.ogg', 50, 1)
-		to_chat(user, "<span class='danger'>The meter on \the [src] indicates you are almost out of gas and beeps loudly!</span>")
+		to_chat(user, SPAN_DANGER("The meter on \the [src] indicates you are almost out of gas and beeps loudly!"))
 		addtimer(CALLBACK(src, PROC_REF(reset_warning)), 600)
 
 	var/datum/gas_mixture/G = src.air_contents.remove(num)
@@ -157,6 +159,7 @@
 /obj/item/tank/jetpack/carbondioxide/synthetic/verb/toggle_synthetic_jetpack()
 	set name = "Toggle Jetpack"
 	set category = "Robot Commands"
+	set src in usr
 
 	on = !on
 	if(on)
@@ -171,6 +174,7 @@
 /obj/item/tank/jetpack/carbondioxide/synthetic/verb/toggle_stabilizer()
 	set name = "Toggle Jetpack Stabilization"
 	set category = "Robot Commands"
+	set src in usr
 
 	stabilization_on = !stabilization_on
 	to_chat(usr, SPAN_NOTICE("You toggle the stabilization [stabilization_on ? "on" : "off"]."))
@@ -179,9 +183,9 @@
 	name = "hardsuit jetpack"
 	var/obj/item/rig/holder
 
-/obj/item/tank/jetpack/rig/examine()
-	to_chat(usr, "It's a jetpack. If you can see this, report it on the bug tracker.")
-	return 0
+/obj/item/tank/jetpack/rig/Destroy()
+	holder = null
+	. = ..()
 
 /obj/item/tank/jetpack/rig/allow_thrust(num, mob/living/user as mob)
 

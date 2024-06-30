@@ -9,11 +9,11 @@
 	move_delay = 3
 	mob_offset_y = 7
 	load_offset_x = -13
-	vueui_template = "pussywagon"
+	tgui_template = "PussyWagon"
 	key_type = /obj/item/key/janicart
 
-/obj/vehicle/train/cargo/engine/pussywagon/vueui_data_change(list/data, mob/user, datum/vueui/ui)
-	data = ..()
+/obj/vehicle/train/cargo/engine/pussywagon/ui_data(mob/user)
+	var/list/data = ..()
 	data["has_proper_trolley"] = FALSE
 	if(istype(tow, /obj/vehicle/train/cargo/trolley/pussywagon))
 		data["has_proper_trolley"] = TRUE
@@ -30,19 +30,24 @@
 			data["max_bucket_capacity"] = B.volume
 	return data
 
-/obj/vehicle/train/cargo/engine/pussywagon/Topic(href, href_list, datum/topic_state/state)
+/obj/vehicle/train/cargo/engine/pussywagon/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	if(.)
-		return TRUE
+		return
 
-	if(href_list["toggle_hoover"])
-		toggle_hoover(usr)
-	if(href_list["empty_hoover"])
-		var/obj/vehicle/train/cargo/trolley/pussywagon/PT = tow
-		PT.empty_hoover(usr)
-	if(href_list["toggle_mop"])
-		toggle_mop(usr)
-	SSvueui.check_uis_for_change(src)
+	switch(action)
+		if("toggle_hoover")
+			toggle_hoover(usr)
+			. = TRUE
+
+		if("empty_hoover")
+			var/obj/vehicle/train/cargo/trolley/pussywagon/PT = tow
+			PT.empty_hoover(usr)
+			. = TRUE
+
+		if("toggle_mop")
+			toggle_mop(usr)
+			. = TRUE
 
 /obj/vehicle/train/cargo/engine/pussywagon/CtrlClick(mob/user)
 	if(load && load != user)
@@ -111,12 +116,12 @@
 			PW.toggle_hoover()
 
 /obj/vehicle/train/cargo/engine/pussywagon/update_icon()
-	cut_overlays()
+	ClearOverlays()
 	if(on)
-		add_overlay(image('icons/obj/vehicles.dmi', "[initial(icon_state)]_on_overlay", MOB_LAYER + 1))
+		AddOverlays(image('icons/obj/vehicles.dmi', "[initial(icon_state)]_on_overlay", MOB_LAYER + 1))
 		icon_state = "[initial(icon_state)]_on"
 	else
-		add_overlay(image('icons/obj/vehicles.dmi', "[initial(icon_state)]_overlay", MOB_LAYER + 1))
+		AddOverlays(image('icons/obj/vehicles.dmi', "[initial(icon_state)]_overlay", MOB_LAYER + 1))
 		icon_state = "[initial(icon_state)]"
 	..()
 
@@ -158,18 +163,18 @@
 	var/mopping = 0
 	var/hoover = 0
 
-/obj/vehicle/train/cargo/trolley/pussywagon/attackby(obj/item/W, mob/user)
-	if(istype(W, /obj/item/reagent_containers))
+/obj/vehicle/train/cargo/trolley/pussywagon/attackby(obj/item/attacking_item, mob/user)
+	if(istype(attacking_item, /obj/item/reagent_containers))
 		if(!open)
 			to_chat(user, SPAN_WARNING("\The [src]'s maintenance panel isn't open."))
 			return
 		if(!bucket)
-			user.drop_from_inventory(W,src)
-			bucket = W
+			user.drop_from_inventory(attacking_item,src)
+			bucket = attacking_item
 			to_chat(user, SPAN_NOTICE("You replace \the [src]'s reagent reservoir."))
 			return
 
-	if(W.iswrench())
+	if(attacking_item.iswrench())
 		if(!open)
 			to_chat(user, SPAN_WARNING("\The [src]'s maintenance panel isn't open."))
 			return
@@ -182,7 +187,7 @@
 			to_chat(user, SPAN_WARNING("\The [src] doesn't have a reagent reservoir installed."))
 			return
 
-	if(W.iscrowbar())
+	if(attacking_item.iscrowbar())
 		if(!open)
 			to_chat(user, SPAN_WARNING("\The [src]'s panel isn't open."))
 			return
@@ -244,10 +249,10 @@
 	update_icon()
 
 /obj/vehicle/train/cargo/trolley/pussywagon/update_icon()
-	cut_overlays()
+	ClearOverlays()
 
 	if(mopping)
-		add_overlay(image('icons/obj/vehicles.dmi', "[icon_state]_mop_overlay", MOB_LAYER + 1))
+		AddOverlays(image('icons/obj/vehicles.dmi', "[icon_state]_mop_overlay", MOB_LAYER + 1))
 
 /obj/item/key/janicart
 	name = "\improper C8000 deluxe custodial truck key fob"

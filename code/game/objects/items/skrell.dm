@@ -15,20 +15,20 @@
 	. = ..()
 	pick_constellation()
 
-/obj/item/stellascope/examine(mob/user)
-	..(user)
-	to_chat(user, "\The [src] displays the \"[selected_constellation]\".")
+/obj/item/stellascope/get_examine_text(mob/user, distance, is_adjacent, infix, suffix)
+	. = ..()
+	. += "\The [src] displays the \"[selected_constellation]\"."
 
 /obj/item/stellascope/throw_impact(atom/hit_atom)
 	..()
-	visible_message("<span class='notice'>\The [src] lands on \the [pick_constellation()].</span>")
+	visible_message(SPAN_NOTICE("\The [src] lands on \the [pick_constellation()]."))
 
 /obj/item/stellascope/attack_self(mob/user as mob)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(isskrell(H))
-			H.visible_message("<span class='notice'>\The [H] holds the brassy instrument up to [H.get_pronoun("his")] eye and peers at something unseen.</span>",
-							"<span class='notice'>You see the starry edge of srom floating on the void of space.</span>")
+			H.visible_message(SPAN_NOTICE("\The [H] holds the brassy instrument up to [H.get_pronoun("his")] eye and peers at something unseen."),
+							SPAN_NOTICE("You see the starry edge of srom floating on the void of space."))
 			if(projection_ready)
 				new/obj/effect/temp_visual/constellation (get_turf(user))
 				projection_ready = FALSE
@@ -50,26 +50,27 @@
 	icon_state = "starprojection"
 	mouse_opacity = TRUE
 	duration = 30 SECONDS
-	layer = EFFECTS_ABOVE_LIGHTING_LAYER
+	plane = EFFECTS_ABOVE_LIGHTING_PLANE
 	light_power = 1
 	light_range = 1
 	light_color = LIGHT_COLOR_HALOGEN
+	z_flags = ZMM_MANGLE_PLANES
 	var/global/image/glow_state
 
 /obj/effect/temp_visual/constellation/Initialize()
 	. = ..()
 	if(!glow_state)
-		glow_state = make_screen_overlay(icon, icon_state)
-	add_overlay(glow_state)
+		glow_state = overlay_image(icon, icon_state)
+	AddOverlays(glow_state)
 
-/obj/effect/temp_visual/constellation/attackby(obj/item/W as obj, mob/user as mob)
-	visible_message("<span class='notice'>\The [src] vanishes!</span>")
+/obj/effect/temp_visual/constellation/attackby(obj/item/attacking_item, mob/user)
+	visible_message(SPAN_NOTICE("\The [src] vanishes!"))
 	qdel(src)
 	return TRUE
 
 /obj/effect/temp_visual/constellation/attack_hand(mob/user as mob)
 	if(user.a_intent == I_HURT)
-		visible_message("<span class='notice'>\The [src] vanishes!</span>")
+		visible_message(SPAN_NOTICE("\The [src] vanishes!"))
 		qdel(src)
 		return
 
@@ -92,16 +93,16 @@
 	STOP_PROCESSING(SSprocessing, src)
 	return ..()
 
-/obj/item/skrell_projector/examine(mob/user)
-	..(user)
+/obj/item/skrell_projector/get_examine_text(mob/user, distance, is_adjacent, infix, suffix)
+	. = ..()
 	if(selected_world && working)
-		to_chat(user, "\The [src] displays a hologram of [selected_world].")
+		. += "\The [src] displays a hologram of [selected_world]."
 
 /obj/item/skrell_projector/attack_self(mob/user as mob)
 	working = !working
 
 	if(working)
-		var/choice = input("You change the projector's hologram to display:","Change the projector's hologram.") as null|anything in worlds_selection
+		var/choice = tgui_input_list(user, "You change the projector's hologram to display:","Change the projector's hologram.", worlds_selection)
 		apply_world(choice)
 		START_PROCESSING(SSprocessing, src)
 	else
@@ -150,10 +151,10 @@
 	update_icon()
 
 /obj/item/skrell_projector/update_icon()
-	cut_overlays()
+	ClearOverlays()
 	if(working)
 		var/image/overlay = overlay_image(icon, "projector_light", light_color, RESET_COLOR)
-		add_overlay(overlay)
+		AddOverlays(overlay)
 
 /obj/item/skrell_projector/process()
 	if(!selected_world)
@@ -211,10 +212,10 @@
 				hologram_message = pick("Projected on the ceiling is a vista of the Kervasii World Amusement Park's floating islands.",
 										"You see massive resort buildings looming high over a crystal-clear ocean.",
 										"You hear light chittering as the projector switches to a depiction of a C'thuric research lab.")
-			
+
 
 		if(hologram_message)
-			visible_message("<span class='notice'>[hologram_message]</span>")
+			visible_message(SPAN_NOTICE("[hologram_message]"))
 
 /obj/item/skrell_projector/dream // Subtype that starts processing on init, for mapping/use in the dream - lly
 	name = "dream projector"
@@ -269,6 +270,8 @@
 		fried = TRUE
 
 /obj/item/nralakktag/emp_act(severity)
+	. = ..()
+
 	unclamp()
 
 /obj/item/nralakktag/emag_act(var/remaining_charges, var/mob/user)

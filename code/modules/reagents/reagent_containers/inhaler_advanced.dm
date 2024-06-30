@@ -4,15 +4,16 @@
 /obj/item/reagent_containers/personal_inhaler_cartridge
 	name = "small inhaler cartridge"
 	desc = "Fill this when chemicals and attach this to personal inhalers. Contains enough aerosol for 15u of reagents. The container must be activated for aerosol reagents to mix for the use in inhalers."
-	icon = 'icons/obj/syringe.dmi'
+	icon = 'icons/obj/item/reagent_containers/syringe.dmi'
 	item_state = "pi_cart_small"
 	icon_state = "pi_cart_small"
+	contained_sprite = TRUE
 	volume = 15
 	w_class = ITEMSIZE_TINY
 	unacidable = 1
 	amount_per_transfer_from_this = 5
 	possible_transfer_amounts = list(5,10,15)
-	flags = OPENCONTAINER
+	atom_flags = ATOM_FLAG_OPEN_CONTAINER
 	slot_flags = SLOT_BELT
 	origin_tech = list(TECH_BIO = 2, TECH_MATERIAL = 2)
 	matter = list(DEFAULT_WALL_MATERIAL = 250)
@@ -23,44 +24,46 @@
 	return
 
 /obj/item/reagent_containers/personal_inhaler_cartridge/update_icon()
-	cut_overlays()
+	ClearOverlays()
 	var/rounded_vol = round(reagents.total_volume, round(reagents.maximum_volume / (volume / 5)))
 
 	if(reagents.total_volume)
-		var/mutable_appearance/filling = mutable_appearance('icons/obj/syringe.dmi', "[initial(icon_state)][rounded_vol]")
+		var/mutable_appearance/filling = mutable_appearance(icon, "[initial(icon_state)][rounded_vol]")
 		filling.color = reagents.get_color()
-		add_overlay(filling)
+		AddOverlays(filling)
 
-/obj/item/reagent_containers/personal_inhaler_cartridge/examine(var/mob/user)
-	if(!..(user, 2))
+/obj/item/reagent_containers/personal_inhaler_cartridge/get_examine_text(mob/user, distance, is_adjacent, infix, suffix)
+	. = ..()
+
+	if (distance > 2)
 		return
 
 	if(is_open_container())
 		if(LAZYLEN(reagents.reagent_volumes))
-			to_chat(user,"<span class='notice'>It contains [round(reagents.total_volume, accuracy)] units of non-aerosol mix.</span>")
+			. += SPAN_NOTICE("It contains [round(reagents.total_volume, accuracy)] units of non-aerosol mix.")
 		else
-			to_chat(user,"<span class='notice'>It is empty.</span>")
+			. += SPAN_NOTICE("It is empty.")
 	else
 		if(LAZYLEN(reagents.reagent_volumes))
-			to_chat(user,"<span class='notice'>The reagents are secured in the aerosol mix.</span>")
+			. += SPAN_NOTICE("The reagents are secured in the aerosol mix.")
 		else
-			to_chat(user,"<span class='notice'>The cartridge seems spent.</span>")
+			. += SPAN_NOTICE("The cartridge seems spent.")
 
 /obj/item/reagent_containers/personal_inhaler_cartridge/attack_self(mob/user as mob)
 	if(is_open_container())
 		if(LAZYLEN(reagents.reagent_volumes))
-			to_chat(user,"<span class='notice'>With a quick twist of \the [src]'s lid, you secure the reagents inside.</span>")
-			flags &= ~OPENCONTAINER
+			to_chat(user,SPAN_NOTICE("With a quick twist of \the [src]'s lid, you secure the reagents inside."))
+			atom_flags &= ~ATOM_FLAG_OPEN_CONTAINER
 		else
-			to_chat(user,"<span class='notice'>You can't secure \the [src] without putting reagents in!</span>")
+			to_chat(user,SPAN_NOTICE("You can't secure \the [src] without putting reagents in!"))
 	else
-		to_chat(user,"<span class='notice'>The reagents inside \the [src] are already secured.</span>")
+		to_chat(user,SPAN_NOTICE("The reagents inside \the [src] are already secured."))
 	return
 
-/obj/item/reagent_containers/personal_inhaler_cartridge/attackby(obj/item/W, mob/user)
-	if(W.isscrewdriver() && !is_open_container())
-		to_chat(user,"<span class='notice'>Using \the [W], you unsecure the inhaler cartridge's lid.</span>") // it locks shut after being secured
-		flags |= OPENCONTAINER
+/obj/item/reagent_containers/personal_inhaler_cartridge/attackby(obj/item/attacking_item, mob/user)
+	if(attacking_item.isscrewdriver() && !is_open_container())
+		to_chat(user,SPAN_NOTICE("Using \the [attacking_item], you unsecure the inhaler cartridge's lid.")) // it locks shut after being secured
+		atom_flags |= ATOM_FLAG_OPEN_CONTAINER
 		return
 	. = ..()
 
@@ -87,9 +90,10 @@
 /obj/item/personal_inhaler
 	name = "inhaler"
 	desc = "A safe way to administer small amounts of drugs into the lungs by trained personnel."
-	icon = 'icons/obj/syringe.dmi'
+	icon = 'icons/obj/item/reagent_containers/syringe.dmi'
 	item_state = "pi"
 	icon_state = "pi"
+	contained_sprite = TRUE
 	w_class = ITEMSIZE_SMALL
 	slot_flags = SLOT_BELT
 	var/obj/item/reagent_containers/stored_cartridge
@@ -97,26 +101,27 @@
 	origin_tech = list(TECH_BIO = 2, TECH_MATERIAL = 2)
 	var/eject_when_empty = FALSE
 
-/obj/item/personal_inhaler/examine(var/mob/user)
-	if(!..(user, 2))
+/obj/item/personal_inhaler/get_examine_text(mob/user, distance, is_adjacent, infix, suffix)
+	. = ..()
+	if(distance > 2)
 		return
 	if(stored_cartridge)
-		to_chat(user,"<span class='notice'>\The [stored_cartridge] is attached to \the [src].</span>")
+		. += SPAN_NOTICE("\The [stored_cartridge] is attached to \the [src].")
 
 /obj/item/personal_inhaler/update_icon()
-	cut_overlays()
+	ClearOverlays()
 	if(stored_cartridge)
-		add_overlay(stored_cartridge.icon_state)
+		AddOverlays(stored_cartridge.icon_state)
 		if(stored_cartridge.reagents.total_volume)
 			var/rounded_vol = round(stored_cartridge.reagents.total_volume, round(stored_cartridge.reagents.maximum_volume / (stored_cartridge.volume / 5)))
 			var/image/filling = image(icon, "[stored_cartridge.icon_state][rounded_vol]")
 			filling.color = stored_cartridge.reagents.get_color()
-			add_overlay(filling)
+			AddOverlays(filling)
 
 /obj/item/personal_inhaler/attack_self(mob/user as mob)
 	if(stored_cartridge)
 		user.put_in_hands(stored_cartridge)
-		to_chat(user,"<span class='warning'>You remove \the [stored_cartridge] from \the [src].</span>")
+		to_chat(user,SPAN_WARNING("You remove \the [stored_cartridge] from \the [src]."))
 		stored_cartridge.update_icon()
 		stored_cartridge = null
 	update_icon()
@@ -126,26 +131,28 @@
 	var/mob/living/carbon/human/H = M
 
 	if (!istype(H))
-		to_chat(user,"<span class='warning'>You can't find a way to use \the [src] on \the [M]!</span>")
+		to_chat(user,SPAN_WARNING("You can't find a way to use \the [src] on \the [M]!"))
 		return
 
 	if(!stored_cartridge)
-		to_chat(user,"<span class='warning'>\The [src] has no cartridge installed!</span>")
+		to_chat(user,SPAN_WARNING("\The [src] has no cartridge installed!"))
 		return
 
 	if(!stored_cartridge.reagents || !stored_cartridge.reagents.total_volume)
-		to_chat(user,"<span class='warning'>\The [src]'s cartridge is empty!</span>")
+		to_chat(user,SPAN_WARNING("\The [src]'s cartridge is empty!"))
 		return
 
-	if (((user.is_clumsy()) || HAS_FLAG(user.mutations, DUMB)) && prob(10))
-		to_chat(user,"<span class='danger'>Your hand slips from clumsiness!</span>")
+	if (((user.is_clumsy()) || (user.mutations & DUMB)) && prob(10))
+		to_chat(user,SPAN_DANGER("Your hand slips from clumsiness!"))
 		if(M.eyes_protected(src, FALSE))
 			eyestab(M,user)
-		user.visible_message("<span class='notice'>[user] accidentally sticks \the [src] in [M]'s eye!</span>","<span class='notice'>You accidentally stick the [src] in [M]'s eye!</span>")
+		user.visible_message(SPAN_NOTICE("[user] accidentally sticks \the [src] in [M]'s eye!"),
+								SPAN_NOTICE("You accidentally stick the [src] in [M]'s eye!"))
+
 		return
 
 	if (!user.IsAdvancedToolUser())
-		to_chat(user,"<span class='warning'>You don't have the dexterity to do this!</span>")
+		to_chat(user,SPAN_WARNING("You don't have the dexterity to do this!"))
 		return
 
 	if(user == H && !H.can_eat(src))
@@ -157,14 +164,19 @@
 	user.do_attack_animation(M)
 
 	if(user == M)
-		user.visible_message("<span class='notice'>[user] sticks \the [src] in their mouth and presses the injection button.</span>","<span class='notice'>You stick \the [src] in your mouth and press the injection button.</span>")
+		user.visible_message(SPAN_NOTICE("[user] sticks \the [src] in their mouth and presses the injection button."),
+								SPAN_NOTICE("You stick \the [src] in your mouth and press the injection button."))
+
 	else
-		user.visible_message("<span class='warning'>[user] attempts to administer \the [src] to [M]...</span>","<span class='notice'>You attempt to administer \the [src] to [M]...</span>")
-		if (!do_after(user, 1 SECONDS, act_target = M))
-			to_chat(user,"<span class='notice'>You and \the [M] need to be standing still in order to inject \the [src].</span>")
+		user.visible_message(SPAN_WARNING("[user] attempts to administer \the [src] to [M]..."),
+								SPAN_NOTICE("You attempt to administer \the [src] to [M]..."))
+		if (!do_after(user, 1 SECONDS, M))
+			to_chat(user,SPAN_NOTICE("You and \the [M] need to be standing still in order to inject \the [src]."))
 			return
 
-		user.visible_message("<span class='notice'>[user] sticks \the [src] in [M]'s mouth and presses the injection button.</span>","<span class='notice'>You stick \the [src] in [M]'s mouth and press the injection button.</span>")
+		user.visible_message(SPAN_NOTICE("[user] sticks \the [src] in [M]'s mouth and presses the injection button."),
+								SPAN_NOTICE("You stick \the [src] in [M]'s mouth and press the injection button."))
+
 
 	if(M.reagents)
 		var/contained = stored_cartridge.reagentlist()
@@ -173,24 +185,25 @@
 		admin_inject_log(user, M, src, contained, temp, trans)
 		playsound(M.loc, 'sound/items/stimpack.ogg', 50, 1)
 		if(eject_when_empty)
-			to_chat(user,"<span class='notice'>\The [stored_cartridge] automatically ejects from \the [src].</span>")
+			to_chat(user,SPAN_NOTICE("\The [stored_cartridge] automatically ejects from \the [src]."))
 			stored_cartridge.forceMove(user.loc)
 			stored_cartridge.update_icon()
 			stored_cartridge = null
 			update_icon()
 	else
-		to_chat(user,"<span class='warning'>Nothing happens!</span>")
+		to_chat(user,SPAN_WARNING("Nothing happens!"))
 
 	update_icon()
 	return
 
-/obj/item/personal_inhaler/attackby(var/obj/item/reagent_containers/personal_inhaler_cartridge/cartridge as obj, var/mob/user as mob)
+/obj/item/personal_inhaler/attackby(obj/item/attacking_item, mob/user)
+	var/obj/item/reagent_containers/personal_inhaler_cartridge/cartridge = attacking_item
 	if(istype(cartridge))
 		if(src.stored_cartridge)
-			to_chat(user,"<span class='notice'>\The [src] already has a cartridge.</span>")
+			to_chat(user,SPAN_NOTICE("\The [src] already has a cartridge."))
 			return
 		if(cartridge.is_open_container())
-			to_chat(user,"<span class='notice'>\The [cartridge] needs to be secured first.</span>")
+			to_chat(user,SPAN_NOTICE("\The [cartridge] needs to be secured first."))
 			return
 		user.remove_from_mob(cartridge)
 		src.stored_cartridge = cartridge
@@ -214,7 +227,7 @@
 /obj/item/reagent_containers/personal_inhaler_cartridge/large/hyperzine/Initialize()
 	. = ..()
 	reagents.add_reagent(/singleton/reagent/hyperzine, 30)
-	flags ^= OPENCONTAINER
+	atom_flags ^= ATOM_FLAG_OPEN_CONTAINER
 	update_icon()
 	return
 
@@ -224,6 +237,6 @@
 /obj/item/reagent_containers/personal_inhaler_cartridge/large/inaprovaline/Initialize()
 	. = ..()
 	reagents.add_reagent(/singleton/reagent/inaprovaline, 30)
-	flags ^= OPENCONTAINER
+	atom_flags ^= ATOM_FLAG_OPEN_CONTAINER
 	update_icon()
 	return

@@ -12,25 +12,27 @@
 	name = "surgery tool parent item"
 	desc = DESC_PARENT
 	icon = 'icons/obj/surgery.dmi'
+	contained_sprite = TRUE
 	w_class = ITEMSIZE_SMALL
 	drop_sound = 'sound/items/drop/weldingtool.ogg'
 	pickup_sound = 'sound/items/pickup/weldingtool.ogg'
-	item_icons = list(
-		slot_l_hand_str = 'icons/mob/items/lefthand_medical.dmi',
-		slot_r_hand_str = 'icons/mob/items/righthand_medical.dmi',
-	)
 	recyclable = TRUE
+
+/obj/item/surgery/Initialize(mapload, ...)
+	. = ..()
+	item_flags |= ITEM_FLAG_SURGERY
 
 /*
  * Retractor
  */
 /obj/item/surgery/retractor
 	name = "retractor"
-	desc = "A surgical instrument which allows careful opening of incisions to reach inside someone."
+	desc = "A pair of retractor forceps. Allows careful opening of incisions to reach inside someone."
 	icon_state = "retractor"
 	item_state = "retractor"
+	surgerysound = 'sound/items/surgery/retractor.ogg'
 	matter = list(DEFAULT_WALL_MATERIAL = 10000, MATERIAL_GLASS = 5000)
-	flags = CONDUCT
+	obj_flags = OBJ_FLAG_CONDUCTABLE
 	origin_tech = list(TECH_MATERIAL = 1, TECH_BIO = 1)
 
 /*
@@ -38,11 +40,12 @@
  */
 /obj/item/surgery/hemostat
 	name = "hemostat"
-	desc = "Primarily utilized to control initial incision bleeding, this instrument allows for careful removal of objects inside someone."
+	desc = "A pair of hemostatic forceps, able to clamp blood vessels shut to stop bleeding during surgery. Its narrow tip also lets it double as a tool for removing things from surgical sites."
 	icon_state = "hemostat"
 	item_state = "hemostat"
+	surgerysound = 'sound/items/surgery/hemostat.ogg'
 	matter = list(DEFAULT_WALL_MATERIAL = 5000, MATERIAL_GLASS = 2500)
-	flags = CONDUCT
+	obj_flags = OBJ_FLAG_CONDUCTABLE
 	origin_tech = list(TECH_MATERIAL = 1, TECH_BIO = 1)
 	attack_verb = list("attacked", "pinched")
 
@@ -51,11 +54,12 @@
  */
 /obj/item/surgery/cautery
 	name = "cautery"
-	desc = "A specialized surgical tool which applies just enough heat to safely close surgical incisions, when used correctly at least."
+	desc = "An electrocautery pen. Uses electrical currents to burn tissue closed, useful for quickly sealing wounds or incisions."
 	icon_state = "cautery"
 	item_state = "cautery"
+	surgerysound = 'sound/items/surgery/cautery.ogg'
 	matter = list(DEFAULT_WALL_MATERIAL = 5000, MATERIAL_GLASS = 2500)
-	flags = CONDUCT
+	obj_flags = OBJ_FLAG_CONDUCTABLE
 	origin_tech = list(TECH_MATERIAL = 1, TECH_BIO = 1)
 	attack_verb = list("burnt")
 
@@ -64,13 +68,14 @@
  */
 /obj/item/surgery/surgicaldrill
 	name = "surgical drill"
-	desc = "A drill specialized for surgical use, capable of creating surgical cavities and safely breaching through Vaurcae carapace for initial incisions."
+	desc = "A drill specialized for surgical use. Capable of creating surgical cavities and safely breaching through Vaurcae carapace for initial incisions."
 	icon_state = "drill"
 	item_state = "drill"
+	surgerysound = 'sound/items/surgery/surgicaldrill.ogg'
 	hitsound = /singleton/sound_category/drillhit_sound
 	matter = list(DEFAULT_WALL_MATERIAL = 15000, MATERIAL_GLASS = 10000)
-	flags = CONDUCT
-	force = 15
+	obj_flags = OBJ_FLAG_CONDUCTABLE
+	force = 22
 	w_class = ITEMSIZE_NORMAL
 	origin_tech = list(TECH_MATERIAL = 1, TECH_BIO = 1)
 	attack_verb = list("drilled")
@@ -82,11 +87,12 @@
  */
 /obj/item/surgery/scalpel
 	name = "scalpel"
-	desc = "A metallic scalpel with long-lasting edge. Used in a variety of surgical situations from incisions, to transplants, to debridements."
+	desc = "A surgical-grade scalpel with an incredibly sharp blade that keeps its edge. Used in a variety of surgical situations from incisions, to transplants, to debridements."
 	icon_state = "scalpel"
 	item_state = "scalpel"
-	flags = CONDUCT
-	force = 10
+	surgerysound = 'sound/items/surgery/scalpel.ogg'
+	obj_flags = OBJ_FLAG_CONDUCTABLE
+	force = 15
 	sharp = 1
 	edge = TRUE
 	w_class = ITEMSIZE_TINY
@@ -103,43 +109,36 @@
 /*
  * Researchable Scalpels
  */
-/obj/item/surgery/scalpel/laser1
-	name = "laser scalpel"
-	desc = "A scalpel augmented with a directed laser, for more precise cutting without blood entering the field. This one looks basic and could be improved."
-	icon_state = "scalpel_laser1"
-	damtype = "fire"
 
-/obj/item/surgery/scalpel/laser2
+/obj/item/surgery/scalpel/laser
 	name = "laser scalpel"
-	desc = "A scalpel augmented with a directed laser, for more precise cutting without blood entering the field. This one looks somewhat advanced."
-	icon_state = "scalpel_laser2"
+	desc = "A scalpel augmented with a directed laser, for more precise cutting without blood entering the field."
+	icon_state = "scalpel_laser"
+	surgerysound = 'sound/items/surgery/cautery.ogg'
+	matter = list(DEFAULT_WALL_MATERIAL = 12500, MATERIAL_GLASS = 7500)
 	damtype = "fire"
-	force = 12
-
-/obj/item/surgery/scalpel/laser3
-	name = "laser scalpel"
-	desc = "A scalpel augmented with a directed laser, for more precise cutting without blood entering the field. This one looks to be the pinnacle of precision energy cutlery!"
-	icon_state = "scalpel_laser3"
-	damtype = "fire"
-	force = 15
+	force = 18
 
 /obj/item/surgery/scalpel/manager
 	name = "incision management system"
 	desc = "A true extension of the surgeon's body, this marvel instantly and completely prepares an incision allowing for the immediate commencement of therapeutic steps."
 	icon_state = "scalpel_manager"
-	force = 7.5
+	surgerysound = 'sound/items/surgery/cautery.ogg'
+	matter = list (DEFAULT_WALL_MATERIAL = 12500, MATERIAL_GLASS = 7500, MATERIAL_SILVER = 1500, MATERIAL_GOLD = 1500, MATERIAL_DIAMOND = 750)
+	force = 8
 
 /*
  * Circular Saw
  */
 /obj/item/surgery/circular_saw
-	name = "circular saw"
-	desc = "A circular bone saw specialized for cutting through bones, amputations, and even hardsuits if required."
+	name = "surgical saw"
+	desc = "A reciprocating electric bonesaw. While designed to cut through bone, it's powerful enough to cut limbs and even hardsuits if necessary. Watch your fingers."
 	icon_state = "saw"
 	item_state = "saw"
+	surgerysound = 'sound/items/surgery/circularsaw.ogg'
 	hitsound = 'sound/weapons/saw/circsawhit.ogg'
-	flags = CONDUCT
-	force = 15
+	obj_flags = OBJ_FLAG_CONDUCTABLE
+	force = 22
 	w_class = ITEMSIZE_NORMAL
 	throwforce = 9
 	throw_speed = 3
@@ -155,19 +154,21 @@
 // Miscellanous
 /obj/item/surgery/bone_gel
 	name = "bone gel"
-	desc = "A highly specialized gel which promotes fast bone healing."
+	desc = "A bottle-and-nozzle applicator containing a specialized gel. When applied to bone tissue, it can reinforce and repair breakages and act as a glue to keep bones in place while they heal."
 	icon_state = "bone-gel"
 	item_state = "bone-gel"
+	surgerysound = 'sound/items/surgery/bonegel.ogg'
 	force = 2
 	throwforce = 5
 	drop_sound = 'sound/items/drop/bottle.ogg'
 	pickup_sound = 'sound/items/pickup/bottle.ogg'
 
 /obj/item/surgery/fix_o_vein
-	name = "FixOVein"
-	desc = "A specialized surgical instrument capable of quickly and safely healing torn veins and arteries, being capable of repairing torn ligaments as well."
+	name = "vascular recoupler"
+	desc = "An advanced automatic surgical instrument that operates with extreme finesse. It can quickly and safely repair and recouple ruptured blood vessels and ligaments using highly elaborate, biodegradable microsutures. It can also be used for transplantations to attach organs to the body."
 	icon_state = "fixovein"
 	item_state = "fixovein"
+	surgerysound = 'sound/items/surgery/fixovein.ogg'
 	force = 2
 	throwforce = 5
 	origin_tech = list(TECH_MATERIAL = 1, TECH_BIO = 3)
@@ -177,10 +178,11 @@
 
 /obj/item/surgery/bonesetter
 	name = "bone setter"
-	desc = "A surgical tool designed to firmly set damaged bones back together for proper healing."
+	desc = "A pair of forceps with a screw. It's designed to manipulate bones and hold them together, and is best paired with a bottle of bone gel for mending fractures."
 	icon_state = "bonesetter"
 	item_state = "bonesetter"
-	force = 8
+	surgerysound = 'sound/items/surgery/bonesetter.ogg'
+	force = 18
 	throwforce = 9
 	throw_speed = 3
 	throw_range = 5
@@ -228,7 +230,7 @@
 	)
 
 /obj/item/storage/box/fancy/tray/update_icon()
-	cut_overlays()
+	ClearOverlays()
 
 	var/list/types_and_overlays = list(
 		/obj/item/surgery/bonesetter = "tray_bonesetter",
@@ -237,9 +239,7 @@
 		/obj/item/surgery/hemostat = "tray_hemostat",
 		/obj/item/surgery/retractor = "tray_retractor",
 		/obj/item/surgery/scalpel = "tray_scalpel",
-		/obj/item/surgery/scalpel/laser1 = "tray_scalpel_laser1",
-		/obj/item/surgery/scalpel/laser2 = "tray_scalpel_laser2",
-		/obj/item/surgery/scalpel/laser3 = "tray_scalpel_laser3",
+		/obj/item/surgery/scalpel/laser = "tray_scalpel_laser",
 		/obj/item/surgery/scalpel/manager = "tray_scalpel_manager",
 		/obj/item/surgery/surgicaldrill = "tray_drill",
 		/obj/item/surgery/bone_gel = "tray_bone-gel",
@@ -252,14 +252,14 @@
 	)
 	for (var/obj/item/W in contents)
 		if (types_and_overlays[W.type])
-			add_overlay(types_and_overlays[W.type])
+			AddOverlays(types_and_overlays[W.type])
 			types_and_overlays -= W.type
 
 /obj/item/storage/box/fancy/tray/fill()
 	. = ..()
 	update_icon()
 
-/obj/item/storage/box/fancy/tray/attackby(obj/item/W as obj, mob/user as mob)
+/obj/item/storage/box/fancy/tray/attackby(obj/item/attacking_item, mob/user)
 	..()
 	update_icon()
 
@@ -276,10 +276,10 @@
 			if (H.hand)
 				temp = H.organs_by_name[BP_L_HAND]
 			if(temp && !temp.is_usable())
-				to_chat(user, "<span class='notice'>You try to move your [temp.name], but cannot!</span>")
+				to_chat(user, SPAN_NOTICE("You try to move your [temp.name], but cannot!"))
 				return
 
-			to_chat(user, "<span class='notice'>You pick up the [src].</span>")
+			to_chat(user, SPAN_NOTICE("You pick up the [src]."))
 			pixel_x = 0
 			pixel_y = 0
 			forceMove(get_turf(user))
@@ -334,6 +334,7 @@
 		/obj/item/surgery/hemostat,
 		/obj/item/surgery/retractor,
 		/obj/item/surgery/scalpel,
+		/obj/item/surgery/bone_gel,
 		/obj/item/stack/nanopaste
 		)
 
@@ -342,5 +343,6 @@
 		/obj/item/surgery/circular_saw = 1,
 		/obj/item/surgery/hemostat = 1,
 		/obj/item/surgery/retractor = 1,
-		/obj/item/surgery/scalpel = 1
+		/obj/item/surgery/scalpel = 1,
+		/obj/item/surgery/bone_gel = 1
 	)

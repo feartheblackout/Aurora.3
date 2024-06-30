@@ -1,12 +1,10 @@
-var/datum/controller/subsystem/xenoarch/SSxenoarch
-
 #define XENOARCH_SPAWN_CHANCE 0.5
 #define DIGSITESIZE_LOWER 4
 #define DIGSITESIZE_UPPER 12
 #define ARTIFACTSPAWNNUM_LOWER 6
 #define ARTIFACTSPAWNNUM_UPPER 12
 
-/datum/controller/subsystem/xenoarch
+SUBSYSTEM_DEF(xenoarch)
 	name = "Xenoarchaeology"
 	flags = SS_NO_FIRE
 	init_order = SS_INIT_XENOARCH
@@ -14,12 +12,7 @@ var/datum/controller/subsystem/xenoarch/SSxenoarch
 	var/list/artifact_spawning_turfs = list()
 	var/list/digsite_spawning_turfs = list()
 
-/datum/controller/subsystem/xenoarch/New()
-	NEW_SS_GLOBAL(SSxenoarch)
-
 /datum/controller/subsystem/xenoarch/Initialize(timeofday)
-	set background=1
-
 	//create digsites
 	for(var/turf/TIW in world)
 		CHECK_TICK
@@ -69,7 +62,7 @@ var/datum/controller/subsystem/xenoarch/SSxenoarch
 				var/datum/find/F = archeo_turf.finds[1]
 				if(F.excavation_required <= F.view_range)
 					archeo_turf.archaeo_overlay = "overlay_archaeo[rand(1,3)]"
-					archeo_turf.add_overlay(archeo_turf.archaeo_overlay)
+					archeo_turf.AddOverlays(archeo_turf.archaeo_overlay)
 
 			//have a chance for an artifact to spawn here, but not in animal or plant digsites
 			if(isnull(M.artifact_find) && digsite != 1 && digsite != 2)
@@ -87,7 +80,7 @@ var/datum/controller/subsystem/xenoarch/SSxenoarch
 		var/turf/simulated/mineral/artifact_turf = pop(artifacts_spawnturf_temp)
 		artifact_turf.artifact_find = new()
 
-	..()
+	return SS_INIT_SUCCESS
 
 
 #undef XENOARCH_SPAWN_CHANCE

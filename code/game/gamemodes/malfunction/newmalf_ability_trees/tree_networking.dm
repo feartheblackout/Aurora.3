@@ -10,26 +10,26 @@
 // BEGIN RESEARCH DATUMS
 
 /datum/malf_research_ability/networking/basic_hack
-	ability = new/datum/game_mode/malfunction/verb/basic_encryption_hack()
+	ability = /datum/game_mode/malfunction/verb/basic_encryption_hack
 	price = 25
-	next = new/datum/malf_research_ability/networking/advanced_hack()
+	next = /datum/malf_research_ability/networking/advanced_hack
 	name = "Basic Encryption Hack"
 
 /datum/malf_research_ability/networking/advanced_hack
-	ability = new/datum/game_mode/malfunction/verb/advanced_encryption_hack()
+	ability = /datum/game_mode/malfunction/verb/advanced_encryption_hack
 	price = 400
-	next = new/datum/malf_research_ability/networking/elite_hack()
+	next = /datum/malf_research_ability/networking/elite_hack
 	name = "Advanced Encryption Hack"
 
 /datum/malf_research_ability/networking/elite_hack
-	ability = new/datum/game_mode/malfunction/verb/elite_encryption_hack()
+	ability = /datum/game_mode/malfunction/verb/elite_encryption_hack
 	price = 1000
-	next = new/datum/malf_research_ability/networking/system_override()
+	next = /datum/malf_research_ability/networking/system_override
 	name = "Elite Encryption Hack"
 
 
 /datum/malf_research_ability/networking/system_override
-	ability = new/datum/game_mode/malfunction/verb/system_override()
+	ability = /datum/game_mode/malfunction/verb/system_override
 	price = 5000
 	name = "System Override"
 
@@ -59,7 +59,7 @@
 			to_chat(user, "You already control this APC!")
 			return
 		else if(A.aidisabled)
-			to_chat(user, "<span class='notice'>Unable to connect to APC. Please verify wire connection and try again.</span>")
+			to_chat(user, SPAN_NOTICE("Unable to connect to APC. Please verify wire connection and try again."))
 			return
 	else
 		return
@@ -80,9 +80,9 @@
 		if(A.hacker == user)
 			to_chat(user, "Hack successful. You now have full control over the APC.")
 		else
-			to_chat(user, "<span class='notice'>Hack failed. Connection to APC has been lost. Please verify wire connection and try again.</span>")
+			to_chat(user, SPAN_NOTICE("Hack failed. Connection to APC has been lost. Please verify wire connection and try again."))
 	else
-		to_chat(user, "<span class='notice'>Hack failed. Unable to locate APC. Please verify the APC still exists.</span>")
+		to_chat(user, SPAN_NOTICE("Hack failed. Unable to locate APC. Please verify the APC still exists."))
 	user.hacking = 0
 
 
@@ -105,13 +105,13 @@
 	var/reporttype = input(usr, "Choose whether to use a template or custom report.", "Create Command Report") in list("Template", "Custom", "Cancel")
 	switch(reporttype)
 		if("Template")
-			if(!config.sql_enabled)
-				to_chat(src, "<span class='notice'>DB Connection Disabled.</span>")
+			if(!GLOB.config.sql_enabled)
+				to_chat(src, SPAN_NOTICE("DB Connection Disabled."))
 				return
-			if (!establish_db_connection(dbcon))
-				to_chat(src, "<span class='notice'>Unable to connect to the database.</span>")
+			if (!establish_db_connection(GLOB.dbcon))
+				to_chat(src, SPAN_NOTICE("Unable to connect to the database."))
 				return
-			var/DBQuery/query = dbcon.NewQuery("SELECT title, message FROM ss13_ccia_general_notice_list WHERE deleted_at IS NULL")
+			var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT title, message FROM ss13_ccia_general_notice_list WHERE deleted_at IS NULL")
 			query.Execute()
 
 			var/list/template_names = list()
@@ -123,7 +123,7 @@
 
 			// Catch empty list
 			if (!templates.len)
-				to_chat(src, "<span class='notice'>There are no templates in the database.</span>")
+				to_chat(src, SPAN_NOTICE("There are no templates in the database."))
 				return
 
 			reporttitle = input(usr, "Please select a command report template.", "Create Command Report") in template_names
@@ -143,7 +143,6 @@
 		var/resp = alert(usr, "Would you like it to appear as if CCIAMS made the report?",,"Yes","No")
 		if (resp == "Yes")
 			reportbody += "\n\n- CCIAMS, [commstation_name()]"
-		else
 
 	switch(alert("Should this be announced to the general population?",,"Yes","No"))
 		if("Yes")
@@ -182,7 +181,7 @@
 			//	log_ability_use(user, "advanced encryption hack (FAIL - title: [reporttitle])")
 			//	return
 			log_ability_use(user, "advanced encryption hack (SUCCESS - title: [reporttitle])")
-			to_world("<span class='alert'>New [current_map.company_name] Update available at all communication consoles.</span>")
+			to_world(SPAN_ALERT("New [SSatlas.current_map.company_name] Update available at all communication consoles."))
 			sound_to(world, ('sound/AI/commandreport.ogg'))
 			post_comm_message(reporttitle, reportbody)
 
@@ -250,7 +249,7 @@
 			sleep(duration/5)
 			if(!user || user.stat == DEAD)
 				return
-			command_announcement.Announce("Notice: Trace Update. Abnormal network activity originating from: Network terminal aboard [current_map.station_name]. External network connections disabled. Trace cancelled.", "Network Monitoring")
+			command_announcement.Announce("Notice: Trace Update. Abnormal network activity originating from: Network terminal aboard [SSatlas.current_map.station_name]. External network connections disabled. Trace cancelled.", "Network Monitoring")
 			sleep(duration/5)
 			if(!user || user.stat == DEAD)
 				return
@@ -289,7 +288,7 @@
 	user.hack_can_fail = 0
 	user.hacking = 0
 	user.system_override = 2
-	user.verbs += new/datum/game_mode/malfunction/verb/ai_destroy_station()
+	add_verb(user, /datum/game_mode/malfunction/verb/ai_destroy_station)
 
 
 // END ABILITY VERBS

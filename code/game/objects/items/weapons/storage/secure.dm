@@ -28,33 +28,33 @@
 	max_storage_space = 16
 	use_sound = 'sound/items/storage/briefcase.ogg'
 
-/obj/item/storage/secure/examine(mob/user)
-	if(..(user, 1))
-		to_chat(user, text("The service panel is [src.open ? "open" : "closed"]."))
+/obj/item/storage/secure/get_examine_text(mob/user, distance, is_adjacent, infix, suffix)
+	. = ..()
+	if(distance <= 1)
+		. += "The service panel is [src.open ? "open" : "closed"]."
 
-/obj/item/storage/secure/attackby(obj/item/W as obj, mob/user as mob)
+/obj/item/storage/secure/attackby(obj/item/attacking_item, mob/user)
 	if(locked)
-		if (istype(W, /obj/item/melee/energy/blade) && emag_act(INFINITY, user, "You slice through the lock of \the [src]"))
-			var/obj/item/melee/energy/blade/blade = W
+		if (istype(attacking_item, /obj/item/melee/energy/blade) && emag_act(INFINITY, user, "You slice through the lock of \the [src]"))
+			var/obj/item/melee/energy/blade/blade = attacking_item
 			blade.spark_system.queue()
 			playsound(src.loc, 'sound/weapons/blade.ogg', 50, 1)
 			playsound(src.loc, /singleton/sound_category/spark_sound, 50, 1)
 			return
 
-		if (W.isscrewdriver())
-			if(W.use_tool(src, user, 20, volume = 50))
+		if (attacking_item.isscrewdriver())
+			if(attacking_item.use_tool(src, user, 20, volume = 50))
 				src.open =! src.open
 				to_chat(user, SPAN_NOTICE("You [src.open ? "open" : "close"] the service panel."))
 			return
-		if ((W.ismultitool()) && (src.open == 1)&& (!src.l_hacking))
+		if ((attacking_item.ismultitool()) && (src.open == 1)&& (!src.l_hacking))
 			to_chat(user, SPAN_NOTICE("Now attempting to reset internal memory, please hold."))
 			src.l_hacking = 1
 			if (do_after(usr, 100))
 				if (prob(40))
 					src.l_setshort = 1
 					src.l_set = 0
-					to_chat(user, SPAN_NOTICE("Internal memory reset. Please give it a few seconds to reinitialize."))
-					sleep(80)
+					to_chat(user, SPAN_NOTICE("Internal memory reset."))
 					src.l_setshort = 0
 					src.l_hacking = 0
 				else
@@ -91,8 +91,8 @@
 	if (!src.locked)
 		message = "*****"
 	dat += text("<HR>\n>[]<BR>\n<A href='?src=\ref[];type=1'>1</A>-<A href='?src=\ref[];type=2'>2</A>-<A href='?src=\ref[];type=3'>3</A><BR>\n<A href='?src=\ref[];type=4'>4</A>-<A href='?src=\ref[];type=5'>5</A>-<A href='?src=\ref[];type=6'>6</A><BR>\n<A href='?src=\ref[];type=7'>7</A>-<A href='?src=\ref[];type=8'>8</A>-<A href='?src=\ref[];type=9'>9</A><BR>\n<A href='?src=\ref[];type=R'>R</A>-<A href='?src=\ref[];type=0'>0</A>-<A href='?src=\ref[];type=E'>E</A><BR>\n</TT>", message, src, src, src, src, src, src, src, src, src, src, src, src)
-	send_theme_resources(user)
-	user << browse(enable_ui_theme(user, dat), "window=caselock;size=300x280")
+
+	user << browse(dat, "window=caselock;size=300x280")
 
 /obj/item/storage/secure/Topic(href, href_list)
 	..()
@@ -105,15 +105,15 @@
 				src.l_set = 1
 			else if ((src.code == src.l_code) && (src.emagged == 0) && (src.l_set == 1))
 				src.locked = 0
-				cut_overlays()
-				add_overlay(icon_opened)
+				ClearOverlays()
+				AddOverlays(icon_opened)
 				src.code = null
 			else
 				src.code = "ERROR"
 		else
 			if ((href_list["type"] == "R") && (src.emagged == 0) && (!src.l_setshort))
 				src.locked = 1
-				cut_overlays()
+				ClearOverlays()
 				src.code = null
 				src.close(usr)
 			else
@@ -130,10 +130,10 @@
 /obj/item/storage/secure/emag_act(var/remaining_charges, var/mob/user, var/feedback)
 	if(!emagged)
 		emagged = 1
-		add_overlay(icon_sparking)
+		AddOverlays(icon_sparking)
 		sleep(6)
-		cut_overlays()
-		add_overlay(icon_locking)
+		ClearOverlays()
+		AddOverlays(icon_locking)
 		locked = 0
 		to_chat(user, (feedback ? feedback : "You short out the lock of \the [src]."))
 		return 1
@@ -152,14 +152,14 @@
 	icon_state = "secure"
 	item_state = "secure"
 	contained_sprite = TRUE
-	force = 8.0
+	force = 18
 	throw_speed = 1
 	throw_range = 4
 	w_class = ITEMSIZE_LARGE
 
 /obj/item/storage/secure/briefcase/attack_hand(mob/user as mob)
 	if((src.loc == user) && (src.locked == 1))
-		to_chat(usr, "<span class='warning'>[src] is locked and cannot be opened!</span>")
+		to_chat(usr, SPAN_WARNING("[src] is locked and cannot be opened!"))
 	else if((src.loc == user) && (!src.locked))
 		src.open(usr)
 	else
@@ -176,12 +176,12 @@
 
 /obj/item/storage/secure/safe
 	name = "secure safe"
-	icon = 'icons/obj/storage.dmi'
+	icon = 'icons/obj/storage/misc.dmi'
 	icon_state = "safe"
 	icon_opened = "safe0"
 	icon_locking = "safeb"
 	icon_sparking = "safespark"
-	force = 8.0
+	force = 18
 	w_class = ITEMSIZE_IMMENSE
 	max_w_class = ITEMSIZE_IMMENSE
 	anchored = 1.0

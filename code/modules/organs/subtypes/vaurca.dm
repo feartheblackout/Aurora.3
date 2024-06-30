@@ -68,28 +68,195 @@
 	desc = "The single most important organ for a Vaurca, able to copy their mind into their Virtual Reality Afterlife upon death."
 	parent_organ = BP_HEAD
 	robotic = ROBOTIC_MECHANICAL
+	var/shielded = SOCKET_UNSHIELDED
+	var/muted = FALSE
+	var/banned = FALSE
+	var/disrupted = FALSE
+	var/disrupttime = 0
+	var/last_action = 0
+	var/adminperms = FALSE
+	var/encryption_key
+	var/decryption_key
 
-/obj/item/organ/vaurca/neuralsocket/process()
+	var/list/granted_verbs = list(
+		/mob/living/carbon/human/proc/hivenet_recieve,
+		/mob/living/carbon/human/proc/hivenet_manifest
+	)
+
+	var/list/all_hive_verbs = list(
+		/mob/living/carbon/human/proc/hiveban,
+		/mob/living/carbon/human/proc/hiveuntether,
+		/mob/living/carbon/human/proc/hivenet_neuralshock,
+		/mob/living/carbon/human/proc/hivenet_transmit,
+		/mob/living/carbon/human/proc/hivemute,
+		/mob/living/carbon/human/proc/hivenet_recieve,
+		/mob/living/carbon/human/proc/hivenet_encrypt,
+		/mob/living/carbon/human/proc/hivenet_camera,
+		/mob/living/carbon/human/proc/hivenet_lattice,
+		/mob/living/carbon/human/proc/hivenet_decrypt,
+		/mob/living/carbon/human/proc/hivenet_hijack,
+		/mob/living/carbon/human/proc/antag_hiveshock,
+		/mob/living/carbon/human/proc/antag_hivemute
+	)
+
+/obj/item/organ/internal/vaurca/neuralsocket/process()
+	if(!owner)
+		return
+	if(last_action > world.time)
+		last_action--
 	if (is_broken())
-		if (all_languages[LANGUAGE_VAURCA] in owner.languages)
+		if (GLOB.all_languages[LANGUAGE_VAURCA] in owner.languages)
 			owner.remove_language(LANGUAGE_VAURCA)
-			to_chat(owner, "<span class='warning'>Your mind suddenly grows dark as the unity of the Hive is torn from you.</span>")
+			to_chat(owner, SPAN_WARNING("Your mind suddenly grows dark as the unity of the Hive is torn from you."))
 	else
-		if (!(all_languages[LANGUAGE_VAURCA] in owner.languages))
+		if (!(GLOB.all_languages[LANGUAGE_VAURCA] in owner.languages) && !banned)
 			owner.add_language(LANGUAGE_VAURCA)
-			to_chat(owner, "<span class='notice'> Your mind expands, and your thoughts join the unity of the Hivenet.</span>")
+			to_chat(owner, SPAN_NOTICE(" Your mind expands, and your thoughts join the unity of the Hivenet."))
+	if(disrupted)
+		if(disrupttime > world.time)
+			disrupttime--
+		else
+			disrupted = FALSE
 	..()
 
 /obj/item/organ/internal/vaurca/neuralsocket/replaced(var/mob/living/carbon/human/target)
-	if (!(all_languages[LANGUAGE_VAURCA] in owner.languages))
+	owner = target
+	if (!(GLOB.all_languages[LANGUAGE_VAURCA] in owner.languages) && !banned)
 		owner.add_language(LANGUAGE_VAURCA)
-		to_chat(owner, "<span class='notice'> Your mind expands, and your thoughts join the unity of the Hivenet.</span>")
+		to_chat(owner, SPAN_NOTICE(" Your mind expands, and your thoughts join the unity of the Hivenet."))
+	add_verb(owner, granted_verbs)
 	..()
 
 /obj/item/organ/internal/vaurca/neuralsocket/removed(var/mob/living/carbon/human/target)
-	if(all_languages[LANGUAGE_VAURCA] in target.languages)
+	if(GLOB.all_languages[LANGUAGE_VAURCA] in target.languages)
 		target.remove_language(LANGUAGE_VAURCA)
-		to_chat(target, "<span class='warning'>Your mind suddenly grows dark as the unity of the Hive is torn from you.</span>")
+		to_chat(target, SPAN_WARNING("Your mind suddenly grows dark as the unity of the Hive is torn from you."))
+	remove_verb(owner, all_hive_verbs)
+	..()
+
+/obj/item/organ/internal/vaurca/neuralsocket/admin
+	name = "administrative neural socket"
+	desc = "The single most important organ for a Vaurca, able to copy their mind into their Virtual Reality Afterlife upon death. \
+	This one appears to be the far rarer administrative model including encrypted Hivenet access codes and an Emergency Remote Cast System. These are almost never found on any Vaurca Bioform except the Ta."
+	icon_state = "admin_socket"
+	var/remote_cast = FALSE //get out of death free card
+	adminperms = TRUE
+	var/list/shielded_sockets = list() //sockets that you are currently protecting
+	var/list/shielded_mobs = list() //mobs that you are currently protecting
+	granted_verbs = list(
+		/mob/living/carbon/human/proc/hiveban,
+		/mob/living/carbon/human/proc/hivenet_neuralshock,
+		/mob/living/carbon/human/proc/hiveuntether,
+		/mob/living/carbon/human/proc/hivenet_transmit,
+		/mob/living/carbon/human/proc/hivemute,
+		/mob/living/carbon/human/proc/hivenet_recieve,
+		/mob/living/carbon/human/proc/hivenet_encrypt,
+		/mob/living/carbon/human/proc/hivenet_camera,
+		/mob/living/carbon/human/proc/hivenet_lattice,
+		/mob/living/carbon/human/proc/hivenet_decrypt,
+		/mob/living/carbon/human/proc/hivenet_manifest
+	)
+
+/obj/item/organ/internal/vaurca/neuralsocket/admin/process()
+	if(!owner)
+		return
+	if (is_broken())
+		if (GLOB.all_languages[LANGUAGE_VAURCA] in owner.languages)
+			owner.remove_language(LANGUAGE_VAURCA)
+			to_chat(owner, SPAN_WARNING("Your mind suddenly grows dark as the unity of the Hive is torn from you."))
+	else
+		if (!(GLOB.all_languages[LANGUAGE_VAURCA] in owner.languages) && !banned)
+			owner.add_language(LANGUAGE_VAURCA)
+			to_chat(owner, SPAN_NOTICE("Your mind expands, and your thoughts join the unity of the Hivenet."))
+
+	if(owner.stat == DEAD)
+		if(!remote_cast)
+			owner.visible_message(SPAN_WARNING("[owner]'s corpse spasms suddenly, legs twitching and antennae moving wildly as something hums beneath [owner.get_pronoun("his")] exoskeleton. After a moment, [owner.get_pronoun("he")] goes still."))
+			icon_state = "admin_socket_on"
+			desc += "The Emergency Remote Cast light is green, indicating it has been triggered."
+			remote_cast = TRUE
+		for(var/obj/item/organ/internal/vaurca/neuralsocket/S in shielded_sockets)
+			S.shielded = SOCKET_UNSHIELDED
+			to_chat(S.owner, SPAN_WARNING("You feel [owner]'s protection vanish from you, leaving your neural socket exposed."))
+			LAZYREMOVE(shielded_sockets, S)
+			LAZYREMOVE(shielded_mobs, S.owner)
+	..()
+
+/obj/item/organ/internal/augment/hiveshield
+	name = BP_HIVENET_SHIELD
+	organ_tag = BP_HIVENET_SHIELD
+	parent_organ = BP_HEAD
+	icon_state = "augment-pda"
+	desc = "An augment often seen among Vaurcae specialising in espionage or cyberwarfare operations, this suite of tools is designed to protect a Vaurca's Hivenet connection against hacking, remote access, and sabotage."
+	action_button_name = "Toggle Hivenet Defense Suite"
+	action_button_icon = "augment-pda"
+	activable = TRUE
+	species_restricted = list(SPECIES_VAURCA_WORKER, SPECIES_VAURCA_WARRIOR, SPECIES_VAURCA_BREEDER, SPECIES_VAURCA_BULWARK, SPECIES_VAURCA_WARFORM)
+	var/fullshield = FALSE
+
+/obj/item/organ/internal/augment/hiveshield/attack_self(var/mob/living/carbon/user)
+	var/obj/item/organ/internal/vaurca/neuralsocket/S = user.internal_organs_by_name[BP_NEURAL_SOCKET]
+	if(!istype(S) && !S.is_broken())
+		to_chat(user, SPAN_WARNING("You require a working neural socket to activate \the [src]."))
+		return
+	if(S.shielded)
+		to_chat(user, SPAN_NOTICE("You deactivate \the [src], lowering your neural socket's defenses."))
+		S.shielded = SOCKET_UNSHIELDED
+		return
+	to_chat(user, SPAN_NOTICE("You activate \the [src], shielding your neural socket against outside attack."))
+	if(fullshield)
+		S.shielded = SOCKET_FULLSHIELDED
+	else
+		S.shielded = SOCKET_SHIELDED
+
+/obj/item/organ/internal/augment/hiveshield/process()
+	if(is_broken())
+		var/obj/item/organ/internal/vaurca/neuralsocket/S = owner.internal_organs_by_name[BP_NEURAL_SOCKET]
+		if(S.shielded)
+			S.shielded = SOCKET_UNSHIELDED
+
+/obj/item/organ/internal/augment/hiveshield/removed()
+	var/obj/item/organ/internal/vaurca/neuralsocket/S = owner.internal_organs_by_name[BP_NEURAL_SOCKET]
+	if(S.shielded)
+		S.shielded = SOCKET_UNSHIELDED
+
+/obj/item/organ/internal/augment/hiveshield/advanced
+	name = "advanced hivenet electronic defense suite"
+	desc = "An augment often seen among Vaurcae specialising in espionage or cyberwarfare operations, this suite of tools is designed to protect a Vaurca's Hivenet connection against hacking, remote access or sabotage. \
+	This one looks especially advanced, even by Vaurcaesian standards."
+	action_button_name = "Toggle Advanced Hivenet Defense Suite"
+	fullshield = TRUE
+
+/obj/item/organ/internal/augment/hiveshield/warfare
+	name = "hivenet electronic warfare suite"
+	desc = "An augment often seen among Vaurcae specializing in espionage or cyberwarfare operations, this suite of tools is designed to protect a Vaurca's Hivenet connection against hacking, remote access or sabotage. \
+	It also contains a suite of upgrades enabling it to launch Hivenet-based attacks against other Vaurcae."
+	var/list/added_verbs = list(
+		/mob/living/carbon/human/proc/hivenet_hijack,
+		/mob/living/carbon/human/proc/antag_hiveshock,
+		/mob/living/carbon/human/proc/antag_hivemute,
+		/mob/living/carbon/human/proc/hivenet_encrypt,
+		/mob/living/carbon/human/proc/hivenet_decrypt
+	)
+
+/obj/item/organ/internal/augment/hiveshield/warfare/process()
+	if(!owner)
+		return
+	if(is_broken())
+		var/obj/item/organ/internal/vaurca/neuralsocket/S = owner.internal_organs_by_name[BP_NEURAL_SOCKET]
+		if(S.shielded)
+			S.shielded = SOCKET_UNSHIELDED
+		remove_verb(owner, added_verbs)
+
+/obj/item/organ/internal/augment/hiveshield/warfare/removed()
+	var/obj/item/organ/internal/vaurca/neuralsocket/S = owner.internal_organs_by_name[BP_NEURAL_SOCKET]
+	if(S.shielded)
+		S.shielded = SOCKET_UNSHIELDED
+	remove_verb(owner, added_verbs)
+
+/obj/item/organ/internal/augment/hiveshield/warfare/replaced(var/mob/living/carbon/human/target)
+	owner = target
+	add_verb(owner, added_verbs)
 	..()
 
 /obj/item/organ/internal/augment/tool/combitool/vaurca
@@ -98,6 +265,7 @@
 	action_button_name = "Deploy Toolset"
 	action_button_icon = "vaurcatool"
 	augment_type = /obj/item/combitool/robotic/vaurca
+	species_restricted = list(SPECIES_VAURCA_WORKER, SPECIES_VAURCA_WARRIOR, SPECIES_VAURCA_BULWARK)
 
 /obj/item/organ/internal/augment/tool/combitool/vaurca/left
 	parent_organ = BP_L_HAND
@@ -115,6 +283,28 @@
 		"wirecutters"
 		)
 
+/obj/item/organ/internal/augment/vaurca_mag
+	name = "integrated mag-claws"
+	desc = "An integrated magnetic grip system, designed for Vaurcae without easy access to magboots."
+	icon_state = "suspension"
+	item_state = "suspension"
+	action_button_name = "Activate Mag-Claws"
+	action_button_icon = "magclaws"
+	parent_organ = BP_GROIN
+	organ_tag = BP_AUG_MAGBOOT
+	activable = TRUE
+	species_restricted = list(SPECIES_VAURCA_WORKER, SPECIES_VAURCA_WARRIOR, SPECIES_VAURCA_BREEDER, SPECIES_VAURCA_BULWARK, SPECIES_VAURCA_WARFORM)
+
+/obj/item/organ/internal/augment/vaurca_mag/attack_self(mob/user)
+	if(use_check_and_message(owner))
+		return
+	if(HAS_TRAIT(owner, TRAIT_SHOE_GRIP))
+		to_chat(owner, SPAN_NOTICE("You deactivate \the [src]."))
+		REMOVE_TRAIT(owner, TRAIT_SHOE_GRIP, TRAIT_SOURCE_AUGMENT)
+	else
+		to_chat(owner, SPAN_NOTICE("You activate \the [src]."))
+		ADD_TRAIT(owner, TRAIT_SHOE_GRIP, TRAIT_SOURCE_AUGMENT)
+		playsound(get_turf(src), 'sound/effects/magnetclamp.ogg', 20)
 
 /obj/item/organ/internal/vaurca/preserve
 	icon = 'icons/obj/organs/vaurca_organs.dmi'
@@ -150,11 +340,17 @@
 	if(air_contents)
 		QDEL_NULL(air_contents)
 
+	//Clear the reference to the phoron reserve as internals
+	var/mob/living/carbon/location = loc
+	if(istype(location) && location?.internal == src)
+		location?.internal = null
+		location?.internals?.icon_state = "internal0"
+
 	return ..()
 
-/obj/item/organ/internal/vaurca/preserve/examine(mob/user)
-	. = ..(user, 0)
-	if(.)
+/obj/item/organ/internal/vaurca/preserve/get_examine_text(mob/user, distance, is_adjacent, infix, suffix)
+	. = ..()
+	if(is_adjacent)
 		var/celsius_temperature = air_contents.temperature - T0C
 		var/descriptive
 		switch(celsius_temperature)
@@ -170,30 +366,30 @@
 				descriptive = "room temperature"
 			else
 				descriptive = "cold"
-		to_chat(user, "<span class='notice'>\The [src] feels [descriptive].</span>")
+		. += SPAN_NOTICE("\The [src] feels [descriptive].")
 
-/obj/item/organ/internal/vaurca/preserve/attackby(obj/item/W as obj, mob/user as mob)
+/obj/item/organ/internal/vaurca/preserve/attackby(obj/item/attacking_item, mob/user)
 	..()
 	var/obj/icon = src
 
-	if ((istype(W, /obj/item/device/analyzer)) && get_dist(user, src) <= 1)
-		user.visible_message("<span class='warning'>[user] has used [W] on [icon2html(icon, viewers(get_turf(user)))] [src].</span>")
+	if ((istype(attacking_item, /obj/item/device/analyzer)) && get_dist(user, src) <= 1)
+		user.visible_message(SPAN_WARNING("[user] has used [attacking_item] on [icon2html(icon, viewers(get_turf(user)))] [src]."))
 
 		var/pressure = air_contents.return_pressure()
 		manipulated_by = user.real_name			//This person is aware of the contents of the tank.
 		var/total_moles = air_contents.total_moles
 
-		to_chat(user, "<span class='notice'>Results of analysis of [icon2html(icon, user)]</span>")
+		to_chat(user, SPAN_NOTICE("Results of analysis of [icon2html(icon, user)]"))
 		if (total_moles>0)
-			to_chat(user, "<span class='notice'>Pressure: [round(pressure,0.1)] kPa</span>")
+			to_chat(user, SPAN_NOTICE("Pressure: [round(pressure,0.1)] kPa"))
 			for(var/g in air_contents.gas)
-				to_chat(user, "<span class='notice'>[gas_data.name[g]]: [(round(air_contents.gas[g] / total_moles) * 100)]%</span>")
-			to_chat(user, "<span class='notice'>Temperature: [round(air_contents.temperature-T0C)]&deg;C</span>")
+				to_chat(user, SPAN_NOTICE("[gas_data.name[g]]: [(round(air_contents.gas[g] / total_moles) * 100)]%"))
+			to_chat(user, SPAN_NOTICE("Temperature: [round(air_contents.temperature-T0C)]&deg;C"))
 		else
-			to_chat(user, "<span class='notice'>Tank is empty!</span>")
+			to_chat(user, SPAN_NOTICE("Tank is empty!"))
 		src.add_fingerprint(user)
-	else if (istype(W,/obj/item/toy/balloon))
-		var/obj/item/toy/balloon/B = W
+	else if (istype(attacking_item, /obj/item/toy/balloon))
+		var/obj/item/toy/balloon/B = attacking_item
 		B.blow(src)
 		src.add_fingerprint(user)
 
@@ -234,18 +430,18 @@
 				mask_check = 1
 
 		if(mask_check)
-			if(location.wear_mask && (location.wear_mask.flags & AIRTIGHT))
+			if(location.wear_mask && (location.wear_mask.item_flags & ITEM_FLAG_AIRTIGHT))
 				data["maskConnected"] = 1
 			else if(istype(location, /mob/living/carbon/human))
 				var/mob/living/carbon/human/H = location
-				if(H.head && (H.head.flags & AIRTIGHT))
+				if(H.head && (H.head.item_flags & ITEM_FLAG_AIRTIGHT))
 					data["maskConnected"] = 1
 
 	// update the ui if it exists, returns null if no ui is passed/found
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
 		// the ui does not exist, so we'll create a new() one
-        // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
+		// for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
 		ui = new(user, src, ui_key, "tanks.tmpl", "Tank", 500, 300)
 		// when the ui is first opened this is the data it will use
 		ui.set_initial_data(data)
@@ -276,26 +472,26 @@
 			if(location.internal == src)
 				location.internal = null
 				location.internals.icon_state = "internal0"
-				to_chat(usr, "<span class='notice'>You close the tank release valve.</span>")
+				to_chat(usr, SPAN_NOTICE("You close the tank release valve."))
 				if (location.internals)
 					location.internals.icon_state = "internal0"
 			else
 
 				var/can_open_valve
-				if(location.wear_mask && (location.wear_mask.flags & AIRTIGHT))
+				if(location.wear_mask && (location.wear_mask.item_flags & ITEM_FLAG_AIRTIGHT))
 					can_open_valve = 1
 				else if(istype(location,/mob/living/carbon/human))
 					var/mob/living/carbon/human/H = location
-					if(H.head && (H.head.flags & AIRTIGHT))
+					if(H.head && (H.head.item_flags & ITEM_FLAG_AIRTIGHT))
 						can_open_valve = 1
 
 				if(can_open_valve)
 					location.internal = src
-					to_chat(usr, "<span class='notice'>You open \the [src] valve.</span>")
+					to_chat(usr, SPAN_NOTICE("You open \the [src] valve."))
 					if (location.internals)
 						location.internals.icon_state = "internal1"
 				else
-					to_chat(usr, "<span class='notice'>You need something to connect to \the [src].</span>")
+					to_chat(usr, SPAN_NOTICE("You need something to connect to \the [src]."))
 
 	src.add_fingerprint(usr)
 	return 1
@@ -319,7 +515,7 @@
 
 	var/tank_pressure = air_contents.return_pressure()
 	if((tank_pressure < distribute_pressure) && prob(5))
-		to_chat(owner, "<span class='warning'>There is a buzzing in your [parent_organ].</span>")
+		to_chat(owner, SPAN_WARNING("There is a buzzing in your [parent_organ]."))
 
 	var/moles_needed = distribute_pressure*volume_to_return/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
 
@@ -414,3 +610,108 @@
 /obj/item/organ/external/head/vaurca
 	limb_flags = ORGAN_CAN_AMPUTATE | ORGAN_CAN_MAIM
 	encased = null
+
+//Beefier augments
+
+/obj/item/organ/external/hand/right/vaurca/security
+	name = "security grasper"
+	action_button_name = "Activate Integrated Electroshock Weapon"
+	dislocated = -1
+	encased = "support frame"
+	robotize_type = PROSTHETIC_VAURCA
+
+/obj/item/organ/external/hand/right/vaurca/security/refresh_action_button()
+	. = ..()
+	if(.)
+		action.button_icon_state = "baton"
+		if(action.button)
+			action.button.update_icon()
+
+/obj/item/organ/external/hand/right/vaurca/security/attack_self(var/mob/user)
+	. = ..()
+
+	if(.)
+
+		if(owner.last_special > world.time)
+			to_chat(owner, SPAN_DANGER("\The [src] is still recharging!"))
+			return
+
+		if(owner.stat || owner.paralysis || owner.stunned || owner.weakened)
+			to_chat(owner, SPAN_DANGER("You can not use \the [src] in your current state!"))
+			return
+
+		if(is_broken())
+			to_chat(owner, SPAN_DANGER("\The [src] is too damaged to be used!"))
+			return
+
+		if(is_bruised())
+			spark(get_turf(owner), 3)
+
+		var/obj/item/grab/G = owner.get_active_hand()
+		if(!istype(G))
+			to_chat(owner, SPAN_DANGER("You must grab someone before trying to use your [src]!"))
+			return
+
+		if(owner.nutrition <= 150) //slightly more energy-efficient than aut'akh bc bugs are better at augments
+			to_chat(owner, SPAN_DANGER("Your energy reserves are too low to use your [src]!"))
+			return
+
+		if(ishuman(G.affecting))
+
+			var/mob/living/carbon/human/H = G.affecting
+			var/target_zone = check_zone(owner.zone_sel.selecting)
+
+			owner.last_special = world.time + 100
+			owner.adjustNutritionLoss(50)
+
+			if(owner.a_intent == I_HURT)
+				H.electrocute_act(10, owner, def_zone = target_zone)
+			else
+				H.stun_effect_act(0, 50, target_zone, owner)
+
+			owner.visible_message(SPAN_DANGER("[H] has been prodded with [src] by [owner]!"))
+			playsound(get_turf(owner), 'sound/weapons/Egloves.ogg', 50, 1, -1)
+
+/obj/item/organ/external/hand/right/vaurca/medical
+	name = "medical grasper"
+	action_button_name = "Activate Integrated Biological Analyser"
+	dislocated = -1
+	encased = "support frame"
+	robotize_type = PROSTHETIC_VAURCA
+
+/obj/item/organ/external/hand/right/vaurca/medical/refresh_action_button()
+	. = ..()
+	if(.)
+		action.button_icon_state = "health"
+		if(action.button)
+			action.button.update_icon()
+
+/obj/item/organ/external/hand/right/vaurca/medical/attack_self(var/mob/user)
+	. = ..()
+
+	if(.)
+
+		if(owner.last_special > world.time)
+			to_chat(owner, SPAN_DANGER("\The [src] is still recharging!"))
+			return
+
+		if(owner.stat || owner.paralysis || owner.stunned || owner.weakened)
+			to_chat(owner, SPAN_DANGER("You can not use \the [src] in your current state!"))
+			return
+
+		if(is_broken())
+			to_chat(owner, SPAN_DANGER("\The [src] is too damaged to be used!"))
+			return
+
+		if(is_bruised())
+			spark(get_turf(owner), 3)
+
+		var/obj/item/grab/G = owner.get_active_hand()
+		if(!istype(G))
+			to_chat(owner, SPAN_DANGER("You must grab someone before trying to analyze their health!"))
+			return
+
+		owner.last_special = world.time + 50
+		if(ishuman(G.affecting))
+			var/mob/living/carbon/human/H = G.affecting
+			health_scan_mob(H, owner)

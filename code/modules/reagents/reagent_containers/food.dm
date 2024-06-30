@@ -4,11 +4,8 @@
 /obj/item/reagent_containers/food
 	drop_sound = 'sound/items/drop/food.ogg'
 	pickup_sound = 'sound/items/pickup/food.ogg'
-	item_icons = list(
-		slot_l_hand_str = 'icons/mob/items/lefthand_food.dmi',
-		slot_r_hand_str = 'icons/mob/items/righthand_food.dmi'
-		)
-	flags = OPENCONTAINER
+	contained_sprite = TRUE
+	atom_flags = ATOM_FLAG_OPEN_CONTAINER
 	possible_transfer_amounts = null
 	volume = 50 //Sets the default container amount for all food items.
 	var/bitesize = 1
@@ -17,9 +14,10 @@
 	var/ingredient_name // Also used by sandwiches; if null, it just uses the normal name.
 	var/trash = null
 	var/is_liquid = TRUE
+	var/empty_icon_state
 
 /obj/item/reagent_containers/food/self_feed_message(var/mob/user)
-	to_chat(user, "<span class='notice'>You [is_liquid ? "drink from" : "eat"] \the [src].</span>")
+	to_chat(user, SPAN_NOTICE("You [is_liquid ? "drink from" : "eat"] \the [src]."))
 
 /obj/item/reagent_containers/food/feed_sound(var/mob/user)
 	if(is_liquid)

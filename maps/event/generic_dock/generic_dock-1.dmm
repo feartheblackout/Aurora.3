@@ -24,6 +24,78 @@
 	},
 /turf/space/transit/bluespace/west,
 /area/template_noop)
+"aac" = (
+/obj/machinery/door/airlock/centcom{
+	name = "Telecommunications Server";
+	req_one_access = list(106,108,109)
+	},
+/turf/simulated/floor/tiled{
+	name = "cooled floor";
+	temperature = 278
+	},
+/area/centcom/control)
+"aad" = (
+/obj/machinery/door/airlock/external{
+	frequency = 1380;
+	icon_state = "door_locked";
+	id_tag = "escape_shuttle_hatch";
+	locked = 1;
+	name = "Shuttle Hatch";
+	req_access = list(13);
+	dir = 4
+	},
+/turf/simulated/floor/shuttle/dark_blue,
+/area/shuttle/escape)
+"aae" = (
+/obj/machinery/door/airlock/glass_centcom{
+	name = "Sector Administration Copula";
+	req_one_access = list(109,108);
+	dir = 1
+	},
+/turf/unsimulated/floor{
+	icon_state = "dark_preview"
+	},
+/area/centcom/control)
+"aaf" = (
+/obj/machinery/door/airlock/centcom{
+	name = "Bureau Supervisor's Office";
+	req_access = list(109);
+	dir = 4
+	},
+/turf/unsimulated/floor{
+	icon_state = "dark_preview"
+	},
+/area/centcom/control)
+"aag" = (
+/obj/machinery/door/airlock/centcom{
+	name = "Civil Protection Station";
+	req_access = list(103);
+	dir = 1
+	},
+/turf/unsimulated/floor{
+	icon_state = "dark_preview"
+	},
+/area/centcom/holding)
+"aah" = (
+/obj/machinery/door/airlock/glass_security{
+	name = "Holding Cell";
+	req_access = list(1);
+	dir = 1
+	},
+/turf/unsimulated/floor{
+	icon_state = "dark_preview"
+	},
+/area/centcom/holding)
+"aai" = (
+/obj/machinery/door/airlock/glass_centcom{
+	name = "Valkyrie's Rest Kitchen";
+	req_access = list(105);
+	dir = 1
+	},
+/turf/unsimulated/floor{
+	icon_state = "lino_diamond"
+	},
+/area/centcom/bar)
 "aal" = (
 /obj/machinery/light/small{
 	brightness_power = 0.5;
@@ -31,9 +103,34 @@
 	name = "adjusted light fixture"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
+"aam" = (
+/obj/machinery/door/airlock/external{
+	frequency = 1380;
+	icon_state = "door_locked";
+	id_tag = "centcom_dock_airlock";
+	locked = 1;
+	name = "Arrivals Airlock";
+	req_access = list(13);
+	dir = 4
+	},
+/obj/effect/floor_decal/industrial/hatch/yellow,
+/turf/unsimulated/floor,
+/area/centcom/evac)
+"aan" = (
+/obj/machinery/door/airlock/external{
+	frequency = 1380;
+	icon_state = "door_locked";
+	id_tag = "centcom_arrivals_airlock";
+	locked = 1;
+	name = "Arrivals Airlock";
+	req_access = list(13);
+	dir = 1
+	},
+/turf/unsimulated/floor,
+/area/centcom/spawning)
 "aap" = (
 /obj/effect/step_trigger/teleporter/random{
 	affect_ghosts = 1;
@@ -95,12 +192,10 @@
 /area/template_noop)
 "aaJ" = (
 /obj/item/gun/energy/pistol{
-	layer = 2.99;
 	pixel_x = 2;
 	pixel_y = 3
 	},
 /obj/item/gun/energy/pistol{
-	layer = 2.99;
 	pixel_x = 2;
 	pixel_y = 3
 	},
@@ -141,21 +236,17 @@
 /turf/simulated/floor/shuttle/dark_blue,
 /area/shuttle/escape)
 "abX" = (
-/obj/item/device/radio/intercom{
-	dir = 1;
+/obj/item/device/radio/intercom/south{
 	frequency = 1443;
-	name = "Spec Ops Intercom";
-	pixel_y = -21
+	name = "Spec Ops Intercom"
 	},
 /turf/simulated/floor/shuttle/black,
 /area/shuttle/specops)
 "aco" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -30;
+/obj/structure/extinguisher_cabinet/west{
 	pixel_y = 2
 	},
 /obj/structure/closet/walllocker/emerglocker/north{
-	layer = 3;
 	pixel_x = -1;
 	pixel_y = 29
 	},
@@ -181,7 +272,7 @@
 	dir = 4
 	},
 /turf/unsimulated/floor{
-	icon_state = "wood_light"
+	icon_state = "wood_preview"
 	},
 /area/centcom/holding)
 "adU" = (
@@ -199,7 +290,7 @@
 	dir = 4
 	},
 /turf/unsimulated/floor{
-	icon_state = "wood_light"
+	icon_state = "wood_preview"
 	},
 /area/centcom/evac)
 "ahe" = (
@@ -245,18 +336,14 @@
 /turf/template_noop,
 /area/template_noop)
 "aix" = (
-/obj/machinery/camera/network/crescent{
-	c_tag = "Crescent Arrivals - Holding Cell";
-	dir = 4
-	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "aiy" = (
 /obj/machinery/vending/security,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "aiz" = (
@@ -267,8 +354,7 @@
 	dir = 1
 	},
 /obj/machinery/vending/tool,
-/obj/structure/fireaxecabinet{
-	pixel_x = -16;
+/obj/structure/fireaxecabinet/west{
 	pixel_y = 29
 	},
 /turf/unsimulated/floor/plating,
@@ -299,7 +385,7 @@
 /area/centcom/bar)
 "amg" = (
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/checkpoint/fore)
 "amk" = (
@@ -324,7 +410,7 @@
 	},
 /area/centcom/evac)
 "ang" = (
-/obj/effect/floor_decal/corner/paleblue/diagonal{
+/obj/effect/floor_decal/corner/dark_blue/diagonal{
 	dir = 8
 	},
 /turf/simulated/floor/tiled/dark,
@@ -353,7 +439,7 @@
 /obj/machinery/vending/engivend,
 /obj/effect/floor_decal/industrial/outline/yellow,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "aok" = (
@@ -382,7 +468,7 @@
 	dir = 8
 	},
 /turf/unsimulated/floor{
-	icon_state = "wood_light"
+	icon_state = "wood_preview"
 	},
 /area/centcom/evac)
 "apU" = (
@@ -394,7 +480,7 @@
 "apW" = (
 /obj/item/stack/cable_coil,
 /obj/machinery/light{
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
 	icon_state = "whiteshiny"
@@ -419,9 +505,7 @@
 	dir = 1;
 	name = "shuttle bay blast door"
 	},
-/area/centcom/start{
-	name = "Romanovich Cloud, Tau Ceti"
-	})
+/area/centcom/start)
 "atq" = (
 /obj/structure/shuttle_part/cargo{
 	icon_state = "0,10";
@@ -467,7 +551,7 @@
 	name = "Observer-Start"
 	},
 /turf/unsimulated/floor{
-	icon_state = "wood_light"
+	icon_state = "wood_preview"
 	},
 /area/centcom/spawning)
 "auK" = (
@@ -490,19 +574,16 @@
 /area/supply/dock)
 "avk" = (
 /obj/machinery/light{
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor,
 /area/centcom/holding)
 "avo" = (
 /obj/structure/railing/mapped{
-	layer = 4.1;
 	name = "adjusted railing"
 	},
-/obj/effect/floor_decal/spline/plain,
-/turf/unsimulated/floor{
-	icon_state = "new_reinforced"
-	},
+/obj/effect/floor_decal/spline/plain/black,
+/turf/unsimulated/floor,
 /area/centcom/checkpoint/aft)
 "avr" = (
 /obj/structure/railing/mapped{
@@ -543,7 +624,7 @@
 	req_access = list(1)
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "awh" = (
@@ -558,7 +639,7 @@
 "awC" = (
 /obj/structure/table/reinforced,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "awE" = (
@@ -566,7 +647,7 @@
 	name = "equipment locker"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "awK" = (
@@ -574,8 +655,7 @@
 	dir = 1
 	},
 /turf/unsimulated/floor{
-	dir = 4;
-	icon_state = "rampbottom"
+	dir = 4
 	},
 /area/centcom/holding)
 "awS" = (
@@ -583,8 +663,7 @@
 /area/centcom/bar)
 "axs" = (
 /turf/unsimulated/floor{
-	dir = 4;
-	icon_state = "rampbottom"
+	dir = 4
 	},
 /area/centcom/holding)
 "axQ" = (
@@ -608,7 +687,7 @@
 /obj/machinery/vending/assist,
 /obj/machinery/light{
 	dir = 8;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor/plating,
 /area/centcom/specops)
@@ -632,22 +711,21 @@
 /area/centcom/bar)
 "ayM" = (
 /obj/item/tape/engineering{
-	icon_state = "engineering_door";
-	layer = 4
+	icon_state = "engineering_door"
 	},
 /obj/machinery/door/airlock/centcom{
 	icon = 'icons/obj/doors/Doorglass.dmi';
 	locked = 1;
 	name = "Rapid Transit Ticket Kiosk";
 	opacity = 0;
-	req_access = list(101)
+	req_access = list(101);
+	dir = 1
 	},
 /turf/simulated/floor/tiled/dark,
 /area/centcom/bar)
 "aze" = (
 /turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "rampbottom"
+	dir = 8
 	},
 /area/centcom/holding)
 "azf" = (
@@ -657,8 +735,7 @@
 	},
 /area/centcom/holding)
 "aAF" = (
-/obj/machinery/newscaster{
-	pixel_x = 5;
+/obj/machinery/newscaster/east{
 	pixel_y = 3
 	},
 /turf/unsimulated/wall/darkshuttlewall,
@@ -670,7 +747,8 @@
 	id_tag = "centcom_arrivals_airlock";
 	locked = 1;
 	name = "Arrivals Airlock";
-	req_access = list(13)
+	req_access = list(13);
+	dir = 4
 	},
 /turf/unsimulated/floor,
 /area/centcom/spawning)
@@ -681,8 +759,8 @@
 /obj/machinery/door/airlock/glass_centcom{
 	icon = 'icons/obj/doors/Doorglass.dmi';
 	name = "To: Lower Shuttle Terminal";
-	req_access = null;
-	req_one_access = list(108,109)
+	req_one_access = list(108,109);
+	dir = 4
 	},
 /turf/unsimulated/floor,
 /area/centcom/spawning)
@@ -704,7 +782,7 @@
 /obj/structure/closet/crate/freezer/rations,
 /obj/effect/floor_decal/industrial/outline/yellow,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "aBL" = (
@@ -719,7 +797,7 @@
 /obj/item/gun/energy/disruptorpistol/magnum,
 /obj/item/gun/energy/disruptorpistol/magnum,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "aBX" = (
@@ -727,11 +805,12 @@
 	frequency = 1380;
 	icon_state = "door_locked";
 	id_tag = "specops_centcom_dock_door";
-	locked = 1
+	locked = 1;
+	dir = 4
 	},
 /obj/effect/floor_decal/industrial/hatch/yellow,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "aCb" = (
@@ -769,7 +848,8 @@
 	id_tag = "specops_shuttle_port_hatch";
 	locked = 1;
 	name = "Docking Port Airlock";
-	req_access = list(13)
+	req_access = list(13);
+	dir = 4
 	},
 /turf/simulated/floor/shuttle/black,
 /area/shuttle/specops)
@@ -832,11 +912,11 @@
 	},
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/effect/floor_decal/industrial/hatch/yellow,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "aCG" = (
@@ -845,7 +925,7 @@
 "aCI" = (
 /obj/machinery/light{
 	dir = 8;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/simulated/floor/shuttle/black,
 /area/shuttle/specops)
@@ -893,7 +973,7 @@
 /obj/structure/table/stone/marble,
 /obj/machinery/chemical_dispenser/coffeemaster/full,
 /turf/unsimulated/floor{
-	icon_state = "lino_grey"
+	icon_state = "lino_diamond"
 	},
 /area/centcom/bar)
 "aDK" = (
@@ -909,10 +989,10 @@
 	dir = 4
 	},
 /obj/machinery/light{
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "aDU" = (
@@ -950,7 +1030,8 @@
 	id_tag = "centcom_shuttle_hatch";
 	locked = 1;
 	name = "Shuttle Hatch";
-	req_access = list(13)
+	req_access = list(13);
+	dir = 1
 	},
 /turf/simulated/floor/shuttle/dark_blue,
 /area/shuttle/transport1)
@@ -963,7 +1044,7 @@
 "aEw" = (
 /obj/machinery/light{
 	dir = 1;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/structure/table/reinforced,
 /obj/structure/window/reinforced{
@@ -992,23 +1073,12 @@
 /area/shuttle/transport1)
 "aEP" = (
 /turf/unsimulated/floor{
-	icon_state = "wood_light"
+	icon_state = "wood_preview"
 	},
 /area/centcom/holding)
-"aEW" = (
-/obj/machinery/door/airlock/external{
-	frequency = 1380;
-	icon_state = "door_locked";
-	id_tag = "escape_shuttle_hatch";
-	locked = 1;
-	name = "Shuttle Hatch";
-	req_access = list(13)
-	},
-/turf/simulated/floor/shuttle/dark_blue,
-/area/shuttle/escape)
 "aFa" = (
 /obj/machinery/light{
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/structure/table/reinforced,
 /obj/structure/window/reinforced{
@@ -1033,7 +1103,7 @@
 "aFg" = (
 /obj/structure/closet/secure_closet/personal,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/ferry)
 "aFh" = (
@@ -1108,7 +1178,7 @@
 /obj/structure/lattice/catwalk/indoor/grate,
 /obj/machinery/light{
 	dir = 1;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor/plating,
 /area/centcom/holding)
@@ -1193,7 +1263,7 @@
 	name = "igs - OdinDoctor"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "aIf" = (
@@ -1204,7 +1274,7 @@
 	},
 /area/shuttle/escape)
 "aIg" = (
-/obj/effect/floor_decal/corner/paleblue/diagonal{
+/obj/effect/floor_decal/corner/dark_blue/diagonal{
 	dir = 8
 	},
 /obj/effect/floor_decal/industrial/warning{
@@ -1231,11 +1301,9 @@
 	name = "adjusted light fixture";
 	pixel_y = -16
 	},
-/obj/effect/landmark{
-	name = "JoinLate"
-	},
+/obj/effect/landmark/latejoin,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/spawning)
 "aJG" = (
@@ -1244,7 +1312,7 @@
 	pixel_y = 29
 	},
 /turf/unsimulated/floor{
-	icon_state = "lino_grey"
+	icon_state = "lino_diamond"
 	},
 /area/centcom/bar)
 "aJH" = (
@@ -1253,7 +1321,7 @@
 "aJI" = (
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor/plating,
 /area/centcom/spawning)
@@ -1320,7 +1388,7 @@
 	anchored = 1;
 	pixel_y = 2
 	},
-/obj/effect/floor_decal/spline/plain{
+/obj/effect/floor_decal/spline/plain/black{
 	dir = 8
 	},
 /turf/simulated/floor/shuttle/dark_blue,
@@ -1435,7 +1503,6 @@
 	},
 /turf/unsimulated/floor{
 	dir = 1;
-	icon_state = "rampbottom";
 	name = "staircase"
 	},
 /area/centcom/spawning)
@@ -1445,7 +1512,6 @@
 	},
 /turf/unsimulated/floor{
 	dir = 1;
-	icon_state = "rampbottom";
 	name = "staircase"
 	},
 /area/centcom/spawning)
@@ -1470,24 +1536,18 @@
 /obj/effect/floor_decal/industrial/warning{
 	dir = 1
 	},
-/obj/effect/landmark{
-	name = "JoinLateCryo"
-	},
 /turf/unsimulated/floor,
 /area/centcom/spawning)
 "aMJ" = (
 /obj/effect/floor_decal/corner/red{
 	dir = 5
 	},
-/obj/structure/flora/pottedplant/random{
+/obj/random/pottedplant{
 	anchored = 1;
 	pixel_y = 18
 	},
 /obj/effect/floor_decal/industrial/warning{
 	dir = 1
-	},
-/obj/effect/landmark{
-	name = "JoinLateCryo"
 	},
 /turf/unsimulated/floor,
 /area/centcom/spawning)
@@ -1521,11 +1581,6 @@
 /turf/unsimulated/floor,
 /area/centcom/spawning)
 "aNc" = (
-/obj/machinery/camera/network/crescent{
-	c_tag = "Crescent Departures";
-	dir = 1;
-	pixel_x = -10
-	},
 /turf/unsimulated/floor/plating,
 /area/centcom/spawning)
 "aNs" = (
@@ -1533,7 +1588,7 @@
 	dir = 10
 	},
 /obj/machinery/light{
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/effect/landmark/force_spawnpoint{
 	job_tag = "Visitor"
@@ -1562,7 +1617,7 @@
 	req_access = list(101)
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "aNJ" = (
@@ -1635,7 +1690,7 @@
 "aOl" = (
 /obj/item/modular_computer/console/preset/command,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/spawning)
 "aOr" = (
@@ -1651,9 +1706,7 @@
 /area/shuttle/specops)
 "aOz" = (
 /obj/effect/floor_decal/industrial/warning,
-/turf/unsimulated/floor{
-	icon_state = "new_reinforced"
-	},
+/turf/unsimulated/floor,
 /area/centcom/spawning)
 "aOA" = (
 /obj/effect/floor_decal/corner/lime{
@@ -1692,7 +1745,7 @@
 	dir = 8
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/spawning)
 "aPQ" = (
@@ -1736,7 +1789,7 @@
 /obj/structure/window/reinforced,
 /obj/item/clothing/suit/armor/carrier/ballistic,
 /obj/item/clothing/under/rank/centcom_officer,
-/obj/item/clothing/shoes/white,
+/obj/item/clothing/shoes/sneakers,
 /obj/item/clothing/gloves/white,
 /obj/item/clothing/glasses/sunglasses/sechud,
 /obj/item/clothing/accessory/badge/holo,
@@ -1747,13 +1800,13 @@
 	dir = 4
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/spawning)
 "aQm" = (
 /obj/structure/sign/flag/nanotrasen/unmovable,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/spawning)
 "aQn" = (
@@ -1764,9 +1817,7 @@
 /obj/structure/window/reinforced/crescent{
 	dir = 4
 	},
-/turf/unsimulated/floor{
-	icon_state = "new_reinforced"
-	},
+/turf/unsimulated/floor,
 /area/centcom/spawning)
 "aQI" = (
 /obj/structure/window/reinforced{
@@ -1780,9 +1831,7 @@
 /obj/structure/window/reinforced/crescent{
 	dir = 4
 	},
-/turf/unsimulated/floor{
-	icon_state = "new_reinforced"
-	},
+/turf/unsimulated/floor,
 /area/centcom/spawning)
 "aRa" = (
 /obj/effect/floor_decal/corner/white/diagonal,
@@ -1803,7 +1852,7 @@
 "aRt" = (
 /obj/effect/floor_decal/corner/orange/diagonal,
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/centcom/holding)
 "aRw" = (
@@ -1832,9 +1881,7 @@
 /turf/unsimulated/floor/plating,
 /area/shuttle/escape)
 "aTs" = (
-/obj/item/device/radio/intercom{
-	pixel_y = -30
-	},
+/obj/item/device/radio/intercom/south,
 /turf/simulated/floor/shuttle/tan,
 /area/shuttle/arrival)
 "aTW" = (
@@ -1976,7 +2023,7 @@
 	name = "LateJoinCorporate Liaison"
 	},
 /turf/unsimulated/floor{
-	icon_state = "wood_light"
+	icon_state = "wood_preview"
 	},
 /area/centcom/ferry)
 "aWf" = (
@@ -2004,12 +2051,10 @@
 /turf/simulated/floor/shuttle/black,
 /area/shuttle/escape)
 "aWv" = (
-/obj/effect/landmark{
-	name = "tdomeobserve"
-	},
+/obj/effect/landmark/thunderdomeobserve,
 /obj/effect/floor_decal/corner/blue/diagonal,
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/tdome/tdomeobserve)
 "aWB" = (
@@ -2019,7 +2064,7 @@
 /turf/unsimulated/floor/plating,
 /area/shuttle/escape)
 "aWC" = (
-/obj/structure/flora/pottedplant/random,
+/obj/random/pottedplant,
 /turf/simulated/floor/shuttle/dark_blue,
 /area/shuttle/escape)
 "aWD" = (
@@ -2185,7 +2230,7 @@
 	req_access = list(102)
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "aXq" = (
@@ -2217,11 +2262,6 @@
 	},
 /turf/unsimulated/floor,
 /area/centcom/evac)
-"bbH" = (
-/turf/unsimulated/floor{
-	icon_state = "new_reinforced"
-	},
-/area/centcom/spawning)
 "bcf" = (
 /turf/simulated/wall/shuttle/unique/hapt{
 	desc = "A scary armed military corvette. Carries no branding or emblem of any sort. This thing looks mean.";
@@ -2259,7 +2299,7 @@
 	req_access = list(105)
 	},
 /turf/unsimulated/floor{
-	icon_state = "lino_grey"
+	icon_state = "lino_diamond"
 	},
 /area/centcom/bar)
 "bex" = (
@@ -2314,7 +2354,7 @@
 	dir = 10
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "bjP" = (
@@ -2324,7 +2364,7 @@
 /obj/effect/floor_decal/corner/red/diagonal,
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/simulated/floor/tiled/dark,
 /area/shuttle/administration)
@@ -2333,13 +2373,12 @@
 	stat = 0
 	},
 /turf/unsimulated/floor{
-	icon_state = "lino_grey"
+	icon_state = "lino_diamond"
 	},
 /area/centcom/bar)
 "bld" = (
 /obj/machinery/door/window/eastleft{
 	name = "cockpit";
-	req_access = null;
 	req_one_access = list(38,72)
 	},
 /turf/simulated/floor/tiled/ramp/bottom{
@@ -2352,7 +2391,7 @@
 	name = "igs - OdinJanitor"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "boM" = (
@@ -2378,7 +2417,7 @@
 	pixel_y = 6
 	},
 /turf/unsimulated/floor{
-	icon_state = "lino_grey"
+	icon_state = "lino_diamond"
 	},
 /area/centcom/bar)
 "bpF" = (
@@ -2390,7 +2429,7 @@
 /obj/machinery/portable_atmospherics/powered/scrubber,
 /obj/effect/floor_decal/industrial/outline/yellow,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "bsJ" = (
@@ -2402,21 +2441,19 @@
 /area/shuttle/administration)
 "bsS" = (
 /obj/structure/table/standard,
-/obj/item/storage/box/fancy/tray{
-	layer = 2.99
-	},
+/obj/item/storage/box/fancy/tray,
 /obj/effect/floor_decal/corner/paleblue/diagonal,
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/centcom/holding)
 "bto" = (
 /obj/machinery/light{
 	dir = 8;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/ferry)
 "btV" = (
@@ -2428,7 +2465,7 @@
 /area/shuttle/escape)
 "buU" = (
 /obj/effect/floor_decal/corner/red/diagonal,
-/obj/effect/floor_decal/spline/plain{
+/obj/effect/floor_decal/spline/plain/black{
 	dir = 4
 	},
 /obj/machinery/embedded_controller/radio/simple_docking_controller{
@@ -2445,7 +2482,7 @@
 /obj/machinery/door/window/westleft{
 	name = "Auxillary Cryogenics"
 	},
-/turf/simulated/floor/carpet/blue,
+/turf/simulated/floor/carpet/cyan,
 /area/centcom/ferry)
 "bvr" = (
 /obj/structure/closet/gimmick{
@@ -2462,12 +2499,12 @@
 	pixel_x = 29
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "bwY" = (
 /obj/structure/railing/mapped,
-/obj/effect/floor_decal/spline/plain,
+/obj/effect/floor_decal/spline/plain/black,
 /turf/simulated/floor/tiled/ramp/bottom{
 	dir = 8
 	},
@@ -2502,20 +2539,20 @@
 	opacity = 0
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "bzK" = (
 /obj/machinery/photocopier,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "bBe" = (
 /obj/effect/floor_decal/corner/orange/diagonal,
 /obj/effect/decal/fake_object/light_source/invisible,
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/tdome/tdomeadmin)
 "bCG" = (
@@ -2533,12 +2570,10 @@
 	},
 /obj/item/reagent_containers/glass/bottle/inaprovaline,
 /obj/item/reagent_containers/glass/bottle/thetamycin{
-	layer = 2.99;
 	pixel_x = 9;
 	pixel_y = 7
 	},
 /obj/item/reagent_containers/glass/bottle/antitoxin{
-	layer = 2.99;
 	pixel_y = 7
 	},
 /obj/item/reagent_containers/glass/bottle/dexalin_plus{
@@ -2546,7 +2581,7 @@
 	pixel_y = -11
 	},
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/centcom/holding)
 "bDq" = (
@@ -2562,7 +2597,7 @@
 	stat = 0
 	},
 /turf/unsimulated/floor{
-	icon_state = "lino_grey"
+	icon_state = "lino_diamond"
 	},
 /area/centcom/bar)
 "bDy" = (
@@ -2570,10 +2605,10 @@
 	dir = 6
 	},
 /obj/machinery/light{
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "bDV" = (
@@ -2592,7 +2627,7 @@
 	dir = 8
 	},
 /turf/unsimulated/floor{
-	icon_state = "wood_light"
+	icon_state = "wood_preview"
 	},
 /area/centcom/evac)
 "bFS" = (
@@ -2625,7 +2660,7 @@
 	pixel_y = 3
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "bGo" = (
@@ -2652,16 +2687,16 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /obj/machinery/light{
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "bGR" = (
 /obj/machinery/light{
 	dir = 8;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/structure/computerframe,
 /turf/simulated/floor/tiled/dark,
@@ -2684,7 +2719,7 @@
 "bHL" = (
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/effect/floor_decal/corner/green/full{
 	dir = 1
@@ -2694,13 +2729,13 @@
 "bIt" = (
 /obj/machinery/vending/coffee,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "bIQ" = (
 /obj/structure/table/rack,
 /obj/item/clothing/under/color/red,
-/obj/item/clothing/shoes/brown,
+/obj/item/clothing/shoes/sneakers/brown,
 /obj/item/melee/energy/axe,
 /obj/effect/decal/fake_object/light_source/invisible,
 /turf/simulated/floor,
@@ -2715,10 +2750,10 @@
 /area/shuttle/escape)
 "bJH" = (
 /obj/machinery/light{
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
-	icon_state = "lino_grey"
+	icon_state = "lino_diamond"
 	},
 /area/centcom/bar)
 "bKw" = (
@@ -2727,7 +2762,7 @@
 	req_access = list(1)
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "bLK" = (
@@ -2754,17 +2789,15 @@
 	dir = 6
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "bMw" = (
-/obj/effect/landmark{
-	name = "tdomeadmin"
-	},
+/obj/effect/landmark/thunderdomeadmin,
 /obj/effect/floor_decal/corner/orange/diagonal,
 /obj/effect/decal/fake_object/light_source/invisible,
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/tdome/tdomeadmin)
 "bMM" = (
@@ -2782,7 +2815,7 @@
 	dir = 4
 	},
 /obj/effect/floor_decal/corner/red/diagonal,
-/obj/effect/floor_decal/spline/plain{
+/obj/effect/floor_decal/spline/plain/black{
 	dir = 4
 	},
 /turf/simulated/floor/tiled/dark,
@@ -2790,7 +2823,8 @@
 "bPc" = (
 /obj/machinery/door/airlock/glass_medical{
 	name = "Medical Bay";
-	req_access = list(5)
+	req_access = list(5);
+	dir = 1
 	},
 /turf/simulated/floor/shuttle/dark_blue,
 /area/shuttle/escape)
@@ -2803,7 +2837,7 @@
 	},
 /obj/machinery/light{
 	dir = 8;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor,
 /area/centcom/spawning)
@@ -2812,7 +2846,7 @@
 	dir = 8
 	},
 /obj/structure/flora/ausbushes/lavendergrass,
-/turf/simulated/floor/grass/alt,
+/turf/simulated/floor/grass,
 /area/centcom/bar)
 "bQP" = (
 /turf/unsimulated/wall/darkshuttlewall,
@@ -2864,7 +2898,7 @@
 	},
 /obj/structure/flora/ausbushes/leafybush,
 /obj/structure/flora/ausbushes/brflowers,
-/turf/simulated/floor/grass/alt,
+/turf/simulated/floor/grass,
 /area/centcom/spawning)
 "bVd" = (
 /obj/effect/floor_decal/corner/paleblue{
@@ -2872,18 +2906,17 @@
 	},
 /obj/machinery/light{
 	dir = 1;
-	icon_state = "tube1";
 	name = "adjusted light fixture";
-	pixel_x = -16
+	pixel_x = -16;
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/ferry)
 "bXx" = (
 /obj/structure/table/reinforced/wood,
 /obj/machinery/chemical_dispenser/coffee/full{
-	layer = 3.1;
 	pixel_y = 2;
 	spawn_cartridges = list(/obj/item/reagent_containers/chem_disp_cartridge/coffee,/obj/item/reagent_containers/chem_disp_cartridge/milk,/obj/item/reagent_containers/chem_disp_cartridge/cream,/obj/item/reagent_containers/chem_disp_cartridge/sugar)
 	},
@@ -2892,7 +2925,7 @@
 	pixel_y = 9
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "bXZ" = (
@@ -2901,7 +2934,7 @@
 	dir = 5
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "bYs" = (
@@ -2948,7 +2981,7 @@
 	},
 /obj/machinery/light{
 	dir = 1;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
 	icon_state = "wood"
@@ -2965,7 +2998,7 @@
 	},
 /obj/structure/filingcabinet,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/spawning)
 "ccI" = (
@@ -3020,7 +3053,7 @@
 /obj/item/device/megaphone/sec,
 /obj/item/device/megaphone/sec,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "cgd" = (
@@ -3037,9 +3070,7 @@
 /turf/unsimulated/floor,
 /area/centcom/holding)
 "cik" = (
-/obj/effect/landmark{
-	name = "tdome1"
-	},
+/obj/effect/landmark/thunderdome1,
 /obj/effect/floor_decal/corner/grey/diagonal{
 	dir = 4
 	},
@@ -3073,13 +3104,13 @@
 	stat = 0
 	},
 /turf/unsimulated/floor{
-	icon_state = "lino_grey"
+	icon_state = "lino_diamond"
 	},
 /area/centcom/bar)
 "cmb" = (
 /obj/machinery/light{
 	dir = 1;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /mob/living/silicon/decoy{
 	name = "Bubble"
@@ -3112,7 +3143,7 @@
 	},
 /obj/structure/sign/flag/nanotrasen/large/north,
 /turf/unsimulated/floor{
-	icon_state = "lino_grey"
+	icon_state = "lino_diamond"
 	},
 /area/centcom/bar)
 "con" = (
@@ -3129,7 +3160,7 @@
 	},
 /obj/machinery/light{
 	dir = 1;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
 	icon_state = "wood"
@@ -3143,7 +3174,7 @@
 	},
 /obj/effect/floor_decal/corner/blue/diagonal,
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/tdome/tdomeobserve)
 "crg" = (
@@ -3163,10 +3194,10 @@
 	},
 /obj/machinery/light{
 	dir = 8;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
-	icon_state = "lino_grey"
+	icon_state = "lino_diamond"
 	},
 /area/centcom/bar)
 "csc" = (
@@ -3174,7 +3205,7 @@
 	dir = 6
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "cus" = (
@@ -3185,7 +3216,7 @@
 	},
 /obj/machinery/light{
 	dir = 8;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/structure/table/reinforced/steel,
 /turf/simulated/floor/tiled/dark,
@@ -3200,9 +3231,7 @@
 /obj/structure/window/reinforced/crescent{
 	dir = 4
 	},
-/turf/unsimulated/floor{
-	icon_state = "new_reinforced"
-	},
+/turf/unsimulated/floor,
 /area/centcom/spawning)
 "cww" = (
 /obj/effect/floor_decal/corner/red{
@@ -3218,9 +3247,7 @@
 /obj/machinery/recharger{
 	pixel_y = 4
 	},
-/obj/effect/landmark{
-	name = "tdome1"
-	},
+/obj/effect/landmark/thunderdome1,
 /obj/effect/floor_decal/corner/grey/diagonal{
 	dir = 4
 	},
@@ -3244,7 +3271,7 @@
 	req_access = list(103)
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "cAL" = (
@@ -3255,12 +3282,11 @@
 /area/centcom/control)
 "cCj" = (
 /obj/structure/window/reinforced{
-	layer = 5;
 	name = "adjusted window"
 	},
 /obj/effect/floor_decal/spline/fancy/wood,
 /turf/unsimulated/floor{
-	icon_state = "carpetnoconnect"
+	icon_state = "carpet"
 	},
 /area/centcom/bar)
 "cCk" = (
@@ -3272,13 +3298,13 @@
 	dir = 1
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/ferry)
 "cCN" = (
 /obj/machinery/smartfridge/stocked,
 /turf/unsimulated/floor{
-	icon_state = "lino_grey"
+	icon_state = "lino_diamond"
 	},
 /area/centcom/bar)
 "cCU" = (
@@ -3294,7 +3320,7 @@
 	},
 /obj/machinery/light{
 	dir = 8;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
 	icon_state = "wood"
@@ -3303,7 +3329,7 @@
 "cEa" = (
 /obj/machinery/light{
 	dir = 8;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/machinery/recharger/wallcharger{
 	pixel_x = 4;
@@ -3325,13 +3351,13 @@
 	req_access = list(103)
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "cFp" = (
 /obj/structure/table/rack,
 /obj/item/clothing/under/color/red,
-/obj/item/clothing/shoes/brown,
+/obj/item/clothing/shoes/sneakers/brown,
 /obj/item/clothing/suit/armor/vest,
 /obj/item/clothing/head/helmet/swat,
 /obj/item/gun/energy/laser,
@@ -3358,9 +3384,9 @@
 "cHx" = (
 /obj/machinery/light{
 	dir = 8;
-	icon_state = "tube1";
 	name = "adjusted light fixture";
-	pixel_y = -32
+	pixel_y = -32;
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor/plating,
 /area/centcom/spawning)
@@ -3371,7 +3397,7 @@
 	req_access = null
 	},
 /turf/unsimulated/floor{
-	icon_state = "lino_grey"
+	icon_state = "lino_diamond"
 	},
 /area/centcom/bar)
 "cIQ" = (
@@ -3396,7 +3422,7 @@
 	dir = 1
 	},
 /turf/unsimulated/floor{
-	icon_state = "wood_light"
+	icon_state = "wood_preview"
 	},
 /area/centcom/ferry)
 "cJl" = (
@@ -3410,7 +3436,7 @@
 "cJB" = (
 /obj/effect/floor_decal/corner/orange/diagonal,
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/tdome/tdomeadmin)
 "cKw" = (
@@ -3421,12 +3447,12 @@
 	},
 /obj/machinery/light{
 	dir = 8;
-	icon_state = "tube1";
 	name = "adjusted light fixture";
-	pixel_y = -16
+	pixel_y = -16;
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
-	icon_state = "lino_grey"
+	icon_state = "lino_diamond"
 	},
 /area/centcom/bar)
 "cKK" = (
@@ -3436,7 +3462,7 @@
 	},
 /obj/effect/floor_decal/corner/orange/diagonal,
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/tdome/tdomeadmin)
 "cKU" = (
@@ -3460,7 +3486,7 @@
 	dir = 1
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/ferry)
 "cPC" = (
@@ -3473,7 +3499,7 @@
 	dir = 9
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "cRn" = (
@@ -3500,7 +3526,6 @@
 /obj/machinery/embedded_controller/radio/simple_docking_controller{
 	frequency = 1380;
 	id_tag = "centcom_shuttle";
-	layer = 3.3;
 	pixel_x = 6;
 	pixel_y = 27;
 	tag_door = "centcom_shuttle_hatch"
@@ -3546,7 +3571,7 @@
 	pixel_y = 26
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "cWe" = (
@@ -3559,7 +3584,7 @@
 	dir = 5
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "cYA" = (
@@ -3602,12 +3627,8 @@
 	req_one_access = list(101);
 	tag_door = "arrival_shuttle_hatch"
 	},
-/obj/structure/flora/ausbushes/sparsegrass{
-	layer = 2.97
-	},
-/obj/structure/flora/ausbushes/fullgrass{
-	layer = 2.97
-	},
+/obj/structure/flora/ausbushes/sparsegrass,
+/obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/pottedplant{
 	icon_state = "plant-01";
 	pixel_x = 2;
@@ -3617,7 +3638,7 @@
 	pixel_x = 12;
 	pixel_y = -10
 	},
-/turf/simulated/floor/grass/alt,
+/turf/simulated/floor/grass,
 /area/shuttle/arrival)
 "dar" = (
 /obj/effect/floor_decal/corner/red,
@@ -3666,7 +3687,7 @@
 /obj/structure/window/reinforced/crescent{
 	dir = 8
 	},
-/turf/simulated/floor/carpet/blue,
+/turf/simulated/floor/carpet/cyan,
 /area/centcom/ferry)
 "ddo" = (
 /obj/structure/table/reinforced,
@@ -3682,7 +3703,7 @@
 	dir = 8
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "ddK" = (
@@ -3703,7 +3724,7 @@
 "deb" = (
 /obj/structure/closet/secure_closet/freezer/meat,
 /turf/unsimulated/floor{
-	icon_state = "lino_grey"
+	icon_state = "lino_diamond"
 	},
 /area/centcom/bar)
 "dft" = (
@@ -3711,7 +3732,6 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	layer = 5;
 	name = "adjusted window"
 	},
 /obj/machinery/light{
@@ -3738,7 +3758,7 @@
 	},
 /obj/machinery/light{
 	dir = 8;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
 	icon_state = "wood"
@@ -3747,14 +3767,14 @@
 "dhC" = (
 /obj/machinery/porta_turret/crescent,
 /obj/machinery/light{
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/effect/floor_decal/corner/blue{
 	dir = 10
 	},
 /obj/effect/floor_decal/industrial/warning/full,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "dhY" = (
@@ -3804,7 +3824,7 @@
 	},
 /obj/effect/floor_decal/corner/blue/diagonal,
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/tdome/tdomeobserve)
 "dmw" = (
@@ -3816,7 +3836,7 @@
 	},
 /obj/structure/table/reinforced,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "dmL" = (
@@ -3850,7 +3870,7 @@
 /area/shuttle/administration)
 "doP" = (
 /turf/unsimulated/floor{
-	icon_state = "wood_light"
+	icon_state = "wood_preview"
 	},
 /area/centcom/ferry)
 "doU" = (
@@ -3859,7 +3879,7 @@
 	},
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/machinery/recharger/wallcharger{
 	pixel_x = 36;
@@ -3870,7 +3890,7 @@
 	pixel_y = 1
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "dpi" = (
@@ -3882,7 +3902,7 @@
 /obj/effect/floor_decal/corner/lime/diagonal{
 	dir = 8
 	},
-/obj/effect/floor_decal/spline/plain,
+/obj/effect/floor_decal/spline/plain/black,
 /turf/simulated/floor/tiled/dark,
 /area/shuttle/administration)
 "dqu" = (
@@ -3891,7 +3911,7 @@
 	},
 /obj/effect/floor_decal/industrial/outline/yellow,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "dqO" = (
@@ -3911,9 +3931,9 @@
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/machinery/light{
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
-/turf/simulated/floor/grass/alt,
+/turf/simulated/floor/grass,
 /area/centcom/spawning)
 "drc" = (
 /obj/structure/shuttle_part/cargo{
@@ -3973,10 +3993,10 @@
 "dxC" = (
 /obj/effect/floor_decal/corner/lime/diagonal,
 /obj/machinery/light{
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "dzL" = (
@@ -3990,7 +4010,7 @@
 	dir = 4
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "dBV" = (
@@ -4010,22 +4030,22 @@
 /turf/unsimulated/floor/plating,
 /area/shuttle/escape)
 "dGn" = (
-/obj/structure/closet/secure_closet/freezer/fridge,
+/obj/structure/closet/secure_closet/refrigerator/standard,
 /obj/item/storage/box/fancy/egg_box,
 /obj/item/storage/box/fancy/egg_box,
-/obj/item/reagent_containers/food/drinks/soymilk,
-/obj/item/reagent_containers/food/drinks/soymilk,
-/obj/item/reagent_containers/food/drinks/milk,
-/obj/item/reagent_containers/food/drinks/milk,
+/obj/item/reagent_containers/food/drinks/carton/soymilk,
+/obj/item/reagent_containers/food/drinks/carton/soymilk,
+/obj/item/reagent_containers/food/drinks/carton/milk,
+/obj/item/reagent_containers/food/drinks/carton/milk,
 /turf/unsimulated/floor{
-	icon_state = "lino_grey"
+	icon_state = "lino_diamond"
 	},
 /area/centcom/bar)
 "dGw" = (
 /obj/machinery/mech_recharger,
 /obj/machinery/light{
 	dir = 1;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/simulated/floor/shuttle/black,
 /area/shuttle/specops)
@@ -4043,7 +4063,7 @@
 	},
 /obj/machinery/light{
 	dir = 1;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/effect/floor_decal/corner/paleblue{
 	dir = 8
@@ -4054,7 +4074,6 @@
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
 	icon_state = "space";
-	layer = 4;
 	name = "EXTERNAL AIRLOCK"
 	},
 /turf/unsimulated/wall/darkshuttlewall,
@@ -4062,7 +4081,7 @@
 "dIN" = (
 /obj/item/modular_computer/console/preset/command,
 /obj/machinery/light{
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/simulated/floor/shuttle/black,
 /area/shuttle/specops)
@@ -4073,7 +4092,7 @@
 /obj/structure/table/standard,
 /obj/effect/floor_decal/corner/blue/diagonal,
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/tdome/tdomeobserve)
 "dKm" = (
@@ -4115,7 +4134,7 @@
 	},
 /obj/machinery/light{
 	dir = 8;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/simulated/floor/tiled/dark,
 /area/shuttle/administration)
@@ -4147,11 +4166,10 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	layer = 5;
 	name = "adjusted window"
 	},
-/obj/effect/floor_decal/spline/plain,
-/obj/effect/floor_decal/spline/plain{
+/obj/effect/floor_decal/spline/plain/black,
+/obj/effect/floor_decal/spline/plain/black{
 	dir = 4
 	},
 /turf/simulated/floor/shuttle/dark_blue,
@@ -4159,7 +4177,8 @@
 "dNM" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Telecommunications Server";
-	req_one_access = list(106,108,109)
+	req_one_access = list(106,108,109);
+	dir = 1
 	},
 /turf/simulated/floor/tiled{
 	name = "cooled floor";
@@ -4224,13 +4243,13 @@
 	pixel_y = 1
 	},
 /turf/unsimulated/floor{
-	icon_state = "lino_grey"
+	icon_state = "lino_diamond"
 	},
 /area/centcom/bar)
 "dUW" = (
 /obj/structure/table/rack,
 /obj/item/clothing/under/color/green,
-/obj/item/clothing/shoes/brown,
+/obj/item/clothing/shoes/sneakers/brown,
 /obj/item/clothing/suit/armor/tdome/green,
 /obj/item/clothing/head/helmet/thunderdome,
 /obj/item/melee/baton/loaded,
@@ -4244,7 +4263,7 @@
 	name = "igs - OdinPrepatory"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/spawning)
 "dWP" = (
@@ -4253,22 +4272,18 @@
 	pixel_x = 6;
 	pixel_y = 8
 	},
-/obj/item/storage/firstaid/fire{
-	layer = 3.01
-	},
+/obj/item/storage/firstaid/fire,
 /obj/effect/floor_decal/corner/lime/diagonal,
 /obj/item/storage/firstaid/toxin{
 	pixel_x = 6;
 	pixel_y = 8
 	},
-/obj/item/storage/firstaid/fire{
-	layer = 3.01
-	},
+/obj/item/storage/firstaid/fire,
 /obj/structure/sign/nosmoking_1{
 	pixel_y = 30
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "dWT" = (
@@ -4280,7 +4295,7 @@
 	},
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/simulated/floor/tiled/dark,
 /area/shuttle/administration)
@@ -4289,13 +4304,14 @@
 	name = "CCIAEscort"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "dXh" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Commander's Office";
-	req_access = list(108)
+	req_access = list(108);
+	dir = 4
 	},
 /obj/machinery/door/blast/odin{
 	dir = 2;
@@ -4303,14 +4319,10 @@
 	name = "Commander's Office"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "dXz" = (
-/obj/machinery/camera/network/crescent{
-	c_tag = "Crescent Bar East";
-	dir = 8
-	},
 /turf/unsimulated/floor{
 	icon_state = "wood"
 	},
@@ -4330,12 +4342,10 @@
 	pixel_y = -1
 	},
 /obj/item/reagent_containers/food/drinks/waterbottle{
-	layer = 2.99;
 	pixel_x = -9;
 	pixel_y = -1
 	},
 /obj/item/storage/box/fancy/cookiesnack{
-	layer = 2.98;
 	pixel_x = -1;
 	pixel_y = 4
 	},
@@ -4349,23 +4359,21 @@
 	dir = 4
 	},
 /turf/unsimulated/floor{
-	icon_state = "wood_light"
+	icon_state = "wood_preview"
 	},
 /area/centcom/evac)
 "dZW" = (
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/simulated/floor/shuttle/dark_blue,
 /area/supply/dock)
 "ear" = (
-/obj/effect/landmark{
-	name = "tdomeadmin"
-	},
+/obj/effect/landmark/thunderdomeadmin,
 /obj/effect/floor_decal/corner/orange/diagonal,
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/tdome/tdomeadmin)
 "ebr" = (
@@ -4374,9 +4382,7 @@
 	},
 /obj/structure/window/reinforced/crescent,
 /obj/effect/floor_decal/sign/a,
-/turf/unsimulated/floor{
-	icon_state = "new_reinforced"
-	},
+/turf/unsimulated/floor,
 /area/centcom/holding)
 "ebw" = (
 /turf/simulated/wall/shuttle/unique/hapt{
@@ -4405,7 +4411,7 @@
 "edR" = (
 /obj/machinery/light{
 	dir = 1;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/effect/floor_decal/corner/green{
 	dir = 5
@@ -4418,26 +4424,20 @@
 /obj/effect/floor_decal/corner/blue/diagonal,
 /obj/effect/decal/fake_object/light_source/invisible,
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/tdome/tdomeobserve)
 "efD" = (
 /obj/machinery/light{
 	dir = 1;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "egh" = (
-/obj/effect/landmark{
-	name = "tdome2"
-	},
-/obj/machinery/camera/network/thunder{
-	c_tag = "Thunderdome - Red Team";
-	invisibility = 101
-	},
+/obj/effect/landmark/thunderdome2,
 /obj/effect/floor_decal/corner/grey/diagonal{
 	dir = 4
 	},
@@ -4446,7 +4446,7 @@
 "egj" = (
 /obj/machinery/light{
 	dir = 1;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/item/paper_bin{
 	pixel_y = 3
@@ -4472,10 +4472,10 @@
 	},
 /obj/machinery/light{
 	dir = 1;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
-	icon_state = "wood_light"
+	icon_state = "wood_preview"
 	},
 /area/centcom/ferry)
 "ejd" = (
@@ -4512,7 +4512,7 @@
 	},
 /obj/effect/floor_decal/corner/lime/diagonal,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "ekG" = (
@@ -4553,7 +4553,6 @@
 	desc = "An automated gun turret.";
 	icon = 'icons/obj/turrets.dmi';
 	icon_state = "cover_0";
-	layer = 3.02;
 	name = "turret"
 	},
 /obj/effect/floor_decal/industrial/warning/full,
@@ -4570,7 +4569,7 @@
 	pixel_y = 23
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "eqs" = (
@@ -4589,7 +4588,7 @@
 	dir = 4
 	},
 /turf/unsimulated/floor{
-	icon_state = "wood_light"
+	icon_state = "wood_preview"
 	},
 /area/centcom/spawning)
 "eri" = (
@@ -4621,7 +4620,7 @@
 /obj/item/extinguisher,
 /obj/effect/floor_decal/corner/orange/diagonal,
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/tdome/tdomeadmin)
 "esU" = (
@@ -4672,9 +4671,7 @@
 /area/shuttle/arrival)
 "etl" = (
 /obj/effect/floor_decal/industrial/outline/yellow,
-/turf/unsimulated/floor{
-	icon_state = "new_reinforced"
-	},
+/turf/unsimulated/floor,
 /area/centcom/checkpoint/fore)
 "evC" = (
 /obj/structure/table/stone/marble,
@@ -4682,7 +4679,7 @@
 	pixel_y = 3
 	},
 /turf/unsimulated/floor{
-	icon_state = "lino_grey"
+	icon_state = "lino_diamond"
 	},
 /area/centcom/bar)
 "evM" = (
@@ -4706,10 +4703,6 @@
 /turf/unsimulated/floor/plating,
 /area/shuttle/escape)
 "exm" = (
-/obj/machinery/camera/network/crescent{
-	c_tag = "Crescent Arrivals North";
-	dir = 8
-	},
 /obj/effect/floor_decal/corner/green{
 	dir = 6
 	},
@@ -4732,7 +4725,7 @@
 "eyj" = (
 /obj/machinery/light{
 	dir = 1;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor/plating,
 /area/centcom/evac)
@@ -4740,7 +4733,7 @@
 /obj/effect/floor_decal/corner/lime{
 	dir = 6
 	},
-/obj/effect/floor_decal/spline/plain{
+/obj/effect/floor_decal/spline/plain/black{
 	dir = 4
 	},
 /turf/simulated/floor/tiled/dark,
@@ -4748,11 +4741,10 @@
 "ezv" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Telecommunications Monitoring";
-	req_access = null;
 	req_one_access = list(106,108,109)
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "ezF" = (
@@ -4770,15 +4762,14 @@
 /obj/structure/railing/mapped,
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/lavendergrass,
-/turf/simulated/floor/grass/alt,
+/turf/simulated/floor/grass,
 /area/centcom/bar)
 "eBh" = (
 /obj/structure/sink/kitchen{
-	layer = 3.5;
 	pixel_y = 27
 	},
 /turf/unsimulated/floor{
-	icon_state = "lino_grey"
+	icon_state = "lino_diamond"
 	},
 /area/centcom/bar)
 "eBz" = (
@@ -4808,7 +4799,7 @@
 	dir = 6
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "eDr" = (
@@ -4820,7 +4811,7 @@
 	},
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/window/reinforced/crescent,
-/turf/simulated/floor/grass/alt,
+/turf/simulated/floor/grass,
 /area/centcom/spawning)
 "eDB" = (
 /turf/simulated/wall/shuttle/unique/cargo{
@@ -4861,7 +4852,7 @@
 	},
 /obj/effect/floor_decal/corner/lime/diagonal,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "eFy" = (
@@ -4882,7 +4873,7 @@
 "eGb" = (
 /obj/structure/coatrack,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "eGO" = (
@@ -4896,15 +4887,15 @@
 /obj/structure/table/stone/marble,
 /obj/machinery/light{
 	dir = 8;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
-	icon_state = "lino_grey"
+	icon_state = "lino_diamond"
 	},
 /area/centcom/bar)
 "eHl" = (
 /obj/structure/railing/mapped,
-/obj/effect/floor_decal/spline/plain,
+/obj/effect/floor_decal/spline/plain/black,
 /turf/simulated/floor/tiled/ramp/bottom{
 	dir = 4
 	},
@@ -4918,13 +4909,11 @@
 	},
 /area/shuttle/administration)
 "eHY" = (
-/turf/unsimulated/floor{
-	icon_state = "new_reinforced"
-	},
+/turf/unsimulated/floor,
 /area/centcom/specops)
 "eIe" = (
 /obj/machinery/light{
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/effect/floor_decal/corner/green{
 	dir = 10
@@ -4940,7 +4929,7 @@
 /turf/unsimulated/floor/plating,
 /area/shuttle/administration)
 "eIJ" = (
-/obj/structure/flora/pottedplant/random{
+/obj/random/pottedplant{
 	anchored = 1;
 	pixel_y = 18
 	},
@@ -5003,7 +4992,7 @@
 	dir = 5
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "eNd" = (
@@ -5044,18 +5033,18 @@
 	},
 /obj/effect/floor_decal/corner/orange/diagonal,
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/centcom/holding)
 "ePz" = (
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/structure/window/reinforced/crescent{
 	dir = 4
 	},
-/obj/effect/floor_decal/spline/plain{
+/obj/effect/floor_decal/spline/plain/black{
 	dir = 4
 	},
 /obj/effect/floor_decal/corner/red{
@@ -5063,10 +5052,6 @@
 	},
 /obj/effect/floor_decal/corner/red{
 	dir = 10
-	},
-/obj/machinery/camera/network/crescent{
-	c_tag = "Crescent Arrivals North";
-	dir = 8
 	},
 /obj/effect/landmark/force_spawnpoint{
 	job_tag = "Visitor"
@@ -5084,9 +5069,7 @@
 /obj/effect/floor_decal/industrial/warning{
 	dir = 1
 	},
-/turf/unsimulated/floor{
-	icon_state = "new_reinforced"
-	},
+/turf/unsimulated/floor,
 /area/centcom/spawning)
 "eRF" = (
 /turf/simulated/wall/shuttle/unique/ert{
@@ -5100,13 +5083,13 @@
 	pixel_y = 7
 	},
 /turf/unsimulated/floor{
-	icon_state = "lino_grey"
+	icon_state = "lino_diamond"
 	},
 /area/centcom/bar)
 "eUW" = (
 /obj/structure/table/rack,
 /obj/item/clothing/under/color/green,
-/obj/item/clothing/shoes/brown,
+/obj/item/clothing/shoes/sneakers/brown,
 /obj/item/clothing/suit/armor/vest,
 /obj/item/clothing/head/helmet/swat,
 /obj/item/gun/energy/laser,
@@ -5118,7 +5101,7 @@
 	},
 /obj/effect/floor_decal/corner/lime/diagonal,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "eVL" = (
@@ -5153,7 +5136,7 @@
 	},
 /obj/machinery/light{
 	dir = 8;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
 	icon_state = "wood"
@@ -5164,7 +5147,7 @@
 	dir = 5
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/ferry)
 "eZw" = (
@@ -5192,7 +5175,7 @@
 	},
 /obj/item/clothing/suit/armor/carrier/ballistic,
 /obj/item/clothing/under/rank/centcom_officer,
-/obj/item/clothing/shoes/white,
+/obj/item/clothing/shoes/sneakers,
 /obj/item/clothing/gloves/white,
 /obj/item/clothing/glasses/sunglasses/sechud,
 /obj/item/clothing/accessory/badge/holo,
@@ -5200,14 +5183,14 @@
 /obj/item/device/radio/headset/ert,
 /obj/item/clothing/head/beret/centcom/officer,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/spawning)
 "fch" = (
 /obj/effect/floor_decal/corner/paleblue/diagonal,
 /obj/machinery/iv_drip,
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/centcom/holding)
 "fdh" = (
@@ -5223,7 +5206,7 @@
 	req_access = list(109)
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "ffx" = (
@@ -5343,7 +5326,7 @@
 /obj/effect/floor_decal/corner/red/diagonal{
 	dir = 8
 	},
-/obj/effect/floor_decal/spline/plain,
+/obj/effect/floor_decal/spline/plain/black,
 /obj/item/storage/belt/utility/very_full,
 /obj/item/storage/belt/utility/very_full,
 /obj/item/clothing/gloves/yellow,
@@ -5358,7 +5341,7 @@
 	},
 /obj/machinery/light{
 	dir = 8;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/structure/table/reinforced/steel,
 /turf/simulated/floor/tiled/dark,
@@ -5372,17 +5355,15 @@
 "fqq" = (
 /obj/structure/curtain/black{
 	icon_state = "open";
-	layer = 4.1;
 	opacity = 0
 	},
-/obj/effect/floor_decal/spline/plain{
+/obj/effect/floor_decal/spline/plain/black{
 	dir = 1
 	},
 /turf/unsimulated/floor,
 /area/centcom/bar)
 "fso" = (
 /obj/structure/railing/mapped{
-	layer = 4.1;
 	name = "adjusted railing"
 	},
 /obj/structure/table/glass{
@@ -5399,7 +5380,7 @@
 	},
 /obj/item/gun/energy/rifle/ionrifle,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "ftN" = (
@@ -5420,10 +5401,8 @@
 /turf/unsimulated/floor/plating,
 /area/shuttle/escape)
 "fuy" = (
-/obj/effect/floor_decal/spline/plain,
-/turf/unsimulated/floor{
-	icon_state = "rampbottom"
-	},
+/obj/effect/floor_decal/spline/plain/black,
+/turf/unsimulated/floor,
 /area/centcom/specops)
 "fuH" = (
 /turf/simulated/wall/shuttle/unique/hapt{
@@ -5443,9 +5422,7 @@
 /area/shuttle/administration)
 "fvK" = (
 /obj/effect/floor_decal/industrial/outline/red,
-/turf/unsimulated/floor{
-	icon_state = "new_reinforced"
-	},
+/turf/unsimulated/floor,
 /area/centcom/specops)
 "fvS" = (
 /obj/structure/shuttle_part/hapt{
@@ -5523,7 +5500,7 @@
 	},
 /obj/effect/floor_decal/industrial/warning,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "fDN" = (
@@ -5531,7 +5508,7 @@
 	name = "LateJoinConsular Officer"
 	},
 /turf/unsimulated/floor{
-	icon_state = "wood_light"
+	icon_state = "wood_preview"
 	},
 /area/centcom/ferry)
 "fEU" = (
@@ -5559,7 +5536,7 @@
 /obj/item/aiModule/safeguard,
 /obj/structure/table/reinforced/steel,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "fFe" = (
@@ -5603,12 +5580,12 @@
 /obj/item/aicard,
 /obj/item/paper/monitorkey,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "fHJ" = (
 /obj/machinery/telecomms/server/presets/command,
-/obj/effect/floor_decal/corner/blue{
+/obj/effect/floor_decal/corner/dark_blue{
 	dir = 5
 	},
 /turf/simulated/floor/tiled{
@@ -5643,22 +5620,18 @@
 	pixel_y = 11
 	},
 /obj/item/reagent_containers/food/drinks/drinkingglass{
-	layer = 3.01;
 	pixel_x = 6;
 	pixel_y = 8
 	},
 /obj/item/reagent_containers/food/drinks/drinkingglass{
-	layer = 3.01;
 	pixel_x = 14;
 	pixel_y = 8
 	},
 /obj/item/reagent_containers/food/drinks/drinkingglass{
-	layer = 3.01;
 	pixel_x = 22;
 	pixel_y = 8
 	},
 /obj/item/reagent_containers/food/drinks/drinkingglass{
-	layer = 3.01;
 	pixel_x = 30;
 	pixel_y = 8
 	},
@@ -5675,7 +5648,7 @@
 	pixel_y = 27
 	},
 /turf/unsimulated/floor{
-	icon_state = "lino_grey"
+	icon_state = "lino_diamond"
 	},
 /area/centcom/bar)
 "fKq" = (
@@ -5693,14 +5666,12 @@
 "fLb" = (
 /obj/structure/railing/mapped{
 	dir = 4;
-	layer = 6;
 	name = "adjusted railing"
 	},
 /obj/structure/railing/mapped{
-	layer = 6;
 	name = "adjusted railing"
 	},
-/obj/effect/floor_decal/spline/plain{
+/obj/effect/floor_decal/spline/plain/black{
 	dir = 6
 	},
 /turf/unsimulated/floor{
@@ -5729,9 +5700,7 @@
 /obj/effect/floor_decal/corner/red/diagonal{
 	dir = 8
 	},
-/obj/item/device/radio/intercom{
-	dir = 1;
-	pixel_x = 5;
+/obj/item/device/radio/intercom/east{
 	pixel_y = -22
 	},
 /turf/simulated/floor/tiled/dark,
@@ -5747,17 +5716,15 @@
 	pixel_y = 9
 	},
 /obj/item/material/knife{
-	layer = 2.99;
 	pixel_x = -9;
 	pixel_y = -14
 	},
 /obj/item/storage/box/produce{
-	layer = 2.99;
 	pixel_x = 3;
 	pixel_y = -11
 	},
 /turf/unsimulated/floor{
-	icon_state = "lino_grey"
+	icon_state = "lino_diamond"
 	},
 /area/centcom/bar)
 "fOf" = (
@@ -5783,7 +5750,7 @@
 	dir = 9
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "fPE" = (
@@ -5800,7 +5767,7 @@
 	req_access = list(105)
 	},
 /turf/unsimulated/floor{
-	icon_state = "lino_grey"
+	icon_state = "lino_diamond"
 	},
 /area/centcom/bar)
 "fSi" = (
@@ -5813,8 +5780,7 @@
 /area/shuttle/administration)
 "fSp" = (
 /turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "rampbottom"
+	dir = 8
 	},
 /area/centcom/ferry)
 "fSu" = (
@@ -5872,10 +5838,10 @@
 	},
 /obj/effect/floor_decal/corner/orange/diagonal,
 /obj/machinery/light{
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/centcom/holding)
 "fVu" = (
@@ -5886,20 +5852,13 @@
 	},
 /turf/unsimulated/floor/plating,
 /area/shuttle/administration)
-"fWE" = (
-/obj/effect/floor_decal/corner/red{
-	dir = 9
-	},
-/obj/machinery/computer/station_alert,
-/turf/simulated/floor/tiled/dark,
-/area/shuttle/administration)
 "fWO" = (
 /obj/effect/ghostspawpoint{
 	identifier = "OdinBartender";
 	name = "igs - OdinBartender"
 	},
 /turf/unsimulated/floor{
-	icon_state = "lino_grey"
+	icon_state = "lino_diamond"
 	},
 /area/centcom/bar)
 "fXt" = (
@@ -5922,7 +5881,7 @@
 	pixel_x = -1
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "fYX" = (
@@ -5972,7 +5931,7 @@
 /obj/structure/railing/mapped{
 	dir = 4
 	},
-/obj/effect/floor_decal/spline/plain{
+/obj/effect/floor_decal/spline/plain/black{
 	dir = 4
 	},
 /turf/unsimulated/floor{
@@ -5990,7 +5949,6 @@
 /area/shuttle/administration)
 "gcj" = (
 /obj/structure/railing/mapped{
-	layer = 4.1;
 	name = "adjusted railing"
 	},
 /obj/item/flame/lighter/zippo/gold{
@@ -6025,7 +5983,8 @@
 	id_tag = "arrival_shuttle_hatch";
 	locked = 1;
 	name = "Shuttle Hatch";
-	req_access = list(13)
+	req_access = list(13);
+	dir = 4
 	},
 /turf/simulated/floor/shuttle/tan,
 /area/shuttle/arrival)
@@ -6049,7 +6008,7 @@
 	pixel_y = 6
 	},
 /turf/unsimulated/floor{
-	icon_state = "lino_grey"
+	icon_state = "lino_diamond"
 	},
 /area/centcom/bar)
 "ggC" = (
@@ -6074,15 +6033,14 @@
 "ghF" = (
 /obj/machinery/telecomms/bus/preset_cent,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "ghN" = (
 /obj/structure/railing/mapped{
-	layer = 6;
 	name = "adjusted railing"
 	},
-/obj/effect/floor_decal/spline/plain,
+/obj/effect/floor_decal/spline/plain/black,
 /turf/unsimulated/floor{
 	icon = 'icons/turf/flooring/carpet.dmi';
 	icon_state = "rub_carpet"
@@ -6129,11 +6087,9 @@
 	pixel_y = -1
 	},
 /obj/item/gun/projectile/automatic/wt550/lethal{
-	layer = 2.99;
 	pixel_y = 6
 	},
 /obj/item/gun/projectile/automatic/wt550/lethal{
-	layer = 2.99;
 	pixel_y = 6
 	},
 /obj/structure/table/reinforced/steel,
@@ -6154,7 +6110,8 @@
 	id_tag = "specops_shuttle_fore_hatch";
 	locked = 1;
 	name = "Forward Docking Hatch";
-	req_access = list(13)
+	req_access = list(13);
+	dir = 4
 	},
 /turf/simulated/floor/shuttle/black,
 /area/shuttle/specops)
@@ -6201,7 +6158,7 @@
 "gou" = (
 /obj/structure/filingcabinet,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "gov" = (
@@ -6212,16 +6169,12 @@
 /turf/unsimulated/floor,
 /area/centcom/spawning)
 "goO" = (
-/obj/machinery/camera/network/thunder{
-	c_tag = "Thunderdome Arena";
-	invisibility = 101
-	},
 /obj/effect/decal/fake_object/light_source/invisible,
 /turf/simulated/floor/bluegrid,
 /area/tdome)
 "gpF" = (
 /obj/machinery/light{
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/machinery/door/window/brigdoor/westright{
 	name = "checkpoint desk";
@@ -6252,7 +6205,7 @@
 	pixel_y = 4
 	},
 /turf/unsimulated/floor{
-	icon_state = "lino_grey"
+	icon_state = "lino_diamond"
 	},
 /area/centcom/bar)
 "gty" = (
@@ -6284,7 +6237,6 @@
 /obj/machinery/embedded_controller/radio/simple_docking_controller{
 	frequency = 1380;
 	id_tag = "centcom_dock";
-	layer = 3.5;
 	name = "docking port controller";
 	pixel_x = 25;
 	req_one_access = list(13);
@@ -6299,11 +6251,10 @@
 /obj/structure/railing/mapped{
 	dir = 8
 	},
-/obj/effect/floor_decal/spline/plain{
+/obj/effect/floor_decal/spline/plain/black{
 	dir = 8
 	},
 /turf/unsimulated/floor{
-	icon_state = "rampbottom";
 	name = "staircase"
 	},
 /area/centcom/spawning)
@@ -6313,7 +6264,7 @@
 	},
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor,
 /area/centcom/control)
@@ -6327,7 +6278,7 @@
 /area/shuttle/administration)
 "gvZ" = (
 /obj/machinery/telecomms/bus/preset_three,
-/obj/effect/floor_decal/corner/blue{
+/obj/effect/floor_decal/corner/dark_blue{
 	dir = 9
 	},
 /obj/effect/floor_decal/corner/red{
@@ -6405,7 +6356,7 @@
 /area/centcom/spawning)
 "gyU" = (
 /obj/structure/railing/mapped,
-/obj/effect/floor_decal/spline/plain,
+/obj/effect/floor_decal/spline/plain/black,
 /turf/simulated/floor/reinforced,
 /area/shuttle/administration)
 "gAb" = (
@@ -6435,7 +6386,7 @@
 	dir = 8
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "gAL" = (
@@ -6469,7 +6420,7 @@
 	},
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/structure/table/reinforced/steel,
 /obj/structure/closet/crate/drop/grey,
@@ -6479,19 +6430,12 @@
 /obj/machinery/recharger{
 	pixel_y = 4
 	},
-/obj/effect/landmark{
-	name = "tdome2"
-	},
+/obj/effect/landmark/thunderdome2,
 /obj/effect/floor_decal/corner/grey/diagonal{
 	dir = 4
 	},
 /turf/simulated/floor/holofloor/tiled/dark,
 /area/tdome/tdome2)
-"gEL" = (
-/turf/unsimulated/floor{
-	icon_state = "new_reinforced"
-	},
-/area/centcom/holding)
 "gES" = (
 /turf/simulated/wall/shuttle/unique/transfer{
 	desc = "A large, bloated shuttle designed for automated passenger transport.";
@@ -6510,7 +6454,7 @@
 /obj/structure/table/standard,
 /obj/effect/floor_decal/corner/orange/diagonal,
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/tdome/tdomeadmin)
 "gHC" = (
@@ -6526,7 +6470,7 @@
 	dir = 8
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "gMf" = (
@@ -6592,7 +6536,7 @@
 "gMC" = (
 /obj/machinery/light{
 	dir = 8;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor/plating,
 /area/centcom/suppy)
@@ -6640,10 +6584,10 @@
 	dir = 1
 	},
 /obj/machinery/light{
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "gRD" = (
@@ -6671,7 +6615,7 @@
 	req_access = list(108)
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "gSG" = (
@@ -6687,15 +6631,12 @@
 	pixel_y = -5
 	},
 /obj/item/storage/firstaid/o2{
-	layer = 2.99;
 	pixel_x = -10
 	},
 /obj/item/storage/firstaid/fire{
-	layer = 2.99;
 	pixel_x = 4
 	},
 /obj/item/storage/firstaid/toxin{
-	layer = 2.98;
 	pixel_x = 5;
 	pixel_y = 5
 	},
@@ -6728,7 +6669,7 @@
 /obj/structure/table/standard,
 /obj/effect/floor_decal/corner/orange/diagonal,
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/tdome/tdomeadmin)
 "gTS" = (
@@ -6875,7 +6816,7 @@
 /obj/structure/table/standard,
 /obj/effect/floor_decal/corner/orange/diagonal,
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/tdome/tdomeadmin)
 "gZQ" = (
@@ -6932,7 +6873,8 @@
 	id_tag = "supply_shuttle_hatch";
 	locked = 1;
 	name = "Shuttle Hatch";
-	req_access = list(13)
+	req_access = list(13);
+	dir = 4
 	},
 /turf/simulated/floor/shuttle/dark_blue,
 /area/supply/dock)
@@ -6948,7 +6890,7 @@
 /obj/effect/floor_decal/corner/red/diagonal{
 	dir = 8
 	},
-/obj/effect/floor_decal/spline/plain{
+/obj/effect/floor_decal/spline/plain/black{
 	dir = 8
 	},
 /turf/simulated/floor/tiled/dark,
@@ -6977,10 +6919,10 @@
 /obj/machinery/optable,
 /obj/machinery/light{
 	dir = 1;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/centcom/holding)
 "hif" = (
@@ -6994,7 +6936,7 @@
 "him" = (
 /obj/effect/floor_decal/corner/red/full,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "hiQ" = (
@@ -7007,8 +6949,7 @@
 /area/shuttle/administration)
 "hjw" = (
 /turf/unsimulated/floor{
-	dir = 4;
-	icon_state = "rampbottom"
+	dir = 4
 	},
 /area/centcom/bar)
 "hkb" = (
@@ -7035,7 +6976,6 @@
 "hmF" = (
 /obj/structure/table/stone/marble,
 /obj/item/reagent_containers/food/snacks/blt{
-	layer = 2.99;
 	pixel_x = 4;
 	pixel_y = 14
 	},
@@ -7044,14 +6984,14 @@
 	pixel_y = 7
 	},
 /turf/unsimulated/floor{
-	icon_state = "lino_grey"
+	icon_state = "lino_diamond"
 	},
 /area/centcom/bar)
 "hmN" = (
 /obj/structure/table/reinforced/wood,
 /obj/item/storage/box/drinkingglasses,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "hnb" = (
@@ -7077,13 +7017,13 @@
 /obj/item/device/camera,
 /obj/effect/floor_decal/corner/blue/diagonal,
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/tdome/tdomeobserve)
 "hpk" = (
 /obj/effect/floor_decal/corner/lime,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "hpB" = (
@@ -7092,7 +7032,7 @@
 	},
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/machinery/recharger/wallcharger{
 	pixel_x = 36;
@@ -7103,7 +7043,7 @@
 	pixel_y = -9
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "hri" = (
@@ -7135,7 +7075,8 @@
 	id_tag = "arrival_shuttle_hatch";
 	locked = 1;
 	name = "Shuttle Hatch";
-	req_access = list(13)
+	req_access = list(13);
+	dir = 4
 	},
 /obj/effect/shuttle_landmark/arrival/start,
 /turf/simulated/floor/shuttle/tan,
@@ -7143,22 +7084,22 @@
 "huh" = (
 /obj/machinery/acting/changer,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "hum" = (
 /obj/machinery/hologram/holopad/long_range,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "hxw" = (
 /obj/machinery/light{
 	dir = 1;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
-	icon_state = "wood_light"
+	icon_state = "wood_preview"
 	},
 /area/centcom/evac)
 "hyd" = (
@@ -7184,12 +7125,11 @@
 "hyy" = (
 /obj/structure/table/reinforced/wood,
 /obj/machinery/chemical_dispenser/coffee/full{
-	layer = 3.1;
 	pixel_y = 2;
 	spawn_cartridges = list(/obj/item/reagent_containers/chem_disp_cartridge/coffee,/obj/item/reagent_containers/chem_disp_cartridge/milk,/obj/item/reagent_containers/chem_disp_cartridge/cream,/obj/item/reagent_containers/chem_disp_cartridge/sugar)
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "hAL" = (
@@ -7248,7 +7188,7 @@
 	req_access = list(103)
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/spawning)
 "hEu" = (
@@ -7261,12 +7201,10 @@
 /turf/unsimulated/floor/plating,
 /area/shuttle/escape)
 "hEz" = (
-/obj/effect/floor_decal/spline/plain{
+/obj/effect/floor_decal/spline/plain/black{
 	dir = 1
 	},
-/turf/unsimulated/floor{
-	icon_state = "new_reinforced"
-	},
+/turf/unsimulated/floor,
 /area/centcom/checkpoint/aft)
 "hFS" = (
 /obj/structure/shuttle_part/arrivals{
@@ -7279,10 +7217,11 @@
 "hGv" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Bureau Supervisor's Office";
-	req_access = list(109)
+	req_access = list(109);
+	dir = 1
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "hGA" = (
@@ -7338,7 +7277,7 @@
 	name = "Security Doors"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "hNV" = (
@@ -7356,7 +7295,7 @@
 /obj/structure/window/reinforced/crescent,
 /obj/structure/flora/ausbushes/leafybush,
 /obj/structure/flora/ausbushes/ppflowers,
-/turf/simulated/floor/grass/alt,
+/turf/simulated/floor/grass,
 /area/centcom/evac)
 "hOe" = (
 /obj/structure/shuttle_part/transfer{
@@ -7372,12 +7311,11 @@
 	},
 /area/shuttle/transport1)
 "hOC" = (
-/obj/item/device/radio/intercom{
+/obj/item/device/radio/intercom/north{
 	broadcasting = 1;
 	frequency = 1443;
 	listening = 0;
-	name = "Spec Ops Intercom";
-	pixel_y = 28
+	name = "Spec Ops Intercom"
 	},
 /obj/structure/window/reinforced/crescent{
 	dir = 8
@@ -7400,13 +7338,13 @@
 /obj/effect/floor_decal/corner/paleblue{
 	dir = 5
 	},
-/obj/machinery/light/spot/weak{
+/obj/machinery/light/spot{
 	dir = 1;
 	name = "adjusted spotlight";
 	pixel_x = -16
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/ferry)
 "hPU" = (
@@ -7419,7 +7357,7 @@
 	req_access = list(102)
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "hQa" = (
@@ -7441,7 +7379,7 @@
 	dir = 8
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "hQM" = (
@@ -7453,7 +7391,7 @@
 "hRS" = (
 /obj/structure/closet/secure_closet/custodial,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "hTv" = (
@@ -7473,7 +7411,6 @@
 	pixel_y = -11
 	},
 /obj/item/reagent_containers/hypospray/cmo{
-	layer = 2.99;
 	pixel_x = -2;
 	pixel_y = -3
 	},
@@ -7497,10 +7434,10 @@
 "hVx" = (
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "hWR" = (
@@ -7512,7 +7449,7 @@
 	},
 /obj/structure/table/reinforced,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "hWU" = (
@@ -7530,7 +7467,7 @@
 	},
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/structure/railing/mapped{
 	dir = 1
@@ -7630,7 +7567,7 @@
 "hZq" = (
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor,
 /area/centcom/holding)
@@ -7671,7 +7608,7 @@
 /obj/structure/window/reinforced/crescent{
 	dir = 4
 	},
-/obj/effect/floor_decal/spline/plain{
+/obj/effect/floor_decal/spline/plain/black{
 	dir = 4
 	},
 /obj/effect/landmark/force_spawnpoint{
@@ -7682,13 +7619,13 @@
 "idk" = (
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/structure/sign/flag/nanotrasen{
 	pixel_y = 30
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "iez" = (
@@ -7709,7 +7646,7 @@
 /obj/machinery/computer/security/telescreen,
 /obj/effect/floor_decal/corner/orange/diagonal,
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/tdome/tdomeadmin)
 "ifu" = (
@@ -7740,7 +7677,7 @@
 "ihi" = (
 /obj/structure/table/rack,
 /obj/item/clothing/under/color/green,
-/obj/item/clothing/shoes/brown,
+/obj/item/clothing/shoes/sneakers/brown,
 /obj/item/clothing/suit/armor/vest,
 /obj/item/clothing/head/helmet/swat,
 /obj/item/gun/energy/laser,
@@ -7792,7 +7729,7 @@
 "iox" = (
 /obj/machinery/light{
 	dir = 8;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/effect/floor_decal/corner/green/full{
 	dir = 8
@@ -7813,13 +7750,14 @@
 	pixel_y = 26
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "iqm" = (
 /obj/machinery/door/airlock/glass_centcom{
 	name = "Briefing Room";
-	req_access = list(103)
+	req_access = list(103);
+	dir = 4
 	},
 /turf/unsimulated/floor{
 	icon = 'icons/turf/flooring/carpet.dmi';
@@ -7837,7 +7775,7 @@
 /obj/effect/floor_decal/corner/lime/diagonal{
 	dir = 8
 	},
-/obj/effect/floor_decal/spline/plain,
+/obj/effect/floor_decal/spline/plain/black,
 /turf/simulated/floor/tiled/dark,
 /area/shuttle/administration)
 "iqJ" = (
@@ -7864,13 +7802,13 @@
 	dir = 5
 	},
 /turf/unsimulated/floor{
-	icon_state = "carpetnoconnect"
+	icon_state = "carpet"
 	},
 /area/centcom/bar)
 "ism" = (
 /obj/machinery/light{
 	dir = 8;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/effect/floor_decal/corner/blue{
 	dir = 10
@@ -7916,7 +7854,7 @@
 	},
 /obj/machinery/light{
 	dir = 8;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
 	icon = 'icons/turf/flooring/carpet.dmi';
@@ -7937,7 +7875,7 @@
 	req_access = list(105)
 	},
 /turf/unsimulated/floor{
-	icon_state = "lino_grey"
+	icon_state = "lino_diamond"
 	},
 /area/centcom/bar)
 "ivL" = (
@@ -7981,13 +7919,13 @@
 	name = "igs - DeathERT"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "iAl" = (
 /obj/structure/table/rack,
 /obj/item/clothing/under/color/green,
-/obj/item/clothing/shoes/brown,
+/obj/item/clothing/shoes/sneakers/brown,
 /obj/item/melee/energy/axe,
 /turf/simulated/floor,
 /area/tdome/tdome1)
@@ -8000,7 +7938,7 @@
 /area/shuttle/escape)
 "iAO" = (
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/spawning)
 "iBu" = (
@@ -8011,9 +7949,9 @@
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/machinery/light{
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
-/turf/simulated/floor/grass/alt,
+/turf/simulated/floor/grass,
 /area/centcom/spawning)
 "iCW" = (
 /obj/machinery/vending/cola{
@@ -8036,7 +7974,7 @@
 /obj/structure/window/reinforced/crescent,
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/ppflowers,
-/turf/simulated/floor/grass/alt,
+/turf/simulated/floor/grass,
 /area/centcom/spawning)
 "iEv" = (
 /obj/effect/floor_decal/corner/paleblue/diagonal,
@@ -8049,7 +7987,7 @@
 	pixel_x = 6
 	},
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/centcom/holding)
 "iED" = (
@@ -8070,7 +8008,8 @@
 	},
 /obj/machinery/door/airlock/highsecurity{
 	name = "Bridge";
-	req_access = list(101)
+	req_access = list(101);
+	dir = 1
 	},
 /turf/simulated/floor/tiled/dark,
 /area/shuttle/administration)
@@ -8096,12 +8035,10 @@
 	},
 /obj/item/reagent_containers/glass/bottle/inaprovaline,
 /obj/item/reagent_containers/glass/bottle/thetamycin{
-	layer = 2.99;
 	pixel_x = 9;
 	pixel_y = 7
 	},
 /obj/item/reagent_containers/glass/bottle/antitoxin{
-	layer = 2.99;
 	pixel_y = 7
 	},
 /obj/item/reagent_containers/glass/bottle/dexalin_plus{
@@ -8109,7 +8046,7 @@
 	pixel_y = 18
 	},
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/centcom/holding)
 "iGD" = (
@@ -8137,14 +8074,13 @@
 	req_access = list(103)
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/checkpoint/fore)
 "iKk" = (
 /obj/effect/floor_decal/corner/white/diagonal,
 /obj/structure/toilet{
-	dir = 1;
-	layer = 4.1
+	dir = 1
 	},
 /obj/machinery/light/small{
 	dir = 8;
@@ -8221,19 +8157,17 @@
 /area/shuttle/administration)
 "iMq" = (
 /obj/structure/railing/mapped,
-/obj/item/storage/box/fancy/tray{
-	layer = 2.99
-	},
+/obj/item/storage/box/fancy/tray,
 /obj/effect/floor_decal/corner_wide/paleblue/diagonal{
 	dir = 8
 	},
 /obj/effect/floor_decal/industrial/warning{
 	dir = 6
 	},
-/obj/effect/floor_decal/spline/plain,
+/obj/effect/floor_decal/spline/plain/black,
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/structure/table/reinforced/steel,
 /turf/simulated/floor/tiled/dark,
@@ -8271,30 +8205,27 @@
 	dir = 5
 	},
 /obj/structure/table/rack,
-/obj/item/clothing/suit/storage/toggle/fib{
-	layer = 2.99;
+/obj/item/clothing/suit/storage/toggle/bssb{
 	pixel_x = 6;
 	pixel_y = 2
 	},
-/obj/item/clothing/suit/storage/toggle/fib{
-	layer = 2.99;
+/obj/item/clothing/suit/storage/toggle/bssb{
 	pixel_x = 6;
 	pixel_y = 2
 	},
-/obj/item/clothing/suit/storage/toggle/fib{
-	layer = 2.99;
+/obj/item/clothing/suit/storage/toggle/bssb{
 	pixel_x = 6;
 	pixel_y = 2
 	},
-/obj/item/clothing/suit/armor/vest/fib{
+/obj/item/clothing/suit/storage/toggle/bssb/armor{
 	pixel_x = -6;
 	pixel_y = -3
 	},
-/obj/item/clothing/suit/armor/vest/fib{
+/obj/item/clothing/suit/storage/toggle/bssb/armor{
 	pixel_x = -6;
 	pixel_y = -3
 	},
-/obj/item/clothing/suit/armor/vest/fib{
+/obj/item/clothing/suit/storage/toggle/bssb/armor{
 	pixel_x = -6;
 	pixel_y = -3
 	},
@@ -8311,7 +8242,7 @@
 	pixel_y = 8
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "iRA" = (
@@ -8326,7 +8257,7 @@
 /obj/structure/railing/mapped{
 	dir = 8
 	},
-/obj/effect/floor_decal/spline/plain,
+/obj/effect/floor_decal/spline/plain/black,
 /turf/simulated/floor/tiled/ramp,
 /area/shuttle/administration)
 "iSu" = (
@@ -8340,7 +8271,7 @@
 "iSG" = (
 /obj/machinery/light{
 	dir = 8;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/simulated/floor/reinforced,
 /area/shuttle/administration)
@@ -8350,7 +8281,7 @@
 	pixel_y = 3
 	},
 /turf/unsimulated/floor{
-	icon_state = "lino_grey"
+	icon_state = "lino_diamond"
 	},
 /area/centcom/bar)
 "iTm" = (
@@ -8372,10 +8303,10 @@
 	},
 /obj/machinery/light{
 	dir = 8;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "iVT" = (
@@ -8389,7 +8320,7 @@
 	name = "Special Ops."
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "iWg" = (
@@ -8421,10 +8352,10 @@
 /area/centcom/holding)
 "iXx" = (
 /obj/machinery/light{
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
-	icon_state = "wood_light"
+	icon_state = "wood_preview"
 	},
 /area/centcom/evac)
 "iXX" = (
@@ -8436,7 +8367,7 @@
 "iYk" = (
 /obj/machinery/light{
 	dir = 8;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/effect/floor_decal/corner/red{
 	dir = 9
@@ -8448,7 +8379,6 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	layer = 5;
 	name = "adjusted window"
 	},
 /turf/simulated/floor/shuttle/dark_blue,
@@ -8456,7 +8386,7 @@
 "jbw" = (
 /obj/structure/table/rack,
 /obj/item/clothing/under/color/red,
-/obj/item/clothing/shoes/brown,
+/obj/item/clothing/shoes/sneakers/brown,
 /obj/item/clothing/suit/armor/tdome/red,
 /obj/item/clothing/head/helmet/thunderdome,
 /obj/item/melee/baton/loaded,
@@ -8489,7 +8419,7 @@
 	name = "Kitchen Shutter"
 	},
 /turf/unsimulated/floor{
-	icon_state = "lino_grey"
+	icon_state = "lino_diamond"
 	},
 /area/centcom/bar)
 "jdr" = (
@@ -8498,13 +8428,13 @@
 /obj/item/storage/box/fancy/cigarettes,
 /obj/effect/floor_decal/corner/blue/diagonal,
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/tdome/tdomeobserve)
 "jdw" = (
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/simulated/floor/reinforced,
 /area/shuttle/administration)
@@ -8542,7 +8472,7 @@
 /obj/item/gun/projectile/sec,
 /obj/item/gun/projectile/sec,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "jhx" = (
@@ -8552,10 +8482,9 @@
 "jja" = (
 /obj/machinery/light{
 	dir = 1;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/structure/railing/mapped{
-	layer = 4.1;
 	name = "adjusted railing"
 	},
 /obj/effect/decal/fake_object{
@@ -8578,9 +8507,7 @@
 	icon_state = "intact-scrubbers";
 	name = "pipe"
 	},
-/obj/structure/lattice/catwalk/indoor{
-	layer = 3.5
-	},
+/obj/structure/lattice/catwalk/indoor,
 /turf/unsimulated/floor/plating,
 /area/centcom/checkpoint/fore)
 "jkC" = (
@@ -8612,7 +8539,7 @@
 	name = "AI Core Door";
 	req_access = list(109)
 	},
-/obj/effect/floor_decal/spline/plain,
+/obj/effect/floor_decal/spline/plain/black,
 /turf/unsimulated/floor{
 	icon = 'icons/turf/flooring/circuit.dmi';
 	icon_state = "bcircuit"
@@ -8640,7 +8567,7 @@
 /obj/structure/railing/mapped{
 	dir = 8
 	},
-/obj/effect/floor_decal/spline/plain{
+/obj/effect/floor_decal/spline/plain/black{
 	dir = 8
 	},
 /turf/unsimulated/floor{
@@ -8669,19 +8596,17 @@
 	},
 /obj/effect/floor_decal/corner/orange/diagonal,
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/tdome/tdomeadmin)
 "jrq" = (
-/obj/effect/floor_decal/spline/plain,
-/turf/unsimulated/floor{
-	icon_state = "rampbottom"
-	},
+/obj/effect/floor_decal/spline/plain/black,
+/turf/unsimulated/floor,
 /area/centcom/ferry)
 "jrH" = (
 /obj/machinery/computer/message_monitor,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "jrN" = (
@@ -8705,12 +8630,12 @@
 /turf/unsimulated/floor,
 /area/tdome/tdomeadmin)
 "juP" = (
-/obj/structure/flora/pottedplant/random{
+/obj/random/pottedplant{
 	anchored = 1;
 	pixel_y = 18
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "jvw" = (
@@ -8726,7 +8651,7 @@
 	name = "Bar Shutter"
 	},
 /turf/unsimulated/floor{
-	icon_state = "lino_grey"
+	icon_state = "lino_diamond"
 	},
 /area/centcom/bar)
 "jvz" = (
@@ -8734,21 +8659,19 @@
 	pixel_x = 2
 	},
 /obj/machinery/light{
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor,
 /area/centcom/ferry)
 "jvF" = (
 /obj/machinery/light{
 	dir = 1;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/effect/floor_decal/industrial/warning{
 	dir = 1
 	},
-/turf/unsimulated/floor{
-	icon_state = "new_reinforced"
-	},
+/turf/unsimulated/floor,
 /area/centcom/spawning)
 "jwX" = (
 /turf/simulated/wall/shuttle/unique/transfer{
@@ -8774,7 +8697,6 @@
 	dir = 1
 	},
 /obj/item/device/flashlight/lamp/green{
-	layer = 4.1;
 	pixel_x = -2;
 	pixel_y = 6
 	},
@@ -8809,12 +8731,9 @@
 	desc = "It's used to monitor rooms.";
 	icon = 'icons/obj/monitors.dmi';
 	icon_state = "camera";
-	layer = 3.02;
 	name = "surveillance camera"
 	},
-/turf/unsimulated/floor{
-	icon_state = "new_reinforced"
-	},
+/turf/unsimulated/floor,
 /area/centcom/specops)
 "jCa" = (
 /obj/structure/shuttle_part/hapt{
@@ -8879,7 +8798,7 @@
 /obj/item/clothing/head/helmet/ert/command,
 /obj/effect/floor_decal/industrial/outline/grey,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "jGi" = (
@@ -8908,7 +8827,6 @@
 	pixel_x = 5
 	},
 /obj/item/storage/firstaid/o2{
-	layer = 2.8;
 	pixel_x = 4;
 	pixel_y = 6
 	},
@@ -8916,7 +8834,6 @@
 /obj/item/storage/box/gloves,
 /obj/item/storage/firstaid/toxin,
 /obj/item/storage/firstaid/fire{
-	layer = 2.9;
 	pixel_x = 2;
 	pixel_y = 3
 	},
@@ -8954,7 +8871,7 @@
 /obj/effect/floor_decal/industrial/warning{
 	dir = 10
 	},
-/obj/effect/floor_decal/spline/plain,
+/obj/effect/floor_decal/spline/plain/black,
 /obj/structure/table/reinforced/steel,
 /turf/simulated/floor/tiled/dark,
 /area/shuttle/administration)
@@ -8963,7 +8880,7 @@
 	dir = 5
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "jKL" = (
@@ -9013,7 +8930,7 @@
 	amount_per_transfer_from_this = 50
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "jPQ" = (
@@ -9022,7 +8939,7 @@
 	dir = 5
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "jPV" = (
@@ -9085,7 +9002,7 @@
 "jUu" = (
 /obj/item/clothing/suit/armor/carrier/ballistic,
 /obj/item/clothing/under/rank/centcom_officer,
-/obj/item/clothing/shoes/white,
+/obj/item/clothing/shoes/sneakers,
 /obj/item/clothing/gloves/white,
 /obj/item/clothing/glasses/sunglasses/sechud,
 /obj/item/clothing/accessory/badge/holo,
@@ -9105,7 +9022,7 @@
 /area/shuttle/administration)
 "jVm" = (
 /obj/machinery/light{
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor/plating,
 /area/centcom/suppy)
@@ -9138,10 +9055,10 @@
 	},
 /obj/machinery/light{
 	dir = 8;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "kbl" = (
@@ -9161,7 +9078,7 @@
 	dir = 10
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "kbT" = (
@@ -9179,7 +9096,7 @@
 /obj/effect/floor_decal/corner/red/diagonal{
 	dir = 8
 	},
-/obj/effect/floor_decal/spline/plain,
+/obj/effect/floor_decal/spline/plain/black,
 /obj/structure/closet/crate/freezer/rations,
 /obj/structure/table/reinforced/steel,
 /turf/simulated/floor/tiled/dark,
@@ -9193,11 +9110,9 @@
 	},
 /obj/machinery/light{
 	dir = 8;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
-/turf/unsimulated/floor{
-	icon_state = "new_reinforced"
-	},
+/turf/unsimulated/floor,
 /area/centcom/spawning)
 "kdz" = (
 /obj/structure/shuttle_part/transfer{
@@ -9244,7 +9159,7 @@
 "kgi" = (
 /obj/structure/table/stone/marble,
 /turf/unsimulated/floor{
-	icon_state = "lino_grey"
+	icon_state = "lino_diamond"
 	},
 /area/centcom/bar)
 "kgq" = (
@@ -9287,16 +9202,16 @@
 "kjl" = (
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "kjq" = (
 /obj/machinery/light{
 	dir = 1;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/effect/floor_decal/corner/grey{
 	dir = 5
@@ -9306,7 +9221,7 @@
 "kjR" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Entertainment Wing";
-	req_access = null
+	dir = 1
 	},
 /turf/unsimulated/floor,
 /area/centcom/holding)
@@ -9323,22 +9238,20 @@
 	color = "#545c68";
 	icon = 'icons/obj/railing.dmi';
 	icon_state = "mcorneroverlay1";
-	layer = 4.1;
 	name = "railing"
 	},
 /obj/effect/floor_decal/corner/paleblue/full,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/ferry)
 "kml" = (
 /obj/machinery/door/airlock/glass_centcom{
 	name = "Cell 2";
-	req_access = list(105)
+	req_access = list(105);
+	dir = 1
 	},
-/turf/unsimulated/floor{
-	icon_state = "new_reinforced"
-	},
+/turf/unsimulated/floor,
 /area/centcom/specops)
 "kmE" = (
 /obj/structure/shuttle_part/ert{
@@ -9360,17 +9273,15 @@
 	dir = 9
 	},
 /obj/machinery/light{
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "kop" = (
-/obj/effect/floor_decal/spline/plain,
-/turf/unsimulated/floor{
-	icon_state = "new_reinforced"
-	},
+/obj/effect/floor_decal/spline/plain/black,
+/turf/unsimulated/floor,
 /area/centcom/checkpoint/fore)
 "kpR" = (
 /obj/item/gun/projectile/automatic/rifle/w556{
@@ -9396,7 +9307,8 @@
 	id_tag = "admin_shuttle_hatch";
 	locked = 1;
 	name = "Corvette Hatch";
-	req_access = list(13)
+	req_access = list(13);
+	dir = 1
 	},
 /obj/effect/floor_decal/industrial/hatch/yellow,
 /obj/structure/plasticflaps/airtight,
@@ -9461,14 +9373,14 @@
 	name = "elevator door"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/spawning)
 "ksM" = (
 /obj/structure/window/reinforced/crescent{
 	dir = 8
 	},
-/obj/effect/floor_decal/spline/plain{
+/obj/effect/floor_decal/spline/plain/black{
 	dir = 8
 	},
 /turf/simulated/floor/shuttle/dark_blue,
@@ -9498,7 +9410,7 @@
 /obj/effect/floor_decal/corner/lime{
 	dir = 10
 	},
-/obj/effect/floor_decal/corner/blue{
+/obj/effect/floor_decal/corner/dark_blue{
 	dir = 1
 	},
 /obj/effect/floor_decal/corner/red{
@@ -9550,7 +9462,8 @@
 	id_tag = "supply_shuttle_hatch";
 	locked = 1;
 	name = "Shuttle Hatch";
-	req_access = list(13)
+	req_access = list(13);
+	dir = 4
 	},
 /turf/simulated/floor/shuttle/dark_blue,
 /area/supply/dock)
@@ -9572,13 +9485,13 @@
 	req_access = list(101)
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/checkpoint/fore)
 "kxT" = (
 /obj/machinery/light{
 	dir = 8;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor,
 /area/centcom/holding)
@@ -9588,7 +9501,7 @@
 	req_access = list(103)
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "kzP" = (
@@ -9616,11 +9529,11 @@
 /obj/item/device/flashlight/flare,
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/effect/floor_decal/industrial/outline/yellow,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "kBr" = (
@@ -9652,8 +9565,7 @@
 "kCI" = (
 /turf/unsimulated/wall/fakeairlock{
 	icon = 'icons/obj/doors/Doorext.dmi';
-	icon_state = "door_locked";
-	name = "airlock"
+	icon_state = "door_locked"
 	},
 /area/centcom/specops)
 "kCR" = (
@@ -9668,7 +9580,7 @@
 	req_access = list(103)
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/spawning)
 "kDo" = (
@@ -9685,7 +9597,6 @@
 	desc = "An automated gun turret.";
 	icon = 'icons/obj/turrets.dmi';
 	icon_state = "cover_0";
-	layer = 3.02;
 	name = "turret"
 	},
 /obj/effect/floor_decal/industrial/warning/full,
@@ -9753,7 +9664,7 @@
 	},
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/structure/closet/crate/drop{
 	name = "problemsolver crate"
@@ -9786,14 +9697,13 @@
 /area/shuttle/escape)
 "kJQ" = (
 /obj/structure/railing/mapped{
-	layer = 4.1;
 	name = "adjusted railing"
 	},
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1";
 	name = "adjusted light fixture";
-	pixel_y = 16
+	pixel_y = 16;
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
 	icon_state = "wood"
@@ -9803,9 +9713,6 @@
 /turf/unsimulated/wall/fakepdoor,
 /area/centcom/specops)
 "kNJ" = (
-/obj/item/circuitboard/rcon_console{
-	name = "circuit board (Ticket Kiosk Console)"
-	},
 /turf/unsimulated/floor{
 	icon_state = "panelscorched"
 	},
@@ -9820,20 +9727,19 @@
 /obj/structure/railing/mapped,
 /obj/machinery/light{
 	dir = 1;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/structure/flora/ausbushes/lavendergrass,
-/turf/simulated/floor/grass/alt,
+/turf/simulated/floor/grass,
 /area/centcom/bar)
 "kOI" = (
 /obj/structure/railing/mapped{
-	layer = 4.1;
 	name = "adjusted railing"
 	},
 /obj/effect/floor_decal/spline/fancy/wood,
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/machinery/recharge_station,
 /turf/unsimulated/floor{
@@ -9845,7 +9751,7 @@
 /obj/item/card/id/captains_spare,
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
 	icon = 'icons/turf/flooring/carpet.dmi';
@@ -9857,19 +9763,19 @@
 	dir = 1
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/ferry)
 "kQH" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "kQO" = (
 /obj/structure/window/reinforced/crescent,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "kQY" = (
@@ -9888,7 +9794,7 @@
 "kSB" = (
 /obj/machinery/telecomms/server/presets/centcomm,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "kTE" = (
@@ -9902,7 +9808,7 @@
 	req_access = list(103)
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/checkpoint/aft)
 "kTJ" = (
@@ -9914,20 +9820,20 @@
 	pixel_x = 10
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "kUb" = (
 /obj/structure/filingcabinet/chestdrawer,
 /obj/machinery/light{
 	dir = 1;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/effect/floor_decal/corner/blue{
 	dir = 5
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "kUh" = (
@@ -9952,9 +9858,7 @@
 /obj/structure/window/reinforced/crescent{
 	dir = 4
 	},
-/turf/unsimulated/floor{
-	icon_state = "new_reinforced"
-	},
+/turf/unsimulated/floor,
 /area/centcom/holding)
 "kVA" = (
 /obj/machinery/embedded_controller/radio/simple_docking_controller{
@@ -9965,7 +9869,7 @@
 	tag_door = "admin_shuttle_bay_door"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "kWj" = (
@@ -9983,7 +9887,7 @@
 	},
 /obj/effect/floor_decal/corner/blue/diagonal,
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/tdome/tdomeobserve)
 "kXP" = (
@@ -9997,7 +9901,7 @@
 /area/centcom/spawning)
 "kYq" = (
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "kYV" = (
@@ -10028,11 +9932,10 @@
 	dir = 10
 	},
 /obj/structure/railing/mapped{
-	layer = 4.1;
 	name = "adjusted railing"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/ferry)
 "laL" = (
@@ -10098,14 +10001,14 @@
 /obj/machinery/door/airlock/glass_centcom{
 	icon = 'icons/obj/doors/Doorglass.dmi';
 	name = "To: Mendell City Shuttle Terminal";
-	req_access = null
+	dir = 4
 	},
 /turf/unsimulated/floor,
 /area/centcom/holding)
 "lfI" = (
 /obj/structure/dispenser/oxygen,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "lhd" = (
@@ -10115,7 +10018,7 @@
 /obj/item/stack/medical/bruise_pack,
 /obj/effect/floor_decal/corner/orange/diagonal,
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/tdome/tdomeadmin)
 "lhw" = (
@@ -10144,7 +10047,7 @@
 	req_access = list(103)
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "liY" = (
@@ -10153,7 +10056,7 @@
 	name = "igs - OdinCheckpoint"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "ljc" = (
@@ -10183,11 +10086,10 @@
 /obj/structure/railing/mapped{
 	dir = 4
 	},
-/obj/effect/floor_decal/spline/plain{
+/obj/effect/floor_decal/spline/plain/black{
 	dir = 4
 	},
 /turf/unsimulated/floor{
-	icon_state = "rampbottom";
 	name = "staircase"
 	},
 /area/centcom/spawning)
@@ -10207,7 +10109,7 @@
 /obj/effect/floor_decal/spline/fancy/wood,
 /obj/machinery/light{
 	dir = 8;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
 	icon_state = "wood"
@@ -10221,7 +10123,6 @@
 /area/centcom/bar)
 "lnh" = (
 /obj/structure/railing/mapped{
-	layer = 4.1;
 	name = "adjusted railing"
 	},
 /obj/structure/railing/mapped{
@@ -10231,13 +10132,13 @@
 	dir = 4
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/ferry)
 "lny" = (
 /obj/item/modular_computer/console/preset/command,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "lov" = (
@@ -10251,7 +10152,7 @@
 "loL" = (
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/structure/computerframe,
 /turf/simulated/floor/tiled/dark,
@@ -10270,7 +10171,7 @@
 "lqc" = (
 /obj/machinery/light{
 	dir = 1;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/effect/floor_decal/corner/red{
 	dir = 5
@@ -10282,13 +10183,13 @@
 	dir = 1
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "lsJ" = (
 /obj/item/modular_computer/console/preset/command/account/centcomm,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "lsU" = (
@@ -10302,7 +10203,7 @@
 "luY" = (
 /obj/machinery/telecomms/processor/preset_cent,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "lvs" = (
@@ -10310,9 +10211,7 @@
 /turf/unsimulated/floor/plating,
 /area/tdome/tdomeobserve)
 "lvy" = (
-/obj/effect/landmark{
-	name = "tdome2"
-	},
+/obj/effect/landmark/thunderdome2,
 /obj/effect/floor_decal/corner/grey/diagonal{
 	dir = 4
 	},
@@ -10323,7 +10222,7 @@
 /obj/structure/table/reinforced,
 /obj/machinery/recharger,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "lxi" = (
@@ -10352,7 +10251,7 @@
 /obj/effect/floor_decal/corner/red{
 	dir = 6
 	},
-/obj/effect/floor_decal/corner/blue{
+/obj/effect/floor_decal/corner/dark_blue{
 	dir = 9
 	},
 /turf/simulated/floor/tiled{
@@ -10365,15 +10264,16 @@
 	dir = 9
 	},
 /obj/machinery/light{
-	icon_state = "tube1";
 	name = "adjusted light fixture";
-	pixel_x = 16
+	pixel_x = 16;
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor,
 /area/centcom/spawning)
 "lBD" = (
 /obj/machinery/door/airlock/glass_centcom{
-	req_access = list(101)
+	req_access = list(101);
+	dir = 4
 	},
 /obj/effect/floor_decal/corner/grey/diagonal{
 	dir = 4
@@ -10408,7 +10308,7 @@
 	name = "igs - OdinDoctor"
 	},
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/centcom/holding)
 "lGZ" = (
@@ -10424,9 +10324,7 @@
 	name = "blastdoor"
 	},
 /obj/effect/floor_decal/industrial/hatch/yellow,
-/turf/unsimulated/floor{
-	icon_state = "new_reinforced"
-	},
+/turf/unsimulated/floor,
 /area/centcom/specops)
 "lHt" = (
 /obj/structure/shuttle_part/arrivals{
@@ -10450,7 +10348,7 @@
 	name = "Corvette Hangar"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "lIr" = (
@@ -10459,12 +10357,11 @@
 /obj/effect/floor_decal/corner/orange/diagonal,
 /obj/machinery/door/window/eastright{
 	name = "dispensary";
-	req_access = null;
 	req_one_access = list(33,104)
 	},
 /obj/item/reagent_containers/dropper,
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/centcom/holding)
 "lIE" = (
@@ -10474,13 +10371,13 @@
 /obj/machinery/disposal,
 /obj/effect/floor_decal/corner/orange/diagonal,
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/tdome/tdomeadmin)
 "lKG" = (
 /obj/machinery/papershredder,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "lLj" = (
@@ -10489,12 +10386,9 @@
 	desc = "It's used to monitor rooms.";
 	icon = 'icons/obj/monitors.dmi';
 	icon_state = "camera";
-	layer = 3.02;
 	name = "surveillance camera"
 	},
-/turf/unsimulated/floor{
-	icon_state = "new_reinforced"
-	},
+/turf/unsimulated/floor,
 /area/centcom/specops)
 "lLC" = (
 /obj/random/junk,
@@ -10508,7 +10402,7 @@
 "lLG" = (
 /obj/item/modular_computer/console/preset/security,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/spawning)
 "lLK" = (
@@ -10523,7 +10417,7 @@
 	name = "Corvette Hangar"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "lMn" = (
@@ -10534,18 +10428,16 @@
 /area/centcom/holding)
 "lMz" = (
 /turf/unsimulated/floor{
-	icon_state = "lino_grey"
+	icon_state = "lino_diamond"
 	},
 /area/centcom/bar)
 "lNL" = (
 /obj/structure/bed,
 /obj/machinery/light{
 	dir = 1;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
-/turf/unsimulated/floor{
-	icon_state = "new_reinforced"
-	},
+/turf/unsimulated/floor,
 /area/centcom/specops)
 "lNN" = (
 /obj/structure/sign/directions/cryo{
@@ -10562,7 +10454,7 @@
 /area/centcom/holding)
 "lQy" = (
 /obj/machinery/light{
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/effect/floor_decal/corner/green{
 	dir = 10
@@ -10592,14 +10484,13 @@
 /area/centcom/specops)
 "lRx" = (
 /obj/structure/railing/mapped{
-	layer = 4.1;
 	name = "adjusted railing"
 	},
 /obj/machinery/light{
 	dir = 8;
-	icon_state = "tube1";
 	name = "adjusted light fixture";
-	pixel_y = 16
+	pixel_y = 16;
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
 	icon_state = "wood"
@@ -10629,7 +10520,7 @@
 /obj/effect/floor_decal/corner/grey{
 	dir = 5
 	},
-/obj/structure/flora/pottedplant/random{
+/obj/random/pottedplant{
 	anchored = 1;
 	pixel_y = 18
 	},
@@ -10648,11 +10539,9 @@
 "lSZ" = (
 /obj/machinery/light{
 	dir = 1;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
-/turf/unsimulated/floor{
-	icon_state = "new_reinforced"
-	},
+/turf/unsimulated/floor,
 /area/centcom/specops)
 "lUA" = (
 /turf/unsimulated/wall/darkshuttlewall,
@@ -10677,11 +10566,10 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	layer = 5;
 	name = "adjusted window"
 	},
-/obj/effect/floor_decal/spline/plain,
-/obj/effect/floor_decal/spline/plain{
+/obj/effect/floor_decal/spline/plain/black,
+/obj/effect/floor_decal/spline/plain/black{
 	dir = 8
 	},
 /turf/simulated/floor/shuttle/dark_blue,
@@ -10708,7 +10596,7 @@
 	anchored = 1;
 	pixel_y = 2
 	},
-/obj/effect/floor_decal/spline/plain{
+/obj/effect/floor_decal/spline/plain/black{
 	dir = 4
 	},
 /turf/simulated/floor/shuttle/dark_blue,
@@ -10738,14 +10626,12 @@
 	req_access = list(109)
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "mbe" = (
 /turf/simulated/floor/holofloor/space,
-/area/centcom/start{
-	name = "Romanovich Cloud, Tau Ceti"
-	})
+/area/centcom/start)
 "mbk" = (
 /obj/structure/closet/walllocker/emerglocker/east,
 /obj/structure/table/reinforced/steel,
@@ -10774,7 +10660,7 @@
 	dir = 5
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "mdt" = (
@@ -10789,7 +10675,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/black{
 	dir = 8
 	},
-/obj/effect/floor_decal/corner/blue{
+/obj/effect/floor_decal/corner/dark_blue{
 	dir = 10
 	},
 /obj/effect/floor_decal/corner/purple{
@@ -10806,7 +10692,6 @@
 "mfx" = (
 /obj/effect/floor_decal/industrial/hatch/yellow,
 /obj/machinery/door/blast/odin{
-	_wifi_id = null;
 	dir = 2;
 	id = "arrivals_outer"
 	},
@@ -10831,7 +10716,7 @@
 	dir = 9
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "miX" = (
@@ -10872,7 +10757,7 @@
 "mmY" = (
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/simulated/floor/shuttle/dark_blue,
 /area/shuttle/transport1)
@@ -10891,7 +10776,7 @@
 	dir = 4
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "mnU" = (
@@ -10924,13 +10809,10 @@
 /obj/item/device/flashlight/lamp{
 	pixel_y = 2
 	},
-/turf/unsimulated/floor{
-	icon_state = "new_reinforced"
-	},
+/turf/unsimulated/floor,
 /area/centcom/specops)
 "mrG" = (
 /obj/item/gun/projectile/automatic/rifle/z8{
-	layer = 2.99;
 	pixel_y = 10
 	},
 /obj/item/gun/projectile/automatic/rifle/z8{
@@ -11023,37 +10905,33 @@
 "mvQ" = (
 /obj/machinery/telecomms/hub/preset_cent,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "mxc" = (
 /obj/effect/floor_decal/corner/lime/diagonal,
 /obj/machinery/light{
 	dir = 1;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "mxm" = (
 /obj/structure/toilet{
 	dir = 4;
-	layer = 2.6;
 	pixel_y = 1
 	},
-/turf/unsimulated/floor{
-	icon_state = "new_reinforced"
-	},
+/turf/unsimulated/floor,
 /area/centcom/specops)
 "mxw" = (
 /obj/machinery/door/airlock/glass_centcom{
 	name = "Cell 1";
-	req_access = list(105)
+	req_access = list(105);
+	dir = 1
 	},
-/turf/unsimulated/floor{
-	icon_state = "new_reinforced"
-	},
+/turf/unsimulated/floor,
 /area/centcom/specops)
 "myc" = (
 /obj/structure/shuttle_part/transfer{
@@ -11082,9 +10960,7 @@
 	name = "Advanced Interrogation";
 	req_access = list(105)
 	},
-/turf/unsimulated/floor{
-	icon_state = "new_reinforced"
-	},
+/turf/unsimulated/floor,
 /area/centcom/specops)
 "mCC" = (
 /obj/effect/floor_decal/corner/paleblue,
@@ -11105,21 +10981,21 @@
 	dir = 10
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "mDS" = (
 /obj/machinery/porta_turret/crescent,
 /obj/effect/floor_decal/industrial/warning/full,
 /obj/machinery/light{
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor,
 /area/centcom/control)
 "mEq" = (
 /obj/structure/table/steel,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "mGI" = (
@@ -11134,7 +11010,7 @@
 /obj/item/storage/box/fancy/donut,
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
 	icon = 'icons/turf/flooring/carpet.dmi';
@@ -11151,10 +11027,10 @@
 "mIi" = (
 /obj/machinery/light{
 	dir = 8;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "mJt" = (
@@ -11165,7 +11041,7 @@
 	},
 /obj/structure/table/reinforced/steel,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "mJJ" = (
@@ -11175,7 +11051,7 @@
 	},
 /obj/item/device/hand_labeler,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "mKe" = (
@@ -11187,14 +11063,14 @@
 "mLh" = (
 /obj/structure/table/rack,
 /obj/item/clothing/under/color/red,
-/obj/item/clothing/shoes/brown,
+/obj/item/clothing/shoes/sneakers/brown,
 /obj/item/melee/energy/axe,
 /turf/simulated/floor,
 /area/tdome/tdome2)
 "mMJ" = (
 /obj/structure/table/rack,
 /obj/item/clothing/under/color/green,
-/obj/item/clothing/shoes/brown,
+/obj/item/clothing/shoes/sneakers/brown,
 /obj/item/clothing/suit/armor/tdome/green,
 /obj/item/clothing/head/helmet/thunderdome,
 /obj/item/melee/baton/loaded,
@@ -11212,7 +11088,7 @@
 "mNl" = (
 /obj/effect/floor_decal/corner/lime/diagonal,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "mNQ" = (
@@ -11241,31 +11117,29 @@
 "mPA" = (
 /obj/effect/floor_decal/industrial/warning,
 /obj/machinery/light{
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor/plating,
 /area/centcom/specops)
 "mPL" = (
 /obj/structure/table/rack,
 /obj/item/storage/briefcase/aluminium{
-	layer = 2.99;
 	pixel_y = 6
 	},
 /obj/item/storage/briefcase/aluminium{
-	layer = 2.99;
 	pixel_y = 6
 	},
-/obj/item/storage/lockbox/cciaa/fib{
+/obj/item/storage/lockbox/cciaa/bssb{
 	pixel_y = -1
 	},
-/obj/item/storage/lockbox/cciaa/fib{
+/obj/item/storage/lockbox/cciaa/bssb{
 	pixel_y = -1
 	},
 /obj/effect/floor_decal/corner/blue/full{
 	dir = 8
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "mQk" = (
@@ -11277,7 +11151,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/effect/floor_decal/corner/blue/diagonal,
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/tdome/tdomeobserve)
 "mTj" = (
@@ -11330,12 +11204,10 @@
 /area/shuttle/escape)
 "mVZ" = (
 /obj/machinery/recharger/wallcharger{
-	layer = 3;
 	pixel_x = 4;
 	pixel_y = 28
 	},
 /obj/machinery/recharger/wallcharger{
-	layer = 3;
 	pixel_x = 4;
 	pixel_y = 19
 	},
@@ -11359,7 +11231,6 @@
 "mYG" = (
 /obj/structure/table/reinforced/wood,
 /obj/machinery/chemical_dispenser/coffee/full{
-	layer = 3.1;
 	pixel_y = 2;
 	spawn_cartridges = list(/obj/item/reagent_containers/chem_disp_cartridge/coffee,/obj/item/reagent_containers/chem_disp_cartridge/milk,/obj/item/reagent_containers/chem_disp_cartridge/cream,/obj/item/reagent_containers/chem_disp_cartridge/sugar)
 	},
@@ -11368,7 +11239,7 @@
 	pixel_y = 9
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "mYJ" = (
@@ -11387,13 +11258,12 @@
 	pixel_y = 7
 	},
 /obj/structure/window/reinforced{
-	layer = 5;
 	name = "adjusted window"
 	},
 /obj/item/flame/lighter,
 /obj/effect/floor_decal/spline/fancy/wood,
 /turf/unsimulated/floor{
-	icon_state = "carpetnoconnect"
+	icon_state = "carpet"
 	},
 /area/centcom/bar)
 "nbs" = (
@@ -11414,10 +11284,10 @@
 /obj/structure/closet/wardrobe/orange,
 /obj/machinery/light{
 	dir = 8;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "ncV" = (
@@ -11444,7 +11314,7 @@
 	name = "Special Ops."
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "ndV" = (
@@ -11510,7 +11380,7 @@
 	name = "\improper FIB tactical helmet"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "nfY" = (
@@ -11548,7 +11418,7 @@
 	req_access = list(109)
 	},
 /obj/machinery/light{
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
 	icon_state = "wood"
@@ -11559,15 +11429,14 @@
 	anchored = 1;
 	pixel_y = 3
 	},
-/obj/machinery/requests_console{
-	department = "Arrival shuttle";
-	pixel_y = 31
+/obj/machinery/requests_console/north{
+	department = "Arrival shuttle"
 	},
 /turf/simulated/floor/shuttle/dark_blue,
 /area/shuttle/arrival)
 "njP" = (
 /obj/machinery/light{
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/effect/decal/fake_object{
 	color = "#ff0000";
@@ -11589,26 +11458,17 @@
 	icon_state = "intact-supply";
 	name = "pipe"
 	},
-/obj/structure/lattice/catwalk/indoor{
-	layer = 3.5
-	},
+/obj/structure/lattice/catwalk/indoor,
 /turf/unsimulated/floor/plating,
 /area/centcom/checkpoint/aft)
 "nkX" = (
-/obj/effect/landmark{
-	name = "start"
-	},
 /turf/simulated/floor/holofloor/space,
-/area/centcom/start{
-	name = "Romanovich Cloud, Tau Ceti"
-	})
+/area/centcom/start)
 "nli" = (
-/obj/effect/floor_decal/spline/plain{
+/obj/effect/floor_decal/spline/plain/black{
 	dir = 1
 	},
-/turf/unsimulated/floor{
-	icon_state = "new_reinforced"
-	},
+/turf/unsimulated/floor,
 /area/centcom/checkpoint/fore)
 "nlK" = (
 /obj/effect/floor_decal/spline/fancy/wood{
@@ -11621,7 +11481,7 @@
 	},
 /obj/machinery/light{
 	dir = 8;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/machinery/button/remote/blast_door{
 	dir = 8;
@@ -11661,7 +11521,7 @@
 	pixel_y = 24
 	},
 /turf/unsimulated/floor{
-	icon_state = "carpet6-2"
+	icon_state = "carpet"
 	},
 /area/centcom/specops)
 "nmJ" = (
@@ -11670,15 +11530,14 @@
 	},
 /obj/machinery/light{
 	dir = 8;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/simulated/floor/tiled/dark,
 /area/shuttle/administration)
 "nnf" = (
-/obj/item/device/radio/intercom{
+/obj/item/device/radio/intercom/east{
 	frequency = 1441;
 	name = "Spec Ops Intercom";
-	pixel_x = 4;
 	pixel_y = 20
 	},
 /obj/effect/floor_decal/spline/fancy/wood{
@@ -11686,7 +11545,7 @@
 	},
 /turf/unsimulated/floor{
 	dir = 5;
-	icon_state = "carpetside"
+	icon_state = "carpet"
 	},
 /area/centcom/specops)
 "nnS" = (
@@ -11710,9 +11569,7 @@
 /area/centcom/specops)
 "ntE" = (
 /obj/item/stack/material/cyborg/steel,
-/turf/unsimulated/floor{
-	icon_state = "platingdmg2"
-	},
+/turf/unsimulated/floor,
 /area/centcom/bar)
 "nuc" = (
 /obj/item/modular_computer/console/preset/engineering/ce,
@@ -11720,7 +11577,6 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	layer = 5;
 	name = "adjusted window"
 	},
 /turf/simulated/floor/shuttle/dark_blue,
@@ -11735,7 +11591,7 @@
 	icon_state = "plant-22"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "nvO" = (
@@ -11778,7 +11634,7 @@
 "nyo" = (
 /obj/machinery/light{
 	dir = 8;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/effect/floor_decal/corner/green{
 	dir = 9
@@ -11798,7 +11654,7 @@
 	dir = 1
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "nzH" = (
@@ -11809,7 +11665,7 @@
 /obj/structure/window/reinforced/crescent{
 	dir = 8
 	},
-/obj/effect/floor_decal/spline/plain{
+/obj/effect/floor_decal/spline/plain/black{
 	dir = 8
 	},
 /turf/simulated/floor/shuttle/dark_blue,
@@ -11824,7 +11680,7 @@
 /obj/effect/floor_decal/corner/blue/diagonal,
 /obj/effect/decal/fake_object/light_source/invisible,
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/tdome/tdomeobserve)
 "nBV" = (
@@ -11847,23 +11703,24 @@
 /obj/effect/floor_decal/industrial/warning/full,
 /obj/machinery/light{
 	dir = 8;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor,
 /area/centcom/control)
 "nDp" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Civil Protection Station";
-	req_access = list(103)
+	req_access = list(103);
+	dir = 4
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "nEt" = (
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/effect/floor_decal/corner/green{
 	dir = 6
@@ -11912,10 +11769,10 @@
 	},
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/structure/flora/ausbushes/lavendergrass,
-/turf/simulated/floor/grass/alt,
+/turf/simulated/floor/grass,
 /area/centcom/bar)
 "nFF" = (
 /turf/simulated/wall/shuttle/unique/hapt{
@@ -11932,18 +11789,16 @@
 	},
 /obj/effect/floor_decal/spline/fancy/wood,
 /obj/structure/table/wood,
-/turf/unsimulated/floor{
-	icon_state = "carpet5-1"
-	},
+/turf/unsimulated/floor,
 /area/centcom/specops)
 "nGO" = (
 /obj/machinery/vending/zora,
 /obj/machinery/light{
 	dir = 8;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "nHd" = (
@@ -11976,11 +11831,9 @@
 	name = "elevator Button";
 	pixel_y = 31
 	},
-/obj/effect/landmark{
-	name = "JoinLate"
-	},
+/obj/effect/landmark/latejoin,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/spawning)
 "nKX" = (
@@ -11989,7 +11842,7 @@
 	},
 /obj/structure/flora/ausbushes/leafybush,
 /obj/structure/flora/ausbushes/ppflowers,
-/turf/simulated/floor/grass/alt,
+/turf/simulated/floor/grass,
 /area/centcom/evac)
 "nLo" = (
 /obj/item/material/ashtray/bronze{
@@ -11999,7 +11852,7 @@
 /obj/effect/floor_decal/spline/fancy/wood,
 /obj/structure/table/wood,
 /turf/unsimulated/floor{
-	icon_state = "carpet13-5"
+	icon_state = "carpet"
 	},
 /area/centcom/specops)
 "nLw" = (
@@ -12008,7 +11861,7 @@
 /obj/item/stack/packageWrap,
 /obj/item/device/hand_labeler,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "nLO" = (
@@ -12073,7 +11926,6 @@
 	},
 /obj/effect/floor_decal/spline/fancy/wood,
 /obj/structure/railing/mapped{
-	layer = 4.1;
 	name = "adjusted railing"
 	},
 /obj/effect/floor_decal/corner/paleblue{
@@ -12092,13 +11944,12 @@
 	pixel_y = 3
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "nQD" = (
 /obj/machinery/door/airlock/centcom{
-	name = "Hangar Access";
-	req_access = null
+	name = "Hangar Access"
 	},
 /obj/machinery/door/blast/odin{
 	dir = 4;
@@ -12119,7 +11970,7 @@
 /obj/structure/table/wood,
 /turf/unsimulated/floor{
 	dir = 6;
-	icon_state = "carpetside"
+	icon_state = "carpet"
 	},
 /area/centcom/specops)
 "nSA" = (
@@ -12194,13 +12045,7 @@
 /turf/unsimulated/floor/plating,
 /area/centcom/specops)
 "nYH" = (
-/obj/effect/landmark{
-	name = "tdome1"
-	},
-/obj/machinery/camera/network/thunder{
-	c_tag = "Green Team";
-	invisibility = 101
-	},
+/obj/effect/landmark/thunderdome1,
 /obj/effect/floor_decal/corner/grey/diagonal{
 	dir = 4
 	},
@@ -12253,7 +12098,7 @@
 	name = "checkpoint shutter"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/checkpoint/aft)
 "nZy" = (
@@ -12280,7 +12125,7 @@
 	tag_door = "centcom_shuttle_bay_door"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/ferry)
 "oat" = (
@@ -12292,10 +12137,6 @@
 /area/centcom/control)
 "oaC" = (
 /obj/structure/table/reinforced/wood,
-/obj/machinery/camera/network/crescent{
-	c_tag = "Crescent Bar Center";
-	pixel_x = 20
-	},
 /obj/machinery/door/blast/odin{
 	dir = 4;
 	icon_state = "shutter1";
@@ -12307,7 +12148,7 @@
 	name = "Bar Shutter"
 	},
 /turf/unsimulated/floor{
-	icon_state = "lino_grey"
+	icon_state = "lino_diamond"
 	},
 /area/centcom/bar)
 "obP" = (
@@ -12320,7 +12161,7 @@
 "ocp" = (
 /obj/machinery/deployable/barrier,
 /obj/machinery/light{
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
 	icon = 'icons/turf/flooring/carpet.dmi';
@@ -12354,13 +12195,13 @@
 "oeh" = (
 /obj/machinery/blackbox_recorder,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "oel" = (
 /obj/machinery/vending/cola,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "off" = (
@@ -12368,7 +12209,7 @@
 	dir = 6
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "oik" = (
@@ -12388,8 +12229,7 @@
 	req_access = list(108)
 	},
 /turf/unsimulated/floor{
-	dir = 1;
-	icon_state = "rampbottom"
+	dir = 1
 	},
 /area/centcom/specops)
 "oiN" = (
@@ -12416,14 +12256,13 @@
 /obj/effect/floor_decal/corner/red/diagonal,
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/machinery/button/remote/blast_door{
 	id = "corvette_exterior";
 	name = "aft blast door";
 	pixel_x = 32;
-	pixel_y = 12;
-	req_access = null
+	pixel_y = 12
 	},
 /turf/simulated/floor/tiled/dark,
 /area/shuttle/administration)
@@ -12439,7 +12278,7 @@
 /obj/structure/window/reinforced/crescent{
 	dir = 4
 	},
-/obj/effect/floor_decal/spline/plain{
+/obj/effect/floor_decal/spline/plain/black{
 	dir = 4
 	},
 /turf/simulated/floor/shuttle/dark_blue,
@@ -12470,10 +12309,10 @@
 /obj/machinery/vending/snack,
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "orr" = (
@@ -12494,8 +12333,8 @@
 /obj/machinery/door/airlock/glass_centcom{
 	icon = 'icons/obj/doors/Doorglass.dmi';
 	name = "To: Lower Shuttle Terminal";
-	req_access = null;
-	req_one_access = list(108,109)
+	req_one_access = list(108,109);
+	dir = 4
 	},
 /turf/unsimulated/floor,
 /area/centcom/spawning)
@@ -12506,7 +12345,7 @@
 	name = "igs - NTERT"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "ouQ" = (
@@ -12520,7 +12359,7 @@
 /obj/item/deck/cards,
 /obj/structure/table/steel,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "owT" = (
@@ -12551,10 +12390,10 @@
 	},
 /obj/machinery/light{
 	dir = 1;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "oBd" = (
@@ -12563,20 +12402,21 @@
 	},
 /obj/structure/window/reinforced/crescent,
 /obj/structure/flora/ausbushes/sparsegrass,
-/turf/simulated/floor/grass/alt,
+/turf/simulated/floor/grass,
 /area/centcom/bar)
 "oBu" = (
 /obj/effect/floor_decal/corner/blue{
 	dir = 10
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "oCm" = (
 /obj/machinery/door/airlock/command{
 	name = "Cockpit";
-	req_access = list(19)
+	req_access = list(19);
+	dir = 1
 	},
 /turf/simulated/floor/shuttle/black,
 /area/shuttle/escape)
@@ -12592,11 +12432,10 @@
 /area/centcom/specops)
 "oCF" = (
 /obj/machinery/door/airlock/centcom{
-	name = "Auxillary Cryogenics";
-	req_access = null
+	name = "Auxillary Cryogenics"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/ferry)
 "oDa" = (
@@ -12615,7 +12454,6 @@
 /obj/effect/floor_decal/industrial/warning,
 /obj/structure/table/rack,
 /obj/item/gun/energy/rifle/ionrifle{
-	layer = 2.99;
 	pixel_y = 6
 	},
 /obj/item/gun/energy/rifle/ionrifle{
@@ -12624,7 +12462,7 @@
 /turf/unsimulated/floor/plating,
 /area/centcom/specops)
 "oGi" = (
-/obj/effect/floor_decal/corner/paleblue/diagonal{
+/obj/effect/floor_decal/corner/dark_blue/diagonal{
 	dir = 8
 	},
 /obj/effect/floor_decal/industrial/warning{
@@ -12637,7 +12475,8 @@
 	dir = 8
 	},
 /obj/machinery/door/airlock/glass_centcom{
-	name = "Cryogenics"
+	name = "Cryogenics";
+	dir = 4
 	},
 /turf/unsimulated/floor,
 /area/centcom/holding)
@@ -12650,7 +12489,7 @@
 	name = "igs - NTERT"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "oJY" = (
@@ -12667,16 +12506,16 @@
 	dir = 8
 	},
 /turf/unsimulated/floor{
-	icon_state = "wood_light"
+	icon_state = "wood_preview"
 	},
 /area/centcom/holding)
 "oNa" = (
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "oNt" = (
-/obj/effect/floor_decal/spline/plain{
+/obj/effect/floor_decal/spline/plain/black{
 	dir = 4
 	},
 /turf/unsimulated/floor{
@@ -12723,7 +12562,7 @@
 /turf/unsimulated/floor/plating,
 /area/shuttle/escape)
 "oQw" = (
-/obj/structure/flora/pottedplant/random,
+/obj/random/pottedplant,
 /turf/unsimulated/floor{
 	icon_state = "wood"
 	},
@@ -12733,14 +12572,13 @@
 /obj/item/device/paicard,
 /obj/machinery/light{
 	dir = 8;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/structure/railing/mapped{
-	layer = 6;
 	name = "adjusted railing"
 	},
 /obj/structure/table/steel,
-/obj/effect/floor_decal/spline/plain,
+/obj/effect/floor_decal/spline/plain/black,
 /turf/unsimulated/floor{
 	icon = 'icons/turf/flooring/carpet.dmi';
 	icon_state = "rub_carpet"
@@ -12752,7 +12590,7 @@
 	},
 /obj/machinery/porta_turret/crescent,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "oRm" = (
@@ -12769,7 +12607,7 @@
 	dir = 1
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "oRM" = (
@@ -12791,7 +12629,7 @@
 /area/centcom/evac)
 "oSD" = (
 /obj/machinery/cryopod,
-/turf/simulated/floor/carpet/blue,
+/turf/simulated/floor/carpet/cyan,
 /area/centcom/ferry)
 "oTX" = (
 /obj/structure/window/reinforced/crescent{
@@ -12801,7 +12639,7 @@
 /obj/structure/flora/ausbushes/grassybush{
 	pixel_y = 3
 	},
-/turf/simulated/floor/grass/alt,
+/turf/simulated/floor/grass,
 /area/centcom/holding)
 "oUr" = (
 /obj/structure/table/rack,
@@ -12854,7 +12692,7 @@
 /obj/structure/railing/mapped{
 	dir = 4
 	},
-/obj/effect/floor_decal/spline/plain,
+/obj/effect/floor_decal/spline/plain/black,
 /turf/simulated/floor/tiled/ramp,
 /area/shuttle/administration)
 "oZm" = (
@@ -12872,7 +12710,7 @@
 	pixel_x = 29
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "pau" = (
@@ -12880,9 +12718,7 @@
 /area/centcom/suppy)
 "pbO" = (
 /turf/unsimulated/wall/darkshuttlewall,
-/area/centcom/start{
-	name = "Romanovich Cloud, Tau Ceti"
-	})
+/area/centcom/start)
 "pcu" = (
 /turf/simulated/wall/shuttle/unique/transfer{
 	desc = "A large, bloated shuttle designed for automated passenger transport.";
@@ -12909,7 +12745,7 @@
 /obj/effect/floor_decal/industrial/warning/full,
 /obj/machinery/porta_turret/crescent,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "pgL" = (
@@ -12924,7 +12760,7 @@
 /obj/item/wrench,
 /obj/effect/floor_decal/corner/orange/diagonal,
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/tdome/tdomeadmin)
 "phW" = (
@@ -12932,7 +12768,7 @@
 /obj/structure/flora/ausbushes/grassybush{
 	pixel_y = 3
 	},
-/turf/simulated/floor/grass/alt,
+/turf/simulated/floor/grass,
 /area/centcom/holding)
 "pjc" = (
 /obj/machinery/door/blast/regular{
@@ -12946,9 +12782,7 @@
 	name = "Thunderdome Administration";
 	req_access = list(102)
 	},
-/turf/unsimulated/floor{
-	icon_state = "floor"
-	},
+/turf/unsimulated/floor,
 /area/tdome/tdome1)
 "pjh" = (
 /obj/machinery/door/airlock/centcom{
@@ -12960,7 +12794,8 @@
 "pjL" = (
 /obj/machinery/door/airlock/glass_centcom{
 	name = "Response Team Leader's Office";
-	req_access = list(103)
+	req_access = list(103);
+	dir = 4
 	},
 /obj/machinery/door/blast/odin/shuttle/ert{
 	dir = 2;
@@ -13003,10 +12838,10 @@
 /obj/item/reagent_containers/cooking_container/board/bowl,
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
-	icon_state = "lino_grey"
+	icon_state = "lino_diamond"
 	},
 /area/centcom/bar)
 "pns" = (
@@ -13014,7 +12849,7 @@
 	dir = 8
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "ppa" = (
@@ -13070,7 +12905,7 @@
 /obj/item/storage/box/fancy/donut,
 /obj/structure/table/steel,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "pqX" = (
@@ -13091,29 +12926,26 @@
 /obj/item/clothing/head/helmet/ert/engineer,
 /obj/effect/floor_decal/industrial/outline/grey,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "prK" = (
 /obj/machinery/computer/borgupload,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "psh" = (
 /obj/structure/table/stone/marble,
 /obj/item/reagent_containers/food/snacks/sushi_serve{
-	layer = 3.5;
 	pixel_x = -6;
 	pixel_y = 4
 	},
 /obj/item/reagent_containers/food/snacks/sushi_serve{
-	layer = 3.6;
 	pixel_x = 3;
 	pixel_y = 2
 	},
 /obj/item/reagent_containers/food/snacks/breakfast_wrap{
-	layer = 2.99;
 	pixel_x = 29;
 	pixel_y = 8
 	},
@@ -13122,14 +12954,14 @@
 	pixel_y = 3
 	},
 /turf/unsimulated/floor{
-	icon_state = "lino_grey"
+	icon_state = "lino_diamond"
 	},
 /area/centcom/bar)
 "psn" = (
 /obj/machinery/light{
-	icon_state = "tube1";
 	name = "adjusted light fixture";
-	pixel_x = -16
+	pixel_x = -16;
+	icon_state = "tube_empty"
 	},
 /obj/item/clothing/mask/balaclava{
 	pixel_x = 4;
@@ -13161,7 +12993,7 @@
 /obj/structure/table/steel,
 /obj/effect/floor_decal/industrial/warning,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "psq" = (
@@ -13174,7 +13006,7 @@
 	pixel_x = -12
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "psL" = (
@@ -13182,7 +13014,7 @@
 	dir = 10
 	},
 /obj/machinery/light{
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/effect/floor_decal/corner/paleblue{
 	dir = 1
@@ -13226,7 +13058,7 @@
 /obj/machinery/shieldgen,
 /obj/effect/floor_decal/industrial/outline/yellow,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "pvQ" = (
@@ -13250,7 +13082,7 @@
 /obj/item/gun/energy/rifle,
 /obj/item/gun/energy/rifle,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "pxm" = (
@@ -13258,7 +13090,7 @@
 	dir = 1
 	},
 /turf/unsimulated/floor{
-	icon_state = "carpetnoconnect"
+	icon_state = "carpet"
 	},
 /area/centcom/bar)
 "pyg" = (
@@ -13280,14 +13112,14 @@
 /obj/machinery/porta_turret/crescent,
 /obj/effect/floor_decal/industrial/warning,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "pzs" = (
 /obj/machinery/computer/security/telescreen,
 /obj/effect/floor_decal/corner/blue/diagonal,
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/tdome/tdomeobserve)
 "pzt" = (
@@ -13302,11 +13134,11 @@
 	locked = 1;
 	name = "Rapid Transit Ticket Kiosk";
 	opacity = 0;
-	req_access = list(101)
+	req_access = list(101);
+	dir = 1
 	},
 /obj/item/tape/engineering{
-	icon_state = "engineering_door";
-	layer = 4
+	icon_state = "engineering_door"
 	},
 /turf/simulated/floor/tiled/dark,
 /area/centcom/bar)
@@ -13339,7 +13171,7 @@
 	},
 /obj/machinery/light{
 	dir = 1;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/effect/floor_decal/industrial/warning{
 	dir = 1
@@ -13361,7 +13193,7 @@
 /obj/item/reagent_containers/blood/OMinus,
 /obj/effect/floor_decal/corner/lime/diagonal,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "pES" = (
@@ -13375,7 +13207,7 @@
 	},
 /obj/structure/table/steel,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "pFS" = (
@@ -13391,7 +13223,7 @@
 /obj/item/rig_module/mounted,
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/structure/closet{
 	icon_door = "blue";
@@ -13404,7 +13236,7 @@
 "pGw" = (
 /obj/machinery/computer/aiupload,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "pHg" = (
@@ -13428,12 +13260,12 @@
 /obj/effect/floor_decal/industrial/outline/grey,
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1";
 	name = "adjusted light fixture";
-	pixel_y = 16
+	pixel_y = 16;
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "pIW" = (
@@ -13442,7 +13274,7 @@
 	prices = list()
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "pJw" = (
@@ -13473,7 +13305,7 @@
 /obj/item/clothing/head/helmet/ert/security,
 /obj/effect/floor_decal/industrial/outline/grey,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "pKX" = (
@@ -13496,7 +13328,7 @@
 	name = "igs - OdinDoctor"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "pMe" = (
@@ -13522,7 +13354,7 @@
 	prices = list()
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "pQe" = (
@@ -13543,7 +13375,7 @@
 "pTg" = (
 /obj/machinery/light{
 	dir = 8;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor/plating,
 /area/centcom/spawning)
@@ -13554,7 +13386,7 @@
 	},
 /obj/item/circuitboard/smes,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "pUx" = (
@@ -13604,18 +13436,16 @@
 	},
 /obj/machinery/light{
 	dir = 8;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor,
 /area/centcom/holding)
 "pZw" = (
-/obj/effect/landmark{
-	name = "tdomeobserve"
-	},
+/obj/effect/landmark/thunderdomeobserve,
 /obj/effect/floor_decal/corner/blue/diagonal,
 /obj/effect/decal/fake_object/light_source/invisible,
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/tdome/tdomeobserve)
 "qce" = (
@@ -13631,12 +13461,12 @@
 	},
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/effect/floor_decal/corner/paleblue{
 	dir = 1
 	},
-/obj/structure/flora/pottedplant/random,
+/obj/random/pottedplant,
 /turf/unsimulated/floor,
 /area/centcom/holding)
 "qcl" = (
@@ -13651,7 +13481,7 @@
 	dir = 1
 	},
 /turf/unsimulated/floor{
-	icon_state = "lino_grey"
+	icon_state = "lino_diamond"
 	},
 /area/centcom/bar)
 "qdi" = (
@@ -13660,7 +13490,6 @@
 	desc = "An automated gun turret.";
 	icon = 'icons/obj/turrets.dmi';
 	icon_state = "cover_0";
-	layer = 3.02;
 	name = "turret"
 	},
 /turf/unsimulated/floor,
@@ -13716,9 +13545,7 @@
 	},
 /obj/structure/window/reinforced/crescent,
 /obj/effect/floor_decal/sign/b,
-/turf/unsimulated/floor{
-	icon_state = "new_reinforced"
-	},
+/turf/unsimulated/floor,
 /area/centcom/holding)
 "qiY" = (
 /turf/unsimulated/wall/darkshuttlewall,
@@ -13732,14 +13559,14 @@
 	req_access = list(102)
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "qjR" = (
 /obj/machinery/iv_drip,
 /obj/effect/floor_decal/corner/lime/diagonal,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "qlN" = (
@@ -13748,7 +13575,6 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	layer = 5;
 	name = "adjusted window"
 	},
 /turf/simulated/floor/shuttle/dark_blue,
@@ -13780,9 +13606,7 @@
 /obj/structure/window/reinforced/crescent{
 	dir = 8
 	},
-/turf/unsimulated/floor{
-	icon_state = "new_reinforced"
-	},
+/turf/unsimulated/floor,
 /area/centcom/holding)
 "qnL" = (
 /obj/structure/shuttle_part/arrivals{
@@ -13826,10 +13650,10 @@
 /obj/structure/filingcabinet/chestdrawer,
 /obj/machinery/light{
 	dir = 1;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "qso" = (
@@ -13838,7 +13662,7 @@
 	},
 /obj/machinery/light{
 	dir = 8;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor,
 /area/centcom/holding)
@@ -13851,12 +13675,12 @@
 "qtQ" = (
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/effect/floor_decal/industrial/outline/yellow,
 /obj/machinery/shieldwallgen,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "qvf" = (
@@ -13892,7 +13716,7 @@
 /obj/structure/window/reinforced/crescent{
 	dir = 4
 	},
-/obj/effect/floor_decal/spline/plain{
+/obj/effect/floor_decal/spline/plain/black{
 	dir = 4
 	},
 /obj/structure/table/standard,
@@ -13903,10 +13727,10 @@
 "qwA" = (
 /obj/machinery/optable,
 /obj/machinery/light{
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/centcom/holding)
 "qwZ" = (
@@ -13925,7 +13749,7 @@
 	name = "checkpoint shutter"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/checkpoint/fore)
 "qxN" = (
@@ -13941,9 +13765,7 @@
 "qzr" = (
 /obj/machinery/cryopod/robot,
 /obj/effect/floor_decal/industrial/hatch/yellow,
-/turf/unsimulated/floor{
-	icon_state = "new_reinforced"
-	},
+/turf/unsimulated/floor,
 /area/centcom/spawning)
 "qAm" = (
 /obj/structure/flora/pottedplant{
@@ -13967,7 +13789,7 @@
 /area/centcom/holding)
 "qAH" = (
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/ferry)
 "qDG" = (
@@ -13981,10 +13803,10 @@
 "qDT" = (
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
-	icon_state = "wood_light"
+	icon_state = "wood_preview"
 	},
 /area/centcom/holding)
 "qFf" = (
@@ -13997,10 +13819,9 @@
 "qFt" = (
 /obj/structure/railing/mapped{
 	dir = 4;
-	layer = 6;
 	name = "adjusted railing"
 	},
-/obj/effect/floor_decal/spline/plain{
+/obj/effect/floor_decal/spline/plain/black{
 	dir = 4
 	},
 /turf/unsimulated/floor{
@@ -14036,7 +13857,7 @@
 	icon_state = "leftsecure";
 	name = "Tram Boarding"
 	},
-/obj/effect/floor_decal/spline/plain,
+/obj/effect/floor_decal/spline/plain/black,
 /turf/unsimulated/floor/plating,
 /area/centcom/bar)
 "qHx" = (
@@ -14056,7 +13877,6 @@
 /area/centcom/specops)
 "qHR" = (
 /obj/structure/railing/mapped{
-	layer = 4.1;
 	name = "adjusted railing"
 	},
 /obj/structure/flora/pottedplant{
@@ -14074,9 +13894,7 @@
 /turf/simulated/floor/shuttle/dark_blue,
 /area/shuttle/transport1)
 "qKr" = (
-/obj/effect/landmark{
-	name = "tdome2"
-	},
+/obj/effect/landmark/thunderdome2,
 /obj/effect/floor_decal/corner/grey/diagonal{
 	dir = 4
 	},
@@ -14084,7 +13902,6 @@
 /area/tdome/tdome2)
 "qKH" = (
 /obj/structure/railing/mapped{
-	layer = 4.1;
 	name = "adjusted railing"
 	},
 /turf/unsimulated/floor{
@@ -14106,7 +13923,7 @@
 /obj/effect/floor_decal/industrial/warning/full,
 /obj/machinery/light{
 	dir = 1;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor,
 /area/centcom/control)
@@ -14137,8 +13954,8 @@
 "qOq" = (
 /obj/machinery/door/airlock/glass_centcom{
 	name = "Diplomatic Waiting Lounge";
-	req_access = null;
-	req_one_access = list(38,72)
+	req_one_access = list(38,72);
+	dir = 4
 	},
 /obj/effect/floor_decal/spline/fancy/wood/corner{
 	dir = 4
@@ -14185,9 +14002,7 @@
 	pixel_y = 28
 	},
 /obj/effect/floor_decal/industrial/hatch/yellow,
-/turf/unsimulated/floor{
-	icon_state = "new_reinforced"
-	},
+/turf/unsimulated/floor,
 /area/centcom/spawning)
 "qVd" = (
 /obj/effect/floor_decal/corner/red{
@@ -14216,9 +14031,9 @@
 /obj/item/reagent_containers/glass/beaker/bluespace,
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1";
 	name = "adjusted light fixture";
-	pixel_x = -3
+	pixel_x = -3;
+	icon_state = "tube_empty"
 	},
 /obj/structure/table/steel,
 /obj/machinery/chem_master{
@@ -14233,7 +14048,7 @@
 	dir = 10
 	},
 /obj/machinery/light{
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor,
 /area/centcom/control)
@@ -14243,10 +14058,10 @@
 	},
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "qZM" = (
@@ -14259,7 +14074,7 @@
 	req_access = list(102)
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "rcd" = (
@@ -14271,7 +14086,7 @@
 /obj/structure/window/reinforced/crescent{
 	dir = 1
 	},
-/turf/simulated/floor/grass/alt,
+/turf/simulated/floor/grass,
 /area/centcom/spawning)
 "rcX" = (
 /turf/unsimulated/wall/darkshuttlewall,
@@ -14297,7 +14112,7 @@
 /obj/item/device/magnetic_lock,
 /obj/machinery/light{
 	dir = 8;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
 	icon = 'icons/turf/flooring/carpet.dmi';
@@ -14313,7 +14128,7 @@
 	},
 /obj/structure/table/reinforced,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "riI" = (
@@ -14345,7 +14160,7 @@
 	name = "Bar Shutter"
 	},
 /turf/unsimulated/floor{
-	icon_state = "lino_grey"
+	icon_state = "lino_diamond"
 	},
 /area/centcom/bar)
 "rkF" = (
@@ -14374,7 +14189,7 @@
 /obj/structure/window/reinforced/crescent{
 	dir = 4
 	},
-/turf/simulated/floor/grass/alt,
+/turf/simulated/floor/grass,
 /area/centcom/spawning)
 "rmo" = (
 /obj/structure/shuttle_part/ert{
@@ -14408,7 +14223,7 @@
 /obj/effect/floor_decal/corner/red{
 	dir = 10
 	},
-/obj/effect/floor_decal/corner/blue{
+/obj/effect/floor_decal/corner/dark_blue{
 	dir = 1
 	},
 /obj/effect/floor_decal/corner/red{
@@ -14427,7 +14242,7 @@
 	dir = 1
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "roS" = (
@@ -14441,7 +14256,7 @@
 /obj/structure/window/reinforced/crescent,
 /obj/structure/lattice/catwalk/indoor/grate,
 /obj/machinery/light{
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor/plating,
 /area/centcom/holding)
@@ -14450,7 +14265,7 @@
 /obj/item/storage/box/fancy/tray,
 /obj/effect/floor_decal/corner/paleblue/diagonal,
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/centcom/holding)
 "rvq" = (
@@ -14478,8 +14293,7 @@
 "rwk" = (
 /obj/structure/railing/mapped,
 /turf/unsimulated/floor{
-	dir = 4;
-	icon_state = "rampbottom"
+	dir = 4
 	},
 /area/centcom/holding)
 "ryr" = (
@@ -14508,20 +14322,18 @@
 "rAP" = (
 /obj/machinery/light{
 	dir = 8;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/machinery/door/window/brigdoor/southright{
 	name = "holding cell"
 	},
-/turf/unsimulated/floor{
-	icon_state = "new_reinforced"
-	},
+/turf/unsimulated/floor,
 /area/centcom/holding)
 "rBY" = (
 /obj/machinery/shieldwallgen,
 /obj/effect/floor_decal/industrial/outline/yellow,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "rDl" = (
@@ -14530,7 +14342,7 @@
 	},
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor,
 /area/centcom/spawning)
@@ -14545,11 +14357,12 @@
 "rFD" = (
 /obj/machinery/door/airlock/command{
 	name = "Thunderdome Administration";
-	req_access = list(102)
+	req_access = list(102);
+	dir = 1
 	},
 /obj/effect/floor_decal/corner/orange/diagonal,
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/tdome/tdomeadmin)
 "rFI" = (
@@ -14559,7 +14372,8 @@
 	id_tag = "admin_shuttle_hatch";
 	locked = 1;
 	name = "Corvette Hatch";
-	req_access = list(13)
+	req_access = list(13);
+	dir = 1
 	},
 /obj/effect/floor_decal/industrial/hatch/yellow,
 /obj/effect/floor_decal/industrial/hatch/yellow,
@@ -14587,7 +14401,7 @@
 	icon_state = "plant-28";
 	pixel_x = -3
 	},
-/turf/simulated/floor/grass/alt,
+/turf/simulated/floor/grass,
 /area/shuttle/arrival)
 "rGt" = (
 /turf/simulated/wall/shuttle/unique/transfer{
@@ -14599,7 +14413,7 @@
 "rHd" = (
 /obj/machinery/r_n_d/server/centcom,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "rHx" = (
@@ -14618,13 +14432,13 @@
 	dir = 8
 	},
 /obj/structure/flora/ausbushes/pointybush,
-/turf/simulated/floor/grass/alt,
+/turf/simulated/floor/grass,
 /area/centcom/spawning)
 "rKw" = (
 /obj/effect/floor_decal/spline/fancy/wood,
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
 	icon_state = "wood"
@@ -14632,17 +14446,14 @@
 /area/centcom/control)
 "rKH" = (
 /obj/item/reagent_containers/food/drinks/waterbottle{
-	layer = 2.99;
 	pixel_x = -6;
 	pixel_y = 10
 	},
 /obj/item/reagent_containers/food/drinks/waterbottle{
-	layer = 2.99;
 	pixel_x = 1;
 	pixel_y = 10
 	},
 /obj/item/reagent_containers/food/drinks/waterbottle{
-	layer = 2.99;
 	pixel_x = 8;
 	pixel_y = 10
 	},
@@ -14663,7 +14474,7 @@
 	dir = 9
 	},
 /turf/unsimulated/floor{
-	icon_state = "wood_light"
+	icon_state = "wood_preview"
 	},
 /area/centcom/ferry)
 "rMa" = (
@@ -14688,26 +14499,15 @@
 "rRr" = (
 /obj/structure/table/stone/marble,
 /obj/item/reagent_containers/food/snacks/taco{
-	layer = 2.98;
 	pixel_x = -4;
 	pixel_y = 7
 	},
 /obj/item/reagent_containers/food/snacks/taco{
-	layer = 2.99;
 	pixel_x = -4;
 	pixel_y = 2
 	},
-/obj/item/reagent_containers/food/snacks/nt_muffin{
-	layer = 2.99;
-	pixel_x = 13;
-	pixel_y = 8
-	},
-/obj/item/reagent_containers/food/snacks/nt_muffin{
-	pixel_x = 11;
-	pixel_y = 1
-	},
 /turf/unsimulated/floor{
-	icon_state = "lino_grey"
+	icon_state = "lino_diamond"
 	},
 /area/centcom/bar)
 "rRP" = (
@@ -14750,7 +14550,7 @@
 /obj/structure/window/reinforced/crescent{
 	dir = 4
 	},
-/obj/effect/floor_decal/spline/plain{
+/obj/effect/floor_decal/spline/plain/black{
 	dir = 4
 	},
 /obj/effect/landmark/force_spawnpoint{
@@ -14765,7 +14565,7 @@
 	},
 /obj/effect/floor_decal/corner/orange/diagonal,
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/tdome/tdomeadmin)
 "rWN" = (
@@ -14794,7 +14594,7 @@
 "sbc" = (
 /obj/machinery/door/airlock/glass_centcom{
 	name = "To: NTCC Odin Mass Transit";
-	req_access = null
+	dir = 4
 	},
 /turf/unsimulated/floor,
 /area/centcom/bar)
@@ -14827,7 +14627,6 @@
 /area/supply/dock)
 "sio" = (
 /obj/item/gun/energy/rifle{
-	layer = 2.99;
 	pixel_y = 6
 	},
 /obj/item/gun/energy/rifle{
@@ -14874,7 +14673,7 @@
 	req_access = list(109)
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "slS" = (
@@ -14903,9 +14702,8 @@
 /area/centcom/holding)
 "soj" = (
 /obj/machinery/computer/shuttle_control{
-	req_access = null;
 	req_one_access = list(38,72);
-	shuttle_tag = "Agent Shuttle"
+	shuttle_tag = "SCC Shuttle"
 	},
 /turf/simulated/floor/shuttle/dark_blue,
 /area/shuttle/transport1)
@@ -14913,7 +14711,7 @@
 /obj/machinery/deployable/barrier,
 /obj/machinery/light{
 	dir = 1;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
 	icon = 'icons/turf/flooring/carpet.dmi';
@@ -14955,7 +14753,7 @@
 	dir = 4
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "ssN" = (
@@ -14980,12 +14778,12 @@
 /obj/machinery/cryopod{
 	dir = 1
 	},
-/obj/effect/floor_decal/spline/plain,
+/obj/effect/floor_decal/spline/plain/black,
 /obj/effect/floor_decal/corner/paleblue{
 	dir = 5
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "swe" = (
@@ -14995,10 +14793,10 @@
 /obj/structure/filingcabinet/chestdrawer,
 /obj/machinery/light{
 	dir = 1;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "sxl" = (
@@ -15018,7 +14816,7 @@
 /obj/structure/window/reinforced/crescent{
 	dir = 8
 	},
-/turf/simulated/floor/grass/alt,
+/turf/simulated/floor/grass,
 /area/centcom/spawning)
 "syd" = (
 /obj/structure/table/reinforced/wood,
@@ -15041,7 +14839,7 @@
 "szr" = (
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/effect/floor_decal/corner/red{
 	dir = 6
@@ -15069,7 +14867,7 @@
 	dir = 10
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "sAP" = (
@@ -15077,13 +14875,13 @@
 	req_access = list(2)
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "sBa" = (
 /obj/structure/filingcabinet/chestdrawer,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "sDF" = (
@@ -15095,7 +14893,7 @@
 	},
 /obj/structure/flora/ausbushes/leafybush,
 /obj/structure/flora/ausbushes/ppflowers,
-/turf/simulated/floor/grass/alt,
+/turf/simulated/floor/grass,
 /area/centcom/evac)
 "sFB" = (
 /obj/effect/floor_decal/industrial/warning{
@@ -15107,16 +14905,16 @@
 	icon_state = "rightsecure";
 	name = "Tram Boarding"
 	},
-/obj/effect/floor_decal/spline/plain,
+/obj/effect/floor_decal/spline/plain/black,
 /turf/unsimulated/floor/plating,
 /area/centcom/bar)
 "sFL" = (
 /obj/machinery/light{
 	dir = 8;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
-	icon_state = "wood_light"
+	icon_state = "wood_preview"
 	},
 /area/centcom/holding)
 "sFY" = (
@@ -15124,21 +14922,20 @@
 	dir = 1
 	},
 /turf/unsimulated/floor{
-	dir = 4;
-	icon_state = "rampbottom"
+	dir = 4
 	},
 /area/centcom/evac)
 "sGy" = (
 /obj/item/modular_computer/console/preset/command,
 /obj/machinery/light{
 	dir = 1;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/effect/floor_decal/corner/blue{
 	dir = 5
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "sHl" = (
@@ -15166,9 +14963,9 @@
 /obj/effect/floor_decal/corner/white/diagonal,
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1";
 	name = "adjusted light fixture";
-	pixel_y = -16
+	pixel_y = -16;
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor,
 /area/centcom/spawning)
@@ -15177,7 +14974,7 @@
 	dir = 10
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "sJN" = (
@@ -15208,7 +15005,7 @@
 	pixel_y = 1
 	},
 /turf/unsimulated/floor{
-	icon_state = "lino_grey"
+	icon_state = "lino_diamond"
 	},
 /area/centcom/bar)
 "sLn" = (
@@ -15234,7 +15031,7 @@
 	req_access = list(109)
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "sOJ" = (
@@ -15258,7 +15055,7 @@
 	dir = 4
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/ferry)
 "sUP" = (
@@ -15282,16 +15079,14 @@
 	name = "igs - NTERT"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "sXo" = (
 /obj/machinery/porta_turret/crescent,
 /obj/effect/floor_decal/industrial/warning/full,
 /obj/structure/lattice/catwalk/indoor,
-/turf/unsimulated/floor{
-	icon_state = "new_reinforced"
-	},
+/turf/unsimulated/floor,
 /area/centcom/checkpoint/aft)
 "sXE" = (
 /obj/structure/cryofeed{
@@ -15337,13 +15132,13 @@
 /obj/structure/closet/crate,
 /obj/effect/floor_decal/industrial/outline/yellow,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "taw" = (
 /obj/machinery/light{
 	dir = 1;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor/plating,
 /area/centcom/suppy)
@@ -15357,12 +15152,12 @@
 	dir = 4
 	},
 /obj/structure/flora/ausbushes/stalkybush,
-/turf/simulated/floor/grass/alt,
+/turf/simulated/floor/grass,
 /area/centcom/spawning)
 "tbP" = (
 /obj/machinery/light{
 	dir = 8;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/structure/closet/secure_closet/guncabinet{
 	name = "contraband";
@@ -15376,7 +15171,7 @@
 	req_access = list(103)
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "tdl" = (
@@ -15396,7 +15191,7 @@
 "teA" = (
 /obj/machinery/light{
 	dir = 1;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/effect/floor_decal/corner/paleblue{
 	dir = 5
@@ -15405,21 +15200,19 @@
 /area/centcom/ferry)
 "tfG" = (
 /obj/machinery/light{
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "tgZ" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/landmark{
-	name = "tdomeobserve"
-	},
+/obj/effect/landmark/thunderdomeobserve,
 /obj/effect/floor_decal/corner/blue/diagonal,
 /obj/effect/decal/fake_object/light_source/invisible,
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/tdome/tdomeobserve)
 "thI" = (
@@ -15449,7 +15242,7 @@
 	dir = 8
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/ferry)
 "tkT" = (
@@ -15464,7 +15257,7 @@
 	dir = 9
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "tmP" = (
@@ -15474,9 +15267,9 @@
 /obj/structure/window/reinforced/crescent,
 /obj/structure/flora/ausbushes/grassybush,
 /obj/machinery/light{
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
-/turf/simulated/floor/grass/alt,
+/turf/simulated/floor/grass,
 /area/centcom/spawning)
 "tox" = (
 /obj/effect/floor_decal/spline/fancy/wood{
@@ -15495,7 +15288,7 @@
 	name = "active cleaning utility dispenser"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "tqt" = (
@@ -15510,7 +15303,7 @@
 	dir = 10
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "tse" = (
@@ -15530,7 +15323,8 @@
 	id_tag = "centcom_dock_airlock";
 	locked = 1;
 	name = "Arrivals Airlock";
-	req_access = list(13)
+	req_access = list(13);
+	dir = 1
 	},
 /obj/effect/floor_decal/industrial/hatch/yellow,
 /turf/unsimulated/floor,
@@ -15565,13 +15359,14 @@
 	name = "Master R&amp;D Server Controller"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "txn" = (
 /obj/machinery/door/airlock/glass_security{
 	name = "Secure Holding";
-	req_access = list(1)
+	req_access = list(1);
+	dir = 1
 	},
 /turf/simulated/floor/shuttle/black,
 /area/shuttle/escape)
@@ -15593,13 +15388,13 @@
 	name = "checkpoint"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "tAC" = (
 /obj/structure/railing/mapped,
 /obj/structure/flora/ausbushes/sparsegrass,
-/turf/simulated/floor/grass/alt,
+/turf/simulated/floor/grass,
 /area/centcom/bar)
 "tBa" = (
 /obj/structure/sign/directions/security{
@@ -15621,11 +15416,9 @@
 /turf/unsimulated/floor,
 /area/centcom/control)
 "tBQ" = (
-/obj/effect/landmark{
-	name = "JoinLate"
-	},
+/obj/effect/landmark/latejoin,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/spawning)
 "tCu" = (
@@ -15652,20 +15445,20 @@
 	},
 /obj/effect/floor_decal/corner/paleblue/diagonal,
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/centcom/holding)
 "tDA" = (
 /obj/machinery/vending/security,
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/effect/floor_decal/corner/blue/full{
 	dir = 4
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "tEy" = (
@@ -15676,7 +15469,7 @@
 	pixel_x = -3
 	},
 /obj/machinery/light{
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
 	icon_state = "wood"
@@ -15693,7 +15486,7 @@
 /obj/effect/floor_decal/industrial/warning,
 /obj/machinery/light{
 	dir = 8;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/structure/table/reinforced/steel,
 /obj/item/storage/box/zipties{
@@ -15752,7 +15545,7 @@
 "tIb" = (
 /obj/machinery/light{
 	dir = 8;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/simulated/floor/shuttle/dark_blue,
 /area/supply/dock)
@@ -15769,19 +15562,17 @@
 	},
 /obj/structure/table/rack,
 /obj/item/storage/firstaid/o2{
-	layer = 2.99;
 	pixel_x = 2;
 	pixel_y = 5
 	},
 /obj/item/storage/firstaid/o2{
-	layer = 2.99;
 	pixel_x = 2;
 	pixel_y = 5
 	},
 /obj/item/storage/firstaid/regular,
 /obj/item/storage/firstaid/regular,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "tKY" = (
@@ -15789,7 +15580,8 @@
 	dir = 1
 	},
 /obj/machinery/door/airlock/glass_centcom{
-	name = "Valkyrie's Rest"
+	name = "Valkyrie's Rest";
+	dir = 1
 	},
 /turf/unsimulated/floor{
 	icon_state = "wood"
@@ -15798,7 +15590,7 @@
 "tLh" = (
 /obj/structure/table/rack,
 /obj/item/clothing/under/color/red,
-/obj/item/clothing/shoes/brown,
+/obj/item/clothing/shoes/sneakers/brown,
 /obj/item/clothing/suit/armor/tdome/red,
 /obj/item/clothing/head/helmet/thunderdome,
 /obj/item/melee/baton/loaded,
@@ -15812,7 +15604,7 @@
 	},
 /obj/effect/floor_decal/corner/orange/diagonal,
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/tdome/tdomeadmin)
 "tLp" = (
@@ -15829,7 +15621,8 @@
 	id_tag = "supply_shuttle_hatch";
 	locked = 1;
 	name = "Shuttle Hatch";
-	req_access = list(13)
+	req_access = list(13);
+	dir = 4
 	},
 /turf/simulated/floor/shuttle/dark_blue,
 /area/supply/dock)
@@ -15839,10 +15632,10 @@
 	name = "igs - NTERT"
 	},
 /obj/machinery/light{
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "tNJ" = (
@@ -15883,17 +15676,18 @@
 	},
 /obj/structure/window/reinforced/crescent,
 /obj/structure/flora/ausbushes/lavendergrass,
-/turf/simulated/floor/grass/alt,
+/turf/simulated/floor/grass,
 /area/centcom/holding)
 "tRr" = (
 /obj/effect/floor_decal/corner/paleblue/diagonal,
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/centcom/holding)
 "tRt" = (
 /obj/machinery/door/airlock/glass_centcom{
-	name = "Valkyrie's Rest"
+	name = "Valkyrie's Rest";
+	dir = 1
 	},
 /obj/effect/floor_decal/spline/fancy/wood,
 /turf/unsimulated/floor{
@@ -15903,8 +15697,7 @@
 "tRu" = (
 /obj/effect/floor_decal/corner/white/diagonal,
 /obj/structure/toilet{
-	dir = 1;
-	layer = 4.1
+	dir = 1
 	},
 /obj/machinery/light/small{
 	dir = 8;
@@ -15979,12 +15772,11 @@
 	pixel_y = 7
 	},
 /obj/structure/window/reinforced{
-	layer = 5;
 	name = "adjusted window"
 	},
 /obj/effect/floor_decal/spline/fancy/wood,
 /turf/unsimulated/floor{
-	icon_state = "carpetnoconnect"
+	icon_state = "carpet"
 	},
 /area/centcom/bar)
 "tXh" = (
@@ -16008,7 +15800,7 @@
 /obj/structure/reagent_dispensers/keg/beerkeg,
 /obj/effect/floor_decal/corner/blue/diagonal,
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/tdome/tdomeobserve)
 "tZN" = (
@@ -16041,7 +15833,7 @@
 	name = "igs - OdinChef"
 	},
 /turf/unsimulated/floor{
-	icon_state = "lino_grey"
+	icon_state = "lino_diamond"
 	},
 /area/centcom/bar)
 "ugV" = (
@@ -16061,7 +15853,7 @@
 "ujM" = (
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/effect/floor_decal/corner/green{
 	dir = 6
@@ -16074,7 +15866,7 @@
 /area/centcom/specops)
 "ukL" = (
 /obj/machinery/light{
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor/plating,
 /area/centcom/evac)
@@ -16103,7 +15895,7 @@
 	dir = 6
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "unG" = (
@@ -16116,7 +15908,7 @@
 	},
 /obj/effect/floor_decal/corner/blue/diagonal,
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/tdome/tdomeobserve)
 "unU" = (
@@ -16143,7 +15935,7 @@
 "upK" = (
 /obj/effect/floor_decal/corner/blue/diagonal,
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/tdome/tdomeobserve)
 "upQ" = (
@@ -16171,7 +15963,7 @@
 "usD" = (
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor/plating,
 /area/centcom/suppy)
@@ -16194,14 +15986,14 @@
 	pixel_y = 3
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "uyB" = (
 /obj/effect/floor_decal/corner/lime/full{
 	dir = 1
 	},
-/obj/effect/floor_decal/spline/plain{
+/obj/effect/floor_decal/spline/plain/black{
 	dir = 4
 	},
 /turf/simulated/floor/tiled/dark,
@@ -16219,7 +16011,7 @@
 	dir = 4
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "uEt" = (
@@ -16242,7 +16034,7 @@
 /obj/item/storage/toolbox/mechanical,
 /obj/effect/floor_decal/corner/orange/diagonal,
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/tdome/tdomeadmin)
 "uEJ" = (
@@ -16261,13 +16053,12 @@
 /obj/effect/floor_decal/corner/lime/diagonal{
 	dir = 8
 	},
-/obj/effect/floor_decal/spline/plain/corner,
+/obj/effect/floor_decal/spline/plain/corner/black,
 /turf/simulated/floor/tiled/dark,
 /area/shuttle/administration)
 "uGz" = (
 /turf/unsimulated/floor{
 	dir = 1;
-	icon_state = "rampbottom";
 	name = "staircase"
 	},
 /area/centcom/spawning)
@@ -16281,7 +16072,8 @@
 "uHz" = (
 /obj/machinery/door/airlock/glass_centcom{
 	name = "CCIA Auxillary Office";
-	req_access = list(109)
+	req_access = list(109);
+	dir = 1
 	},
 /turf/unsimulated/floor,
 /area/centcom/control)
@@ -16292,7 +16084,7 @@
 	},
 /obj/effect/floor_decal/corner/orange/diagonal,
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/tdome/tdomeadmin)
 "uJt" = (
@@ -16329,7 +16121,7 @@
 	name = "Detention Wing"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "uMb" = (
@@ -16356,24 +16148,22 @@
 /obj/effect/floor_decal/corner/orange/diagonal,
 /obj/machinery/door/window/eastleft{
 	name = "dispensary";
-	req_access = null;
 	req_one_access = list(33,104)
 	},
 /obj/item/reagent_containers/glass/beaker/large,
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/centcom/holding)
 "uNJ" = (
 /obj/structure/railing/mapped{
-	layer = 4.1;
 	name = "adjusted railing"
 	},
 /obj/effect/floor_decal/corner/paleblue{
 	dir = 10
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/ferry)
 "uOd" = (
@@ -16389,7 +16179,7 @@
 "uOR" = (
 /obj/structure/table/standard,
 /turf/unsimulated/floor{
-	icon_state = "wood_light"
+	icon_state = "wood_preview"
 	},
 /area/centcom/holding)
 "uPa" = (
@@ -16415,7 +16205,6 @@
 	},
 /obj/effect/floor_decal/spline/fancy/wood,
 /obj/structure/railing/mapped{
-	layer = 4.1;
 	name = "adjusted railing"
 	},
 /turf/unsimulated/floor,
@@ -16428,7 +16217,7 @@
 	dir = 8
 	},
 /turf/unsimulated/floor{
-	icon_state = "wood_light"
+	icon_state = "wood_preview"
 	},
 /area/centcom/spawning)
 "uSv" = (
@@ -16515,7 +16304,7 @@
 "uWm" = (
 /obj/structure/table/rack,
 /obj/item/clothing/under/color/green,
-/obj/item/clothing/shoes/brown,
+/obj/item/clothing/shoes/sneakers/brown,
 /obj/item/melee/energy/axe,
 /obj/effect/decal/fake_object/light_source/invisible,
 /turf/simulated/floor,
@@ -16543,13 +16332,14 @@
 "vaK" = (
 /obj/machinery/door/airlock/glass_centcom{
 	name = "Administrative Wing Processing";
-	req_access = list(101)
+	req_access = list(101);
+	dir = 4
 	},
 /obj/effect/floor_decal/corner/blue{
 	dir = 9
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "vaT" = (
@@ -16561,14 +16351,12 @@
 	req_access = list(101)
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "vbT" = (
 /obj/effect/floor_decal/industrial/outline/yellow,
-/turf/unsimulated/floor{
-	icon_state = "new_reinforced"
-	},
+/turf/unsimulated/floor,
 /area/centcom/checkpoint/aft)
 "vbU" = (
 /obj/effect/floor_decal/corner/red{
@@ -16612,10 +16400,10 @@
 	},
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
-	icon_state = "wood_light"
+	icon_state = "wood_preview"
 	},
 /area/centcom/holding)
 "vjQ" = (
@@ -16630,7 +16418,7 @@
 	},
 /obj/structure/window/reinforced/crescent,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/ferry)
 "vkY" = (
@@ -16649,11 +16437,6 @@
 	},
 /turf/unsimulated/floor,
 /area/centcom/spawning)
-"vmF" = (
-/turf/unsimulated/floor{
-	icon_state = "platingdmg1"
-	},
-/area/centcom/bar)
 "vng" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/shuttle/dark_blue,
@@ -16689,7 +16472,7 @@
 	pixel_y = 9
 	},
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/centcom/holding)
 "vrQ" = (
@@ -16710,12 +16493,12 @@
 	pixel_y = 16
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "vxi" = (
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/checkpoint/aft)
 "vxK" = (
@@ -16723,12 +16506,12 @@
 	dir = 9
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "vyn" = (
 /turf/unsimulated/floor{
-	icon_state = "wood_light"
+	icon_state = "wood_preview"
 	},
 /area/centcom/evac)
 "vyX" = (
@@ -16784,7 +16567,7 @@
 	req_access = list(103)
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/checkpoint/aft)
 "vDk" = (
@@ -16801,7 +16584,6 @@
 "vFX" = (
 /obj/machinery/door/window/northright{
 	name = "dispensary";
-	req_access = null;
 	req_one_access = list(33,104)
 	},
 /obj/effect/floor_decal/corner/orange/diagonal,
@@ -16810,7 +16592,7 @@
 	name = "igs - OdinPharmacist"
 	},
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/centcom/holding)
 "vGd" = (
@@ -16822,13 +16604,13 @@
 "vKf" = (
 /obj/machinery/light{
 	dir = 8;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/structure/sign/flag/nanotrasen{
 	pixel_y = 30
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "vKj" = (
@@ -16845,7 +16627,7 @@
 	dir = 6
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "vLI" = (
@@ -16854,14 +16636,14 @@
 	},
 /obj/machinery/light{
 	dir = 8;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor,
 /area/centcom/holding)
 "vLR" = (
 /obj/structure/undies_wardrobe,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "vMZ" = (
@@ -16885,7 +16667,7 @@
 	name = "Ready Room"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "vNj" = (
@@ -16936,14 +16718,14 @@
 /obj/structure/railing/mapped,
 /obj/machinery/light{
 	dir = 1;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/structure/flora/ausbushes/sparsegrass,
-/turf/simulated/floor/grass/alt,
+/turf/simulated/floor/grass,
 /area/centcom/bar)
 "vVC" = (
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "vXg" = (
@@ -16957,7 +16739,7 @@
 	req_access = list(109)
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "vZA" = (
@@ -16969,27 +16751,23 @@
 	icon_state = "railing0-1";
 	name = "railing"
 	},
-/obj/effect/floor_decal/spline/plain,
-/turf/unsimulated/floor{
-	icon_state = "rampbottom"
-	},
+/obj/effect/floor_decal/spline/plain/black,
+/turf/unsimulated/floor,
 /area/centcom/specops)
 "wbd" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/landmark{
-	name = "tdomeadmin"
-	},
+/obj/effect/landmark/thunderdomeadmin,
 /obj/effect/floor_decal/corner/orange/diagonal,
 /obj/effect/decal/fake_object/light_source/invisible,
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/tdome/tdomeadmin)
 "wbI" = (
 /obj/effect/floor_decal/corner/paleblue{
 	dir = 6
 	},
-/obj/structure/flora/pottedplant/random,
+/obj/random/pottedplant,
 /turf/unsimulated/floor,
 /area/centcom/spawning)
 "wbN" = (
@@ -17039,7 +16817,7 @@
 /obj/effect/floor_decal/corner/red/diagonal{
 	dir = 8
 	},
-/obj/effect/floor_decal/spline/plain{
+/obj/effect/floor_decal/spline/plain/black{
 	dir = 8
 	},
 /turf/simulated/floor/tiled/dark,
@@ -17049,7 +16827,7 @@
 	dir = 5
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "wfA" = (
@@ -17062,7 +16840,7 @@
 /obj/structure/flora/ausbushes/grassybush{
 	pixel_y = -3
 	},
-/turf/simulated/floor/grass/alt,
+/turf/simulated/floor/grass,
 /area/centcom/holding)
 "wgf" = (
 /obj/structure/sign/flag/nanotrasen/large/north,
@@ -17110,17 +16888,14 @@
 	pixel_y = 2
 	},
 /obj/item/clothing/mask/gas/tactical{
-	layer = 2.99;
 	pixel_x = -1;
 	pixel_y = 5
 	},
 /obj/item/clothing/mask/gas/tactical{
-	layer = 2.99;
 	pixel_x = -1;
 	pixel_y = 5
 	},
 /obj/item/clothing/mask/gas/tactical{
-	layer = 2.99;
 	pixel_x = -1;
 	pixel_y = 5
 	},
@@ -17138,9 +16913,9 @@
 	},
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1";
 	name = "adjusted light fixture";
-	pixel_x = -3
+	pixel_x = -3;
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor/plating,
 /area/centcom/specops)
@@ -17148,11 +16923,11 @@
 /obj/item/modular_computer/console/preset/security,
 /obj/machinery/light{
 	dir = 8;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/effect/floor_decal/corner/blue/full,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "wjW" = (
@@ -17179,7 +16954,7 @@
 /obj/structure/bed/roller,
 /obj/effect/floor_decal/corner/lime/diagonal,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "wlw" = (
@@ -17198,12 +16973,10 @@
 	},
 /obj/structure/table/reinforced,
 /obj/item/paper_bin{
-	layer = 3;
 	pixel_x = -3;
 	pixel_y = 4
 	},
 /obj/item/pen{
-	layer = 3.01;
 	pixel_x = -4;
 	pixel_y = 5
 	},
@@ -17240,21 +17013,19 @@
 "wqv" = (
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/machinery/door/window/brigdoor/southleft{
 	name = "holding cell"
 	},
-/turf/unsimulated/floor{
-	icon_state = "new_reinforced"
-	},
+/turf/unsimulated/floor,
 /area/centcom/holding)
 "wrA" = (
 /obj/structure/table/standard,
 /obj/item/storage/box/handcuffs,
 /obj/effect/floor_decal/corner/orange/diagonal,
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/tdome/tdomeadmin)
 "wrS" = (
@@ -17266,10 +17037,8 @@
 	icon_state = "railing0-1";
 	name = "railing"
 	},
-/obj/effect/floor_decal/spline/plain,
-/turf/unsimulated/floor{
-	icon_state = "rampbottom"
-	},
+/obj/effect/floor_decal/spline/plain/black,
+/turf/unsimulated/floor,
 /area/centcom/specops)
 "wtO" = (
 /obj/structure/filingcabinet/chestdrawer,
@@ -17290,7 +17059,7 @@
 	},
 /obj/effect/floor_decal/industrial/outline/yellow,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "wwo" = (
@@ -17341,15 +17110,15 @@
 	dir = 9
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "wCm" = (
 /obj/machinery/door/airlock/glass_centcom{
 	icon = 'icons/obj/doors/Doorglass.dmi';
 	name = "To: Upper Shuttle Terminal";
-	req_access = null;
-	req_one_access = list(108,109)
+	req_one_access = list(108,109);
+	dir = 1
 	},
 /turf/unsimulated/floor,
 /area/centcom/spawning)
@@ -17362,7 +17131,7 @@
 /area/centcom/specops)
 "wCy" = (
 /turf/unsimulated/floor{
-	icon_state = "wood_light"
+	icon_state = "wood_preview"
 	},
 /area/centcom/spawning)
 "wCA" = (
@@ -17380,7 +17149,7 @@
 "wEG" = (
 /obj/structure/table/rack,
 /obj/item/clothing/under/color/red,
-/obj/item/clothing/shoes/brown,
+/obj/item/clothing/shoes/sneakers/brown,
 /obj/item/clothing/suit/armor/vest,
 /obj/item/clothing/head/helmet/swat,
 /obj/item/gun/energy/laser,
@@ -17423,7 +17192,7 @@
 	dir = 9
 	},
 /turf/unsimulated/floor{
-	icon_state = "carpetnoconnect"
+	icon_state = "carpet"
 	},
 /area/centcom/bar)
 "wGN" = (
@@ -17436,9 +17205,7 @@
 /turf/simulated/floor/shuttle/dark_blue,
 /area/shuttle/escape)
 "wGT" = (
-/obj/effect/landmark{
-	name = "tdome1"
-	},
+/obj/effect/landmark/thunderdome1,
 /obj/effect/floor_decal/corner/grey/diagonal{
 	dir = 4
 	},
@@ -17449,14 +17216,14 @@
 /obj/machinery/cryopod{
 	dir = 2
 	},
-/obj/effect/floor_decal/spline/plain{
+/obj/effect/floor_decal/spline/plain/black{
 	dir = 1
 	},
 /obj/effect/floor_decal/corner/paleblue{
 	dir = 10
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "wHm" = (
@@ -17507,7 +17274,7 @@
 	},
 /obj/effect/floor_decal/corner/paleblue/diagonal,
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/centcom/holding)
 "wKp" = (
@@ -17537,7 +17304,7 @@
 /turf/simulated/floor/shuttle/white,
 /area/shuttle/escape)
 "wNC" = (
-/obj/machinery/light/spot/weak,
+/obj/machinery/light/spot,
 /obj/effect/floor_decal/corner/paleblue{
 	dir = 10
 	},
@@ -17552,7 +17319,6 @@
 	name = "VIP Shuttle Access";
 	pixel_x = -7;
 	pixel_y = -23;
-	req_access = null;
 	req_one_access = list(108,109)
 	},
 /turf/unsimulated/floor,
@@ -17592,7 +17358,7 @@
 	name = "operation map";
 	pixel_y = 31
 	},
-/obj/effect/floor_decal/spline/plain{
+/obj/effect/floor_decal/spline/plain/black{
 	dir = 4
 	},
 /turf/unsimulated/floor{
@@ -17603,7 +17369,7 @@
 /obj/effect/floor_decal/corner/paleblue{
 	dir = 6
 	},
-/obj/structure/flora/pottedplant/random{
+/obj/random/pottedplant{
 	anchored = 1;
 	pixel_y = 5
 	},
@@ -17618,7 +17384,7 @@
 /area/tdome/tdome2)
 "wTI" = (
 /obj/machinery/light{
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/simulated/floor/shuttle/tan,
 /area/shuttle/arrival)
@@ -17636,7 +17402,7 @@
 	dir = 1
 	},
 /obj/structure/flora/ausbushes/lavendergrass,
-/turf/simulated/floor/grass/alt,
+/turf/simulated/floor/grass,
 /area/centcom/holding)
 "wUa" = (
 /obj/structure/window/shuttle/unique/transfer{
@@ -17676,7 +17442,7 @@
 "wVJ" = (
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
 	icon_state = "wood"
@@ -17692,7 +17458,7 @@
 /obj/effect/floor_decal/corner/paleblue{
 	dir = 4
 	},
-/obj/structure/flora/pottedplant/random,
+/obj/random/pottedplant,
 /turf/unsimulated/floor,
 /area/centcom/holding)
 "wYn" = (
@@ -17757,32 +17523,26 @@
 	pixel_y = 2
 	},
 /obj/item/ammo_magazine/c45m/auto{
-	layer = 2.99;
 	pixel_x = 2;
 	pixel_y = -2
 	},
 /obj/item/ammo_magazine/c45m/auto{
-	layer = 2.99;
 	pixel_x = 2;
 	pixel_y = -2
 	},
 /obj/item/ammo_magazine/c45m/auto{
-	layer = 2.99;
 	pixel_x = 2;
 	pixel_y = -2
 	},
 /obj/item/ammo_magazine/c45m/auto{
-	layer = 2.99;
 	pixel_x = 2;
 	pixel_y = -2
 	},
 /obj/item/ammo_magazine/c45m/auto{
-	layer = 2.99;
 	pixel_x = 2;
 	pixel_y = -2
 	},
 /obj/item/ammo_magazine/c45m/auto{
-	layer = 2.99;
 	pixel_x = 2;
 	pixel_y = -2
 	},
@@ -17808,13 +17568,10 @@
 /obj/machinery/porta_turret/crescent,
 /obj/effect/floor_decal/industrial/warning/full,
 /obj/structure/railing/mapped{
-	layer = 4.1;
 	name = "adjusted railing"
 	},
 /obj/structure/lattice/catwalk/indoor,
-/turf/unsimulated/floor{
-	icon_state = "new_reinforced"
-	},
+/turf/unsimulated/floor,
 /area/centcom/checkpoint/fore)
 "wZB" = (
 /obj/structure/sign/staff_only,
@@ -17835,7 +17592,7 @@
 /obj/structure/flora/ausbushes/grassybush{
 	pixel_y = -3
 	},
-/turf/simulated/floor/grass/alt,
+/turf/simulated/floor/grass,
 /area/centcom/holding)
 "xeH" = (
 /obj/structure/table/reinforced/wood,
@@ -17869,7 +17626,7 @@
 /obj/item/storage/toolbox/electrical,
 /obj/effect/floor_decal/corner/orange/diagonal,
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/tdome/tdomeadmin)
 "xhC" = (
@@ -17878,7 +17635,7 @@
 	},
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/effect/floor_decal/spline/fancy/wood{
 	dir = 1
@@ -17914,7 +17671,7 @@
 	pixel_y = 29
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "xkq" = (
@@ -17928,13 +17685,12 @@
 "xkH" = (
 /obj/item/modular_computer/console/preset/security,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "xkI" = (
 /obj/structure/table/stone/marble,
 /obj/item/reagent_containers/food/snacks/salad/tossedsalad{
-	layer = 2.99;
 	pixel_x = 18;
 	pixel_y = 10
 	},
@@ -17959,7 +17715,7 @@
 	pixel_y = 4
 	},
 /turf/unsimulated/floor{
-	icon_state = "lino_grey"
+	icon_state = "lino_diamond"
 	},
 /area/centcom/bar)
 "xnZ" = (
@@ -17967,7 +17723,7 @@
 /obj/item/reagent_containers/hypospray,
 /obj/structure/table/standard,
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/centcom/holding)
 "xoL" = (
@@ -17976,10 +17732,9 @@
 	},
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/structure/railing/mapped{
-	layer = 4.1;
 	name = "adjusted railing"
 	},
 /obj/machinery/porta_turret/crescent,
@@ -18004,10 +17759,9 @@
 	dir = 8
 	},
 /obj/machinery/computer/cryopod{
-	layer = 3.3;
 	pixel_y = 27
 	},
-/turf/simulated/floor/carpet/blue,
+/turf/simulated/floor/carpet/cyan,
 /area/centcom/ferry)
 "xun" = (
 /obj/structure/shuttle_part/transfer{
@@ -18043,7 +17797,6 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	layer = 5;
 	name = "adjusted window"
 	},
 /turf/simulated/floor/shuttle/dark_blue,
@@ -18061,11 +17814,9 @@
 	pixel_y = 8
 	},
 /obj/item/storage/firstaid/regular{
-	layer = 3.01;
 	pixel_x = 6
 	},
 /obj/item/storage/firstaid/o2{
-	layer = 3.01;
 	pixel_x = -13
 	},
 /obj/effect/floor_decal/corner/lime/diagonal,
@@ -18074,19 +17825,17 @@
 	pixel_y = 8
 	},
 /obj/item/storage/firstaid/o2{
-	layer = 3.01;
 	pixel_x = -13
 	},
 /obj/item/storage/firstaid/regular{
-	layer = 3.01;
 	pixel_x = 6
 	},
 /obj/machinery/light{
 	dir = 4;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/holding)
 "xBm" = (
@@ -18095,7 +17844,7 @@
 	},
 /obj/effect/floor_decal/industrial/hatch/yellow,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "xDG" = (
@@ -18148,7 +17897,6 @@
 /area/shuttle/escape)
 "xHb" = (
 /obj/machinery/vending/wallmed1{
-	layer = 3.3;
 	name = "Emergency NanoMed";
 	pixel_x = -12;
 	pixel_y = 28;
@@ -18216,10 +17964,10 @@
 "xMf" = (
 /obj/machinery/light{
 	dir = 1;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/specops)
 "xMD" = (
@@ -18242,7 +17990,7 @@
 	req_access = list(103)
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "xOP" = (
@@ -18262,11 +18010,6 @@
 	icon_state = "plating"
 	},
 /area/centcom/control)
-"xTG" = (
-/turf/unsimulated/floor{
-	icon_state = "platingdmg3"
-	},
-/area/centcom/bar)
 "xTK" = (
 /obj/effect/floor_decal/corner/paleblue{
 	dir = 5
@@ -18333,7 +18076,7 @@
 	},
 /obj/machinery/light{
 	dir = 8;
-	icon_state = "tube1"
+	icon_state = "tube_empty"
 	},
 /obj/item/storage/box/fancy/cigarettes/cigar{
 	pixel_x = -1;
@@ -18373,8 +18116,7 @@
 "ydO" = (
 /obj/effect/floor_decal/corner/white/diagonal,
 /obj/structure/toilet{
-	dir = 1;
-	layer = 4.1
+	dir = 1
 	},
 /obj/machinery/light/small{
 	dir = 8;
@@ -18418,7 +18160,7 @@
 	name = "Bar Shutter"
 	},
 /turf/unsimulated/floor{
-	icon_state = "lino_grey"
+	icon_state = "lino_diamond"
 	},
 /area/centcom/bar)
 "ygd" = (
@@ -18484,7 +18226,6 @@
 	},
 /obj/effect/floor_decal/spline/fancy/wood,
 /obj/structure/railing/mapped{
-	layer = 4.1;
 	name = "adjusted railing"
 	},
 /turf/unsimulated/floor,
@@ -18498,23 +18239,23 @@
 	pixel_y = 16
 	},
 /turf/unsimulated/floor{
-	icon_state = "new_white"
+	icon_state = "white"
 	},
 /area/centcom/holding)
 "ylt" = (
 /obj/machinery/door/airlock/glass_centcom{
 	name = "Sector Administration Copula";
-	req_access = null;
-	req_one_access = list(109,108)
+	req_one_access = list(109,108);
+	dir = 4
 	},
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 "ymd" = (
 /obj/item/modular_computer/console/preset/security,
 /turf/unsimulated/floor{
-	icon_state = "dark2"
+	icon_state = "dark_preview"
 	},
 /area/centcom/control)
 
@@ -45083,7 +44824,7 @@ amk
 dzL
 eHl
 fKq
-fWE
+pqX
 pCZ
 hyd
 iOb
@@ -49458,7 +49199,7 @@ ukX
 dLE
 dNM
 dLE
-dNM
+aac
 ghR
 uSv
 uSv
@@ -51011,7 +50752,7 @@ hum
 vVC
 vVC
 vVC
-ylt
+aae
 owT
 uSv
 nyh
@@ -51292,7 +51033,7 @@ fOM
 tmv
 wjH
 bQP
-gEL
+bLK
 rAP
 kYq
 aix
@@ -51768,7 +51509,7 @@ kUG
 dct
 dct
 hnb
-hGv
+aaf
 gNM
 hnb
 bYs
@@ -51805,12 +51546,12 @@ kYq
 kYq
 kYq
 oBu
-nDp
+aag
 kYq
 kYq
 kYq
 kYq
-bKw
+aah
 mAD
 bLK
 eIe
@@ -52320,7 +52061,7 @@ eDp
 bMp
 tDA
 bQP
-gEL
+bLK
 wqv
 kYq
 kYq
@@ -57431,7 +57172,7 @@ tAC
 ahe
 aqu
 apU
-fRm
+aai
 lMz
 lMz
 kgi
@@ -57734,7 +57475,7 @@ bZa
 tud
 nfY
 eRq
-bbH
+aBL
 aOz
 wlw
 iAO
@@ -57991,7 +57732,7 @@ bZa
 tud
 ker
 jvF
-bbH
+aBL
 aOz
 gyj
 iAO
@@ -58248,7 +57989,7 @@ bZa
 aNt
 nfY
 eRq
-bbH
+aBL
 aOz
 iLT
 iAO
@@ -58993,9 +58734,9 @@ wzE
 wzE
 mbM
 mbM
-tsH
-tsH
-tsH
+aam
+aam
+aam
 mbM
 mbM
 wzE
@@ -59243,16 +58984,16 @@ wne
 qNZ
 cgd
 mBc
-aEW
+aad
 cYT
 rGt
 rGt
 gmv
 nHm
 sXN
-aEW
-aEW
-aEW
+aad
+aad
+aad
 pdo
 jdB
 xrK
@@ -60301,7 +60042,7 @@ urj
 gdU
 aBl
 aBL
-aBl
+aan
 weB
 aOa
 uPQ
@@ -61843,7 +61584,7 @@ uVh
 htp
 aBl
 aBL
-aBl
+aan
 weB
 aOa
 uPQ
@@ -62061,7 +61802,7 @@ kRu
 avR
 gqa
 bGR
-vmF
+aqu
 ntE
 eBz
 wne
@@ -62319,7 +62060,7 @@ pzN
 sRi
 rQi
 kNJ
-xTG
+aqu
 eBz
 wne
 wne

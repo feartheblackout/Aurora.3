@@ -1,7 +1,7 @@
 /obj/item/modular_computer/console
 	name = "console"
 	desc = "A stationary computer."
-	icon = 'icons/obj/modular_console.dmi'
+	icon = 'icons/obj/machinery/modular_console.dmi'
 	icon_state = "computer"
 	icon_state_unpowered = "computer"
 	icon_state_screensaver = "standby"
@@ -21,3 +21,4 @@
 	screensaver_light_range = 1.4
 	screensaver_light_color = LIGHT_COLOR_WHITE
 	is_holographic = TRUE
+	pass_flags_self = PASSTABLE

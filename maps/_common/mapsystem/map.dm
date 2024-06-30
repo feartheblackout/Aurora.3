@@ -52,6 +52,14 @@
 	var/emergency_shuttle_leaving_dock
 	var/emergency_shuttle_recall_message
 	var/emergency_shuttle_called_message
+	var/bluespace_docked_message
+	var/bluespace_leaving_dock
+	var/bluespace_called_message
+	var/bluespace_recall_message
+
+	/// If this map has ports of call and refuels there. Crew are implied to be able to leave to these ports.
+	/// Ports of call are taken from the current map sector.
+	var/ports_of_call = FALSE
 
 	var/evac_controller_type = /datum/evacuation_controller
 
@@ -115,11 +123,24 @@
 	var/allow_borgs_to_leave = FALSE //this controls if borgs can leave the station or ship without exploding
 	var/area/warehouse_basearea //this controls where the cargospawner tries to populate warehouse items
 
+	/**
+	 * A list of the shuttles on this map, used by the Shuttle Manifest program to populate itself.
+	 * Formatted with the shuttle name as an index, followed by a list containing the color and icon to be used for the shuttle's drop down
+	 * On the manifest. i.e. "SCCV Intrepid" = list("color" = "purple", "icon" = "compass")
+	 */
+	var/list/shuttle_manifests = list()
+	/**
+	 * A list of the missions shuttles can select for their assignment in the Shuttle Manifest program.
+	 */
+	var/list/shuttle_missions = list()
+
 /datum/map/New()
 	if(!map_levels)
 		map_levels = station_levels.Copy()
 	if(!allowed_jobs)
 		allowed_jobs = subtypesof(/datum/job)
+		for(var/thing in EVENT_ROLES) //ideally this should prevent event roles from being open on the horizon
+			allowed_jobs.Remove(thing)
 	if (!spawn_types)
 		spawn_types = subtypesof(/datum/spawnpoint)
 	if(!LAZYLEN(planet_size))
@@ -134,7 +155,7 @@
 
 // By default transition randomly to another zlevel
 /datum/map/proc/get_transit_zlevel(var/current_z_level)
-	var/list/candidates = current_map.accessible_z_levels.Copy()
+	var/list/candidates = SSatlas.current_map.accessible_z_levels.Copy()
 	candidates.Remove(num2text(current_z_level))
 
 	if(!candidates.len)
@@ -152,22 +173,40 @@
 
 // Called right after SSatlas finishes loading the map & multiz is setup.
 /datum/map/proc/finalize_load()
+	return
 
 /datum/map/proc/build_exoplanets()
 	if(!use_overmap)
 		return
 
-	var/datum/space_sector/sector = SSatlas.current_sector
-	var/list/possible_exoplanets = sector.possible_exoplanets
-
-	if(!length(possible_exoplanets))
-		log_debug("No valid exoplanets found!")
+	if(!GLOB.config.exoplanets["enable_loading"])
+		log_admin("Not building exoplanets because the config specifies not to")
 		return
 
-	var/exoplanets_to_spawn = min(possible_exoplanets.len, num_exoplanets)
-	for(var/i = 0, i < exoplanets_to_spawn, i++)
+	var/datum/space_sector/sector = SSatlas.current_sector
+	var/list/possible_exoplanets = sector.possible_exoplanets
+	var/list/guaranteed_exoplanets = sector.guaranteed_exoplanets
+
+	if(length(guaranteed_exoplanets))
+		for(var/j in guaranteed_exoplanets)
+			var/guaranteed_exoplanet_type = j
+			log_module_exoplanets("Building new exoplanet with type: [guaranteed_exoplanet_type] and size: [planet_size[1]] [planet_size[2]]")
+			var/obj/effect/overmap/visitable/sector/exoplanet/P = new guaranteed_exoplanet_type(null, planet_size[1], planet_size[2])
+			P.build_level()
+
+	if(!length(possible_exoplanets))
+		log_module_exoplanets("No possible exoplanets found!")
+		return
+
+	var/exoplanets_budget = isnum(GLOB.config.exoplanets["exoplanets_budget"]) ? (GLOB.config.exoplanets["exoplanets_budget"]) : (min(possible_exoplanets.len, num_exoplanets))
+	for(var/i = 0, i < exoplanets_budget, i++)
+
+		//Check that we didn't ran out of exoplanets to make
+		if(!length(possible_exoplanets))
+			break
+
 		var/exoplanet_type = pick_n_take(possible_exoplanets)
-		log_debug("Building new exoplanet with type: [exoplanet_type] and size: [planet_size[1]] [planet_size[2]]")
+		log_module_exoplanets("Building new exoplanet with type: [exoplanet_type] and size: [planet_size[1]] [planet_size[2]]")
 		var/obj/effect/overmap/visitable/sector/exoplanet/new_planet = new exoplanet_type(null, planet_size[1], planet_size[2])
 		new_planet.build_level()
 
@@ -190,7 +229,7 @@
 		var/list/costs = resolve_site_selection(by_type[forced_type], selected, available, unavailable, by_type)
 		spawn_cost += costs[1]
 		player_cost += costs[2]
-		player_cost += costs[3]
+		ship_cost += costs[3]
 
 	for (var/banned_type in site.ban_ruins)
 		var/datum/map_template/ruin/away_site/banned = by_type[banned_type]
@@ -215,11 +254,18 @@
 /datum/map/proc/send_welcome()
 	return
 
+/datum/map/proc/load_holodeck_programs()
+	return
+
 /datum/map/proc/build_away_sites()
 #ifdef UNIT_TEST
 	log_admin("Unit testing, so not loading away sites")
 	return // don't build away sites during unit testing
 #else
+	if(!GLOB.config.awaysites["enable_loading"])
+		log_admin("Not loading away sites because the config specifies not to")
+		return
+
 	log_admin("Loading away sites...")
 
 	var/list/guaranteed = list()
@@ -230,17 +276,22 @@
 
 	for (var/site_id in SSmapping.away_sites_templates)
 		var/datum/map_template/ruin/away_site/site = SSmapping.away_sites_templates[site_id]
-		if (site.template_flags & TEMPLATE_FLAG_SPAWN_GUARANTEED)
+		if (((site.template_flags & TEMPLATE_FLAG_SPAWN_GUARANTEED) && (site.spawns_in_current_sector())) || (site_id in GLOB.config.awaysites["guaranteed_sites"]))
 			guaranteed += site
 			if ((site.template_flags & TEMPLATE_FLAG_ALLOW_DUPLICATES) && !(site.template_flags & TEMPLATE_FLAG_RUIN_STARTS_DISALLOWED))
 				available[site] = site.spawn_weight
-		else if (!(site.template_flags & TEMPLATE_FLAG_RUIN_STARTS_DISALLOWED) && (SSatlas.current_sector.name in site.sectors))
+		else if((site.template_flags & TEMPLATE_FLAG_PORT_SPAWN) && (site.spawns_in_current_sector()))
+			if(SSatlas.is_port_call_day()) //we check here as we only want sites with PORT_SPAWN flag to spawn if this is true, else we want it not considered.
+				guaranteed += site
+				if ((site.template_flags & TEMPLATE_FLAG_ALLOW_DUPLICATES) && !(site.template_flags & TEMPLATE_FLAG_RUIN_STARTS_DISALLOWED))
+					available[site] = site.spawn_weight
+		else if (!(site.template_flags & TEMPLATE_FLAG_RUIN_STARTS_DISALLOWED) && (site.spawns_in_current_sector()))
 			available[site] = site.spawn_weight
 		by_type[site.type] = site
 
-	var/points = rand(away_site_budget, away_site_budget + away_variance)
+	var/points = isnum(GLOB.config.awaysites["away_site_budget"]) ? (GLOB.config.awaysites["away_site_budget"]) : (rand(away_site_budget, away_site_budget + away_variance))
 	var/players = -min_offmap_players
-	var/shippoints = rand(away_ship_budget, away_ship_budget + away_variance)
+	var/shippoints = isnum(GLOB.config.awaysites["away_ship_budget"]) ? (GLOB.config.awaysites["away_ship_budget"]) : (rand(away_ship_budget, away_ship_budget + away_variance))
 	var/totalbudget = shippoints + points
 	for (var/client/C)
 		++players
@@ -266,6 +317,14 @@
 
 	for (var/datum/map_template/template in selected)
 		if (template.load_new_z())
+			// do away site exoplanet generation, if needed
+			var/datum/map_template/ruin/away_site/away_site = template
+			if(istype(away_site) && away_site.exoplanet_themes)
+				for(var/marker_turf_type in away_site.exoplanet_themes)
+					var/datum/exoplanet_theme/exoplanet_theme_type = away_site.exoplanet_themes[marker_turf_type]
+					var/datum/exoplanet_theme/exoplanet_theme = new exoplanet_theme_type()
+					exoplanet_theme.generate_map(world.maxz-1, 1, 1, 254, 254, marker_turf_type)
+			// fin
 			log_admin("Loaded away site [template]!")
 		else
 			log_admin("Failed loading away site [template]!")

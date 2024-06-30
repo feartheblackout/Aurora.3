@@ -17,12 +17,13 @@
 	var/mob/living/simple_animal/illusion/illusion = null
 
 /obj/item/spell/illusion/on_ranged_cast(atom/hit_atom, mob/user)
+	. = ..()
 	if(istype(hit_atom, /atom/movable))
 		var/atom/movable/AM = hit_atom
 		if(pay_energy(100))
 			copied = AM
 			update_icon()
-			to_chat(user, "<span class='notice'>You've copied \the [AM]'s appearance.</span>")
+			to_chat(user, SPAN_NOTICE("You've copied \the [AM]'s appearance."))
 			sound_to(user, 'sound/weapons/flash.ogg')
 			return 1
 	else if(istype(hit_atom, /turf))
@@ -33,23 +34,24 @@
 			if(pay_energy(500))
 				illusion = new(T)
 				illusion.copy_appearance(copied)
-				to_chat(user, "<span class='notice'>An illusion of \the [copied] is made on \the [T].</span>")
+				to_chat(user, SPAN_NOTICE("An illusion of \the [copied] is made on \the [T]."))
 				sound_to(user, 'sound/effects/pop.ogg')
 				return 1
 
 /obj/item/spell/illusion/on_use_cast(mob/user)
+	. = ..()
 	if(illusion)
 		var/choice = alert(user, "Would you like to have \the [illusion] speak, or do an emote?", "Illusion", "Speak","Emote","Cancel")
 		switch(choice)
 			if("Cancel")
 				return
 			if("Speak")
-				var/what_to_say = input(user, "What do you want \the [illusion] to say?","Illusion Speak") as null|text
+				var/what_to_say = tgui_input_text(user, "What do you want \the [illusion] to say?", "Illusion Speak")
 				//what_to_say = sanitize(what_to_say) //Sanitize occurs inside say() already.
 				if(what_to_say)
 					illusion.say(what_to_say)
 			if("Emote")
-				var/what_to_emote = input(user, "What do you want \the [illusion] to do?","Illusion Emote") as null|text
+				var/what_to_emote = tgui_input_text(user, "What do you want \the [illusion] to do?", "Illusion Emote")
 				if(what_to_emote)
 					illusion.emote(what_to_emote)
 

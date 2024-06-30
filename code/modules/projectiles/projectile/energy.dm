@@ -30,7 +30,7 @@
 
 	//snap pop
 	playsound(src, 'sound/effects/snap.ogg', 50, 1)
-	src.visible_message("<span class='warning'>\The [src] explodes in a bright flash!</span>")
+	src.visible_message(SPAN_WARNING("\The [src] explodes in a bright flash!"))
 
 	new /obj/effect/decal/cleanable/ash(src.loc) //always use src.loc so that ash doesn't end up inside windows
 	single_spark(T)
@@ -169,7 +169,7 @@
 
 /obj/item/projectile/energy/blaster
 	name = "blaster bolt"
-	icon_state = "heavybolt"
+	icon_state = "laser"
 	damage = 30
 	check_armor = "laser"
 	damage_type = DAMAGE_BURN
@@ -187,9 +187,14 @@
 	damage_type = DAMAGE_PAIN
 	eyeblur = 0
 
+/obj/item/projectile/energy/blaster/skrell // for nralakk fed consular pistol
+	damage = 30
+	armor_penetration = 5
+	pass_flags = PASSTABLE | PASSRAILING
+
 /obj/item/projectile/energy/disruptorstun
 	name = "disruptor bolt"
-	icon_state = "blue_laser"
+	icon_state = "bluelaser"
 	damage = 1
 	agony = 40
 	speed = 0.4
@@ -212,3 +217,6 @@
 	damage = 35
 	armor_penetration = 60
 	incinerate = 15
+
+/obj/item/projectile/energy/disruptorstun/skrell // for nralakk fed consular pistol
+	agony = 45

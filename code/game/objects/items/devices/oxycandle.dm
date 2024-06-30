@@ -18,7 +18,7 @@
 
 /obj/item/device/oxycandle/attack_self(mob/user)
 	if(!on)
-		to_chat(user, "<span class='notice'>You pull the cord and [src] ignites.</span>")
+		to_chat(user, SPAN_NOTICE("You pull the cord and [src] ignites."))
 		light_range = brightness_on
 		on = TRUE
 		update_icon()
@@ -27,7 +27,7 @@
 		air_contents.volume = 200 //liters
 		air_contents.temperature = T20C
 		var/list/air_mix = list(GAS_OXYGEN = O2STANDARD * (target_pressure * air_contents.volume) / (R_IDEAL_GAS_EQUATION * air_contents.temperature),
-		 						GAS_NITROGEN = N2STANDARD *  (target_pressure * air_contents.volume) / (R_IDEAL_GAS_EQUATION * air_contents.temperature))
+								GAS_NITROGEN = N2STANDARD *  (target_pressure * air_contents.volume) / (R_IDEAL_GAS_EQUATION * air_contents.temperature))
 		air_contents.adjust_multi(GAS_OXYGEN, air_mix[GAS_OXYGEN], GAS_NITROGEN, air_mix[GAS_NITROGEN])
 		START_PROCESSING(SSprocessing, src)
 
@@ -58,7 +58,7 @@
 	environment.merge(removed)
 	volume -= 200
 	var/list/air_mix = list(GAS_OXYGEN = O2STANDARD * (target_pressure * air_contents.volume) / (R_IDEAL_GAS_EQUATION * air_contents.temperature),
-	 						GAS_NITROGEN = N2STANDARD *  (target_pressure * air_contents.volume) / (R_IDEAL_GAS_EQUATION * air_contents.temperature))
+							GAS_NITROGEN = N2STANDARD *  (target_pressure * air_contents.volume) / (R_IDEAL_GAS_EQUATION * air_contents.temperature))
 	air_contents.adjust_multi(GAS_OXYGEN, air_mix[GAS_OXYGEN], GAS_NITROGEN, air_mix[GAS_NITROGEN])
 
 /obj/item/device/oxycandle/update_icon()

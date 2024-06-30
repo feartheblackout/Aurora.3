@@ -6,10 +6,11 @@
 	item_state = "arm_blade"
 	contained_sprite = TRUE
 	w_class = ITEMSIZE_LARGE
-	force = 30
+	force = 33
 	sharp = TRUE
 	edge = TRUE
 	anchored = TRUE
+	armor_penetration = 20
 	throwforce = 0 //Just to be on the safe side
 	throw_range = 0
 	throw_speed = 0
@@ -27,9 +28,10 @@
 	STOP_PROCESSING(SSprocessing, src)
 	return ..()
 
-/obj/item/melee/arm_blade/dropped(var/mob/living/user)
-	visible_message("<span class='danger'>With a sickening crunch, [user] reforms their arm blade into an arm!</span>",
-	"<span class='warning'>You hear organic matter ripping and tearing!</span>")
+/obj/item/melee/arm_blade/dropped(mob/user)
+	. = ..()
+	visible_message(SPAN_DANGER("With a sickening crunch, [user] reforms their arm blade into an arm!"),
+	SPAN_WARNING("You hear organic matter ripping and tearing!"))
 	playsound(loc, 'sound/effects/blobattack.ogg', 30, 1)
 	QDEL_IN(src, 1)
 
@@ -66,7 +68,7 @@
 	icon_state = "ling_shield"
 	item_state = "ling_shield"
 	contained_sprite = TRUE
-	force = 15 //Bash the crap out of people
+	force = 22 //Bash the crap out of people
 	slot_flags = null
 	anchored = TRUE
 	throwforce = 0 //Just to be on the safe side
@@ -84,9 +86,10 @@
 	STOP_PROCESSING(SSprocessing, src)
 	return ..()
 
-/obj/item/shield/riot/changeling/dropped(var/mob/living/user)
-	visible_message("<span class='danger'>With a sickening crunch, [user] reforms their shield into an arm!</span>",
-	"<span class='warning'>You hear organic matter ripping and tearing!</span>")
+/obj/item/shield/riot/changeling/dropped(mob/user)
+	. = ..()
+	visible_message(SPAN_DANGER("With a sickening crunch, [user] reforms their shield into an arm!"),
+	SPAN_WARNING("You hear organic matter ripping and tearing!"))
 	playsound(loc, 'sound/effects/blobattack.ogg', 30, 1)
 	QDEL_IN(src, 1)
 
@@ -114,13 +117,14 @@
 
 /obj/item/bone_dart
 	name = "bone dart"
-	desc = "A sharp piece of bone shapped as small dart."
+	desc = "A sharp piece of bone in the shape of a small dart."
 	icon = 'icons/obj/changeling.dmi'
 	icon_state = "bone_dart"
 	item_state = "bolt"
 	sharp = TRUE
 	edge = FALSE
-	throwforce = 5
+	throwforce = 15
+	armor_penetration = 15
 	w_class = ITEMSIZE_SMALL
 
 /obj/item/finger_lockpick
@@ -135,6 +139,7 @@
 		to_chat(loc, SPAN_NOTICE("We shape our finger to fit inside electronics, and are ready to force them open."))
 
 /obj/item/finger_lockpick/dropped(mob/user)
+	. = ..()
 	to_chat(user, SPAN_NOTICE("We discreetly shape our finger back to a less suspicious form."))
 	QDEL_IN(src, 1)
 
@@ -151,7 +156,7 @@
 	//Airlocks require an ugly block of code, but we don't want to just call emag_act(), since we don't want to break airlocks forever.
 	if(istype(target, /obj/machinery/door))
 		var/obj/machinery/door/door = target
-		to_chat(user, "<span class='notice'>We send an electrical pulse up our finger, and into \the [target], attempting to open it.</span>")
+		to_chat(user, SPAN_NOTICE("We send an electrical pulse up our finger, and into \the [target], attempting to open it."))
 
 		if(door.density && door.operable())
 			door.do_animate("spark")
@@ -162,15 +167,15 @@
 
 					if(airlock.locked) //Check if we're bolted.
 						airlock.unlock()
-						to_chat(user, "<span class='notice'>We've unlocked \the [airlock].  Another pulse is requried to open it.</span>")
+						to_chat(user, SPAN_NOTICE("We've unlocked \the [airlock].  Another pulse is requried to open it."))
 					else	//We're not bolted, so open the door already.
 						airlock.open()
-						to_chat(user, "<span class='notice'>We've opened \the [airlock].</span>")
+						to_chat(user, SPAN_NOTICE("We've opened \the [airlock]."))
 				else
 					door.open() //If we're a windoor, open the windoor.
-					to_chat(user, "<span class='notice'>We've opened \the [door].</span>")
+					to_chat(user, SPAN_NOTICE("We've opened \the [door]."))
 		else //Probably broken or no power.
-			to_chat(user, "<span class='warning'>The door does not respond to the pulse.</span>")
+			to_chat(user, SPAN_WARNING("The door does not respond to the pulse."))
 		door.add_fingerprint(user)
 		log_and_message_admins("finger-lockpicked \an [door].", user)
 		changeling.use_charges(10)

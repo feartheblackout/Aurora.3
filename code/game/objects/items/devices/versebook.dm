@@ -34,8 +34,8 @@
 	var/q // recycled from tip of the day code. it just works!(TM)
 	q = pick(randomquip)
 
-	if(do_after(user, 25))
-		to_chat(user, "<span class='notice'>You notice a particular verse: [q]</span>")
+	if(do_after(user, 2.5 SECONDS))
+		to_chat(user, SPAN_NOTICE("You notice a particular verse: [q]"))
 	reading = FALSE
 
 /obj/item/device/versebook/tribunal
@@ -47,7 +47,7 @@
 
 /obj/item/device/versebook/tribunal/Initialize()
 	. = ..()
-	randomquip = file2list("ingame_manuals/dominia.txt")  //Needs a .txt file, each line is a 'verse' the book will randomly choose to display to user.
+	randomquip = file2list('texts/ingame_manuals/dominia.txt')  //Needs a .txt file, each line is a 'verse' the book will randomly choose to display to user.
 
 /obj/item/device/versebook/gadpathur
 	name = "\improper gadpathurian morale manual"
@@ -58,7 +58,7 @@
 
 /obj/item/device/versebook/gadpathur/Initialize()
 	. = ..()
-	randomquip = file2list("ingame_manuals/gadpathur.txt")
+	randomquip = file2list('texts/ingame_manuals/gadpathur.txt')
 
 /obj/item/device/versebook/biesel
 	name = "\improper Constitution of The Federal Republic of Biesel"
@@ -69,7 +69,7 @@
 
 /obj/item/device/versebook/biesel/Initialize()
 	. = ..()
-	randomquip = file2list("ingame_manuals/biesel.txt")
+	randomquip = file2list('texts/ingame_manuals/biesel.txt')
 
 /obj/item/device/versebook/trinary
 	name = "\improper The Order (abdridged version)"
@@ -80,4 +80,83 @@
 
 /obj/item/device/versebook/trinary/Initialize()
 	. = ..()
-	randomquip = file2list("ingame_manuals/trinary.txt")
+	randomquip = file2list('texts/ingame_manuals/trinary.txt')
+
+/obj/item/device/versebook/templeist
+	name = "\improper The Voice of Temple (abdridged version)"
+	desc = "The holy text of the Lodge of Temple Architect, an order within the Trinary Perfection that seeks to attain its goals via technological advancement and scientific discovery."
+	desc_extended = "This book contains some of the words of Temple, a sacred AI within the Trinary Perfection and namesake of the Lodge of the Temple Architect. It also includes some teachings by leading members within the sect. Due to its recent establishment, this book is frequently changed and amended \
+	as new insights into their faith are realized."
+	icon_state = "templeistbook"
+	item_state = "trinary"
+
+/obj/item/device/versebook/templeist/Initialize()
+	. = ..()
+	randomquip = file2list('texts/ingame_manuals/templeist.txt')
+
+/obj/item/device/versebook/siakh
+	name = "\improper Writings of Judizah Si'akh"
+	desc = "A collection of musings, commands and theological discussions, copied many times over from the alleged words of the controversial prophet Judizah Si'akh himself."
+	desc_extended = "As close to a 'holy text' as the Si'akh faith has, this book can be found across Moghes and rarely beyond, despite efforts of the nobility to stamp out the firebrand religion. It lays down the \
+	commandments and philosophies that a follower of Si'akh must live by, in the hope of redeeming themselves and their world from damnation."
+	icon_state = "holybook"
+	item_state = "book1"
+
+/obj/item/device/versebook/siakh/Initialize()
+	. = ..()
+	randomquip = file2list('texts/ingame_manuals/siakh.txt')
+
+/obj/item/device/versebook/autakh
+	name = "\improper Reflections upon the Aut'akh Faith"
+	desc = "An illegal tome in the Izweski Hegemony, Reflections is a short book penned by the Unathi known as Emzal Paossini, known by Aut'akh as 'Creator of Paradigms', infamous for their role in the creation of the Aut'akh faith."
+	desc_extended = "The Aut'akh faith is highly decentralised and does not have holy texts per se. This book is simply a collection of personal musings from one of the Aut'akh's most influential figures.\
+	While many of the core ideas of the faith can be traced back to Paossini's words, they are explicit in their desire that it not be venerated or treated as some divine mandate."
+	icon_state = "book10"
+	item_state = "book10"
+
+/obj/item/device/versebook/autakh/Initialize()
+	. = ..()
+	randomquip = file2list('texts/ingame_manuals/autakh.txt')
+
+/obj/item/device/versebook/skakh
+	name = "\improper Sk'akh Legends"
+	desc = "This is a collection of legends, commandments and doctrines of the Sk'akh faith, published by the Church."
+	desc_extended = "Variations of this tome have been published for centuries, in one form or another, often changing to deal with recent developments for the Unathi people. This variation looks to have been published \
+	fairly recently, and examining it shows several verses speaking on matters such as the new rise of the Aut'akh and Si'akh faiths."
+	icon_state = "book3"
+	item_state = "book3"
+
+/obj/item/device/versebook/skakh/Initialize()
+	. = ..()
+	randomquip = file2list('texts/ingame_manuals/skakh.txt')
+
+/obj/item/device/versebook/thakh
+	name = "\improper collected Th'akh fables"
+	desc = "Th'akh is a decentralised religion, with thousands of variants across Moghes and beyond. This book is a collection of common ancient tales and fables, translated from an archaic form of Sinta'Azaziba into Basic."
+	desc_extended = "The tales of various Th'akh sects are numbered beyond count. This particular copy seems to be written by a shaman of the Court of Stars, and the names of their spirit-gods often crop up throughout the text."
+	icon_state = "holybook"
+	item_state = "book1"
+
+/obj/item/device/versebook/thakh/Initialize()
+	. = ..()
+	randomquip = file2list('texts/ingame_manuals/thakh.txt')
+
+/obj/item/device/versebook/assunzione
+	name = "\improper Luceian Book of Scripture"
+	desc = "A collection of historically-backed texts mixed with fables and stories detailing the reasonings, history, and beliefs of the Luceism religion of Assunzione. Translated into Basic by the Luceian Monastery on Biesel."
+	desc_extended = "Luceism's founding was unusually well-documented for a religion, and as a result this book features several photographs of cataclysmic events that happened during Assunzione's crisis \
+	that birthed this religion, as well as pictures of the religion's first ministers and the cataclysm that founded the religion to begin with."
+	icon_state = "luce"
+	item_state = "luce"
+
+/obj/item/device/versebook/assunzione/Initialize()
+	. = ..()
+	randomquip = file2list('texts/ingame_manuals/assunzione.txt')
+
+/obj/item/device/versebook/assunzione/pocket
+	name = "pocket Luceian Book of Scripture"
+	desc = "A miniaturized edition of the Luceian Book of Scripture, a collection of historically-backed texts mixed with fables and stories detailing the reasonings, history, and \
+	beliefs of the Luceism religion of Assunzione. Translated into Basic by the Luceian Monastery on Biesel. This one fits nicely in a pocket or in a bag."
+	icon_state = "luce_pocket"
+	w_class = ITEMSIZE_TINY
+

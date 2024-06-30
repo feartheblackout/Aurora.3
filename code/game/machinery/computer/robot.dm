@@ -1,13 +1,14 @@
 /obj/machinery/computer/robotics
 	name = "robotics control console"
 	desc = "Used to remotely lockdown or detonate linked cyborgs."
-	icon = 'icons/obj/modular_console.dmi'
+	icon = 'icons/obj/machinery/modular_console.dmi'
 
 	icon_screen = "robot"
 	icon_keyboard = "purple_key"
+	icon_keyboard_emis = "purple_key_mask"
 	light_color = LIGHT_COLOR_PURPLE
 
-	req_one_access = list(access_rd, access_robotics)
+	req_one_access = list(ACCESS_RD, ACCESS_ROBOTICS)
 	circuit = /obj/item/circuitboard/robotics
 
 	var/safety = 1
@@ -56,7 +57,7 @@
 		if(isrobot(user) && user != target)
 			to_chat(user, "Access denied.")
 			return
-		var/choice = input("Really detonate [target.name]?") in list ("Yes", "No")
+		var/choice = tgui_alert(usr, "Really detonate [target.name]?", "Robotics Control", list("Yes", "No"))
 		if(choice != "Yes")
 			return
 		if(!target || !istype(target))
@@ -75,9 +76,8 @@
 		else
 			message_admins("[key_name_admin(usr)] detonated [target.name]!")
 			log_game("[key_name(usr)] detonated [target.name]!",ckey=key_name(usr))
-			to_chat(target, "<span class='danger'>Self-destruct command received.</span>")
-			spawn(10)
-				target.self_destruct()
+			to_chat(target, SPAN_DANGER("Self-destruct command received."))
+			addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living/silicon/robot, self_destruct)), 1 SECONDS)
 
 
 
@@ -98,7 +98,7 @@
 		if(target.emagged)
 			return
 
-		var/choice = input("Really [target.lock_charge ? "unlock" : "lockdown"] [target.name] ?") in list ("Yes", "No")
+		var/choice = tgui_alert(usr, "Really [target.lock_charge ? "unlock" : "lockdown"] [target.name] ?", "Robotics Control", list("Yes", "No"))
 		if(choice != "Yes")
 			return
 
@@ -109,7 +109,7 @@
 		message_admins("[key_name_admin(usr)] [target.lock_charge ? "locked down" : "released"] [target.name]!")
 		log_game("[key_name(usr)] [target.lock_charge ? "locked down" : "released"] [target.name]!",ckey=key_name(usr))
 		to_chat(target, (target.lock_charge ? "You have been locked down!" : "Your lockdown has been lifted!"))
-	
+
 	// Changes borg's access
 	else if(href_list["access"])
 		var/mob/living/silicon/robot/target = get_cyborg_by_name(href_list["access"])
@@ -130,10 +130,10 @@
 		if(!target.module)
 			to_chat(user, "\The [src]\s access protocols are immutable.")
 			return
-		
+
 		target.module.all_access = !target.module.all_access
 		target.update_access()
-		
+
 		var/log_message = "[key_name_admin(usr)] changed [target.name] access to [target.module.all_access ? "all access" : "role specific"]."
 		message_admins(log_message)
 		log_game(log_message, ckey = key_name(usr))
@@ -154,7 +154,7 @@
 			to_chat(user, "Robot is already hacked.")
 			return
 
-		var/choice = input("Really hack [target.name]? This cannot be undone.") in list("Yes", "No")
+		var/choice = tgui_alert(usr, "Really hack [target.name]? This cannot be undone.", list("Yes", "No"))
 		if(choice != "Yes")
 			return
 
@@ -164,7 +164,7 @@
 		message_admins("[key_name_admin(usr)] emagged [target.name] using robotic console!")
 		log_game("[key_name(usr)] emagged [target.name] using robotic console!",ckey=key_name(usr))
 		target.emagged = 1
-		to_chat(target, "<span class='notice'>Failsafe protocols overriden. New tools available.</span>")
+		to_chat(target, SPAN_NOTICE("Failsafe protocols overriden. New tools available."))
 
 	// Arms the emergency self-destruct system
 	else if(href_list["arm"])
@@ -187,7 +187,7 @@
 		message_admins("[key_name_admin(usr)] detonated all cyborgs!")
 		log_game("[key_name(usr)] detonated all cyborgs!",ckey=key_name(usr))
 
-		for(var/mob/living/silicon/robot/R in mob_list)
+		for(var/mob/living/silicon/robot/R in GLOB.mob_list)
 			if(istype(R, /mob/living/silicon/robot/drone))
 				continue
 			// Ignore antagonistic cyborgs
@@ -195,7 +195,7 @@
 				continue
 			if(R.emagged)
 				continue
-			to_chat(R, "<span class='danger'>Self-destruct command received.</span>")
+			to_chat(R, SPAN_DANGER("Self-destruct command received."))
 			spawn(10)
 				R.self_destruct()
 
@@ -206,7 +206,7 @@
 /obj/machinery/computer/robotics/proc/get_cyborgs(var/mob/operator)
 	var/list/robots = list()
 
-	for(var/mob/living/silicon/robot/R in mob_list)
+	for(var/mob/living/silicon/robot/R in GLOB.mob_list)
 		// Ignore drones
 		if(istype(R, /mob/living/silicon/robot/drone))
 			continue
@@ -248,6 +248,6 @@
 /obj/machinery/computer/robotics/proc/get_cyborg_by_name(var/name)
 	if(!name)
 		return
-	for(var/mob/living/silicon/robot/R in mob_list)
+	for(var/mob/living/silicon/robot/R in GLOB.mob_list)
 		if(R.name == name)
 			return R

@@ -58,7 +58,7 @@
 		return
 
 	if(prob(33) && H.canmove && isturf(H.loc) && !H.pulledby) //won't move if being pulled
-		step(H, pick(cardinal))
+		step(H, pick(GLOB.cardinal))
 
 	if(prob(1))
 		H.emote(pick("scratch","jump","roll","tail"))
@@ -129,19 +129,20 @@
 	fall_mod = 0.25
 
 	has_organ = list(
+		BP_BRAIN =    /obj/item/organ/internal/brain/skrell/neaera,
+		BP_EYES =     /obj/item/organ/internal/eyes/skrell/neaera,
 		BP_HEART =    /obj/item/organ/internal/heart/skrell/neaera,
 		BP_LUNGS =    /obj/item/organ/internal/lungs/skrell/neaera,
 		BP_LIVER =    /obj/item/organ/internal/liver/skrell/neaera,
 		BP_KIDNEYS =  /obj/item/organ/internal/kidneys/skrell/neaera,
-		BP_BRAIN =    /obj/item/organ/internal/brain/skrell/neaera,
-		BP_STOMACH =  /obj/item/organ/internal/stomach,
-		BP_EYES =     /obj/item/organ/internal/eyes/skrell/neaera
+		BP_STOMACH =  /obj/item/organ/internal/stomach
 		)
 
 /datum/species/monkey/unathi
 	name = SPECIES_MONKEY_UNATHI
 	short_name = "sto"
 	name_plural = LANGUAGE_STOK
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/moghes
 
 	icobase = 'icons/mob/human_races/monkeys/r_stok.dmi'
 	deform = 'icons/mob/human_races/monkeys/r_stok.dmi'

@@ -30,9 +30,9 @@
 		material = SSmaterials.get_material_by_name(MATERIAL_STEEL)
 	update_icon()
 	. = ..()
-	spawn_mech_equipment()
+	INVOKE_ASYNC(src, PROC_REF(spawn_mech_equipment))
 	if(remote_network)
-		become_remote()
+		INVOKE_ASYNC(src, PROC_REF(become_remote))
 
 /mob/living/heavy_vehicle/premade/proc/add_parts()
 	if(!head && e_head)
@@ -41,6 +41,8 @@
 			head.color = e_color
 	if(!body && e_body)
 		body = new e_body(src)
+		if(body.cell)
+			RegisterSignal(body.cell, COMSIG_CELL_CHARGE, PROC_REF(handle_cell_charge))
 		if(e_color)
 			body.color = e_color
 	if(!arms && e_arms)

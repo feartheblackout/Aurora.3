@@ -23,7 +23,7 @@
 
 /datum/bounty/item/phoron_sheet
 	name = "Phoron Sheets"
-	description = "Shipment of Phoron is considered to be a key part of the SCCV Horizon's operations within the CRZ. This bounty should always be prioritized."
+	description = "Shipment of Phoron is considered to be a key part of the SCCV Horizon's operations. This bounty should always be prioritized."
 	reward_low = 2600
 	reward_high = 3750
 	required_count = 40
@@ -34,7 +34,7 @@
 /datum/bounty/item/phoron_sheet/New()
 	..()
 	required_count = round(required_count, 10)
-	//Overwrite the normal price randomization because the random_count is so high. There would be absolutely nuts price fluctuation. 
+	//Overwrite the normal price randomization because the random_count is so high. There would be absolutely nuts price fluctuation.
 	reward = round(rand(reward_low, reward_high), 100)
 
 /datum/bounty/item/phoron_sheet/ship(var/obj/item/stack/material/phoron/O)

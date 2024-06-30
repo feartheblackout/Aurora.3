@@ -9,7 +9,7 @@
 	brightness_on = 4
 	flashlight_power = 1.0
 	w_class = ITEMSIZE_HUGE
-	flags = CONDUCT
+	obj_flags = OBJ_FLAG_CONDUCTABLE
 	uv_intensity = 100
 	power_use = FALSE
 	on = TRUE
@@ -18,6 +18,8 @@
 	toggle_sound = /singleton/sound_category/switch_sound
 	activation_sound = 'sound/effects/lighton.ogg'
 
+/obj/item/device/flashlight/lamp/off
+	on = FALSE
 
 // green-shaded desk lamp
 /obj/item/device/flashlight/lamp/green
@@ -50,10 +52,10 @@
 		set_light(brightness_on, flashlight_power, light_color)
 	else
 		set_light(0)
-	cut_overlays()
+	ClearOverlays()
 	var/image/I = image(icon = icon, icon_state = "lavalamp-[on ? "on" : "off"]")
 	I.color = light_color
-	add_overlay(I)
+	AddOverlays(I)
 
 /obj/item/device/flashlight/lamp/lava/red
 	light_color = COLOR_RED
