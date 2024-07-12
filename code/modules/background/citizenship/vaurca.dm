@@ -187,7 +187,17 @@
 
 	switch(mission_level)
 		if(REPRESENTATIVE_MISSION_HIGH)
-			rep_objectives = pick("Collect evidence of the [SSatlas.current_map.boss_name] being unfair or bigoted to Vaurca employees, to be used as leverage in future hive labor negotiations",
+			var/list/liikenka_vaurcae = list()
+			for(var/mob/living/carbon/human/vaurcae in GLOB.human_mob_list)
+				if(isvaurca(vaurcae) && vaurcae.citizenship == CITIZENSHIP_LIIKENKA)
+					vaurcae += liikenka_vaurcae
+			if(length(liikenka_vaurcae))
+				var/list/all_vaurcae = list()
+				for(var/mob/living/carbon/human/vaurcae in GLOB.human_mob_list)
+					vaurcae += all_vaurcae
+					rep_objectives += pick("There is evidence to believe that [pick(all_vaurcae)] is an undercover Lii'kenka agent. Interrogation may prove useful as to prove the veracity of their VOAS documents")
+			else
+				rep_objectives = pick("Collect evidence of the [SSatlas.current_map.boss_name] being unfair or bigoted to Vaurca employees, to be used as leverage in future hive labor negotiations",
 							"Develop a metric to grade the performance of different Vaurca broods that share a job")
 
 		if(REPRESENTATIVE_MISSION_MEDIUM)

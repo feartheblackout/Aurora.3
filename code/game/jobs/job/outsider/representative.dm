@@ -103,7 +103,8 @@
 
 /obj/outfit/job/representative
 	name = "NanoTrasen Corporate Liaison"
-	var/fax_department = "Representative's Office"
+	var/list/fax_letters = list("A", "B")
+	var/fax_department = "Representative"
 	jobtype = /datum/job/representative
 
 	head = /obj/item/clothing/head/beret/corporate
@@ -129,12 +130,12 @@
 /obj/outfit/job/representative/post_equip(mob/living/carbon/human/H, visualsOnly)
 	. = ..()
 	if(H && !visualsOnly)
-		addtimer(CALLBACK(src, PROC_REF(send_representative_mission), H), 5 MINUTES)
+		addtimer(CALLBACK(src, PROC_REF(send_representative_mission), H), 2 MINUTES)
 	return TRUE
 
 /obj/outfit/job/representative/proc/send_representative_mission(var/mob/living/carbon/human/H)
 	var/faxtext = "<center><br><h2><br><b>Directives Report</h2></b></FONT size><HR></center>"
-	faxtext += "<b><font face='Courier New'>Attention [name], the following directives are to be fulfilled during your stay in the station:</font></b><br><ul>"
+	faxtext += "<b><font face='Courier New'>Attention [name], the following directives are to be fulfilled during your stay in the ship:</font></b><br><ul>"
 
 	faxtext += "<li>[get_objectives(H, REPRESENTATIVE_MISSION_LOW)].</li>"
 
@@ -144,8 +145,12 @@
 	if(prob(25))
 		faxtext += "<li>[get_objectives(H, REPRESENTATIVE_MISSION_HIGH)].</li>"
 
-	for (var/obj/machinery/photocopier/faxmachine/F in allfaxes)
-		if (F.department == fax_department)
+	for(var/obj/machinery/photocopier/faxmachine/F in allfaxes)
+		var/list/fullname = splittext(F.department, "Office")
+		var/jobname = fullname[1]
+		var/department_letter = fullname[2]
+		if(jobname == fax_department && LAZYISIN(fax_letters, department_letter))
+			F.department = "[fax_department] Office [pick(fax_letters)]"
 			var/obj/item/paper/P = new /obj/item/paper(get_turf(F))
 			P.name = "[name] - Directives"
 			P.info = faxtext
@@ -194,7 +199,7 @@
 
 /obj/outfit/job/representative/consular
 	name = "Consular Officer"
-	fax_department = "Consular's Office"
+	fax_department = "Consular"
 	jobtype = /datum/job/consular
 
 	uniform = /obj/item/clothing/under/suit_jacket/navy
